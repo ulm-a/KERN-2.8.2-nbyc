@@ -41,6 +41,9 @@ OnePager und alle `.txt`-Dateien.
 * **Lizenz:** Apache-2.0, geprüft an der Quelle `github.com/google/material-design-icons`.
   Text liegt bei: [`LICENSES/Apache-2.0.txt`](LICENSES/Apache-2.0.txt)
   (11 358 Bytes, geladen am 24.11.2026 von `www.apache.org/licenses/LICENSE-2.0.txt`).
+  Derselbe Text liegt ein zweites Mal im System selbst
+  (`KERN 2.8.2 (nbyc)/system/material-symbols-LICENSE.txt`), damit er auch dann dabei
+  ist, wenn nur der Systemordner weitergegeben wird.
 * **Lücke im Original:** Das KERN-Paket nennt Herkunft und Lizenz der Symbole selbst
   nicht — als Befund an das KERN-Team gemeldet.
 * **Eigenes Symbol:** `kn-icon--filter-list` (Katalogfilter) in KERNs Bauart als Maske,
