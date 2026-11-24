@@ -1,0 +1,38 @@
+# Node (nur das Storybook benutzt npm; node_modules entsteht mit "npm ci")
+node_modules/
+npm-debug.log*
+.npm/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+__MACOSX/
+._*
+.Trashes
+
+# Pakete und Archive — werden gebaut, nicht versioniert
+*.zip
+
+# Entwurf des Themas im KERN Designer (Arbeitsstand, kein Ergebnis)
+KERN 2.8.2 (nbyc)/thema/entwurf.css
+KERN 2.8.2 (nbyc)/thema/entwurf.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Editoren
+.idea/
+.vscode/
+*.swp
+
+# Sitzungsdateien und Unterlagen, die nicht hierher gehören
+_ IN ARBEIT.txt
+_ Instructions/
+_ Export/
+_ Assessment/
+_ Recherche/
+_ Resources/
+_ Documentation/

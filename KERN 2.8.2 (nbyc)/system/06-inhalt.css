@@ -1,0 +1,510 @@
+/* ==================================================================
+   KERN 2.8.2 (nbyc) — 06 INHALT (Zusatzbausteine und Erweiterungen an KERN-Tabellen)
+   ==================================================================
+   Daten, Flächen, Überlagerungen, Rückmeldungen.
+   ================================================================== */
+
+/* ==================================================================
+   DATEN
+   ================================================================== */
+
+/* --- TABELLE ---------------------------------------------------------
+   Erweiterungen an kern-table für die Fallbearbeitung: Auswahl,
+   Sortierung, fester Kopf, Rahmen. Die Zeilenhöhe folgt den Dichte-
+   Stufen (01b, Abschnitt 7: --kn-table-row-space).
+   -------------------------------------------------------------------- */
+
+.kn-table--selectable tbody tr { transition: background-color var(--kn-duration-1) var(--kn-easing); }
+.kn-table--selectable tbody tr:hover { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+
+.kn-table--selectable tbody tr[aria-selected="true"] {
+  background: color-mix(in oklch, var(--kern-color-action-default-contextual) calc(var(--kern-color-action-state-opacity-selected) * 100%), transparent);
+  box-shadow: inset var(--kern-metric-border-width-bold) 0 0 0 var(--kern-color-action-default-contextual);
+}
+
+
+@media (forced-colors: active) {
+  .kn-table--selectable tbody tr[aria-selected="true"] { outline: 2px solid Highlight; outline-offset: -2px; }
+}
+
+/* Sortierung. Der Kopf ist ein Knopf, kein Text mit Klickereignis —
+   nur so ist er mit der Tastatur erreichbar. */
+
+
+.kern-table th.kn-table-sort { padding: 0; }
+.kern-table .kn-table-select-col { inline-size: var(--kn-target-size); text-align: center; padding-inline: var(--kern-metric-space-small); }
+.kn-table-sort__button {
+  display: flex;
+  align-items: center;
+  gap: var(--kern-metric-space-small);
+  inline-size: 100%;
+  min-block-size: var(--kn-target-size);
+  padding: var(--kn-table-row-space) var(--kern-metric-space-small);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+  text-align: start;
+  cursor: pointer;
+}
+
+.kn-table-sort__button:hover { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+.kn-table-sort__button::after { content: "\2195"; margin-inline-start: auto; color: var(--kern-color-layout-text-muted-contextual); }
+[aria-sort="ascending"]  .kn-table-sort__button::after { content: "\2191"; color: var(--kern-color-action-default-contextual); }
+[aria-sort="descending"] .kn-table-sort__button::after { content: "\2193"; color: var(--kern-color-action-default-contextual); }
+[aria-sort]:not([aria-sort="none"]) .kn-table-sort__button { color: var(--kern-color-action-default-contextual); }
+
+
+.kn-table-frame {
+  /* EIGENER NAME. Vorher stand hier "--kn-tabelle-hoehe" mit dem
+     Rückfallwert "none". Seit 0.5.7 gibt es ein Token dieses Namens
+     für die ZEILENhöhe — der Rahmen hätte dadurch jede Tabelle auf
+     48 Pixel zusammengedrückt. Prüfung 8 sucht solche Kollisionen. */
+  max-block-size: var(--kn-table-frame-height, none);
+  overflow: auto;
+  border: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border-contextual);
+  border-radius: var(--kern-metric-border-radius-default);
+}
+
+.kn-table-frame .kn-table--sticky-head thead th {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+}
+
+/* --- DATENTABELLE ERWEITERT (M93) -----------------------------------
+   Werkzeugleiste, Stapelaktionen, Spaltenwahl, aufklappbare Zeilen.
+   Muster Carbon "Data table": die Leiste sitzt bündig auf der Tabelle;
+   sobald etwas gewählt ist, ERSETZEN die Stapelaktionen die Werkzeuge.
+   Beide liegen in derselben Rasterzelle — die Leiste behält ihre Höhe,
+   die Tabelle springt beim Ankreuzen nicht. visibility statt hidden:
+   Unsichtbares ist auch nicht fokussierbar und wird nicht vorgelesen.
+   -------------------------------------------------------------------- */
+
+.kn-table-toolbar {
+  display: grid;
+  border: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border-contextual);
+  border-block-end: 0;
+  border-start-start-radius: var(--kern-metric-border-radius-default);
+  border-start-end-radius: var(--kern-metric-border-radius-default);
+  background: var(--kern-color-layout-background-hued);
+}
+
+.kn-table-toolbar > * { grid-area: 1 / 1; }
+
+.kn-table-toolbar__tools,
+.kn-table-batch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--kern-metric-space-small);
+  padding: var(--kern-metric-space-small);
+}
+
+.kn-table-toolbar__search { flex: 1 1 auto; }
+
+.kn-table-toolbar + .kn-table-frame,
+.kn-table-toolbar + .kern-table-responsive {
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+}
+
+/* Stapelaktionen: Fläche wie eine gewählte Zeile (KERNs Auswahl-Deckkraft). */
+.kn-table-batch {
+  visibility: hidden;
+  background: color-mix(in oklch, var(--kern-color-action-default-contextual) calc(var(--kern-color-action-state-opacity-selected) * 100%), var(--kern-color-layout-background-hued));
+  box-shadow: inset var(--kern-metric-border-width-bold) 0 0 0 var(--kern-color-action-default-contextual);
+}
+
+.kn-table-toolbar[data-kn-batch-active] .kn-table-batch { visibility: visible; }
+.kn-table-toolbar[data-kn-batch-active] .kn-table-toolbar__tools { visibility: hidden; }
+
+.kn-table-batch__count {
+  margin-inline-end: var(--kern-metric-space-small);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-table-batch__clear { margin-inline-start: auto; }
+
+/* Spaltenwahl im Popover */
+.kn-table-columns { margin: 0; padding: 0; border: 0; display: grid; gap: var(--kern-metric-space-x-small); }
+
+/* Aufklappbare Zeile: Offenlegungs-Knopf in eigener Spalte, Detailzeile darunter. */
+.kern-table .kn-table-expand__cell { inline-size: var(--kn-target-size); padding-inline: var(--kern-metric-space-x-small); }
+.kn-table-expand__button .kern-icon { transition: rotate var(--kn-duration-1) var(--kn-easing); }
+.kn-table-expand__button[aria-expanded="true"] .kern-icon { rotate: 90deg; }
+
+.kern-table .kn-table-expand__detail > td {
+  padding-block: var(--kern-metric-space-default);
+  background: var(--kern-color-layout-background-hued);
+}
+
+@media (forced-colors: active) {
+  .kn-table-batch { border: 2px solid CanvasText; }
+}
+
+/* --- ZEITLEISTE ---------------------------------------------------------
+   Für Verwaltungsverfahren zentral: der Verlauf eines Vorgangs.
+   Passt sich über eine Container-Abfrage an ihren eigenen Platz an.
+   ------------------------------------------------------------------------ */
+
+.kn-timeline { margin: 0; padding: 0; list-style: none; }
+
+.kn-timeline__dot {
+  display: grid;
+  grid-template-columns: var(--kn-time-column, var(--kern-80)) auto 1fr;
+  column-gap: var(--kern-metric-space-small);
+  position: relative;
+  padding-block-end: var(--kern-metric-space-large);
+}
+
+.kn-timeline__time {
+  text-align: end;
+  font: var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default);
+  color: var(--kern-color-layout-text-muted-contextual);
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-timeline__label { position: relative; inline-size: var(--kern-12); display: flex; justify-content: center; }
+
+.kn-timeline__label::before {
+  content: "";
+  position: absolute;
+  inset-block: 1.1em calc(-1 * var(--kern-32));
+  inline-size: var(--kern-metric-border-width-default);
+  background: var(--kern-color-decorative-border-default);
+}
+
+.kn-timeline__dot:last-child .kn-timeline__label::before { display: none; }
+
+.kn-timeline__label::after {
+  content: "";
+  position: relative;
+  z-index: 1;
+  inline-size: var(--kern-12);
+  block-size: var(--kern-12);
+  margin-block-start: 0.4em;
+  border-radius: 50%;
+  background: var(--kern-color-layout-background-default-contextual);
+  box-shadow: inset 0 0 0 var(--kern-metric-border-width-default) var(--kern-color-layout-border-contextual);
+}
+
+.kn-timeline__dot--open .kn-timeline__label::after { background: var(--kern-color-action-default-contextual); box-shadow: inset 0 0 0 var(--kern-metric-border-width-default) var(--kern-color-action-default-contextual); }
+.kn-timeline__dot--done .kn-timeline__label::after { background: var(--kern-color-feedback-success-contextual); box-shadow: inset 0 0 0 var(--kern-metric-border-width-default) var(--kern-color-feedback-success-contextual); }
+
+.kn-timeline__title { margin: 0 0 var(--kern-metric-space-x-small); font-weight: var(--kern-typography-font-weight-semi-bold); }
+.kn-timeline__text  { margin: 0; color: var(--kern-color-layout-text-muted-contextual); font-size: var(--kern-typography-font-size-small-static); }
+
+@container (max-width: 26rem) { /* roh: @container erlaubt kein var(); 26rem = 416 px */
+  .kn-timeline__dot { grid-template-columns: auto 1fr; }
+  .kn-timeline__time { grid-column: 2; text-align: start; margin-block-end: var(--kern-metric-space-x-small); }
+}
+
+/* --- KENNZAHL, LEERZUSTAND, PLATZHALTER --------------------------------- */
+
+.kn-metric { padding: var(--kern-metric-space-large); border: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); border-radius: var(--kern-metric-border-radius-large); }
+.kn-metric__value { display: block; font: var(--kern-typography-font-weight-regular) var(--kern-typography-font-size-x-large-adaptive)/var(--kern-typography-line-height-x-large-adaptive) var(--kern-typography-font-family-default); font-variant-numeric: tabular-nums; }
+.kn-metric__label { display: block; margin-block-start: var(--kern-metric-space-x-small); color: var(--kern-color-layout-text-muted-contextual); font-size: var(--kern-typography-font-size-small-static); }
+
+.kn-empty-state {
+  padding: var(--kern-metric-space-5x-large) var(--kern-metric-space-large);
+  border: var(--kern-metric-border-width-default) dashed var(--kern-color-decorative-border-default);
+  border-radius: var(--kern-metric-border-radius-large);
+  text-align: center;
+  color: var(--kern-color-layout-text-muted-contextual);
+}
+
+.kn-empty-state__title { margin: 0 0 var(--kern-metric-space-small); color: var(--kern-color-layout-text-default-contextual); font-weight: var(--kern-typography-font-weight-semi-bold); }
+
+.kn-skeleton {
+  display: block;
+  block-size: 1em;
+  border-radius: var(--kern-metric-border-radius-small);
+  background: var(--kern-color-layout-background-hued);
+  background-image: linear-gradient(90deg, transparent, color-mix(in srgb, currentColor 8%, transparent), transparent);
+  background-size: 200% 100%;
+  animation: kn-shimmer var(--kn-duration-loop-slow) ease-in-out infinite;
+}
+
+.kn-skeleton--title { block-size: 1.75em; inline-size: 55%; }
+.kn-skeleton--short  { inline-size: 35%; }
+.kn-skeleton--circle  { inline-size: var(--kern-40); block-size: var(--kern-40); border-radius: 50%; }
+
+@keyframes kn-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+/* ==================================================================
+   FLÄCHEN
+   ================================================================== */
+
+
+/* --- EINSCHUB, WERKZEUGLEISTE --------------------------------------------- */
+
+.kn-inset-text { padding: var(--kern-metric-space-small) var(--kern-metric-space-default); border-inline-start: var(--kern-metric-border-width-bold) solid var(--kern-color-layout-border-contextual); }
+.kn-inset-text--action { border-inline-start-color: var(--kern-color-action-default-contextual); }
+
+.kn-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--kern-metric-space-small);
+  padding: var(--kern-metric-space-small) var(--kern-metric-space-small);
+  background: var(--kern-color-layout-background-hued);
+  border: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default);
+  border-radius: var(--kern-metric-border-radius-default);
+}
+
+.kn-toolbar__divider { align-self: stretch; inline-size: var(--kern-metric-border-width-light); background: var(--kern-color-decorative-border-default); }
+
+/* ==================================================================
+   ÜBERLAGERUNG
+   ================================================================== */
+
+
+/* Kurzhinweis. Darf NIE die einzige Quelle einer Information sein. */
+.kn-tooltip { position: relative; display: inline-block; }
+
+.kn-tooltip__bubble {
+  position: absolute;
+  inset-block-end: calc(100% + var(--kern-metric-space-x-small));
+  inset-inline-start: 50%;
+  z-index: 50;
+  inline-size: max-content;
+  max-inline-size: var(--kern-256);
+  padding: var(--kern-metric-space-small) var(--kern-metric-space-small);
+  border-radius: var(--kern-metric-border-radius-default);
+  background: var(--kern-color-layout-background-inverted);
+  color: var(--kern-color-layout-text-inverse-contextual);
+  font-size: var(--kern-typography-font-size-small-static);
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--kn-duration-1) var(--kn-easing), visibility var(--kn-duration-1);
+}
+
+.kn-tooltip:hover .kn-tooltip__bubble,
+.kn-tooltip:focus-within .kn-tooltip__bubble,
+.kn-tooltip[data-kn-shown] .kn-tooltip__bubble { opacity: 1; visibility: visible; }
+
+/* Esc blendet aus (WCAG 1.4.13, M53) — stärker als Zeigen und Fokus */
+.kn-tooltip[data-kn-dismissed] .kn-tooltip__bubble { opacity: 0; visibility: hidden; }
+
+/* Brücke über die Lücke zwischen Anker und Blase: der Zeiger kann auf die
+   Blase wechseln, ohne dass sie verschwindet (WCAG 1.4.13, überfahrbar) */
+.kn-tooltip__bubble::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  block-size: var(--kern-metric-space-x-small);
+}
+
+/* ==================================================================
+   RÜCKMELDUNG
+   ================================================================== */
+
+/* Seitenbanner: eine Nachricht für die ganze Seite, oben vor dem Inhalt.
+   Farben wie KERNs kern-alert (getönte Fläche, Standardtext, Rahmen in der
+   Farbe der Art) — weiße Schrift auf der Rückmeldefarbe erreichte nur
+   5,5 : 1 und damit KERNs 7 : 1 für Text nicht (Stufe 8b). */
+.kn-banner { border: var(--kern-metric-border-width-default) solid var(--kern-color-feedback-info-contextual); border-radius: var(--kern-metric-border-radius-default); overflow: hidden; }
+.kn-banner__header { margin: 0; padding: var(--kern-metric-space-small) var(--kern-metric-space-default); background: var(--kern-color-feedback-info-background-contextual); color: var(--kern-color-layout-text-default-contextual); font-size: var(--kern-typography-font-size-large-static); line-height: var(--kern-typography-line-height-large-static); font-weight: var(--kern-typography-font-weight-heading-default); }
+.kn-banner__body { padding: var(--kern-metric-space-default); }
+.kn-banner--success { border-color: var(--kern-color-feedback-success-contextual); }
+.kn-banner--success .kn-banner__header { background: var(--kern-color-feedback-success-background-contextual); }
+.kn-banner--danger { border-color: var(--kern-color-feedback-danger-contextual); }
+.kn-banner--danger .kn-banner__header { background: var(--kern-color-feedback-danger-background-contextual); }
+
+/* Flüchtige Meldung. Nur für Bestätigungen, die man verpassen darf. */
+.kn-toast-region {
+  position: fixed;
+  inset-block-end: var(--kern-metric-space-large);
+  inset-inline-start: 50%;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  gap: var(--kern-metric-space-small);
+  inline-size: min(var(--kern-480), calc(100vw - var(--kern-metric-space-x-large)));
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.kn-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--kern-metric-space-small);
+  padding: var(--kern-metric-space-default);
+  border-radius: var(--kern-metric-border-radius-default);
+  background: var(--kern-color-layout-background-inverted);
+  color: var(--kern-color-layout-text-inverse-contextual);
+  border: var(--kern-metric-border-width-bold) solid var(--kern-color-layout-background-default-contextual);
+  pointer-events: auto;
+  animation: kn-toast-in var(--kn-duration-2) var(--kn-easing);
+}
+
+.kn-toast--success { border-inline-start: var(--kern-metric-border-width-bold) solid var(--kern-color-feedback-success-contextual); }
+.kn-toast__text { flex: 1 1 auto; }
+
+@keyframes kn-toast-in { from { opacity: 0; transform: translateY(var(--kern-16)); } to { opacity: 1; transform: none; } }
+
+/* Marke und Filtermarke. */
+
+
+.kn-filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--kern-metric-space-x-small);
+  min-block-size: var(--kern-metric-dimension-large);
+  padding-inline: var(--kern-metric-space-small);
+  border: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border-contextual);
+  border-radius: var(--kern-metric-border-radius-default);   /* wie kern-badge */
+  background: var(--kern-color-layout-background-default-contextual);
+  color: var(--kern-color-layout-text-default-contextual);
+  font-size: var(--kern-typography-font-size-small-static);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+  cursor: pointer;
+}
+
+.kn-filter-tag:hover:not([aria-pressed="true"]) { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+.kn-filter-tag[aria-pressed="true"] { background: var(--kern-color-action-default-contextual); border-color: var(--kern-color-action-default-contextual); color: var(--kern-color-action-on-default-contextual); }
+.kn-filter-tag[aria-pressed="true"]::before { content: "\2713"; }
+
+@media (forced-colors: active) {
+  .kn-filter-tag[aria-pressed="true"] { background: Highlight; color: HighlightText; }
+}
+
+/* Fortschritt. */
+.kn-progress-bar { inline-size: 100%; block-size: var(--kern-metric-space-small); border-radius: var(--kern-metric-border-radius-circle); background: var(--kern-color-layout-background-hued); overflow: hidden; }
+.kn-progress-bar__bar { block-size: 100%; background: var(--kern-color-action-default-contextual); transition: inline-size var(--kn-duration-2) var(--kn-easing); }
+
+
+/* Warnhinweis, Bestätigungsseite, Betriebsstand, Bildnis. */
+.kn-warning-text { display: flex; align-items: flex-start; gap: var(--kern-metric-space-small); font-weight: var(--kern-typography-font-weight-semi-bold); }
+
+.kn-warning-text::before {
+  content: "!";
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  inline-size: var(--kern-metric-dimension-large);
+  block-size: var(--kern-metric-dimension-large);
+  border-radius: 50%;
+  background: var(--kern-color-layout-text-default-contextual);
+  color: var(--kern-color-layout-background-default-contextual);
+}
+
+.kn-confirmation {
+  padding: var(--kern-metric-space-x-large);
+  border: var(--kern-metric-border-width-bold) solid var(--kern-color-feedback-success-contextual);
+  background: var(--kern-color-feedback-success-background-contextual);
+  text-align: center;
+}
+
+.kn-confirmation__number {
+  display: block;
+  margin-block-start: var(--kern-metric-space-small);
+  font-family: var(--kern-typography-font-family-fira-mono);
+  font-size: var(--kern-font-size-20);
+  letter-spacing: 0.08em;
+}
+
+.kn-phase-banner { display: flex; align-items: center; gap: var(--kern-metric-space-small); padding-block: var(--kern-metric-space-small); border-block-end: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); font-size: var(--kern-typography-font-size-small-static); }
+
+.kn-avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  inline-size: var(--kern-40);
+  block-size: var(--kern-40);
+  border-radius: 50%;
+  background: var(--kern-color-layout-background-hued);
+  /* Textfarbe MUSS hier stehen. Ohne sie erbt das Bildnis die Farbe
+     seines Umfelds — im Kopf ist das die inverse, also dunkel auf
+     dunkel: 1,30 zu 1. Am 12.08.2026 im Browser gemessen. */
+  color: var(--kern-color-layout-text-default-contextual);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+  overflow: hidden;
+}
+
+.kn-avatar--small { inline-size: var(--kern-metric-dimension-large); block-size: var(--kern-metric-dimension-large); font-size: var(--kern-font-size-14); }
+.kn-avatar--large { inline-size: var(--kern-metric-dimension-3x-large); block-size: var(--kern-metric-dimension-3x-large); font-size: var(--kern-font-size-20); }
+
+/* Gedrückt nach KERNs Zustandsformel (Stufe 5d). */
+.kn-table-sort__button:active,
+.kn-filter-tag:active:not([aria-pressed="true"]) { background: var(--kern-color-action-state-indicator-tint-active-opacity); }
+
+/* ==================================================================
+   NEU IN 2.8.2 (nbyc) — Vollständigkeit (Vergleich Teil 9; M88, M92, M95, M96)
+   ================================================================== */
+
+/* ------------------------------------------------------------------
+   POPOVER und HINWEIS AUF KLICK (M92) — nicht modal, auf Klick.
+   Anders als der Kurzhinweis (kn-tooltip, nur Hover/Fokus) auch auf
+   Touch bedienbar und mit Links möglich.
+   ------------------------------------------------------------------ */
+.kn-popover, .kn-toggletip { position: relative; display: inline-block; }
+.kn-popover__panel, .kn-toggletip__bubble {
+  position: absolute;
+  inset-block-start: calc(100% + var(--kern-metric-space-x-small));
+  inset-inline-start: 0;
+  z-index: 60;
+  inline-size: max-content;
+  max-inline-size: min(var(--kern-352), calc(100vw - var(--kern-metric-space-x-large)));
+  padding: var(--kern-metric-space-default);
+  border: var(--kern-metric-border-width-default) solid var(--kern-color-layout-border-contextual);
+  border-radius: var(--kern-metric-border-radius-default);
+  background: var(--kern-color-layout-background-default-contextual);
+  color: var(--kern-color-layout-text-default-contextual);
+  font-size: var(--kern-typography-font-size-small-static);
+  white-space: normal;
+}
+.kn-popover__panel[hidden] { display: none; }
+/* Knopf am Ende einer Leiste: Feld zum Ende hin ausrichten (sonst ragt es hinaus) */
+.kn-popover--end .kn-popover__panel { inset-inline-start: auto; inset-inline-end: 0; }
+.kn-toggletip__bubble:empty { display: none; }
+
+/* ------------------------------------------------------------------
+   KI-KENNZEICHNUNG (M88) — Marke + Erklärung auf Klick.
+   ------------------------------------------------------------------ */
+.kn-ai-label { display: inline-flex; align-items: center; gap: var(--kern-metric-space-x-small); }
+
+/* ------------------------------------------------------------------
+   ZÄHLER-MARKE (M96) — Zahl am Symbolknopf. Die Zahl ist für Hilfsmittel
+   verborgen; der Knopfname nennt sie vollständig ("Nachrichten, 3 neu").
+   ------------------------------------------------------------------ */
+.kern-btn:has(> .kn-count-badge) { position: relative; }
+.kn-count-badge {
+  position: absolute;
+  inset-block-start: var(--kern-metric-space-2x-small);
+  inset-inline-end: var(--kern-metric-space-2x-small);
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: var(--kern-metric-dimension-small);
+  block-size: var(--kern-metric-dimension-small);
+  padding-inline: var(--kern-metric-space-x-small);
+  border-radius: var(--kern-metric-dimension-small);
+  background: var(--kern-color-feedback-danger-contextual);
+  color: var(--kern-color-action-on-default-contextual);
+  font-family: var(--kern-typography-font-family-default);
+  font-size: var(--kern-font-size-14);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+  line-height: 1;
+}
+
+/* ------------------------------------------------------------------
+   CODEBLOCK (M95) — mit Kopieren-Knopf.
+   ------------------------------------------------------------------ */
+.kn-code-block { position: relative; }
+.kn-code-block pre {
+  margin: 0;
+  padding: var(--kern-metric-space-default);
+  padding-inline-end: var(--kern-metric-dimension-5x-large);
+  border-radius: var(--kern-metric-border-radius-default);
+  background: var(--kern-color-layout-background-hued);
+  color: var(--kern-color-layout-text-default-contextual);
+  font-family: var(--kern-typography-font-family-fira-mono);
+  font-size: var(--kern-typography-font-size-small-static);
+  overflow-x: auto;
+}
+.kn-code-block__copy { position: absolute; inset-block-start: var(--kern-metric-space-x-small); inset-inline-end: var(--kern-metric-space-x-small); }
+

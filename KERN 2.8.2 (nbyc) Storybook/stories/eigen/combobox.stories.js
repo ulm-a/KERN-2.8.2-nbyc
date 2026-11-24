@@ -1,0 +1,21 @@
+/* ERZEUGT von "KERN 2.8.2 (nbyc) Storybook/werkzeug/stories-bauen.py" aus dem Katalog
+   KERN 2.8.2 (nbyc) — Fassung 0.2.0 (16.11.2026)
+   (KERN 2.8.2 (nbyc)/katalog) — nicht von Hand ändern (E12).
+   KERN 2.8.2 (nbyc) — interne Adaption von KERN 2.8.2, nicht das offizielle KERN;
+   "nbyc" = "New by Claude". */
+
+export default {
+  title: "Erweiterungen (kn-)/Eingabe/Combobox",
+  tags: ["autodocs"],
+  parameters: {
+    kern: {"id": "combobox", "herkunft": "Erweiterung (aus KERN-Tokens)", "quelle": "", "ids_in_mehreren_beispielen": []},
+    docs: { description: { component: "Auswahlfeld mit Suche. Für lange Listen.\n\n**Wann nehmen**\n\n- Ab etwa zwölf Einträgen. Behörden haben Listen mit Hunderten.\n\n**Wann nicht**\n\n- Unter acht Einträgen — dort ist ein Auswahlfeld einfacher.\n\n**Barrierefreiheit**\n\n- role=combobox am Feld, role=listbox an der Liste, role=option je Eintrag.\n- Der aktive Eintrag wird über aria-activedescendant gemeldet — der Fokus bleibt im Feld.\n- „Kein Eintrag gefunden“ muss sichtbar sein, sonst wirkt die Liste kaputt.\n\n**Tastaturvertrag**\n\n| Taste | Wirkung | Ansage |\n|---|---|---|\n| Tippen | filtert die Liste | „n Treffer“ nach kurzer Pause |\n| ↓ / ↑ | öffnen die Liste, wandern | aktiver Eintrag |\n| Pos1 / Ende | erster / letzter Eintrag, solange einer aktiv ist; sonst Schreibmarke |  |\n| Enter | übernimmt |  |\n| Esc | schließt; ein zweites Esc leert das Feld |  |\n\n**Klassen**\n\n| Klasse | Bedeutung |\n|---|---|\n| `kn-combobox` | Hülle |\n| `kn-combobox__list` | Liste |\n| `kn-combobox__option` | Eintrag |\n| `kn-combobox__empty` | Leermeldung |\n\n**Bezeichnungen / Names**\n\n| Code | Deutsch | English |\n|---|---|---|\n| `kn-combobox` | Combobox | Combobox |\n\nHerkunft / Origin: Erweiterung (aus KERN-Tokens)\n\n---\n\n### English — Combo box\n\nSelect field with search. For long lists.\n\n**When to use**\n\n- From about twelve entries. Public authorities have lists with hundreds.\n\n**When not to use**\n\n- Below eight entries — a select field is simpler there.\n\n**Accessibility**\n\n- role=combobox on the field, role=listbox on the list, role=option for each entry.\n- The active entry is reported via aria-activedescendant — focus stays in the field.\n- “No entry found” must be visible, otherwise the list seems broken.\n\n**Keyboard contract**\n\n| Key | Effect | Announcement |\n|---|---|---|\n| Typing | filters the list | “n results” after a short pause |\n| ↓ / ↑ | open the list, move | active entry |\n| Home / End | first / last entry while one is active; otherwise the text cursor |  |\n| Enter | accepts |  |\n| Esc | closes; a second Esc clears the field |  |\n\n**Classes**\n\n| Class | Meaning |\n|---|---|\n| `kn-combobox` | Wrapper |\n| `kn-combobox__list` | List |\n| `kn-combobox__option` | Entry |\n| `kn-combobox__empty` | Empty message |\n" } }
+  }
+};
+
+const html01 = "<div class=\"kern-form-input kn-combobox\" data-kn-combobox>\n  <label class=\"kern-label\" for=\"cb\">Zuständige Stelle</label>\n  <input class=\"kern-form-input__input\" id=\"cb\" role=\"combobox\" aria-expanded=\"false\"\n         aria-controls=\"cb-l\" aria-autocomplete=\"list\" autocomplete=\"off\">\n  <ul class=\"kn-combobox__list\" id=\"cb-l\" role=\"listbox\" hidden>\n    <li class=\"kn-combobox__option\" role=\"option\" id=\"cb-1\">Bundesverwaltungsamt Köln</li>\n    <li class=\"kn-combobox__option\" role=\"option\" id=\"cb-2\">Studierendenwerk Hamburg</li>\n    <li class=\"kn-combobox__option\" role=\"option\" id=\"cb-3\">Studierendenwerk München</li>\n    <li class=\"kn-combobox__option\" role=\"option\" id=\"cb-4\">Landesamt für Ausbildungsförderung</li>\n    <li class=\"kn-combobox__empty\" hidden>Kein Eintrag gefunden.</li>\n  </ul>\n</div>";
+export const Beispiel01 = {
+  name: "Tippen filtert",
+  render: () => html01,
+  parameters: { docs: { source: { code: html01 }, description: { story: "Tippen filtert, die Trefferzahl wird angesagt. ↓ ↑ wählen (Pos1/Ende springen in der Liste), Enter übernimmt, Esc schließt — ein zweites Esc leert das Feld. Muster der WAI-ARIA Authoring Practices.\n\nTyping filters, the number of matches is announced. ↓ ↑ choose (Home/End jump within the list), Enter accepts, Esc closes — a second Esc clears the field. Pattern from the WAI-ARIA Authoring Practices." } } }
+};

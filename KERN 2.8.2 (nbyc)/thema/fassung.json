@@ -1,0 +1,7 @@
+{
+ "system": "KERN 2.8.2 (nbyc)",
+ "fassung": "0.2.0",
+ "datum": "2026-11-16",
+ "hinweis": "Einzige Quelle der Fassung des Themas. Schreibt nur der KERN Designer (\"Neue Version\"). 0.2.0 = KERN-Werte, keine Abweichung; Fassung nach dem Assessment vom 16.11.2026 (Befunde B1–B5 behoben, Fehler im Original F27). Der Name des Systems bleibt \"KERN 2.8.2 (nbyc)\": 2.8.2 ist KERNs Version und wird nie hochgezählt (E7); unsere Fassung ist 0.2.0.",
+ "a11y": "keine Abweichung von KERN"
+}

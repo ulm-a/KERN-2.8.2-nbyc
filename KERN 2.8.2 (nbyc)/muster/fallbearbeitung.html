@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muster: Fallbearbeitung — KERN 2.8.2 (nbyc)</title>
+<link rel="stylesheet" href="../system/kern-neu.css?v=2.8.2-nbyc.44">
+<style>
+/* Nur das Seitengerüst. Keine Komponente wird hier gestaltet. */
+/* Drei Spalten erst ab 100rem: bei 1280 px blieben der Tabelle sonst 622 px, das
+   Aktenzeichen brach in drei Zeilen um (Befund 12.10.2026, behoben 13.10.2026).
+   Darunter steht der Verlauf unter der Arbeitsfläche. */
+.fb { display: grid; grid-template-columns: 14rem minmax(0,1fr); min-block-size: calc(100vh - 4rem); }
+.fb__links { grid-row: span 2; }
+.fb__links { background: var(--kern-color-layout-background-hued); border-inline-end: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); padding-block: var(--kern-metric-space-default); }
+.fb__mitte { padding: var(--kern-metric-space-large); min-inline-size: 0; }
+.fb__rechts { border-block-start: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); padding: var(--kern-metric-space-large); }
+.fb__vorfuehrung { margin-block-start: var(--kern-metric-space-3x-large); padding-block-start: var(--kern-metric-space-large); border-block-start: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); }
+@media (min-width: 100rem) {
+  .fb { grid-template-columns: 14rem minmax(0,1fr) 24rem; }
+  .fb__links { grid-row: auto; }
+  .fb__rechts { border-block-start: 0; border-inline-start: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); padding: var(--kern-metric-space-default); }
+}
+@media (max-width: 78rem) { .fb { grid-template-columns: 1fr; } .fb__links { grid-row: auto; } .fb__links, .fb__rechts { border: 0; } }
+</style>
+</head>
+<body class="kn-page">
+
+<a class="kn-skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="kn-header">
+  <a class="kn-header__brand" href="../index.html">Musterbehörde <span>Darlehen</span></a>
+  <div class="kn-header__end">
+    <div class="kn-segmented">
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="light" aria-pressed="false">Hell</button>
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="dark" aria-pressed="false">Dunkel</button>
+    </div>
+    <div class="kn-segmented">
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="contrast" value="normal" aria-pressed="false">Normal</button>
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="contrast" value="high" aria-pressed="false">Kontrast</button>
+    </div>
+    <span class="kn-avatar kn-avatar--small">SB</span>
+  </div>
+</header>
+
+<div class="fb">
+
+  <nav class="fb__links kn-side-nav" aria-label="Bereiche">
+    <div class="kn-side-nav__group">
+      <p class="kn-side-nav__title">Arbeit</p>
+      <ul class="kn-side-nav__list">
+        <li><a class="kn-side-nav__item" href="#inhalt" aria-current="page">Offene Vorgänge <span class="kn-side-nav__count">9</span></a></li>
+        <li><a class="kn-side-nav__item" href="#inhalt">Wiedervorlagen <span class="kn-side-nav__count">3</span></a></li>
+        <li><a class="kn-side-nav__item" href="#inhalt">Fristen</a></li>
+      </ul>
+    </div>
+    <div class="kn-side-nav__group">
+      <p class="kn-side-nav__title">Archiv</p>
+      <ul class="kn-side-nav__list">
+        <li><a class="kn-side-nav__item" href="#inhalt">Erledigt</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="fb__mitte" id="inhalt">
+    <nav aria-label="Pfad">
+      <ol class="kn-breadcrumb__list">
+        <li><a class="kern-link" href="#inhalt">Arbeitsvorrat</a></li>
+        <li aria-current="page">Offene Vorgänge</li>
+      </ol>
+    </nav>
+
+    <h1 class="kern-heading-medium" style="margin-block-start:1rem">Offene Vorgänge</h1>
+
+    <div class="kn-table-toolbar" style="margin-block-start:1rem">
+      <div class="kn-table-toolbar__tools">
+        <search class="kn-table-toolbar__search">
+          <label class="kern-sr-only" for="q">Vorgänge durchsuchen</label>
+          <div class="kern-input-group">
+            <input class="kern-form-input__input" id="q" type="search" placeholder="Aktenzeichen oder Name">
+            <button class="kern-btn kern-btn--primary" type="submit"><span class="kern-label">Suchen</span></button>
+          </div>
+        </search>
+        <span class="kn-toolbar__divider"></span>
+        <button class="kn-filter-tag" aria-pressed="true">Fristnah</button>
+        <button class="kn-filter-tag" aria-pressed="false">Vollständig</button>
+        <div class="kn-popover kn-popover--end kern-ml-auto">
+          <button class="kern-btn kern-btn--secondary" type="button" data-kn-popover aria-expanded="false" aria-controls="av-sp"><span class="kern-label">Spalten</span></button>
+          <div class="kn-popover__panel" id="av-sp" hidden tabindex="-1">
+            <fieldset class="kn-table-columns" data-kn-columns-for="av">
+              <legend class="kern-label">Spalten anzeigen</legend>
+              <div class="kern-form-check"><input class="kern-form-check__checkbox" id="av-c3" type="checkbox" data-kn-column="3" checked><label class="kern-label" for="av-c3">Art</label></div>
+              <div class="kern-form-check"><input class="kern-form-check__checkbox" id="av-c4" type="checkbox" data-kn-column="4" checked><label class="kern-label" for="av-c4">Betreff</label></div>
+              <div class="kern-form-check"><input class="kern-form-check__checkbox" id="av-c5" type="checkbox" data-kn-column="5" checked><label class="kern-label" for="av-c5">Frist</label></div>
+              <div class="kern-form-check"><input class="kern-form-check__checkbox" id="av-c6" type="checkbox" data-kn-column="6" checked><label class="kern-label" for="av-c6">Stand</label></div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="kn-menu__anchor">
+          <button class="kern-btn kern-btn--secondary" data-kn-menu
+                  aria-controls="wm" aria-expanded="false" aria-haspopup="menu">
+            <span class="kern-icon kern-icon--more-vert" aria-hidden="true"></span>
+            <span class="kern-sr-only">Weitere Aktionen</span></button>
+          <ul class="kn-menu" id="wm" role="menu" hidden>
+            <li role="none"><button class="kn-menu__item" role="menuitem" tabindex="-1">Als CSV ausgeben</button></li>
+            <li role="none"><hr class="kn-menu__divider"></li>
+            <li role="none"><button class="kn-menu__item kn-menu__item--danger" role="menuitem" tabindex="-1">Ansicht zurücksetzen</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="kn-table-batch" data-kn-table-batch="av">
+        <span class="kn-table-batch__count">0 ausgewählt</span>
+        <button class="kern-btn kern-btn--secondary kern-btn--small" type="button"><span class="kern-label">Zuweisen</span></button>
+        <button class="kern-btn kern-btn--secondary kern-btn--small" type="button"><span class="kern-label">Frist verlängern</span></button>
+        <button class="kern-btn kern-btn--tertiary kern-btn--small kn-table-batch__clear" type="button" data-kn-table-batch-clear><span class="kern-label">Auswahl aufheben</span></button>
+      </div>
+    </div>
+
+    <div data-fb-liste>
+    <div class="kn-empty-state" data-fb-zustand="leer" hidden style="margin-block-start:1rem">
+      <p class="kn-empty-state__title">Keine offenen Vorgänge</p>
+      <p class="kern-body">Neue Vorgänge erscheinen hier, sobald sie eingehen. Erledigte finden Sie im Archiv.</p>
+    </div>
+    <div class="kern-alert kern-alert--danger" role="alert" data-fb-zustand="fehler" hidden style="margin-block-start:1rem">
+      <div class="kern-alert__header">
+        <span class="kern-icon kern-icon--danger" aria-hidden="true"></span>
+        <h2 class="kern-title">Fehler: Die Vorgänge wurden nicht geladen</h2>
+      </div>
+      <div class="kern-alert__body">
+        <p class="kern-body">Das Fachverfahren antwortet gerade nicht. Versuchen Sie es in einem Moment noch einmal.</p>
+        <button class="kern-btn kern-btn--secondary kern-btn--small" type="button" data-fb-nochmal style="margin-block-start:.5rem"><span class="kern-label">Erneut laden</span></button>
+      </div>
+    </div>
+    <div class="kern-stack-sm" data-fb-zustand="laedt" aria-hidden="true" hidden style="margin-block-start:1rem">
+      <span class="kn-skeleton kn-skeleton--title"></span><span class="kn-skeleton"></span><span class="kn-skeleton"></span><span class="kn-skeleton kn-skeleton--short"></span>
+    </div>
+    <div data-fb-zustand="voll">
+    <div class="kern-table-responsive kn-table-frame" tabindex="0">
+      <table class="kern-table kn-table--selectable kn-table--sticky-head" id="av"
+             data-kn-sortable data-kn-selectable>
+        <caption class="kern-sr-only">Offene Vorgänge, sortierbar und auswählbar</caption>
+        <thead class="kern-table__head"><tr class="kern-table__row">
+          <th class="kern-table__header kn-table-select-col"><input type="checkbox" data-kn-select-all aria-label="Alle auswählen"></th>
+          <th class="kern-table__header kn-table-sort" aria-sort="none"><button class="kn-table-sort__button">Vorgang</button></th>
+          <th class="kern-table__header kn-table-sort" aria-sort="none"><button class="kn-table-sort__button">Art</button></th>
+          <th class="kern-table__header kn-table-sort" aria-sort="none"><button class="kn-table-sort__button">Betreff</button></th>
+          <th class="kern-table__header kn-table-sort" aria-sort="none"><button class="kn-table-sort__button">Frist</button></th>
+          <th class="kern-table__header">Stand</th>
+        </tr></thead>
+        <tbody class="kern-table__body">
+          <tr class="kern-table__row" aria-selected="false"><td class="kern-table__cell kn-table-select-col"><input type="checkbox" data-kn-row-select aria-label="10455 auswählen"></td>
+            <td class="kern-table__cell"><a class="kern-link" href="#vorgang">2026-BAF-10455</a></td><td class="kern-table__cell">Freistellung</td><td class="kern-table__cell">T. Okonkwo</td>
+            <td class="kern-table__cell ">17.03.2026</td><td class="kern-table__cell"><span class="kern-badge kern-badge--warning"><span class="kern-label">Rückfrage nötig</span></span></td></tr>
+          <tr class="kern-table__row" aria-selected="false"><td class="kern-table__cell kn-table-select-col"><input type="checkbox" data-kn-row-select aria-label="10482 auswählen"></td>
+            <td class="kern-table__cell"><a class="kern-link" href="#vorgang">2026-BAF-10482</a></td><td class="kern-table__cell">Freistellung</td><td class="kern-table__cell">A. Berger</td>
+            <td class="kern-table__cell ">18.03.2026</td><td class="kern-table__cell"><span class="kern-badge kern-badge--success"><span class="kern-label">Vollständig</span></span></td></tr>
+          <tr class="kern-table__row" aria-selected="false"><td class="kern-table__cell kn-table-select-col"><input type="checkbox" data-kn-row-select aria-label="10390 auswählen"></td>
+            <td class="kern-table__cell"><a class="kern-link" href="#vorgang">2026-BAF-10390</a></td><td class="kern-table__cell">Stundung</td><td class="kern-table__cell">M. Lindqvist</td>
+            <td class="kern-table__cell ">20.03.2026</td><td class="kern-table__cell"><span class="kern-badge kern-badge--success"><span class="kern-label">Vollständig</span></span></td></tr>
+          <tr class="kern-table__row" aria-selected="false"><td class="kern-table__cell kn-table-select-col"><input type="checkbox" data-kn-row-select aria-label="10501 auswählen"></td>
+            <td class="kern-table__cell"><a class="kern-link" href="#vorgang">2026-BAF-10501</a></td><td class="kern-table__cell">Widerspruch</td><td class="kern-table__cell">K. Ferreira</td>
+            <td class="kern-table__cell ">24.03.2026</td><td class="kern-table__cell"><span class="kern-badge"><span class="kern-label">Prüfung offen</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="kern-flex kern-flex-wrap kern-align-items-center kern-gap-sm" style="margin-block-start:1rem">
+      <span class="kern-body kern-body--small kern-body--muted" data-kn-status-of="av"></span>
+      <nav class="kn-pagination kern-ml-auto" aria-label="Seiten">
+        <a class="kn-pagination__button" href="#inhalt" aria-current="page">1</a>
+        <a class="kn-pagination__button" href="#inhalt">2</a>
+        <span class="kn-pagination__status">1 bis 4 von 9</span>
+      </nav>
+    </div>
+    </div>
+    </div>
+
+    <h2 class="kern-heading-small" id="vorgang" style="margin-block-start:2.5rem">Vorgang 2026-BAF-10482</h2>
+
+    <ol class="kn-steps" style="margin-block:1rem 1.5rem">
+      <li class="kn-step" data-kn-state="done"><span class="kn-step__marker" data-kn-number="1"></span><span class="kn-step__label">Eingang</span></li>
+      <li class="kn-step" data-kn-state="done"><span class="kn-step__marker" data-kn-number="2"></span><span class="kn-step__label">Vollständigkeit</span></li>
+      <li class="kn-step" data-kn-state="current" aria-current="step"><span class="kn-step__marker" data-kn-number="3"></span><span class="kn-step__label">Entscheidung</span></li>
+      <li class="kn-step"><span class="kn-step__marker" data-kn-number="4"></span><span class="kn-step__label">Bekanntgabe</span></li>
+    </ol>
+
+    <div data-kn-tabs>
+      <div class="kn-tabs">
+        <div class="kn-tabs__list" role="tablist" aria-label="Vorgang">
+          <button class="kn-tabs__tab" role="tab" id="t1" aria-controls="p1" aria-selected="true" tabindex="0">Entscheidung</button>
+          <button class="kn-tabs__tab" role="tab" id="t2" aria-controls="p2" aria-selected="false" tabindex="-1">Nachweise</button>
+        </div>
+      </div>
+      <div class="kn-tabs__panel" role="tabpanel" id="p1" aria-labelledby="t1">
+        <div class="kn-inset-text kn-inset-text--action" style="margin-block-end:1.5rem">
+          <p class="kern-body">Das anrechenbare Einkommen liegt <b>820,00 €</b> unter der maßgeblichen
+          Grenze. Liegen die Voraussetzungen vor, <i>ist</i> freizustellen — ein Ermessen besteht nicht.</p>
+        </div>
+        <dl class="kern-description-list" style="margin-block-end:1.5rem">
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">Anrechenbares Einkommen</dt><dd class="kern-description-list-item__value">1.640,00 €</dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">Maßgebliche Grenze</dt><dd class="kern-description-list-item__value">2.460,00 €</dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">Rechtsgrundlage</dt><dd class="kern-description-list-item__value">§ 18a Abs. 1 BAföG</dd></div>
+  </dl>
+        <div class="kern-flex kern-flex-wrap kern-align-items-center kern-gap-sm">
+          <button class="kern-btn kern-btn--primary" onclick="KN.toast('Freistellung bis 31.03.2028 bewilligt.','success')"><span class="kern-label">Bewilligen</span></button>
+          <button class="kern-btn kern-btn--secondary"><span class="kern-label">Abweichend entscheiden</span></button>
+          <button class="kern-btn kern-btn--secondary kn-btn--danger-secondary" data-dialog-target="dl"><span class="kern-label">Ablehnen</span></button>
+        </div>
+      </div>
+      <div class="kn-tabs__panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+        <table class="kern-table">
+          <caption class="kern-sr-only">Nachweise</caption>
+          <thead class="kern-table__head"><tr class="kern-table__row"><th class="kern-table__header">Nachweis</th><th class="kern-table__header">Weg</th><th class="kern-table__header">Eingang</th><th class="kern-table__header">Stand</th></tr></thead>
+          <tbody class="kern-table__body">
+            <tr class="kern-table__row"><td class="kern-table__cell">Meldebescheinigung</td><td class="kern-table__cell">Register</td><td class="kern-table__cell ">14.03.2026</td><td class="kern-table__cell"><span class="kern-badge kern-badge--success"><span class="kern-label">Vorhanden</span></span></td></tr>
+            <tr class="kern-table__row"><td class="kern-table__cell">Lohnabrechnung 03/2026</td><td class="kern-table__cell">Foto</td><td class="kern-table__cell ">14.03.2026</td><td class="kern-table__cell"><span class="kern-badge kern-badge--success"><span class="kern-label">Vorhanden</span></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <dialog class="kern-dialog kn-dialog--danger" id="dl" aria-labelledby="dl-t">
+      <header class="kern-dialog__header">
+        <h2 class="kern-title kern-title--large" id="dl-t">Antrag ablehnen?</h2>
+        <button class="kern-btn kern-btn--tertiary">
+          <span class="kern-icon kern-icon--close" aria-hidden="true"></span>
+          <span class="kern-sr-only">Schließen</span>
+        </button>
+      </header>
+      <section class="kern-dialog__body"><p class="kern-body">Die Ablehnung wird im Bürgerpostfach
+      bekanntgegeben. Eine Begründung ist zu erfassen.</p></section>
+      <form method="dialog" class="kern-dialog__footer">
+        <button class="kern-btn kern-btn--secondary" value="abbrechen"><span class="kern-label">Abbrechen</span></button>
+        <button class="kern-btn kern-btn--primary kn-btn--danger" value="ablehnen"><span class="kern-label">Ablehnen</span></button>
+      </form>
+    </dialog>
+
+    <aside class="fb__vorfuehrung" aria-labelledby="vf-titel">
+      <h2 class="kern-heading-small" id="vf-titel">Zustände vorführen</h2>
+      <p class="kern-body kern-body--small">Nur im Muster: der Arbeitsvorrat gefüllt, leer, beim Laden (Platzhalter, nach 1 s Lader und Ansage) und mit Fehler.</p>
+      <div class="kn-segmented" role="group" aria-label="Zustand des Arbeitsvorrats">
+        <button class="kn-segmented__button kn-segmented__button--small" type="button" data-fb-demo="voll" aria-pressed="true">gefüllt</button>
+        <button class="kn-segmented__button kn-segmented__button--small" type="button" data-fb-demo="leer" aria-pressed="false">leer</button>
+        <button class="kn-segmented__button kn-segmented__button--small" type="button" data-fb-demo="laedt" aria-pressed="false">lädt</button>
+        <button class="kn-segmented__button kn-segmented__button--small" type="button" data-fb-demo="fehler" aria-pressed="false">Fehler</button>
+      </div>
+    </aside>
+  </main>
+
+  <aside class="fb__rechts kn-cq" aria-label="Verlauf">
+    <h2 class="kern-title">Verlauf</h2>
+    <div class="kern-flex kern-flex-wrap kern-align-items-center kern-gap-sm" style="margin-block-end:1rem">
+      <button class="kn-filter-tag" aria-pressed="false">Nur offen</button>
+      <button class="kn-filter-tag" aria-pressed="false">Fristen</button>
+    </div>
+    <ol class="kn-timeline">
+      <li class="kn-timeline__dot kn-timeline__dot--open">
+        <span class="kn-timeline__time">09:41</span><span class="kn-timeline__label"></span>
+        <div><p class="kn-timeline__title">Empfehlung: Freistellung für zwei Jahre</p>
+        <p class="kn-timeline__text">Einkommen unter der maßgeblichen Grenze.</p></div></li>
+      <li class="kn-timeline__dot kn-timeline__dot--done">
+        <span class="kn-timeline__time">19:11</span><span class="kn-timeline__label"></span>
+        <div><p class="kn-timeline__title">Antrag vollständig eingereicht</p>
+        <p class="kn-timeline__text">Mahnverfahren ausgesetzt.</p></div></li>
+      <li class="kn-timeline__dot">
+        <span class="kn-timeline__time">08:20</span><span class="kn-timeline__label"></span>
+        <div><p class="kn-timeline__title">Bescheid bereitgestellt</p>
+        <p class="kn-timeline__text">Im Bürgerpostfach abgelegt.</p></div></li>
+    </ol>
+  </aside>
+</div>
+
+<script src="../system/kern-neu.js?v=2.8.2-nbyc.44"></script>
+<script>
+/* Vorführung der Zustände (nur im Muster): gefüllt, leer, lädt, Fehler. Laden über
+   KN.lade (aria-busy, Lader erst nach 1 s), Ansagen über KN.melde. */
+(function () {
+  "use strict";
+  var liste = document.querySelector("[data-fb-liste]");
+  function zeige(z) {
+    KN.lade(liste, z === "laedt");
+    [].forEach.call(liste.querySelectorAll("[data-fb-zustand]"), function (el) { el.hidden = el.getAttribute("data-fb-zustand") !== z; });
+    [].forEach.call(document.querySelectorAll("[data-fb-demo]"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-fb-demo") === z)); });
+    if (z === "leer") KN.melde("Keine offenen Vorgänge");
+  }
+  [].forEach.call(document.querySelectorAll("[data-fb-demo]"), function (b) {
+    b.addEventListener("click", function () { zeige(b.getAttribute("data-fb-demo")); });
+  });
+  document.querySelector("[data-fb-nochmal]").addEventListener("click", function () {
+    zeige("laedt");
+    /* Der Knopf verschwindet mit der Meldung: Fokus auf die Tabelle, sonst fiele er auf den Seitenanfang. */
+    setTimeout(function () { zeige("voll"); liste.querySelector(".kern-table-responsive").focus(); KN.melde("4 offene Vorgänge geladen"); }, 600);
+  });
+})();
+</script>
+</body>
+</html>

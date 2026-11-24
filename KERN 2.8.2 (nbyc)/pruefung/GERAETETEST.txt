@@ -1,0 +1,96 @@
+GERÄTETEST — KERN 2.8.2 (nbyc), Stufe 7 (M68)
+Stand: 13.10.2026 · für Dich am eigenen Gerät · Dauer je Teil in Klammern
+================================================================================
+NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
+      KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
+      KI-Assistenten von Anthropic. Nicht das offizielle KERN.
+
+WARUM DU
+  Claude hat Chromium und WebKit (Safari-Engine) automatisch geprüft (Ergebnis
+  unten). Was NUR am Gerät geht: Firefox (die Sandbox der KI-Sitzung verbietet
+  ihn), echte Screenreader, Windows-Kontrastmodus. Ausgeschrieben nach
+  Guiding §1/§15: je Schritt Vorbereitung · Tun · Erwartung.
+
+SCHON GEPRÜFT (13.10.2026, Claude)
+  Chromium 152   Verhaltensprüfung 17/17 · Prüfstand hell 135/135, dunkel
+                 7/135 (allein AB06) · Fokus und Kontrast: METHODE 08/09
+  WebKit (macOS 27.0.1, Safari-Engine, ohne Safari-Programm)
+                 Verhaltensprüfung 17/17 · Prüfstand hell 135/135, dunkel 7/135
+                 (wie Chromium) · Gegenprobe rot wie erwartet
+
+VORBEREITUNG (einmal)
+  V1  Terminal im Projektordner "2026 Design Systeme" öffnen und den Prüfserver
+      starten (läuft, solange das Fenster offen ist):
+        python3 -m http.server 8058 --bind 127.0.0.1
+      Läuft er schon (Claude-Sitzung), entfällt der Schritt.
+  V2  Startseite zum Prüfen:
+        http://localhost:8058/KERN%202.8.2%20%28nbyc%29/index.html
+
+
+TEIL A — FIREFOX (5 Minuten)
+--------------------------------------------------------------------------------
+  A1  Vorbereitung  Firefox öffnen.
+      Tun           Adresse öffnen:
+        http://localhost:8058/KERN%202.8.2%20%28nbyc%29/pruefung/verhalten.html
+      Erwartung     Zeile unter der Überschrift: "17 von 17 Prüfungen bestanden".
+                    Sonst: welche Zeile ist rot (Name und Grund)?
+  A2  Tun           Adresse öffnen und ca. 1 Minute warten:
+        http://localhost:8058/KERN%202.8.2%20%28nbyc%29/pruefung/kern-beispiele.html?auto=light
+      Erwartung     Oben: "Fertig: 135 von 135 Beispielen deckungsgleich."
+  A3  Tun           Muster öffnen, nur mit der Tastatur arbeiten: Tab durch die
+                    Seite; "Fristnah" mit Leertaste; eine Zeile ankreuzen;
+                    Überlaufmenü (drei Punkte) mit ↓ öffnen, Esc.
+        http://localhost:8058/KERN%202.8.2%20%28nbyc%29/muster/fallbearbeitung.html
+      Erwartung     Fokusring immer sichtbar; Stapelaktionen erscheinen beim
+                    Ankreuzen; Menü öffnet am ersten Eintrag, Esc gibt den Fokus
+                    an die drei Punkte zurück.
+  Kurz antworten: A ok · A1 x/16 (rot: …) · A2 x/135 · A3 ok / Fehler: …
+
+
+TEIL B — VOICEOVER AUF DEM MAC MIT SAFARI (15 Minuten)
+--------------------------------------------------------------------------------
+  Vorbereitung  Safari öffnen, Katalog laden:
+        http://localhost:8058/KERN%202.8.2%20%28nbyc%29/katalog.html
+                VoiceOver ein: cmd+F5. Lesen mit VO-Taste = ctrl+alt.
+  B1  Datentabelle  Seite #datentabelle. Tab bis zum ersten Kästchen, Leertaste.
+      Erwartung     VoiceOver sagt nach kurzer Pause "1 Zeile ausgewählt.
+                    Aktionen über der Tabelle". Zweites Kästchen: "2 Zeilen
+                    ausgewählt". Spaltenkopf "Frist" mit Enter: "Sortiert nach
+                    Frist, aufsteigend".
+  B2  Combobox      Seite #combobox. Ins Feld, "st" tippen, kurz warten.
+      Erwartung     "2 Treffer". ↓: der Eintrag wird vorgelesen.
+  B3  Kalender      Seite #kalender. Tab zum Kalender-Knopf, Enter.
+      Erwartung     Ein voller Tagesname ("Dienstag, 13. Oktober 2026").
+                    Bild↓: "November 2026" wird angesagt (Ansage im Dialog).
+                    Esc: zurück auf dem Knopf.
+  B4  Formular      Seite #fehlerliste. Tab zu "Weiter", Enter.
+      Erwartung     Die Zusammenfassung wird vorgelesen ("Es sind 3 Angaben zu
+                    prüfen" und die Verweise). Enter auf einem Verweis: das Feld
+                    mit Beschriftung und Fehlermeldung.
+  B5  Hinweis auf Klick  Seite #popover, erstes Beispiel. Enter auf das "?".
+      Erwartung     Der Erklärtext wird vorgelesen. Esc: Stille, Fokus bleibt.
+  B6  Schublade     Seite #schublade. Enter auf "Verlauf anzeigen".
+      Erwartung     "Verlauf" (Name der Schublade). Esc: zurück auf dem Knopf.
+  Kurz antworten: B ok · B1–B6 je ok / gehört: „…“
+
+
+TEIL C — WINDOWS (NVDA oder JAWS, Kontrastmodus) (20 Minuten, falls verfügbar)
+--------------------------------------------------------------------------------
+  Vorbereitung  Windows-Rechner im selben Netz; den Prüfserver dort starten
+                (Projektordner kopieren, V1) oder Teil C auslassen.
+  C1  NVDA + Firefox oder Chrome: B1–B6 wie oben.
+      Erwartung     wie in Teil B.
+  C2  Kontrastmodus: Einstellungen > Barrierefreiheit > Kontrastdesigns, ein
+                    Design wählen (z. B. "Wüste" oder "Nachthimmel"). Katalog,
+                    Seiten #segmente, #datentabelle, #baum, #kalender.
+      Erwartung     Fokusring überall sichtbar; gewählte Segmente, gewählte
+                    Zeilen, gewählter Tag und der aktuelle Eintrag der schmalen
+                    Seitenleiste bleiben erkennbar (Rahmen in Systemfarbe).
+  Kurz antworten: C ok · C1 ok / … · C2 ok / unsichtbar bei: …
+
+
+WAS DANACH PASSIERT
+  Jede Abweichung wird ein Mangel mit Schweregrad (Muss bei Bedienung oder
+  Ansage) und in AENDERUNGEN belegt behoben. Ergebnisse trägt Claude in
+  METHODE.txt Abschnitt 10 ein.
+-/-

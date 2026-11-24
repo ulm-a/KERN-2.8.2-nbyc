@@ -1,0 +1,466 @@
+/* ==================================================================
+   KERN 2.8.2 (nbyc) — 04 EINGABE (Zusatzbausteine)
+   ==================================================================
+   Seit Stufe 5b gibt es hier kein eigenes Feld mehr: Felder sind KERNs
+   kern-form-input (Label, Hint, Input, Error — Reihenfolge nach KERN).
+   Diese Datei enthält nur Zusatzbausteine, die KERN nicht hat
+   (Schalter, Schieberegler, Combobox, Zähler, Zahlenfeld-Knöpfe,
+   Dateiliste, Fehlerzusammenfassung).
+   ================================================================== */
+
+
+/* Der rote Balken links macht den Fehler auch dann sichtbar, wenn
+   Farbe allein nicht ausreicht. */
+
+
+/* ------------------------------------------------------------------
+   TEXTFELD, ZAHLENFELD, MEHRZEILIG, AUSWAHLFELD
+   ------------------------------------------------------------------ */
+
+
+/* Schreibgeschützt ist NICHT gesperrt: der Wert gilt und wird
+   abgesendet, er lässt sich nur nicht ändern. */
+
+
+/* Breitenklassen. Ein Feld sollte so breit sein wie sein Inhalt —
+   ein vierstelliges Jahr braucht kein volles Formular. */
+
+
+/* ------------------------------------------------------------------
+   ANKREUZFELD UND AUSWAHLKNOPF
+   ------------------------------------------------------------------
+   Das native Element bleibt, nur vergrößert und mit eigenem Rahmen.
+   Kein Nachbau mit Pseudoelementen — der bricht im Windows-
+   Kontrastmodus und bei aktivierter Vergrößerung.
+   ------------------------------------------------------------------ */
+
+
+/* Gerahmte Ausführung — leichter zu treffen, deutlicher gewählt. */
+
+
+/* ------------------------------------------------------------------
+   SCHALTER
+   ------------------------------------------------------------------
+   Ein Schalter wirkt SOFORT. Wo erst ein Absenden folgt, gehört ein
+   Ankreuzfeld hin. Der Zustand steht zusätzlich als Wort daneben —
+   Farbe und Stellung allein genügen nicht.
+   ------------------------------------------------------------------ */
+
+.kn-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--kern-metric-space-small);
+  min-block-size: var(--kn-target-size);
+  cursor: pointer;
+}
+
+.kn-switch__input { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; }
+
+.kn-switch__track {
+  position: relative;
+  flex: 0 0 auto;
+  /* Höhe wie KERNs Ankreuzfeld (32 px), Breite 56 (Stufe 5d, M46). */
+  inline-size: var(--kern-metric-dimension-2x-large);
+  block-size: var(--kern-metric-dimension-large);
+  border: var(--kern-metric-border-width-default) solid var(--kern-color-form-input-border-contextual);
+  border-radius: var(--kern-metric-border-radius-circle);
+  background: var(--kern-color-layout-background-hued);
+  transition: background-color var(--kn-duration-1) var(--kn-easing),
+              border-color var(--kn-duration-1) var(--kn-easing);
+}
+
+.kn-switch__thumb {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: var(--kern-2);
+  inline-size: var(--kern-metric-dimension-default);
+  block-size: var(--kern-metric-dimension-default);
+  border-radius: var(--kern-metric-border-radius-circle);
+  background: var(--kern-color-form-input-border-contextual);
+  transform: translateY(-50%);
+  transition: inset-inline-start var(--kn-duration-1) var(--kn-easing),
+              background-color var(--kn-duration-1) var(--kn-easing);
+}
+
+.kn-switch__input:checked ~ .kn-switch__track {
+  background: var(--kern-color-action-default-contextual);
+  border-color: var(--kern-color-action-default-contextual);
+}
+
+.kn-switch__input:checked ~ .kn-switch__track .kn-switch__thumb {
+  inset-inline-start: calc(100% - var(--kern-metric-dimension-default) - var(--kern-2));
+  background: var(--kern-color-action-on-default-contextual);
+}
+
+.kn-switch__input:focus-visible ~ .kn-switch__track {
+  outline: var(--kern-metric-border-width-bold) solid var(--kern-color-action-focus-default-contextual);
+  outline-offset: var(--kern-2);
+}
+
+.kn-switch__input:disabled ~ .kn-switch__track,
+.kn-switch__input[aria-disabled="true"] ~ .kn-switch__track { opacity: var(--kern-color-action-state-opacity-disabled); cursor: not-allowed; }
+
+
+.kn-switch__input:disabled ~ .kn-switch__label,
+.kn-switch__input[aria-disabled="true"] ~ .kn-switch__label { opacity: var(--kern-color-action-state-opacity-disabled); }
+
+@media (forced-colors: active) {
+  .kn-switch__input:checked ~ .kn-switch__track { background: Highlight; }
+  .kn-switch__thumb { background: ButtonText; }
+}
+
+/* ------------------------------------------------------------------
+   SCHIEBEREGLER
+   ------------------------------------------------------------------
+   Maße nach dem nächsten KERN-Verwandten (Mangel QK2; bis 13.10.2026
+   noch Carbon 14/2 px): Griff wie KERNs Optionsfeld kern-form-check__
+   radio (dimension-large, Rand border-width-default), Spur border-
+   width-bold; freie Spur in KERNs Feldrahmenfarbe, gefüllte in der
+   Aktionsfarbe — in Chromium und Firefox gleich.
+   In den Browser-Pseudoelementen stehen physische Maße (width,
+   height): logische werden dort nicht zuverlässig angewendet. Der
+   Griff sitzt mittig über margin-top = (Spur - Griff) / 2.
+   Die Füllung entsteht in WebKit über einen Verlauf aus "--kn-fill"
+   (gesetzt von kern-neu.js); Firefox hat "::-moz-range-progress".
+   ------------------------------------------------------------------ */
+
+.kn-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: var(--kn-target-size);
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.kn-slider::-webkit-slider-runnable-track {
+  height: var(--kern-metric-border-width-bold);
+  border: 0;
+  border-radius: var(--kern-metric-border-radius-small);
+  background: linear-gradient(to right,
+    var(--kern-color-action-default-contextual) 0 calc(var(--kn-fill, 0) * 1%),
+    var(--kern-color-form-input-border-contextual) calc(var(--kn-fill, 0) * 1%) 100%);
+}
+
+.kn-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--kern-metric-dimension-large);
+  height: var(--kern-metric-dimension-large);
+  margin-top: calc((var(--kern-metric-border-width-bold) - var(--kern-metric-dimension-large)) / 2);
+  box-sizing: border-box;
+  border: var(--kern-metric-border-width-default) solid var(--kern-color-action-on-default-contextual);
+  border-radius: 50%;
+  background: var(--kern-color-action-default-contextual);
+  box-shadow: 0 0 0 var(--kern-metric-border-width-light) var(--kern-color-action-default-contextual);
+}
+
+.kn-slider::-moz-range-track {
+  height: var(--kern-metric-border-width-bold);
+  border: 0;
+  border-radius: var(--kern-metric-border-radius-small);
+  background: var(--kern-color-form-input-border-contextual);
+}
+
+.kn-slider::-moz-range-progress {
+  height: var(--kern-metric-border-width-bold);
+  border-radius: var(--kern-metric-border-radius-small);
+  background: var(--kern-color-action-default-contextual);
+}
+
+.kn-slider::-moz-range-thumb {
+  width: var(--kern-metric-dimension-large);
+  height: var(--kern-metric-dimension-large);
+  box-sizing: border-box;
+  border: var(--kern-metric-border-width-default) solid var(--kern-color-action-on-default-contextual);
+  border-radius: 50%;
+  background: var(--kern-color-action-default-contextual);
+  box-shadow: 0 0 0 var(--kern-metric-border-width-light) var(--kern-color-action-default-contextual);
+}
+
+/* Gesperrt: wie KERN über die Deckkraft-Formel (E4). */
+.kn-slider:disabled, .kn-slider[aria-disabled="true"] { opacity: var(--kern-color-action-state-opacity-disabled); cursor: not-allowed; }
+
+.kn-slider__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--kern-metric-space-small);
+}
+
+.kn-slider__value {
+  font: var(--kern-typography-font-weight-semi-bold) var(--kern-typography-font-size-large-static)/var(--kern-typography-line-height-large-static) var(--kern-typography-font-family-default);
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-slider__ends {
+  display: flex;
+  align-self: stretch;       /* kern-form-input ist eine Flex-Spalte — sonst schrumpft die Zeile auf ihren Inhalt */
+  justify-content: space-between;
+  font: var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default);
+  color: var(--kern-color-layout-text-muted-contextual);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (forced-colors: active) {
+  .kn-slider::-webkit-slider-runnable-track { background: ButtonFace; }
+  .kn-slider::-webkit-slider-thumb { background: ButtonText; }
+  .kn-slider::-moz-range-thumb { background: ButtonText; }
+}
+
+/* ------------------------------------------------------------------
+   COMBOBOX (Auswahlfeld mit Suche)
+   ------------------------------------------------------------------
+   Ab etwa zwölf Einträgen ist ein Auswahlfeld ohne Suche unbrauchbar.
+   Behörden haben Listen mit Hunderten Einträgen.
+   ------------------------------------------------------------------ */
+
+.kn-combobox { position: relative; }
+
+.kn-combobox__list {
+  position: absolute;
+  inset-block-start: calc(100% + var(--kern-metric-space-x-small));
+  inset-inline: 0;
+  z-index: 40;
+  max-block-size: var(--kern-256);
+  overflow-y: auto;
+  margin: 0;
+  padding: var(--kern-metric-space-x-small);
+  list-style: none;
+  background: var(--kern-color-layout-background-default-contextual);
+  border: var(--kern-metric-border-width-default) solid var(--kern-color-layout-border-contextual);
+  border-radius: var(--kern-metric-border-radius-default);
+}
+
+.kn-combobox__list[hidden] { display: none; }
+
+.kn-combobox__option {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--kn-target-size);
+  padding-inline: var(--kern-metric-space-small);
+  border-radius: var(--kern-metric-border-radius-small);
+  cursor: pointer;
+}
+
+.kn-combobox__option:hover { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+
+.kn-combobox__option[aria-selected="true"] {
+  background: var(--kern-color-action-default-contextual);
+  color: var(--kern-color-action-on-default-contextual);
+}
+
+.kn-combobox__empty { padding: var(--kern-metric-space-small); color: var(--kern-color-layout-text-muted-contextual); }
+
+/* ------------------------------------------------------------------
+   ZAHLENFELD MIT SCHRITTKNÖPFEN
+   ------------------------------------------------------------------ */
+
+.kn-number-stepper { display: inline-flex; align-items: stretch; }
+
+.kn-number-stepper .kern-form-input__input {
+  border-radius: 0;
+  text-align: center;
+  inline-size: var(--kern-metric-space-7x-large);
+}
+
+.kn-number-stepper__button {
+  inline-size: var(--kn-target-size);
+  border: var(--kern-metric-border-width-default) solid var(--kern-color-form-input-border-contextual);
+  background: var(--kern-color-layout-background-hued);
+  color: var(--kern-color-layout-text-default-contextual);
+  font-size: var(--kern-font-size-20);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.kn-number-stepper__button:hover { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+.kn-number-stepper__button:first-child { border-start-end-radius: 0; border-end-end-radius: 0; border-inline-end: 0; }
+.kn-number-stepper__button:last-child { border-start-start-radius: 0; border-end-start-radius: 0; border-inline-start: 0; }
+.kn-number-stepper__button:disabled, .kn-number-stepper__button[aria-disabled="true"] { opacity: var(--kern-color-action-state-opacity-disabled); cursor: not-allowed; }
+
+/* ------------------------------------------------------------------
+   ZEICHENZÄHLER, DATEILISTE (Passwortfeld: KERN, Verhalten in kern-neu.js)
+   ------------------------------------------------------------------ */
+
+
+.kn-char-count {
+  display: block;
+  margin-block-start: var(--kern-metric-space-x-small);
+  font: var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default);
+  color: var(--kern-color-layout-text-muted-contextual);
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-char-count[data-kn-near-limit] { color: var(--kern-color-feedback-warning-contextual); font-weight: var(--kern-typography-font-weight-semi-bold); }
+.kn-char-count[data-kn-over-limit] { color: var(--kern-color-feedback-danger-contextual);  font-weight: var(--kern-typography-font-weight-semi-bold); }
+
+.kn-file-list {
+  display: grid;
+  place-items: center;
+  gap: var(--kern-metric-space-small);
+  padding: var(--kern-metric-space-x-large);
+  border: var(--kern-metric-border-width-default) dashed var(--kern-color-layout-border-contextual);
+  border-radius: var(--kern-metric-border-radius-large);
+  background: var(--kern-color-layout-background-hued);
+  text-align: center;
+}
+
+.kn-file-list[data-kn-dragover] {
+  border-color: var(--kern-color-action-default-contextual);
+  border-style: solid;
+  background: color-mix(in oklch, var(--kern-color-action-default-contextual) calc(var(--kern-color-action-state-opacity-selected) * 100%), transparent);
+}
+
+.kn-file-list__list { inline-size: 100%; margin: 0; padding: 0; list-style: none; }
+
+.kn-file-list__file {
+  display: flex;
+  align-items: center;
+  gap: var(--kern-metric-space-small);
+  padding: var(--kern-metric-space-small) 0;
+  border-block-end: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default);
+  text-align: start;
+}
+
+/* auf der getönten Dateiliste: muted nur 6,38 : 1 → text-default (K30, 13.10.2026) */
+.kn-file-list__size { margin-inline-start: auto; color: var(--kern-color-layout-text-default-contextual); font-variant-numeric: tabular-nums; }
+
+/* ------------------------------------------------------------------
+   FEHLERZUSAMMENFASSUNG
+   ------------------------------------------------------------------
+   Der wichtigste Baustein für Formulare. Steht nach dem Absenden
+   ganz oben, bekommt den Fokus, verlinkt auf jedes fehlerhafte Feld.
+   ------------------------------------------------------------------ */
+
+.kn-error-summary {
+  padding: var(--kern-metric-space-large);
+  border: var(--kern-metric-border-width-bold) solid var(--kern-color-feedback-danger-contextual);
+  border-radius: var(--kern-metric-border-radius-default);
+  background: var(--kern-color-feedback-danger-background-contextual);
+  margin-block-end: var(--kern-metric-space-x-large);
+}
+
+.kn-error-summary__title {
+  margin: 0 0 var(--kern-metric-space-small);
+  font: var(--kern-typography-font-weight-semi-bold) var(--kern-typography-font-size-medium-adaptive)/var(--kern-typography-line-height-medium-adaptive) var(--kern-typography-font-family-default);
+  color: var(--kern-color-layout-text-default-contextual);
+}
+
+/* Titel und Verweise in Textfarbe wie bei kern-alert: Rot auf der getönten
+   Fläche erreichte nur 4,97 : 1 (hell) bzw. 5,34 : 1 (dunkel), unter KERNs
+   Anspruch 7 : 1 (K30). Das Signal tragen Rand und Fläche (13.10.2026). */
+.kn-error-summary__list { margin: 0; padding-inline-start: var(--kern-metric-space-large); }
+.kn-error-summary__list li + li { margin-block-start: var(--kern-metric-space-small); }
+.kn-error-summary__list a { color: var(--kern-color-layout-text-default-contextual); font-weight: var(--kern-typography-font-weight-semi-bold); }
+
+/* Gedrückt nach KERNs Zustandsformel (Stufe 5d). */
+.kn-combobox__option:active,
+.kn-number-stepper__button:active { background: var(--kern-color-action-state-indicator-tint-active-opacity); }
+
+/* ------------------------------------------------------------------
+   MEHRFACHAUSWAHL (M90, neu in 2.8.2 (nbyc)) — Combobox mit
+   aria-multiselectable; gewählte Einträge als entfernbare Marken.
+   Liste und Optionen nutzen die Combobox-Regeln oben. Hier: gewählt =
+   Häkchen (nicht Fläche); die aktuelle Option (aria-activedescendant)
+   bekommt den Fokusumriss.
+   ------------------------------------------------------------------ */
+.kn-multiselect__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kern-metric-space-x-small);
+  margin: 0 0 var(--kern-metric-space-x-small);
+  padding: 0;
+  list-style: none;
+}
+.kn-multiselect__chips:empty { display: none; }
+.kn-multiselect .kn-combobox__option[aria-selected="true"] {
+  background: transparent;
+  color: var(--kern-color-layout-text-default-contextual);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+}
+.kn-multiselect .kn-combobox__option::before {
+  content: "";
+  flex: 0 0 auto;
+  inline-size: var(--kern-metric-dimension-default);
+  block-size: var(--kern-metric-dimension-default);
+  margin-inline-end: var(--kern-metric-space-x-small);
+  border: var(--kern-metric-border-width-default) solid var(--kern-color-form-input-border-contextual);
+  border-radius: var(--kern-metric-border-radius-small);
+}
+.kn-multiselect .kn-combobox__option[aria-selected="true"]::before {
+  border-color: var(--kern-color-action-default-contextual);
+  background: var(--kern-color-action-default-contextual);
+  box-shadow: inset 0 0 0 var(--kern-metric-border-width-default) var(--kern-color-action-on-default-contextual);
+}
+.kn-multiselect .kn-combobox__option.kn-is-active {
+  outline: var(--kern-metric-border-width-bold) solid var(--kern-color-action-focus-default-contextual);
+  outline-offset: calc(var(--kern-metric-border-width-bold) * -1);
+}
+
+/* ------------------------------------------------------------------
+   KALENDER-DATUM (M89, neu in 2.8.2 (nbyc)) — APG "Date Picker Dialog"
+   ------------------------------------------------------------------
+   Feld TT.MM.JJJJ + Knopf (kern-input-group) öffnet einen modalen
+   Dialog mit Monatsraster. Für bekannte Daten (Geburtstag) bleibt
+   KERNs Datum aus drei Feldern die Regel.
+   ------------------------------------------------------------------ */
+.kn-date-picker__dialog {
+  padding: var(--kern-metric-space-default);
+  border: var(--kern-metric-border-width-default) solid var(--kern-color-layout-border-contextual);
+  border-radius: var(--kern-metric-border-radius-default);
+  background: var(--kern-color-layout-background-default-contextual);
+  color: var(--kern-color-layout-text-default-contextual);
+}
+.kn-date-picker__dialog::backdrop {
+  background: color-mix(in oklch, var(--kern-color-black)
+              calc(var(--kern-color-action-state-opacity-overlay) * 100%), transparent);
+}
+.kn-date-picker__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kern-metric-space-small);
+  margin-block-end: var(--kern-metric-space-small);
+}
+.kn-date-picker__title {
+  margin: 0;
+  font-family: var(--kern-typography-font-family-default);
+  font-size: var(--kern-typography-font-size-medium-static);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+}
+.kn-date-picker__grid { border-collapse: collapse; font-family: var(--kern-typography-font-family-default); }
+.kn-date-picker__grid th {
+  block-size: var(--kern-metric-dimension-large);
+  color: var(--kern-color-layout-text-muted-contextual);
+  font-size: var(--kern-typography-font-size-small-static);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+}
+.kn-date-picker__day {
+  inline-size: var(--kn-target-size);
+  block-size: var(--kn-target-size);
+  border: var(--kern-metric-border-width-light) solid transparent;
+  border-radius: var(--kern-metric-border-radius-default);
+  background: transparent;
+  color: var(--kern-color-layout-text-default-contextual);
+  font: inherit;
+  font-size: var(--kern-typography-font-size-medium-static);
+  cursor: pointer;
+}
+.kn-date-picker__day:hover { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+.kn-date-picker__day:active { background: var(--kern-color-action-state-indicator-tint-active-opacity); }
+.kn-date-picker__day--outside { color: var(--kern-color-layout-text-muted-contextual); }
+.kn-date-picker__day[aria-current="date"] { border-color: var(--kern-color-action-default-contextual); font-weight: var(--kern-typography-font-weight-semi-bold); }
+.kn-date-picker__day[aria-pressed="true"] {
+  background: var(--kern-color-action-default-contextual);
+  color: var(--kern-color-action-on-default-contextual);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+}
+.kn-date-picker__foot { display: flex; justify-content: flex-end; margin-block-start: var(--kern-metric-space-small); }
+@media (forced-colors: active) {
+  .kn-date-picker__day[aria-pressed="true"] { background: Highlight; color: HighlightText; }
+}
+

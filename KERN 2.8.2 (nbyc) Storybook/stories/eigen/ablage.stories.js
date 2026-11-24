@@ -1,0 +1,21 @@
+/* ERZEUGT von "KERN 2.8.2 (nbyc) Storybook/werkzeug/stories-bauen.py" aus dem Katalog
+   KERN 2.8.2 (nbyc) — Fassung 0.2.0 (16.11.2026)
+   (KERN 2.8.2 (nbyc)/katalog) — nicht von Hand ändern (E12).
+   KERN 2.8.2 (nbyc) — interne Adaption von KERN 2.8.2, nicht das offizielle KERN;
+   "nbyc" = "New by Claude". */
+
+export default {
+  title: "Erweiterungen (kn-)/Eingabe/Dateiablage",
+  tags: ["autodocs"],
+  parameters: {
+    kern: {"id": "ablage", "herkunft": "Erweiterung (aus KERN-Tokens)", "quelle": "", "ids_in_mehreren_beispielen": []},
+    docs: { description: { component: "Nachweise hochladen und die hochgeladenen zeigen.\n\n**Wann nehmen**\n\n- Für Einkommensnachweise, Bescheinigungen, Belege — der Alltag im Freistellungsverfahren.\n\n**Wann nicht**\n\n- Ohne Angabe der erlaubten Formate und der Höchstgröße. Wer das erst nach dem Fehlschlag erfährt, lädt zweimal hoch.\n- Nie ohne Möglichkeit, eine Datei wieder zu entfernen.\n\n**Barrierefreiheit**\n\n- Formate und Höchstgröße VOR dem Feld nennen, verbunden über aria-describedby.\n- Der Entfernen-Knopf braucht den Dateinamen im Namen oder ein aria-label — sonst hört man dreimal „Entfernen“.\n- Die Liste ist eine echte &lt;ul&gt;, damit die Anzahl angesagt wird.\n\n**Tastaturvertrag**\n\n| Taste | Wirkung | Ansage |\n|---|---|---|\n| Tab | erreicht das Dateifeld |  |\n| Enter, Leertaste | öffnet die Dateiauswahl (nativ) | gewählte Dateien |\n\n**Klassen**\n\n| Klasse | Bedeutung |\n|---|---|\n| `kn-file-list` | die Einheit |\n| `kn-file-list__list` | hochgeladene Dateien |\n| `kn-file-list__file` | eine Zeile |\n| `kn-file-list__size` | Dateigröße |\n\n**Bezeichnungen / Names**\n\n| Code | Deutsch | English |\n|---|---|---|\n| `kn-file-list` | Dateiablage | File List |\n\nHerkunft / Origin: Erweiterung (aus KERN-Tokens)\n\n---\n\n### English — File upload\n\nUpload documents and show the uploaded ones.\n\n**When to use**\n\n- For proof of income, certificates, receipts — everyday work in the exemption procedure.\n\n**When not to use**\n\n- Without stating the allowed formats and the maximum size. Whoever only learns that after a failure uploads twice.\n- Never without a way to remove a file again.\n\n**Accessibility**\n\n- State formats and maximum size BEFORE the field, connected via aria-describedby.\n- The remove button needs the file name in its name or an aria-label — otherwise you hear “Remove” three times.\n- The list is a real &lt;ul&gt;, so that the count is announced.\n\n**Keyboard contract**\n\n| Key | Effect | Announcement |\n|---|---|---|\n| Tab | reaches the file field |  |\n| Enter, Space | opens the file picker (native) | chosen files |\n\n**Classes**\n\n| Class | Meaning |\n|---|---|\n| `kn-file-list` | the unit |\n| `kn-file-list__list` | uploaded files |\n| `kn-file-list__file` | a row |\n| `kn-file-list__size` | File size |\n" } }
+  }
+};
+
+const html01 = "<div class=\"kn-file-list\">\n  <label class=\"kern-label\" for=\"abl-1\">Einkommensnachweise</label>\n  <p class=\"kern-hint\" id=\"abl-1-hinweis\">PDF oder JPG, höchstens 10 MB je Datei.</p>\n  <input class=\"kern-form-input__input\" id=\"abl-1\" type=\"file\" multiple aria-describedby=\"abl-1-hinweis\">\n  <ul class=\"kn-file-list__list\">\n    <li class=\"kn-file-list__file\">\n      <span>Lohnabrechnung-2025-12.pdf</span>\n      <span class=\"kn-file-list__size\">240 KB</span>\n      <button class=\"kern-btn kern-btn--tertiary kern-btn--small\" type=\"button\"><span class=\"kern-label\">Entfernen</span></button>\n    </li>\n    <li class=\"kn-file-list__file\">\n      <span>Steuerbescheid-2024.pdf</span>\n      <span class=\"kn-file-list__size\">1,2 MB</span>\n      <button class=\"kern-btn kern-btn--tertiary kern-btn--small\" type=\"button\"><span class=\"kern-label\">Entfernen</span></button>\n    </li>\n  </ul>\n</div>";
+export const Beispiel01 = {
+  name: "Nachweise mit Liste",
+  render: () => html01,
+  parameters: { docs: { source: { code: html01 } } }
+};

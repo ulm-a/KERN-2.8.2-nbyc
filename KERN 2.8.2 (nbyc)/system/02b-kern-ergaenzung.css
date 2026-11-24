@@ -1,0 +1,102 @@
+/* ==================================================================
+   KERN 2.8.2 (nbyc) — 02b ERGÄNZUNGEN AN KERN-BAUSTEINEN  (Stufe 5b, E1)
+   ==================================================================
+   Was die entfernten kn-Bausteine mehr konnten als ihr KERN-Gegenstück,
+   bleibt hier als Erweiterung AN der KERN-Klasse — z. B.
+   <button class="kern-btn kern-btn--primary kn-btn--danger">.
+   Nur KERN-Tokens (kontextuell), Zustände nach KERNs Formel.
+   Jede Ergänzung steht in ABWEICHUNGEN.txt, Teil C ("keine Abweichung":
+   Ergänzungen ändern KERN-Bausteine ohne kn-Klasse nicht).
+   ================================================================== */
+
+/* Knopf: Gefahr (zerstörende Handlung) — KERN hat keine Gefahr-Variante. */
+.kern-btn.kn-btn--danger {
+  background: var(--kern-color-feedback-danger-contextual);
+}
+.kern-btn.kn-btn--danger:not(:disabled):not([aria-disabled="true"]):hover {
+  background: color-mix(in oklch, var(--kern-color-feedback-danger-contextual)
+              calc(var(--kern-color-action-state-opacity-hover) * 100%), var(--kern-color-black));
+}
+.kern-btn.kn-btn--danger:not(:disabled):not([aria-disabled="true"]):active {
+  background: color-mix(in oklch, var(--kern-color-feedback-danger-contextual)
+              calc(var(--kern-color-action-state-opacity-active) * 100%), var(--kern-color-black));
+}
+.kern-btn.kn-btn--danger-secondary {
+  border-color: var(--kern-color-feedback-danger-contextual);
+}
+.kern-btn.kn-btn--danger-secondary .kern-label { color: var(--kern-color-feedback-danger-contextual); }
+
+/* Link: leise (Fußzeile, Nebenverweise) und schlicht (Markenname). */
+.kern-link.kn-link--muted { color: var(--kern-color-layout-text-muted-contextual); }
+.kern-link.kn-link--plain { text-decoration: none; }
+
+/* Code im Fließtext — KERN hat dafür keine Rolle. */
+.kn-code {
+  font-family: var(--kern-typography-font-family-fira-mono);
+  font-size: var(--kern-typography-font-size-small-static);
+}
+
+/* Schmale Inhaltsbahn für Lesetext (60–80 Zeichen, KERN Layout). */
+.kern-container.kn-container--narrow { max-inline-size: var(--kern-736); }
+
+/* Feldbreiten über KERNs --width-2/-4 hinaus. */
+.kern-form-input__input.kn-input--width-10 { max-inline-size: calc(10ch + var(--kern-metric-space-x-large)); }
+.kern-form-input__input.kn-input--width-20 { max-inline-size: calc(20ch + var(--kern-metric-space-x-large)); }
+
+/* Marke ohne Bewertung: nur Rand. */
+.kern-badge.kn-badge--outline {
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--kern-metric-border-width-light) var(--kern-color-layout-border-contextual);
+}
+
+/* Dialog vor zerstörenden Handlungen: Leiste oben in Gefahrfarbe. */
+.kern-dialog.kn-dialog--danger {
+  border-block-start: var(--kern-metric-border-width-bold) solid var(--kern-color-feedback-danger-contextual);
+}
+
+/* Katalog: Farbfeld für die Rollen-Übersicht ("Farbe"). */
+.kn-swatch {
+  padding: var(--kern-metric-space-default);
+  border: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border-contextual);
+  border-radius: var(--kern-metric-border-radius-default);
+  color: var(--kern-color-layout-text-default-contextual);
+  font-family: var(--kern-typography-font-family-default);
+  font-size: var(--kern-typography-font-size-small-static);
+}
+
+/* Knopf: Ladezustand (0.5.7: data-kn-laedt). Der Knopf bleibt sichtbar
+   und vorlesbar; bedienbar wird er erst wieder ohne das Attribut. Im
+   Markup zusätzlich aria-disabled="true" setzen — dann sperrt
+   kern-neu.js Klick und Tasten (M25). Die Drehung hält bei "Bewegung
+   reduzieren" an (01b, AB03). ::after, weil KERN ::before bei kleinen
+   Knöpfen für die vergrößerte Trefferfläche nutzt. */
+.kern-btn[data-kn-loading] { cursor: progress; }
+.kern-btn[data-kn-loading]::after {
+  content: "";
+  inline-size: var(--kern-metric-dimension-small);
+  block-size: var(--kern-metric-dimension-small);
+  margin-inline-start: var(--kern-metric-space-x-small);
+  border: var(--kern-metric-border-width-default) solid var(--kern-color-action-default-contextual);
+  border-block-start-color: transparent;
+  border-radius: var(--kern-metric-border-radius-circle);
+  animation: kn-spin var(--kn-duration-loop) linear infinite;
+}
+.kern-btn--primary[data-kn-loading]::after {
+  border-color: var(--kern-color-action-on-default-contextual);
+  border-block-start-color: transparent;
+}
+
+/* --- Symbol "filter-list" (Katalogfilter, 13.10.2026) ----------------------
+   KERN hat kein Filtersymbol. Neue Symbole nach KERNs Regel (K24): Material
+   Symbols, gleiche Bauart wie KERNs eigene (viewBox 0 -960 960 960, Maske,
+   Farbe aus dem Baustein) — Form "filter_list", drei kürzer werdende Balken.
+   Herkunft und Lizenz: LIZENZ.txt, Punkt 3. Verwendung wie KERN:
+   <span class="kern-icon kn-icon--filter-list" aria-hidden="true"></span> */
+.kn-icon--filter-list {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z'/%3E%3C/svg%3E");
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z'/%3E%3C/svg%3E");
+  background-color: var(--kern-color-layout-text-default-contextual);
+}
+@media (forced-colors: active) {
+  .kn-icon--filter-list { background-color: CanvasText; forced-color-adjust: none; }
+}

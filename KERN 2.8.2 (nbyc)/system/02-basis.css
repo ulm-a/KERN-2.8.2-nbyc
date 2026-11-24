@@ -1,0 +1,105 @@
+/* ==================================================================
+   KERN 2.8.2 (nbyc) — 02 BASIS
+   ==================================================================
+   Grundstellung, Typografie, Layouthilfen und der Zustandsbaukasten.
+   Jede Komponente baut darauf auf.
+   ================================================================== */
+
+/* ------------------------------------------------------------------
+   GRUNDSTELLUNG
+   ------------------------------------------------------------------ */
+
+/* KERN (kern.css, zuerst geladen) setzt bereits: box-sizing, html,
+   Hintergrund von body, Bilder als Block, Schriftfamilie. Hier steht nur,
+   was KERN NICHT setzt — und nichts davon wirkt auf KERN-Bausteine (M82,
+   Auswertung V02: Eigenes darf KERN nicht überschreiben). */
+
+/* Seitenrahmen als Klasse statt auf body: KERN lässt body unberührt;
+   ein eingefügtes KERN-Beispiel sieht ohne diese Klasse aus wie bei
+   KERN. Eigene Seiten setzen <body class="kn-page">. */
+.kn-page {
+  margin: 0;
+  font: var(--kern-typography-font-size-medium-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default);
+  color: var(--kern-color-layout-text-default-contextual);
+  min-block-size: 100vh;
+}
+
+/* Formularelemente erben die Schrift nicht von selbst — gilt nur für
+   eigene Elemente; KERN-Bausteine bringen ihre Schrift selbst mit. */
+:where(button, input, select, textarea):not([class*="kern-"]) { font: inherit; color: inherit; }
+
+/* ------------------------------------------------------------------
+   FOKUS — eine Stelle für das ganze System
+   ------------------------------------------------------------------
+   ":focus-visible", nicht ":focus". Mit ":focus" bekommt auch der
+   Mausklick einen Rahmen; das sieht falsch aus, also entfernt ihn
+   jemand — und zerstört damit die Tastaturbedienung. Diesen Weg
+   nehmen Projekte regelmäßig.
+
+   Ein Ring nach KERN (seit M16): 4 px in action-focus, kontextuell —
+   gemessen 7,30 bis 9,56 : 1 auf allen Ebenen (Stufe 3, M24).
+   ------------------------------------------------------------------ */
+
+/* Nur für eigene Elemente: KERN-Bausteine (Klasse kern-…) haben ihren
+   Fokus in kern.css (M82). */
+:where(a, button, input, select, textarea, summary, [tabindex]):not([class*="kern-"]):focus-visible {
+  outline: var(--kern-metric-border-width-bold) solid var(--kern-color-action-focus-default-contextual);
+  outline-offset: var(--kern-metric-space-none);
+  /* Kein eigener Eckenradius beim Fokus: Der Umriss folgt der Ecke des
+     Elements (KERN 2.8.2: Knopf 4 px). 0.5.7 setzte hier 2 px — mit
+     KERN-Ecken hätte der Knopf beim Fokus seine Form geändert. */
+}
+
+/* Knöpfe mit Abstand wie KERN (focus-offset), Felder ohne (focus). */
+:where(button, [role="button"]):not([class*="kern-"]):focus-visible {
+  outline-offset: var(--kern-2);
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):not([class*="kern-"]):focus:not(:focus-visible) { outline: none; }
+
+@media (forced-colors: active) {
+  :where(a, button, input, select, textarea, summary, [tabindex]):not([class*="kern-"]):focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+/* Zustände eigener Bausteine: KERNs Formel direkt am Baustein —
+   Hover action-state-indicator-tint-hover-opacity, gedrückt
+   …-tint-active-opacity, gewählt action-default (Stufe 5d). Der
+   Zustandsschleier aus 0.5.7 (kn-schleier) ist entfallen. */
+
+/* ------------------------------------------------------------------
+   GESPERRT — wie KERN (E4)
+   ------------------------------------------------------------------
+   Aussehen über KERNs Deckkraft-Token action-state-opacity-disabled —
+   die EINZIGE erlaubte Deckkraft auf Text (E4). Technik: aria-disabled
+   + Sperre in kern-neu.js (M25). Hier nur der Mauszeiger.
+   ------------------------------------------------------------------ */
+
+:where(:disabled, [aria-disabled="true"]):not([class*="kern-"]) {
+  cursor: not-allowed;
+}
+
+@media (forced-colors: active) {
+  :where(:disabled, [aria-disabled="true"]):not([class*="kern-"]) { color: GrayText; }
+}
+
+/* ------------------------------------------------------------------
+   LAYOUT
+   ------------------------------------------------------------------ */
+
+
+.kn-auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--kn-auto-grid-min, var(--kern-256)), 1fr));
+  gap: var(--kern-metric-space-default);
+}
+
+/* Container-Abfragen: eine Komponente reagiert auf IHREN Platz, nicht
+   auf die Fensterbreite. Für einfahrbare Seitenbereiche die richtige
+   Technik — und in keinem der untersuchten Systeme benutzt. */
+.kn-cq { container-type: inline-size; }
+
+/* Dichte-Stufen: 01b-erweiterung.css, Abschnitt 7 (E2, M77). */
+
+

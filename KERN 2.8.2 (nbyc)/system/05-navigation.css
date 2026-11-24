@@ -1,0 +1,427 @@
+/* ==================================================================
+   KERN 2.8.2 (nbyc) — 05 NAVIGATION (Zusatzbausteine)
+   ==================================================================
+   Kopfzeile, Fußzeile, Haupt- und Seitennavigation, Reiter,
+   Brotkrumen, Seitenweiser, Schrittfolge, Menü, Schublade.
+   ================================================================== */
+
+/* --- KOPFZEILE -----------------------------------------------------
+   Bricht um (WCAG 1.4.10, Mangel QK1): auf 375 px war die Kopfzeile
+   665 breit und die Seite seitlich verschiebbar. */
+
+.kn-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--kern-metric-space-small) var(--kern-metric-space-default);
+  min-block-size: var(--kern-metric-dimension-3x-large);
+  padding: var(--kern-metric-space-small) var(--kern-metric-space-default);
+  background: var(--kern-color-layout-background-inverted);
+  color: var(--kern-color-layout-text-inverse-contextual);
+}
+
+.kn-header__brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--kern-metric-space-small);
+  font: var(--kern-typography-font-weight-semi-bold) var(--kern-typography-font-size-large-static)/var(--kern-typography-line-height-large-static) var(--kern-typography-font-family-default);
+  flex-wrap: wrap;
+  color: inherit;
+  text-decoration: none;
+}
+
+.kn-header__brand span { font-weight: var(--kern-typography-font-weight-regular); }
+.kn-header__end { margin-inline-start: auto; display: flex; flex-wrap: wrap; align-items: center; gap: var(--kern-metric-space-small); }
+.kn-header .kern-btn, .kn-header .kern-link { color: inherit; }
+
+/* Fokus auf der invertierten Fläche: KERNs Fokuston (action-focus) hat hier
+   nur 2,2–2,5 : 1 (gemessen 13.10.2026, Stufe 6e) — der Ring nimmt die
+   Textfarbe der Kopfzeile, die dort Textkontrast hat (WCAG 1.4.11: ≥ 3 : 1). */
+.kn-header :focus-visible { outline-color: var(--kern-color-layout-text-inverse-contextual); }
+
+/* --- FUSSZEILE ------------------------------------------------------ */
+
+.kn-footer {
+  padding-block: var(--kern-metric-space-x-large);
+  background: var(--kern-color-layout-background-hued);
+  border-block-start: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default);
+}
+
+.kn-footer__columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--kern-192), 1fr)); gap: var(--kern-metric-space-large); }
+.kn-footer__title { margin: 0 0 var(--kern-metric-space-small); font: var(--kern-typography-font-weight-semi-bold) var(--kern-typography-font-size-medium-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default); }
+.kn-footer__list { margin: 0; padding: 0; list-style: none; }
+.kn-footer__list li + li { margin-block-start: var(--kern-metric-space-x-small); }
+.kn-footer__legal {
+  margin-block-start: var(--kern-metric-space-large);
+  padding-block-start: var(--kern-metric-space-default);
+  border-block-start: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default);
+  font: var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default);
+  /* Inhalt auf getönter Fläche: text-default statt text-muted — muted erreicht dort nur 6,38 : 1, KERN verlangt für Text 7 : 1 (K30, gemessen 13.10.2026) */
+  color: var(--kern-color-layout-text-default-contextual);
+}
+
+/* --- HAUPTNAVIGATION ------------------------------------------------ */
+
+.kn-main-nav__list { display: flex; flex-wrap: wrap; gap: var(--kern-metric-space-x-small); margin: 0; padding: 0; list-style: none; }
+
+.kn-main-nav__item {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--kn-target-size);
+  padding-inline: var(--kern-metric-space-small);
+  color: inherit;
+  text-decoration: none;
+  border-block-end: var(--kern-metric-border-width-bold) solid transparent;
+}
+
+.kn-main-nav__item:hover { text-decoration: underline; }
+.kn-main-nav__item[aria-current]:not([aria-current="false"]) {
+  border-block-end-color: currentColor;
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+}
+
+/* --- SEITENNAVIGATION ------------------------------------------------
+   So führen Carbon, Material und GOV.UK durch ihre Kataloge: eine
+   Liste links, nach Gruppen geordnet, der aktuelle Punkt markiert.
+   -------------------------------------------------------------------- */
+
+.kn-side-nav { font: var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default); }
+.kn-side-nav__group { margin-block-end: var(--kern-metric-space-default); }
+
+.kn-side-nav__title {
+  margin: 0 0 var(--kern-metric-space-x-small);
+  padding-inline: var(--kern-metric-space-small);
+  font: var(--kern-typography-font-weight-semi-bold) var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default);
+  /* steht oft auf getönter Spalte (Muster): muted nur 6,38 : 1 → text-default (K30, 13.10.2026) */
+  color: var(--kern-color-layout-text-default-contextual);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.kn-side-nav__list { margin: 0; padding: 0; list-style: none; }
+
+.kn-side-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--kern-metric-space-small);
+  min-block-size: var(--kn-target-size);
+  padding: var(--kern-metric-space-x-small) var(--kern-metric-space-small);
+  border-inline-start: var(--kern-metric-border-width-bold) solid transparent;
+  color: var(--kern-color-layout-text-default-contextual);
+  text-decoration: none;
+}
+
+.kn-side-nav__item:hover { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+
+.kn-side-nav__item[aria-current]:not([aria-current="false"]) {
+  border-inline-start-color: var(--kern-color-action-default-contextual);
+  background: color-mix(in oklch, var(--kern-color-action-default-contextual) calc(var(--kern-color-action-state-opacity-selected) * 100%), transparent);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+}
+
+/* Zahl auf der Auswahltönung des aktuellen Eintrags: muted nur 5,73 : 1 → text-default (K30, 13.10.2026) */
+.kn-side-nav__count { margin-inline-start: auto; color: var(--kern-color-layout-text-default-contextual); font-variant-numeric: tabular-nums; }
+
+/* --- SCHMALE SEITENLEISTE (M94) ---------------------------------------
+   Muster Material "Navigation rail": 80 breit, Symbol in einer Anzeige
+   56 × 32, darunter die Beschriftung — IMMER sichtbar (M94; kein Symbol
+   ohne lesbaren Namen). Maße aus KERNs Skala (dimension-4x-large,
+   -2x-large, -large). Zustände wie kn-side-nav.
+   -------------------------------------------------------------------- */
+
+.kn-nav-rail {
+  inline-size: var(--kern-metric-dimension-4x-large);
+  padding-block: var(--kern-metric-space-small);
+  border-inline-end: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border-contextual);
+}
+
+.kn-nav-rail__list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--kern-metric-space-x-small); }
+
+.kn-nav-rail__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--kern-metric-space-2x-small);
+  padding: var(--kern-metric-space-x-small) var(--kern-metric-space-2x-small);
+  color: var(--kern-color-layout-text-default-contextual);
+  text-decoration: none;
+}
+
+.kn-nav-rail__indicator {
+  display: grid;
+  place-items: center;
+  inline-size: var(--kern-metric-dimension-2x-large);
+  block-size: var(--kern-metric-dimension-large);
+  border-radius: calc(var(--kern-metric-dimension-large) / 2);
+  transition: background-color var(--kn-duration-1) var(--kn-easing);
+}
+
+.kn-nav-rail__label {
+  max-inline-size: 100%;
+  font: var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default);
+  text-align: center;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.kn-nav-rail__item:hover .kn-nav-rail__indicator { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+.kn-nav-rail__item:active .kn-nav-rail__indicator { background: var(--kern-color-action-state-indicator-tint-active-opacity); }
+
+/* Aktueller Bereich: gefüllte Anzeige wie der gewählte Kalendertag — eine
+   blasse Tönung allein erreichte die 3:1 für Zustände (WCAG 1.4.11) nicht. */
+.kn-nav-rail__item[aria-current]:not([aria-current="false"]) .kn-nav-rail__indicator { background: var(--kern-color-action-default-contextual); }
+.kn-nav-rail__item[aria-current]:not([aria-current="false"]) .kern-icon { background-color: var(--kern-color-action-on-default-contextual); }
+
+.kn-nav-rail__item[aria-current]:not([aria-current="false"]) .kn-nav-rail__label { font-weight: var(--kern-typography-font-weight-semi-bold); }
+
+@media (forced-colors: active) {
+  .kn-nav-rail__item[aria-current]:not([aria-current="false"]) .kn-nav-rail__indicator { outline: 2px solid Highlight; }
+}
+
+/* --- REITER ---------------------------------------------------------- */
+
+.kn-tabs { border-block-end: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border-contextual); }
+.kn-tabs__list { display: flex; gap: var(--kern-metric-space-x-small); overflow-x: auto; }
+
+.kn-tabs__tab {
+  flex: 0 0 auto;
+  min-block-size: var(--kn-target-size);
+  padding-inline: var(--kern-metric-space-default);
+  border: 0;
+  border-block-end: var(--kern-metric-border-width-bold) solid transparent;
+  background: transparent;
+  color: var(--kern-color-layout-text-muted-contextual);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.kn-tabs__tab:hover:not([aria-selected="true"]) { color: var(--kern-color-layout-text-default-contextual); background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+
+.kn-tabs__tab[aria-selected="true"] {
+  border-block-end-color: var(--kern-color-action-default-contextual);
+  color: var(--kern-color-layout-text-default-contextual);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+}
+
+.kn-tabs__panel { padding-block-start: var(--kern-metric-space-large); }
+.kn-tabs__panel[hidden] { display: none; }
+
+/* --- BROTKRUMEN ------------------------------------------------------ */
+
+.kn-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--kern-metric-space-x-small);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default);
+}
+
+.kn-breadcrumb__list li + li::before { content: "\203A"; margin-inline-end: var(--kern-metric-space-x-small); color: var(--kern-color-layout-text-muted-contextual); }
+.kn-breadcrumb__list [aria-current="page"] { color: var(--kern-color-layout-text-muted-contextual); }
+
+/* --- SEITENWEISER ----------------------------------------------------- */
+
+.kn-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: var(--kern-metric-space-x-small); }
+
+.kn-pagination__button {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: var(--kn-target-size);
+  min-block-size: var(--kn-target-size);
+  padding-inline: var(--kern-metric-space-small);
+  border: var(--kern-metric-border-width-light) solid transparent;
+  border-radius: var(--kern-metric-border-radius-default);
+  background: transparent;
+  color: var(--kern-color-layout-text-default-contextual);
+  text-decoration: none;
+  font-weight: var(--kern-typography-font-weight-semi-bold);   /* wie kern-btn */
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.kn-pagination__button:hover:not([aria-current="page"]) { background: var(--kern-color-action-state-indicator-tint-hover-opacity); border-color: var(--kern-color-decorative-border-default); }
+.kn-pagination__button[aria-current="page"] { background: var(--kern-color-action-default-contextual); color: var(--kern-color-action-on-default-contextual); font-weight: var(--kern-typography-font-weight-semi-bold); }
+.kn-pagination__button:disabled,
+.kn-pagination__button[aria-disabled="true"] { opacity: var(--kern-color-action-state-opacity-disabled); cursor: not-allowed; }
+.kn-pagination__gap { padding-inline: var(--kern-metric-space-small); color: var(--kern-color-layout-text-muted-contextual); }
+.kn-pagination__status { margin-inline-start: auto; font: var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default); color: var(--kern-color-layout-text-muted-contextual); }
+
+/* --- SCHRITTFOLGE ------------------------------------------------------
+   Der Zustand steht im Zeichen UND im Attribut, nicht nur in der
+   Farbe. Farbe allein genügt der Barrierefreiheit nicht.
+   ---------------------------------------------------------------------- */
+
+/* Bricht um statt seitlich zu rollen (13.10.2026, Kurzprüfung): die
+   Schritte sind nicht fokussierbar — ein Rollbereich wäre in Firefox und
+   Safari per Tastatur nicht erreichbar (WCAG 2.1.1). */
+.kn-steps { display: flex; flex-wrap: wrap; gap: var(--kern-metric-space-small); margin: 0; padding: 0; list-style: none; }
+
+.kn-step {
+  flex: 1 1 0;
+  min-inline-size: var(--kern-128);
+  padding-block-start: var(--kern-metric-space-small);
+  border-block-start: var(--kern-metric-border-width-bold) solid var(--kern-color-decorative-border-default);
+  color: var(--kern-color-layout-text-muted-contextual);
+  font: var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static) var(--kern-typography-font-family-default);
+}
+
+.kn-step__marker { display: flex; align-items: center; gap: var(--kern-metric-space-small); font-weight: var(--kern-typography-font-weight-semi-bold); }
+
+.kn-step__marker::before {
+  content: attr(data-kn-number);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  inline-size: var(--kern-metric-dimension-default);
+  block-size: var(--kern-metric-dimension-default);
+  border: var(--kern-metric-border-width-default) solid currentColor;
+  border-radius: 50%;
+  font-size: var(--kern-font-size-14);
+}
+
+.kn-step[data-kn-state="done"] { border-block-start-color: var(--kern-color-feedback-success-contextual); color: var(--kern-color-layout-text-default-contextual); }
+.kn-step[data-kn-state="done"] .kn-step__marker::before {
+  content: "\2713";
+  background: var(--kern-color-feedback-success-contextual);
+  border-color: var(--kern-color-feedback-success-contextual);
+  color: var(--kern-color-layout-text-inverse-contextual);
+}
+.kn-step[data-kn-state="current"] { border-block-start-color: var(--kern-color-action-default-contextual); color: var(--kern-color-action-default-contextual); }
+.kn-step__label { display: block; margin-block-start: var(--kern-metric-space-x-small); color: var(--kern-color-layout-text-default-contextual); }
+
+/* --- MENÜ -------------------------------------------------------------- */
+
+.kn-menu__anchor { position: relative; display: inline-block; }
+
+.kn-menu {
+  position: absolute;
+  inset-block-start: calc(100% + var(--kern-metric-space-x-small));
+  inset-inline-end: 0;
+  z-index: 45;
+  min-inline-size: var(--kern-224);
+  margin: 0;
+  padding: var(--kern-metric-space-x-small);
+  list-style: none;
+  background: var(--kern-color-layout-background-default-contextual);
+  border: var(--kern-metric-border-width-default) solid var(--kern-color-layout-border-contextual);
+  border-radius: var(--kern-metric-border-radius-default);
+}
+
+.kn-menu[hidden] { display: none; }
+
+.kn-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--kern-metric-space-small);
+  inline-size: 100%;
+  min-block-size: var(--kn-target-size);
+  padding-inline: var(--kern-metric-space-small);
+  border: 0;
+  border-radius: var(--kern-metric-border-radius-small);
+  background: transparent;
+  color: var(--kern-color-layout-text-default-contextual);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.kn-menu__item:hover { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+.kn-menu__item--danger { color: var(--kern-color-feedback-danger-contextual); }
+.kn-menu__item--danger:hover { background: var(--kern-color-feedback-danger-background-contextual); }
+.kn-menu__item:disabled, .kn-menu__item[aria-disabled="true"] { opacity: var(--kern-color-action-state-opacity-disabled); cursor: not-allowed; }
+/* Auswahlmenü (role=menuitemradio): Häkchen nur am gewählten Eintrag, dazu halbfett —
+   die Wahl hängt nicht allein an einem Zeichen. */
+.kn-menu__check { visibility: hidden; }
+.kn-menu__item[aria-checked="true"] { font-weight: var(--kern-typography-font-weight-semi-bold); }
+.kn-menu__item[aria-checked="true"] .kn-menu__check { visibility: visible; }
+.kn-menu__divider { block-size: var(--kern-metric-border-width-light); margin-block: var(--kern-metric-space-x-small); border: 0; background: var(--kern-color-decorative-border-default); }
+
+/* --- SCHUBLADE ---------------------------------------------------------- */
+
+.kn-drawer {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  inline-size: min(var(--kern-480), 100vw);
+  background: var(--kern-color-layout-background-default-contextual);
+  border-inline-start: var(--kern-metric-border-width-default) solid var(--kern-color-layout-border-contextual);
+  transform: translateX(100%);
+  /* geschlossen unsichtbar und NICHT fokussierbar (M51) — erst nach dem
+     Ausfahren, damit die Bewegung sichtbar bleibt */
+  visibility: hidden;
+  transition: transform var(--kn-duration-2) var(--kn-easing), visibility 0s linear var(--kn-duration-2);
+}
+
+.kn-drawer[data-kn-open] {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform var(--kn-duration-2) var(--kn-easing), visibility 0s;
+}
+
+.kn-drawer__header {
+  display: flex;
+  align-items: center;
+  gap: var(--kern-metric-space-small);
+  padding: var(--kern-metric-space-default);
+  border-block-end: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default);
+}
+
+.kn-drawer__body { flex: 1 1 auto; overflow: auto; padding: var(--kern-metric-space-default); }
+
+/* Gedrückt nach KERNs Zustandsformel (Stufe 5d). */
+.kn-side-nav__item:active,
+.kn-tabs__tab:active,
+.kn-pagination__button:active:not([aria-current="page"]),
+.kn-menu__item:active { background: var(--kern-color-action-state-indicator-tint-active-opacity); }
+
+/* ------------------------------------------------------------------
+   BAUMANSICHT (M91, neu in 2.8.2 (nbyc)) — APG "Tree View"
+   ------------------------------------------------------------------
+   Aktenplan, Ordner, Organigramm. role=tree/treeitem/group, wandernder
+   Tab-Halt (ein Eintrag tabindex=0). Der Fokusring liegt auf der Zeile,
+   nicht auf dem ganzen Teilbaum — deshalb wird der Umriss am treeitem
+   (KERN-Regel für [tabindex] und unser F17-Ausweichwert) hier gezielt
+   abgeschaltet und an das Label gelegt.
+   ------------------------------------------------------------------ */
+.kn-tree, .kn-tree [role="group"] { margin: 0; padding: 0; list-style: none; }
+.kn-tree [role="group"] { padding-inline-start: var(--kern-metric-space-large); }
+.kn-tree [aria-expanded="false"] > [role="group"] { display: none; }
+.kn-tree [role="treeitem"][tabindex]:focus:focus-visible,
+.kn-tree [role="treeitem"]:focus { outline: none; }
+.kn-tree__label {
+  display: flex;
+  align-items: center;
+  gap: var(--kern-metric-space-x-small);
+  min-block-size: var(--kn-target-size);
+  padding-inline: var(--kern-metric-space-small);
+  border-radius: var(--kern-metric-border-radius-small);
+  color: var(--kern-color-layout-text-default-contextual);
+  font-family: var(--kern-typography-font-family-default);
+  font-size: var(--kern-typography-font-size-medium-static);
+  cursor: pointer;
+}
+.kn-tree__label:hover { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+.kn-tree [role="treeitem"]:focus-visible > .kn-tree__label {
+  outline: var(--kern-metric-border-width-bold) solid var(--kern-color-action-focus-default-contextual);
+  outline-offset: var(--kern-metric-space-none);
+}
+.kn-tree [aria-selected="true"] > .kn-tree__label {
+  background: color-mix(in oklch, var(--kern-color-action-default-contextual)
+              calc(var(--kern-color-action-state-opacity-selected) * 100%), transparent);
+  box-shadow: inset var(--kern-metric-border-width-bold) 0 0 var(--kern-color-action-default-contextual);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+}
+.kn-tree__label > .kern-icon { transition: transform var(--kn-duration-1) var(--kn-easing); }
+.kn-tree [aria-expanded="true"] > .kn-tree__label > .kern-icon { transform: rotate(90deg); }
+.kn-tree__spacer { flex: 0 0 auto; inline-size: var(--kern-metric-dimension-default); }
+@media (forced-colors: active) {
+  .kn-tree [role="treeitem"]:focus-visible > .kn-tree__label { outline-color: Highlight; }
+  .kn-tree [aria-selected="true"] > .kn-tree__label { outline: var(--kern-metric-border-width-default) solid Highlight; }
+}
+

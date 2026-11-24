@@ -1,0 +1,375 @@
+/* KERN Designer — Gestalt. Nur Werte aus designer-tokens.css (--kd-*). */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { color-scheme: dark; }
+html[data-kd-modus="hell"] { color-scheme: light; }
+html {
+  font-size: var(--kd-basis);
+  /* Fokus nie unter Kopf und A11y-Leiste verdeckt (WCAG 2.4.11): Höhen misst designer.js */
+  scroll-padding-block-start: calc(var(--kd-kopf-hoehe, 0px) + var(--kd-a11y-hoehe, 0px) + var(--kd-raum-2));
+}
+body {
+  margin: 0; min-block-size: 100vh;
+  background: var(--kd-grund); color: var(--kd-text);
+  font-family: var(--kd-schrift); font-size: var(--kd-text-m); line-height: var(--kd-zeile);
+  font-weight: var(--kd-gewicht-normal);
+}
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: var(--kd-linie-fokus) solid var(--kd-akzent); outline-offset: var(--kd-linie-fokus); }
+.kd-sr { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Versal-Beschriftung: das Kennzeichen der Maschine */
+.kd-versal {
+  text-transform: uppercase; letter-spacing: var(--kd-laufweite-versal);
+  font-size: var(--kd-text-xs); font-weight: var(--kd-gewicht-stark);
+}
+.kd-leise { color: var(--kd-text-leise); }
+.kd-mono-zahl { font-variant-numeric: tabular-nums; }
+
+/* ---------------- Kopf ---------------- */
+.kd-kopf {
+  position: sticky; inset-block-start: 0; z-index: 3;
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--kd-raum-2) var(--kd-raum-4);
+  padding: var(--kd-raum-3) var(--kd-raum-4);
+  background: var(--kd-ebene-1); border-block-end: var(--kd-linie) solid var(--kd-linie-farbe);
+}
+.kd-kopf__marke { margin: 0; font-size: var(--kd-text-l); font-weight: var(--kd-gewicht-stark); letter-spacing: var(--kd-laufweite-versal); text-transform: uppercase; }
+.kd-kopf__trenner { inline-size: var(--kd-linie); align-self: stretch; background: var(--kd-linie-farbe); }
+.kd-kopf__fassung { display: flex; flex-direction: column; }
+.kd-kopf__fassung strong { font-weight: var(--kd-gewicht-mittel); }
+.kd-kopf__zustand { display: flex; flex-direction: column; }
+.kd-kopf__ende { margin-inline-start: auto; display: flex; flex-wrap: wrap; gap: var(--kd-raum-2); }
+
+/* ---------------- Knöpfe ---------------- */
+.kd-knopf {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--kd-raum-2);
+  min-block-size: var(--kd-bedienhoehe); padding: 0 var(--kd-raum-3);
+  border: var(--kd-linie) solid var(--kd-linie-stark); border-radius: var(--kd-radius);
+  background: var(--kd-ebene-2); cursor: pointer;
+  text-transform: uppercase; letter-spacing: var(--kd-laufweite-versal);
+  font-size: var(--kd-text-s); font-weight: var(--kd-gewicht-stark);
+  transition: background var(--kd-dauer);
+  white-space: nowrap; line-height: 1;          /* einzeilig: Höhe = Bedienhöhe (D16) */
+}
+.kd-knopf:hover { background: var(--kd-linie-farbe); }
+.kd-knopf--haupt { background: var(--kd-akzent); color: var(--kd-auf-akzent); border-color: var(--kd-akzent); }
+.kd-knopf--haupt:hover { background: var(--kd-akzent); text-decoration: underline; }
+.kd-knopf--klein { padding: 0 var(--kd-raum-2); font-size: var(--kd-text-xs); }
+.kd-knopf--leise { background: transparent; border-color: transparent; }
+.kd-knopf--leise:hover { background: var(--kd-ebene-2); border-color: var(--kd-linie-farbe); }
+.kd-knopf .kd-zahl { padding-inline: var(--kd-raum-1); background: var(--kd-auf-akzent); color: var(--kd-akzent); }
+
+/* Segmente (Auswahl aus 2–3) */
+.kd-segmente { display: inline-flex; border: var(--kd-linie) solid var(--kd-linie-stark); }
+.kd-segmente label { position: relative; }
+.kd-segmente input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.kd-segmente span {
+  display: flex; align-items: center; padding: 0 var(--kd-raum-3);
+  min-block-size: calc(var(--kd-bedienhoehe) - 2 * var(--kd-linie));     /* mit Rahmen = Bedienhöhe */
+  text-transform: uppercase; letter-spacing: var(--kd-laufweite-versal);
+  font-size: var(--kd-text-xs); font-weight: var(--kd-gewicht-stark);
+}
+.kd-segmente label + label span { border-inline-start: var(--kd-linie) solid var(--kd-linie-stark); }
+.kd-segmente input:checked + span { background: var(--kd-text); color: var(--kd-grund); }
+.kd-segmente input:focus-visible + span { outline: var(--kd-linie-fokus) solid var(--kd-akzent); outline-offset: var(--kd-linie-fokus); }
+
+/* Felder */
+.kd-feld {
+  min-block-size: var(--kd-bedienhoehe); padding: 0 var(--kd-raum-2);
+  background: var(--kd-grund); border: var(--kd-linie) solid var(--kd-linie-stark); border-radius: var(--kd-radius);
+  font-size: var(--kd-text-s); inline-size: 100%;
+}
+.kd-feld:hover { border-color: var(--kd-text-leise); }
+.kd-feld[aria-invalid="true"] { border-color: var(--kd-rot); }
+
+/* ---------------- Einstellungen ---------------- */
+.kd-einst {
+  display: flex; flex-wrap: wrap; gap: var(--kd-raum-4) var(--kd-raum-8);
+  padding: var(--kd-raum-3) var(--kd-raum-4);
+  background: var(--kd-ebene-2); border-block-end: var(--kd-linie) solid var(--kd-linie-farbe);
+}
+.kd-einst[hidden] { display: none; }
+.kd-einst fieldset { margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: var(--kd-raum-1); }
+.kd-einst legend, .kd-einst .kd-versal { padding: 0; margin-block-end: var(--kd-raum-1); }
+
+/* Kurzbefehle (D19): ganze Breite unter den Einstellungen, Gruppen als Spalten */
+.kd-kurz { flex: 1 1 100%; padding-block-start: var(--kd-raum-3); border-block-start: var(--kd-linie) solid var(--kd-linie-farbe); }
+.kd-kurz__titel { margin: 0; font-size: var(--kd-text-xs); }
+.kd-kurz__einleitung { margin: 0 0 var(--kd-raum-3); }
+.kd-kurz__gruppen { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22em), 1fr)); gap: var(--kd-raum-4) var(--kd-raum-8); align-items: start; }
+.kd-kurz__tabelle { inline-size: 100%; border-collapse: collapse; font-size: var(--kd-text-s); }
+.kd-kurz__tabelle caption { text-align: start; padding-block-end: var(--kd-raum-1); color: var(--kd-akzent);
+  font-size: var(--kd-text-xs); font-weight: var(--kd-gewicht-stark); text-transform: uppercase; letter-spacing: var(--kd-laufweite-versal); }
+.kd-kurz__tabelle th, .kd-kurz__tabelle td { padding: var(--kd-raum-1) 0; vertical-align: baseline; text-align: start;
+  border-block-start: var(--kd-linie) solid var(--kd-linie-farbe); }
+.kd-kurz__tabelle th { font-weight: normal; white-space: nowrap; padding-inline-end: var(--kd-raum-3); inline-size: 1%; }
+.kd-kurz__oder { color: var(--kd-text-leise); font-size: var(--kd-text-xs); padding-inline: var(--kd-raum-1); }
+.kd-kurz__wo { display: block; color: var(--kd-text-leise); font-size: var(--kd-text-xs); }
+/* Eine Taste: wie der Hinweis "/" in der Suche */
+.kd-taste, .kd-suche__taste {
+  display: inline-block; min-inline-size: 1.6em; padding: 0 var(--kd-raum-1); text-align: center;
+  font-family: inherit; font-size: var(--kd-text-xs); line-height: 1.5; color: var(--kd-text);
+  background: var(--kd-grund); border: var(--kd-linie) solid var(--kd-linie-stark); border-block-end-width: var(--kd-linie-fokus);
+}
+.kd-taste + .kd-taste { margin-inline-start: 2px; }
+
+/* ---------------- A11y-Leiste ---------------- */
+.kd-a11y {
+  position: sticky; inset-block-start: var(--kd-kopf-hoehe, 0); z-index: 2;
+  background: var(--kd-grund); border-block-end: var(--kd-linie) solid var(--kd-linie-farbe);
+}
+.kd-a11y__kopf { display: flex; flex-wrap: wrap; align-items: center; gap: var(--kd-raum-2) var(--kd-raum-4); padding: var(--kd-raum-2) var(--kd-raum-4); }
+.kd-a11y__titel { margin: 0; }
+.kd-a11y__zahlen { display: flex; flex-wrap: wrap; gap: var(--kd-raum-4); margin: 0; padding: 0; list-style: none; }
+.kd-a11y__zahlen li { display: flex; align-items: center; gap: var(--kd-raum-1); }
+.kd-a11y__liste { max-block-size: 30vh; overflow: auto; margin: 0; padding: 0 var(--kd-raum-4) var(--kd-raum-3); list-style: none; }
+.kd-a11y__liste[hidden] { display: none; }
+.kd-befund {
+  display: grid; grid-template-columns: auto 1fr auto; gap: var(--kd-raum-1) var(--kd-raum-3); align-items: baseline;
+  padding: var(--kd-raum-2) 0; border-block-start: var(--kd-linie) solid var(--kd-linie-farbe);
+}
+.kd-befund__was { display: flex; flex-direction: column; min-inline-size: 0; }
+.kd-befund__paar { font-size: var(--kd-text-xs); color: var(--kd-text-leise); overflow-wrap: anywhere; }
+
+/* Ampel: nie nur Farbe — Zeichen und Wort stehen immer dabei */
+.kd-marke { display: inline-flex; align-items: center; gap: var(--kd-raum-1); font-weight: var(--kd-gewicht-stark); font-size: var(--kd-text-xs); text-transform: uppercase; letter-spacing: var(--kd-laufweite-versal); }
+.kd-marke::before { font-size: var(--kd-text-s); }
+.kd-marke--rot { color: var(--kd-rot); }   .kd-marke--rot::before { content: "✕"; }
+.kd-marke--gelb { color: var(--kd-gelb); } .kd-marke--gelb::before { content: "▲"; }
+.kd-marke--gruen { color: var(--kd-gruen); } .kd-marke--gruen::before { content: "✓"; }
+.kd-marke--grau { color: var(--kd-grau); } .kd-marke--grau::before { content: "?"; }
+
+/* ---------------- Arbeitsfläche ---------------- */
+.kd-arbeit { display: grid; grid-template-columns: 1fr; }
+/* Umbruchpunkte in em (Medienabfragen kennen keine Tokens): 40em = 640 px */
+@media (min-width: 40em) {
+  .kd-arbeit { grid-template-columns: var(--kd-navi-breite) minmax(0, 1fr); }
+  .kd-navi { border-inline-end: var(--kd-linie) solid var(--kd-linie-farbe); }
+}
+@media (max-width: 39.99em) {
+  .kd-navi__liste { display: flex; flex-wrap: wrap; gap: var(--kd-raum-1); }
+  .kd-navi__eintrag { inline-size: auto; border: var(--kd-linie) solid var(--kd-linie-farbe); }
+}
+.kd-navi { padding: var(--kd-raum-4); background: var(--kd-ebene-1); }
+.kd-navi__liste { margin: var(--kd-raum-2) 0 var(--kd-raum-4); padding: 0; list-style: none; }
+.kd-navi__eintrag {
+  display: flex; justify-content: space-between; gap: var(--kd-raum-2); inline-size: 100%;
+  padding: 0 var(--kd-raum-2); border: 0; background: none; text-align: start; cursor: pointer; line-height: 1.2;
+  font-size: var(--kd-text-s); min-block-size: var(--kd-bedienhoehe);
+  align-items: center;
+}
+.kd-navi__eintrag:hover { background: var(--kd-ebene-2); }
+.kd-navi__eintrag[aria-current="true"] { background: var(--kd-text); color: var(--kd-grund); }
+.kd-navi__eintrag[aria-current="true"] .kd-leise { color: inherit; }
+.kd-navi__stufe { margin: var(--kd-raum-4) 0 0; }
+
+.kd-tokens { min-inline-size: 0; }
+.kd-werkzeug {
+  display: flex; flex-wrap: wrap; align-items: end; gap: var(--kd-raum-3) var(--kd-raum-6);
+  padding: var(--kd-raum-3) var(--kd-raum-4); border-block-end: var(--kd-linie) solid var(--kd-linie-farbe);
+}
+/* Suche als Befehlszeile (D17): ein Kasten in Bedienhöhe, ganze Breite der ersten Zeile */
+.kd-suche {
+  flex: 1 1 100%; display: flex; align-items: center; gap: var(--kd-raum-2);
+  min-block-size: var(--kd-bedienhoehe); padding-inline: var(--kd-raum-2);
+  background: var(--kd-grund); border: var(--kd-linie) solid var(--kd-linie-stark);
+}
+.kd-suche:hover { border-color: var(--kd-text-leise); }
+.kd-suche:focus-within { outline: var(--kd-linie-fokus) solid var(--kd-akzent); outline-offset: var(--kd-linie-fokus); }
+.kd-suche__vorn { display: inline-flex; align-items: center; gap: var(--kd-raum-1); color: var(--kd-akzent); cursor: text; white-space: nowrap; }
+.kd-werkzeug .kd-suche__vorn .kd-versal { display: inline; margin: 0; }
+.kd-suche__feld {
+  flex: 1 1 auto; min-inline-size: 0; align-self: stretch;
+  border: 0; background: transparent; padding: 0; font-size: var(--kd-text-s);
+  -webkit-appearance: none; appearance: none;
+}
+.kd-suche__feld:focus { outline: none; }               /* Fokus zeigt der ganze Kasten */
+.kd-suche__feld::placeholder { color: var(--kd-text-leise); opacity: 1; }
+.kd-suche__feld::-webkit-search-cancel-button, .kd-suche__feld::-webkit-search-decoration { -webkit-appearance: none; display: none; }
+.kd-suche__treffer { font-size: var(--kd-text-xs); color: var(--kd-text-leise); white-space: nowrap; }
+.kd-suche__leeren {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  inline-size: var(--kd-bedienhoehe); block-size: calc(var(--kd-bedienhoehe) - 2 * var(--kd-linie));
+  border: 0; background: none; color: var(--kd-text-leise); cursor: pointer; font: inherit;
+}
+.kd-suche__leeren:hover { color: var(--kd-text); background: var(--kd-ebene-2); }
+.kd-suche__leeren[hidden] { display: none; }
+.kd-suche__taste { flex: none; color: var(--kd-text-leise); }
+.kd-suche:focus-within .kd-suche__taste { display: none; }
+.kd-werkzeug .kd-versal { display: block; margin-block-end: var(--kd-raum-1); }
+.kd-schalter { display: inline-flex; align-items: center; gap: var(--kd-raum-2); cursor: pointer; font-size: var(--kd-text-s); min-block-size: var(--kd-bedienhoehe); }
+.kd-schalter input { inline-size: calc(var(--kd-einheit) * 4); block-size: calc(var(--kd-einheit) * 4); accent-color: var(--kd-akzent); margin: 0; }
+
+.kd-gruppe__kopf { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--kd-raum-2) var(--kd-raum-4); padding: var(--kd-raum-4) var(--kd-raum-4) var(--kd-raum-2); }
+.kd-gruppe__titel { margin: 0; font-size: var(--kd-text-l); font-weight: var(--kd-gewicht-stark); }
+.kd-leer { padding: var(--kd-raum-6) var(--kd-raum-4); }
+
+/* Token-Zeilen: schmal gestapelt, breit als Tabelle */
+.kd-zeilen { margin: 0; padding: 0; list-style: none; }
+.kd-zeile {
+  display: grid; gap: var(--kd-raum-1) var(--kd-raum-3);
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "name aktion" "kern kern" "wert wert" "info info";
+  padding: var(--kd-raum-3) var(--kd-raum-4); border-block-start: var(--kd-linie) solid var(--kd-linie-farbe);
+}
+@media (min-width: 80em) {
+  .kd-zeile {
+    grid-template-columns: minmax(14em, 1.3fr) minmax(9em, 0.9fr) minmax(14em, 1.4fr) minmax(7em, 0.6fr) auto;
+    grid-template-areas: "name kern wert info aktion"; align-items: center;
+  }
+}
+.kd-zeile[data-abweichung="ja"] { background: var(--kd-ebene-1); box-shadow: inset var(--kd-raum-1) 0 0 var(--kd-akzent); }
+.kd-zeile__name { grid-area: name; display: flex; flex-direction: column; min-inline-size: 0; }
+.kd-zeile__name strong { font-weight: var(--kd-gewicht-mittel); }
+.kd-zeile__code { font-size: var(--kd-text-xs); color: var(--kd-text-leise); overflow-wrap: anywhere; }
+.kd-zeile__kern { grid-area: kern; font-size: var(--kd-text-xs); color: var(--kd-text-leise); overflow-wrap: anywhere; display: flex; align-items: center; gap: var(--kd-raum-2); }
+.kd-zeile__wert { grid-area: wert; display: flex; align-items: center; gap: var(--kd-raum-2); min-inline-size: 0; }
+.kd-zeile__info { grid-area: info; display: flex; flex-wrap: wrap; gap: var(--kd-raum-1) var(--kd-raum-2); font-size: var(--kd-text-xs); }
+.kd-zeile__aktion { grid-area: aktion; justify-self: end; }
+.kd-musterfeld {
+  flex: none; inline-size: calc(var(--kd-einheit) * 6); block-size: calc(var(--kd-einheit) * 6);
+  border: var(--kd-linie) solid var(--kd-linie-stark);
+}
+.kd-musterfeld--klein { inline-size: calc(var(--kd-einheit) * 4); block-size: calc(var(--kd-einheit) * 4); }
+.kd-etikett { padding: 0 var(--kd-raum-1); border: var(--kd-linie) solid currentColor; text-transform: uppercase; letter-spacing: var(--kd-laufweite-versal); font-weight: var(--kd-gewicht-stark); }
+.kd-etikett--frei { color: var(--kd-gruen); }
+.kd-etikett--abraten { color: var(--kd-gelb); }
+.kd-etikett--ab { color: var(--kd-akzent); }
+
+/* Meldung (stehend, höchstens ein Knopf — GI §7) */
+.kd-meldung {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--kd-raum-2) var(--kd-raum-4);
+  margin: var(--kd-raum-3) var(--kd-raum-4); padding: var(--kd-raum-3) var(--kd-raum-4);
+  border: var(--kd-linie) solid var(--kd-akzent); background: var(--kd-ebene-1);
+}
+.kd-meldung[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (forced-colors: active) {
+  .kd-segmente input:checked + span { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+  .kd-navi__eintrag[aria-current="true"] { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+}
+
+/* ---------------- Stufe 4–6: Ergänzungen ---------------- */
+.kd-kopf__fassung, .kd-kopf__zustand { margin: 0; }
+.kd-klein { font-size: var(--kd-text-xs); }
+.kd-einst__feld { display: flex; flex-direction: column; gap: var(--kd-raum-1); }
+.kd-export { display: flex; flex-wrap: wrap; gap: var(--kd-raum-2); }
+.kd-export a { color: inherit; text-decoration: none; text-transform: none; letter-spacing: 0; }
+.kd-navi__ordnung { margin: 0 0 var(--kd-raum-2); padding: 0; border: 0; }
+.kd-navi__ordnung legend { padding: 0; margin-block-end: var(--kd-raum-2); }
+.kd-werkzeug__gruppe { margin: 0; padding: 0; border: 0; }
+.kd-werkzeug__knoepfe { display: flex; flex-wrap: wrap; gap: var(--kd-raum-2); }
+.kd-knopf:disabled, .kd-knopf[aria-disabled="true"] { cursor: not-allowed; color: var(--kd-text-leise); border-style: dashed; }
+.kd-gruppe__hinweis { flex-basis: 100%; margin: 0; }
+.kd-a11y__reihen { display: flex; flex-direction: column; gap: var(--kd-raum-1); }
+.kd-a11y__teil { padding: var(--kd-raum-3) 0 var(--kd-raum-1); color: var(--kd-text-leise); }
+
+/* Zeile: mehrere Modi untereinander */
+.kd-zeile__wert { flex-direction: column; align-items: stretch; }
+.kd-zeile__modus { display: flex; align-items: center; gap: var(--kd-raum-2); min-inline-size: 0; }
+.kd-zeile__modusname { flex: none; min-inline-size: calc(var(--kd-einheit) * 16); }
+.kd-zeile__aktion { display: flex; flex-wrap: wrap; align-items: center; align-self: center; gap: var(--kd-raum-1); }
+.kd-etikett--neu { color: var(--kd-text); border-style: dashed; }
+
+/* OKLCH-Regler und Farbreihen */
+.kd-oklch-gruppe { display: grid; grid-template-columns: 1fr; gap: var(--kd-raum-1); inline-size: 100%; max-inline-size: var(--kd-regler-breite); }
+/* Schieberegler (D18): graue Hilfslinie 1 px über die ganze Strecke, türkise Spur 3 px bis
+   zum Griff (Anteil aus designer.js), Griff als Quadrat in Akzent; Zielfläche = Bedienhöhe */
+.kd-oklch, .kd-regler input {
+  -webkit-appearance: none; appearance: none; inline-size: 100%; block-size: var(--kd-bedienhoehe); margin: 0;
+  cursor: pointer; background:
+    linear-gradient(var(--kd-akzent), var(--kd-akzent)) no-repeat 0 50% / var(--kd-anteil, 0%) var(--kd-regler-spur),
+    linear-gradient(var(--kd-linie-stark), var(--kd-linie-stark)) no-repeat 0 50% / 100% var(--kd-regler-hilfslinie);
+}
+.kd-oklch::-webkit-slider-runnable-track, .kd-regler input::-webkit-slider-runnable-track { background: none; border: 0; }
+.kd-oklch::-webkit-slider-thumb, .kd-regler input::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; inline-size: var(--kd-regler-griff); block-size: var(--kd-regler-griff);
+  background: var(--kd-akzent); border: var(--kd-linie) solid var(--kd-grund); border-radius: var(--kd-radius);
+}
+.kd-oklch::-moz-range-track, .kd-regler input::-moz-range-track { background: none; border: 0; }
+.kd-oklch::-moz-range-thumb, .kd-regler input::-moz-range-thumb {
+  inline-size: var(--kd-regler-griff); block-size: var(--kd-regler-griff); box-sizing: border-box;
+  background: var(--kd-akzent); border: var(--kd-linie) solid var(--kd-grund); border-radius: var(--kd-radius);
+}
+.kd-oklch:focus-visible, .kd-regler input:focus-visible { outline: var(--kd-linie-fokus) solid var(--kd-akzent); outline-offset: var(--kd-linie-fokus); }
+.kd-oklch:hover::-webkit-slider-thumb, .kd-regler input:hover::-webkit-slider-thumb { background: var(--kd-text); }
+.kd-oklch:hover::-moz-range-thumb, .kd-regler input:hover::-moz-range-thumb { background: var(--kd-text); }
+@media (forced-colors: active) {
+  .kd-oklch, .kd-regler input { -webkit-appearance: auto; appearance: auto; background: none; }
+}
+.kd-reihe { border-block-start: var(--kd-linie) solid var(--kd-linie-stark); }
+.kd-reihe__kopf {
+  display: grid; gap: var(--kd-raum-2) var(--kd-raum-4); align-items: center;
+  grid-template-columns: 1fr; padding: var(--kd-raum-3) var(--kd-raum-4); background: var(--kd-ebene-1);
+}
+@media (min-width: 60em) { .kd-reihe__kopf { grid-template-columns: minmax(8em, auto) minmax(10em, 1fr) minmax(10em, 1fr) minmax(10em, 1fr) auto; } }
+.kd-reihe__titel { margin: 0; font-size: var(--kd-text-m); font-weight: var(--kd-gewicht-stark); text-transform: uppercase; letter-spacing: var(--kd-laufweite-versal); }
+.kd-reihe .kd-zeilen .kd-zeile { padding-inline-start: var(--kd-raum-6); }
+.kd-streifen { display: flex; flex-wrap: wrap; gap: var(--kd-linie); }
+.kd-regler { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--kd-raum-2); max-inline-size: var(--kd-regler-breite); }
+.kd-regler output { min-inline-size: calc(var(--kd-einheit) * 13); text-align: end; font-size: var(--kd-text-s); }
+
+/* Flüchtige Meldung (E5) — verschwindet selbst, kein Knopf */
+.kd-fluechtig {
+  position: fixed; inset-block-end: var(--kd-raum-4); inset-inline-end: var(--kd-raum-4); z-index: 5;
+  max-inline-size: min(36em, calc(100vw - var(--kd-raum-8)));
+  padding: var(--kd-raum-3) var(--kd-raum-4); background: var(--kd-text); color: var(--kd-grund);
+  border: var(--kd-linie) solid var(--kd-text); font-weight: var(--kd-gewicht-mittel);
+}
+.kd-fluechtig[hidden] { display: none; }
+
+/* Dialog */
+.kd-dialog {
+  max-inline-size: min(40em, calc(100vw - var(--kd-raum-8))); padding: var(--kd-raum-6);
+  background: var(--kd-ebene-1); color: var(--kd-text); border: var(--kd-linie) solid var(--kd-linie-stark); border-radius: var(--kd-radius);
+}
+.kd-dialog::backdrop { background: color-mix(in srgb, var(--kd-grund) 70%, transparent); }
+.kd-dialog__titel { margin: 0 0 var(--kd-raum-3); font-size: var(--kd-text-l); }
+.kd-dialog__liste { margin: 0 0 var(--kd-raum-4); padding-inline-start: var(--kd-raum-4); max-block-size: 30vh; overflow: auto; font-size: var(--kd-text-s); }
+.kd-dialog__liste[hidden] { display: none; }
+.kd-dialog__knoepfe { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--kd-raum-2); }
+
+/* Messrahmen: unsichtbar, aber gerendert */
+.kd-messrahmen { position: absolute; inline-size: 1px; block-size: 1px; border: 0; opacity: 0; pointer-events: none; }
+.kd-oklch-zeile { display: grid; grid-template-columns: calc(var(--kd-einheit) * 22) 1fr; align-items: center; gap: var(--kd-raum-2); }
+
+/* Schmal oder niedrig (unter 640 px breit oder 640 px hoch): Kopf und A11y-Leiste
+   nicht angedockt — sonst bleibt für die Tokens kaum Platz (gemessen bei 280 px
+   Breite: Kopf + Leiste 560 von 778 px Höhe). */
+/* D15: angedockt wird nur, was Platz lässt — designer.js misst die Höhen und setzt
+   data-kd-kopf-fest (Kopf ≤ 30 % der Fensterhöhe) und data-kd-a11y-fest (Kopf + Leiste
+   ≤ 45 %). So bleibt der Kopf mit Speichern und "Alles auf KERN" auch in kleinen
+   Fenstern sichtbar, solange er nicht selbst den Platz frisst. */
+html:not([data-kd-kopf-fest]) .kd-kopf, html:not([data-kd-a11y-fest]) .kd-a11y { position: static; }
+html:not([data-kd-kopf-fest]) { scroll-padding-block-start: var(--kd-raum-2); }
+html[data-kd-kopf-fest]:not([data-kd-a11y-fest]) { scroll-padding-block-start: calc(var(--kd-kopf-hoehe, 0px) + var(--kd-raum-2)); }
+
+/* Vom Inspektor im OnePager angesprungen: kurz hervorheben */
+.kd-zeile[data-kd-angesprungen] { outline: var(--kd-linie-fokus) solid var(--kd-akzent); outline-offset: calc(var(--kd-linie-fokus) * -1); }
+
+/* Versionsdialog: Stufe wählen (Korrektur · Neben · Haupt) */
+.kd-stufen { margin: var(--kd-raum-3) 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: var(--kd-raum-2); }
+.kd-stufen legend { padding: 0; margin-block-end: var(--kd-raum-2); }
+.kd-stufe { display: grid; grid-template-columns: auto 1fr; gap: var(--kd-raum-2); align-items: start; cursor: pointer;
+  padding: var(--kd-raum-2) var(--kd-raum-3); border: var(--kd-linie) solid var(--kd-linie-farbe); }
+.kd-stufe:has(input:checked) { border-color: var(--kd-akzent); background: var(--kd-ebene-2); }
+.kd-stufe input { accent-color: var(--kd-akzent); margin: var(--kd-raum-1) 0 0; inline-size: calc(var(--kd-einheit) * 4); block-size: calc(var(--kd-einheit) * 4); }
+.kd-stufe > span { display: flex; flex-direction: column; }
+.kd-version-verstoesse { margin-block-end: var(--kd-raum-3); }
+.kd-zahl--leise { background: var(--kd-text); color: var(--kd-grund); }
+
+/* ---------------- D15: kleine Fenster ---------------- */
+.kd-kopf__verlauf { display: flex; flex-wrap: wrap; gap: var(--kd-raum-1); margin-inline-end: var(--kd-raum-2); }
+.kd-navi__schalter { display: none; inline-size: 100%; justify-content: flex-start; gap: var(--kd-raum-2); text-transform: none; letter-spacing: normal; }
+@media (max-width: 39.99em) {
+  .kd-navi__schalter { display: inline-flex; }
+  .kd-navi:not([data-offen]) .kd-navi__klappe { display: none; }
+  .kd-navi { padding-block: var(--kd-raum-2); }
+}
+/* Scrollbalken immer sichtbar, in den Farben des Designers (macOS blendet sie sonst aus) */
+html { scrollbar-color: var(--kd-linie-stark) var(--kd-grund); }
+::-webkit-scrollbar { inline-size: calc(var(--kd-einheit) * 3); block-size: calc(var(--kd-einheit) * 3); }
+::-webkit-scrollbar-track { background: var(--kd-grund); }
+::-webkit-scrollbar-thumb { background: var(--kd-linie-stark); border: var(--kd-linie-fokus) solid var(--kd-grund); }
+::-webkit-scrollbar-thumb:hover { background: var(--kd-text-leise); }

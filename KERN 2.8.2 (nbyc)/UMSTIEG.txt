@@ -1,0 +1,384 @@
+UMSTIEG VON KERN NEU 0.5.7 AUF KERN 2.8.2 (nbyc)
+Fassung: 0.2.0 · 16.11.2026
+================================================================================
+NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
+      KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
+      KI-Assistenten von Anthropic. Nicht das offizielle KERN.
+
+ERZEUGT von pruefung/umstieg-bauen.py aus katalog/begriffe.json — nicht von
+Hand ändern. (Die Fassung 0.5.6 → 0.5.7 liegt in Git, Tag 0.5.7.)
+
+DIE KURZE ANTWORT
+--------------------------------------------------------------------------------
+2.8.2 (nbyc) ist ein BRUCH mit 0.5.7 (Entscheidung E1, angekündigt in AENDERUNGEN):
+  1  KERN 2.8.2 ist unverändert eingebunden. Wo KERN einen Baustein hat,
+     gilt KERNs Markup — der kn-Baustein aus 0.5.7 ist ENTFERNT (Teil A).
+     Vorlage für das neue Markup: die Original-Beispiele im Katalog.
+  2  Zusatzbausteine ohne KERN-Vorbild heißen englisch (E9) — Teil B.
+     Mechanisch umzustellen: Klasse, Bestandteile, Varianten, data-Attribute.
+  3  Schalter und Werte englisch — Teil C.
+  4  Carbon-Maße und eigene Farbrollen gibt es nicht mehr. Wer kn-Tokens aus
+     0.5.7 in eigenem CSS nutzt: KERN-Ausdruck in Teil E. Seiten setzen
+     <body class="kn-page"> für den Seitenrahmen.
+
+GETESTET: python3 pruefung/umstieg-testen.py prüft jeden Namen aus 0.5.7
+(Git-Tag: Muster, Katalog, Skript, Bausteindateien) gegen diese Liste.
+
+SUCHEN
+--------------------------------------------------------------------------------
+  Alle alten Namen eines Projekts finden (im Projektordner):
+    grep -rnoE "kn-[a-z]+(__[a-z]+)?(--[a-z0-9-]+)?|data-kn-[a-z-]+" .
+  Jede Fundstelle in den Tabellen unten nachschlagen.
+
+
+A  ERSETZT DURCH KERN (Markup nach KERN-Beispiel)
+--------------------------------------------------------------------------------
+  0.5.7                              2.8.2 (nbyc): KERN-Klasse    bleibt als Erweiterung
+  kn-knopf, kn-symbolknopf           kern-btn                     kn-knopf--gefahr → kn-btn--danger, kn-knopf--gefahr-zweit → kn-btn--danger-secondary, data-kn-laedt → data-kn-loading
+  kn-verweis, kn-zurueck             kern-link                    kn-verweis--leise → kn-link--muted
+  kn-feld, kn-zahlfeld, kn-datum, kn-passwort, kn-ablage kern-form-input              kn-feld__eingabe--10 → kn-input--width-10, kn-feld__eingabe--20 → kn-input--width-20, kn-zahlfeld → kn-number-stepper, kn-ablage → kn-file-list, data-kn-darueber → data-kn-dragover
+  kn-wahl                            kern-form-check              —
+  kn-feldgruppe                      kern-fieldset                —
+  kn-suche                           kern-input-group             —
+  kn-menue                           kern-dropdown                data-kn-menue → data-kn-menu
+  kn-tabelle, kn-tabellenrahmen, kn-rechts, kn-zahl kern-table                   kn-tabelle--festkopf → kn-table--sticky-head, kn-sortier → kn-table-sort, kn-wahlspalte → kn-table-select-col, data-kn-sortierbar → data-kn-sortable, data-kn-zeilenwahl → data-kn-row-select, data-kn-allewahl → data-kn-select-all, data-kn-auswaehlbar → data-kn-selectable
+  kn-werte                           kern-description-list        —
+  kn-uebersicht                      kern-summary                 —
+  kn-aufgaben                        kern-task-list               —
+  kn-karte                           kern-card                    —
+  kn-aufklapper                      kern-accordion               —
+  kn-dialog                          kern-dialog                  kn-dialog--gefahr → kn-dialog--danger
+  kn-meldung                         kern-alert                   —
+  kn-marke                           kern-badge                   kn-marke--rand → kn-badge--outline
+  kn-lader                           kern-loader                  —
+  kn-trenner                         kern-divider                 —
+  kn-titel                           kern-heading                 —
+  kn-text                            kern-body                    —
+  kn-vorzeile                        kern-preline                 —
+  kn-liste                           kern-list                    —
+  kn-bahn                            kern-container               —
+  kn-raster, kn-reihe, kn-stapel     kern-row                     kn-behaelter → kn-cq
+  kn-nur-vorlesen                    kern-sr-only                 —
+
+B  ZUSATZBAUSTEINE — UMBENANNT (E9)
+--------------------------------------------------------------------------------
+  kn-ablage              → kn-file-list             Dateiablage / File List
+      kn-ablage__datei               → kn-file-list__file
+      kn-ablage__groesse             → kn-file-list__size
+      kn-ablage__liste               → kn-file-list__list
+      data-kn-darueber               → data-kn-dragover
+  kn-banner              → kn-banner                Seitenbanner / Banner
+      kn-banner__kopf                → kn-banner__header
+      kn-banner__leib                → kn-banner__body
+      kn-banner--erfolg              → kn-banner--success
+      kn-banner--gefahr              → kn-banner--danger
+  kn-behaelter           → kn-cq                    Container-Abfrage / Container Query
+  kn-bestaetigung        → kn-confirmation          Bestätigung / Confirmation
+      kn-bestaetigung__nummer        → kn-confirmation__number
+  kn-bildnis             → kn-avatar                Bildnis / Avatar
+      kn-bildnis--gross              → kn-avatar--large
+      kn-bildnis--klein              → kn-avatar--small
+  kn-combobox            → kn-combobox              Combobox / Combobox
+      kn-combobox__leer              → kn-combobox__empty
+      kn-combobox__liste             → kn-combobox__list
+      kn-combobox__punkt             → kn-combobox__option
+      data-kn-combobox               → data-kn-combobox
+  kn-einschub            → kn-inset-text            Einschub / Inset Text
+      kn-einschub--aktion            → kn-inset-text--action
+  kn-fehlerliste         → kn-error-summary         Fehlerzusammenfassung / Error Summary
+      kn-fehlerliste__liste          → kn-error-summary__list
+      kn-fehlerliste__titel          → kn-error-summary__title
+  kn-filtermarke         → kn-filter-tag            Filtermarke / Filter Tag
+  kn-fortschritt         → kn-progress-bar          Fortschrittsbalken / Progress Bar
+      kn-fortschritt__balken         → kn-progress-bar__bar
+  kn-fuss                → kn-footer                Seitenfuß / Footer
+      kn-fuss__liste                 → kn-footer__list
+      kn-fuss__recht                 → kn-footer__legal
+      kn-fuss__spalten               → kn-footer__columns
+      kn-fuss__titel                 → kn-footer__title
+  kn-hauptnav            → kn-main-nav              Hauptnavigation / Main Navigation
+      kn-hauptnav__liste             → kn-main-nav__list
+      kn-hauptnav__punkt             → kn-main-nav__item
+  kn-kennzahl            → kn-metric                Kennzahl / Metric
+      kn-kennzahl__marke             → kn-metric__label
+      kn-kennzahl__wert              → kn-metric__value
+  kn-kopf                → kn-header                Seitenkopf / Header
+      kn-kopf__marke                 → kn-header__brand
+      kn-kopf__rest                  → kn-header__end
+  kn-krumen              → kn-breadcrumb            Brotkrumen / Breadcrumb
+      kn-krumen__liste               → kn-breadcrumb__list
+  kn-kurzhinweis         → kn-tooltip               Kurzhinweis / Tooltip
+      kn-kurzhinweis__blase          → kn-tooltip__bubble
+  kn-leer                → kn-empty-state           Leerzustand / Empty State
+      kn-leer__titel                 → kn-empty-state__title
+  kn-menue               → kn-menu                  Überlaufmenü / Overflow Menu
+      kn-menue__anker                → kn-menu__anchor
+      kn-menue__punkt                → kn-menu__item
+      kn-menue__trenner              → kn-menu__divider
+      kn-menue--gefahr               → kn-menu--danger
+      data-kn-menue                  → data-kn-menu
+  kn-phase               → kn-phase-banner          Phasenmarke / Phase Banner
+  kn-platzhalter         → kn-skeleton              Platzhalter / Skeleton
+      kn-platzhalter--kurz           → kn-skeleton--short
+      kn-platzhalter--rund           → kn-skeleton--circle
+      kn-platzhalter--titel          → kn-skeleton--title
+  kn-raster              → kn-auto-grid             Raster (automatische Spalten) / Auto Grid
+  kn-regler              → kn-slider                Schieberegler / Slider
+      kn-regler__enden               → kn-slider__ends
+      kn-regler__kopf                → kn-slider__header
+      kn-regler__wert                → kn-slider__value
+      data-kn-wert-ziel              → data-kn-value-target
+      data-kn-einheit                → data-kn-unit
+  kn-reiter              → kn-tabs                  Reiter / Tabs
+      kn-reiter__feld                → kn-tabs__panel
+      kn-reiter__knopf               → kn-tabs__tab
+      kn-reiter__liste               → kn-tabs__list
+      data-kn-reiter                 → data-kn-tabs
+  kn-schalter            → kn-switch                Schalter / Switch
+      kn-schalter__eingabe           → kn-switch__input
+      kn-schalter__griff             → kn-switch__thumb
+      kn-schalter__spur              → kn-switch__track
+      kn-schalter__text              → kn-switch__label
+  kn-schritt             → kn-step                  Schritt / Step
+      kn-schritt__marke              → kn-step__marker
+      kn-schritt__text               → kn-step__label
+      data-kn-stand                  → data-kn-state
+      data-kn-nummer                 → data-kn-number
+      Wert fertig                    → done
+      Wert jetzt                     → current
+  kn-schritte            → kn-steps                 Schrittfolge / Steps
+  kn-schublade           → kn-drawer                Schublade / Drawer
+      kn-schublade__kopf             → kn-drawer__header
+      kn-schublade__leib             → kn-drawer__body
+      data-kn-schublade              → data-kn-drawer
+      data-kn-offen                  → data-kn-open
+  kn-segmente            → kn-segmented             Segmentwahl / Segmented Control
+      kn-segmente__knopf             → kn-segmented__button
+      kn-segmente__knopf--klein      → kn-segmented__button--small
+  kn-seitennav           → kn-side-nav              Seitennavigation / Side Navigation
+      kn-seitennav__gruppe           → kn-side-nav__group
+      kn-seitennav__liste            → kn-side-nav__list
+      kn-seitennav__punkt            → kn-side-nav__item
+      kn-seitennav__titel            → kn-side-nav__title
+      kn-seitennav__zahl             → kn-side-nav__count
+  kn-seitenweiser        → kn-pagination            Seitenweiser / Pagination
+      kn-seitenweiser__knopf         → kn-pagination__button
+      kn-seitenweiser__luecke        → kn-pagination__gap
+      kn-seitenweiser__stand         → kn-pagination__status
+  kn-sortier             → kn-table-sort            Sortierbarer Spaltenkopf / Sortable Header
+      kn-sortier__knopf              → kn-table-sort__button
+      data-kn-sortierbar             → data-kn-sortable
+      data-kn-wert                   → data-kn-value
+  kn-sprungmarke         → kn-skip-link             Sprungmarke / Skip Link
+  kn-tabellenrahmen      → kn-table-frame           Tabellenrahmen (fester Kopf) / Table Frame
+  kn-teilknopf           → kn-split-button          Teilknopf / Split Button
+  kn-toast               → kn-toast                 Flüchtige Meldung / Toast
+      kn-toast__text                 → kn-toast__text
+      kn-toast--erfolg               → kn-toast--success
+  kn-toastfeld           → kn-toast-region          Meldungsbereich / Toast Region
+  kn-wahlspalte          → kn-table-select-col      Auswahlspalte / Selection Column
+      data-kn-auswaehlbar            → data-kn-selectable
+      data-kn-zeilenwahl             → data-kn-row-select
+      data-kn-allewahl               → data-kn-select-all
+  kn-warnhinweis         → kn-warning-text          Warnhinweis / Warning Text
+  kn-werkzeuge           → kn-toolbar               Werkzeugleiste / Toolbar
+      kn-werkzeuge__trenner          → kn-toolbar__divider
+  kn-zaehler             → kn-char-count            Zeichenzähler / Character Count
+      data-kn-zaehler                → data-kn-char-count
+      data-kn-zaehler-ziel           → data-kn-char-count-target
+      data-kn-knapp                  → data-kn-near-limit
+      data-kn-ueber                  → data-kn-over-limit
+  kn-zahlfeld            → kn-number-stepper        Zahlenfeld mit Knöpfen / Number Stepper
+      kn-zahlfeld__knopf             → kn-number-stepper__button
+  kn-zeitleiste          → kn-timeline              Zeitleiste / Timeline
+      kn-zeitleiste__marke           → kn-timeline__label
+      kn-zeitleiste__punkt           → kn-timeline__dot
+      kn-zeitleiste__text            → kn-timeline__text
+      kn-zeitleiste__titel           → kn-timeline__title
+      kn-zeitleiste__zeit            → kn-timeline__time
+      kn-zeitleiste__punkt--fertig   → kn-timeline__dot--done
+      kn-zeitleiste__punkt--offen    → kn-timeline__dot--open
+
+  Varianten allgemein: --erfolg → --success, --gefahr → --danger, --warnung → --warning, --info → --info, --klein → --small, --gross → --large, --wahl → --selectable, --festkopf → --sticky-head
+
+C  SCHALTER, ATTRIBUTE UND WERTE
+--------------------------------------------------------------------------------
+  data-kn-stand (Tabellen-Statuszeile)   → data-kn-status-of
+  data-kn-modus                          → data-kn-mode
+  data-kn-kontrast                       → data-kn-contrast
+  data-kn-dichte                         → data-kn-density
+  data-kn-laedt                          → data-kn-loading
+  data-kn-thema                          → data-kern-theme (KERN; Werte light, dark)
+  data-kn-ziel="bequem"                  → data-kn-density="spacious" (nächste Stufe; 56 statt 44 px)
+  data-kn-dialog-auf="id"                → data-dialog-target="id" (KERN)
+  data-kn-mode: thema → theme, kontrast → contrast
+  Modus-Werte: hell → light, dunkel → dark, hoch → high, normal → normal, system → system
+  data-kn-density: eng → compact, weit → spacious
+  KN.toast Art: erfolg → success, gefahr → entfällt (E5, Fehler als kern-alert)
+  data-kn-state: fertig → done, jetzt → current
+  Speicher: kn-thema → kn-theme, kn-kontrast → kn-contrast
+  Token --kn-raster-min                  → --kn-auto-grid-min
+  Token --kn-tabellenrahmen-hoehe        → --kn-table-frame-height
+
+  Entfallen ohne Nachfolger:
+  kn-wahl--gerahmt                       entfällt — KERN hat keinen gerahmten Stil; kern-form-check nach KERN-Beispiel
+  kn-toast__zu                           entfällt — flüchtige Meldung schließt selbst, ohne Knopf (E5); mit Handlung: kern-alert
+  kn-fest                                entfällt — Datumszellen in kern-table brauchen keine eigene Klasse
+  data-kn-aufklapper                     entfällt — kern-accordion mit <details>/<summary>, ohne Skript
+  data-kn-passwort                       entfällt — kern-input-group mit Passwortfeld und Knopf (aria-pressed); kern-neu.js erkennt das KERN-Markup
+  data-kn-dialog-zu                      entfällt — Knöpfe in <form method="dialog"> (KERN-Beispiel)
+  kn-fokus                               entfällt — KERNs Fokus gilt an allen bedienbaren Elementen; tabindex-Elemente ergänzt 01b (F17)
+  kn-schleier                            entfällt — Zustände kommen von den KERN-Bausteinen (state-opacity-Tokens)
+  kn-gesperrt                            aria-disabled="true" (E4); kern-neu.js sperrt Klick, Tasten und Eingabe
+  kn-marke-text                          entfällt — kern-badge mit innerem kern-label
+  kn-dreht, kn-wandert, kn-toast-ein     entfallen — interne Animationsnamen aus 0.5.7, nie im Markup
+  kn-toast--gefahr                       entfällt — flüchtige Meldung nur für Bestätigungen (E5); Fehler als kern-alert
+
+D  NEU IN 2.8.2 (nbyc) — Vollständigkeit, Vergleich Teil 9
+--------------------------------------------------------------------------------
+  kn-ai-label          KI-Kennzeichnung / AI Label  (SOLL, M88) — gebaut 13.10.2026 (Stufe 5f, Paket 1)
+  kn-date-picker       Kalender-Datum / Date Picker  (SOLL, M89) — gebaut 13.10.2026 (Stufe 5f, Paket 3)
+  kn-time-input        Uhrzeit / Time Input  (SOLL, M89) — gebaut 13.10.2026 (Stufe 5f, Paket 3)
+  kn-multiselect       Mehrfachauswahl / Multiselect  (SOLL, M90) — gebaut 13.10.2026 (Stufe 5f, Paket 2)
+  kn-tree              Baumansicht / Tree View  (SOLL, M91) — gebaut 13.10.2026 (Stufe 5f, Paket 2)
+  kn-popover           Popover / Popover  (SOLL, M92) — gebaut 13.10.2026 (Stufe 5f, Paket 1)
+  kn-toggletip         Hinweis auf Klick / Toggletip  (SOLL, M92) — gebaut 13.10.2026 (Stufe 5f, Paket 1)
+  kn-table-batch       Stapelaktionen / Batch Actions  (SOLL, M93) — gebaut 13.10.2026 (Stufe 5f, Paket 4)
+  kn-table-expand      Aufklappbare Tabellenzeile / Expandable Row  (SOLL, M93) — gebaut 13.10.2026 (Stufe 5f, Paket 4)
+  kn-table-toolbar     Tabellen-Werkzeugleiste / Table Toolbar  (SOLL, M93) — gebaut 13.10.2026 (Stufe 5f, Paket 4)
+  kn-nav-rail          Schmale Seitenleiste / Navigation Rail  (KANN, M94) — gebaut 13.10.2026 (Stufe 5f, Paket 4)
+  kn-code-block        Codeblock / Code Block  (KANN, M95) — gebaut 13.10.2026 (Stufe 5f, Paket 1)
+  kn-count-badge       Zähler-Marke / Count Badge  (KANN, M96) — gebaut 13.10.2026 (Stufe 5f, Paket 1)
+  kn-fab               Schwebender Aktionsknopf / Floating Action Button  (SOLL, M97) — gebaut 13.10.2026 (Stufe 5f, Paket 1)
+
+E  TOKENS AUS 0.5.7 → KERN (für eigenes CSS)
+--------------------------------------------------------------------------------
+  Die kn-Tokens aus 0.5.7 gibt es nicht mehr. Wer sie in eigenem CSS
+  benutzt, ersetzt sie durch den KERN-Ausdruck rechts (Stand der Brücke
+  bis Stufe 5d). Die Werte sind KERNs, nicht mehr Carbons — Abstände und
+  Höhen können sich darum um wenige Pixel ändern; die Anmerkung nennt es.
+  --kn-aktion                    → var(--kern-color-action-default)
+  --kn-aktion-aktiv              → var(--kern-color-action-state-indicator-shade-active)
+  --kn-aktion-hover              → var(--kern-color-action-state-indicator-shade-hover)
+  --kn-aktion-leise              → color-mix(in oklch, var(--kern-color-action-default) calc(var(--kern-color-action-state-opacity-selected) * 100%), transparent)
+  --kn-ankreuz-groesse           → var(--kern-metric-dimension-large)   /* 32 */
+  --kn-auf-aktion                → var(--kern-color-action-on-default)
+  --kn-bahn-breite               → entfällt   /* kern-container; schmal: kn-container--narrow */
+  --kn-besucht                   → var(--kern-color-action-visited)
+  --kn-dauer-1                   → var(--kn-duration-1)   /* Erweiterung, 01b */
+  --kn-dauer-2                   → var(--kn-duration-2)   /* Erweiterung, 01b */
+  --kn-ecke-0                    → var(--kern-metric-border-radius-none)
+  --kn-ecke-1                    → var(--kern-metric-border-radius-small)   /* 2 */
+  --kn-ecke-2                    → var(--kern-metric-border-radius-default)   /* 4 */
+  --kn-ecke-3                    → var(--kern-metric-border-radius-large)   /* 8 */
+  --kn-ecke-rund                 → var(--kern-metric-border-radius-circle)
+  --kn-erfolg                    → var(--kern-color-feedback-success)
+  --kn-erfolg-fl                 → var(--kern-color-feedback-success-background)
+  --kn-erhebung-2                → var(--kern-shadow-elevation-default)
+  --kn-erhebung-3                → var(--kern-shadow-elevation-high)
+  --kn-feld-breite-10            → var(--kern-192)
+  --kn-feld-breite-2             → var(--kern-metric-dimension-2x-large)   /* 56 — KERN width-2 */
+  --kn-feld-breite-20            → var(--kern-352)
+  --kn-feld-breite-4             → var(--kern-metric-dimension-4x-large)   /* 80 — KERN width-4 */
+  --kn-feld-ecke                 → var(--kern-metric-border-radius-small)
+  --kn-feld-fl                   → var(--kern-color-form-input-background)
+  --kn-feld-hoehe                → var(--kern-metric-dimension-x-large)   /* 48 */
+  --kn-feld-linie                → var(--kern-color-form-input-border)
+  --kn-fett-halb                 → var(--kern-typography-font-weight-semi-bold)
+  --kn-fett-mittel               → var(--kern-typography-font-weight-medium)
+  --kn-fett-normal               → var(--kern-typography-font-weight-regular)
+  --kn-flaeche                   → var(--kern-color-layout-background-default)
+  --kn-flaeche-1                 → var(--kern-color-layout-background-hued)
+  --kn-flaeche-2                 → var(--kern-color-layout-background-hued)
+  --kn-flaeche-3                 → var(--kern-color-layout-background-hued)
+  --kn-flaeche-invers            → var(--kern-color-layout-background-inverted)
+  --kn-flaeche-schleier          → color-mix(in oklch, var(--kern-color-black) calc(var(--kern-color-action-state-opacity-overlay) * 100%), transparent)
+  --kn-fokus-abstand             → var(--kern-metric-space-none)
+  --kn-fokus-abstand-knopf       → var(--kern-2)
+  --kn-fokus-breite              → var(--kern-metric-border-width-bold)
+  --kn-fokus-farbe               → var(--kern-color-action-focus-default)
+  --kn-fokus-hilfe               → transparent
+  --kn-fuellung                  → --kn-fill   /* intern, setzt kern-neu.js am Schieberegler */
+  --kn-gefahr                    → var(--kern-color-feedback-danger)
+  --kn-gefahr-fl                 → var(--kern-color-feedback-danger-background)
+  --kn-hoehe-01                  → var(--kern-metric-dimension-default)   /* 24 */
+  --kn-hoehe-02                  → var(--kern-metric-dimension-large)   /* 32 */
+  --kn-hoehe-03                  → var(--kern-40)   /* 40 — KERN Knopf "small" */
+  --kn-hoehe-05                  → var(--kern-metric-dimension-3x-large)   /* 64 */
+  --kn-info                      → var(--kern-color-feedback-info)
+  --kn-info-fl                   → var(--kern-color-feedback-info-background)
+  --kn-karte-ecke                → var(--kern-metric-border-radius-default)
+  --kn-knopf-ecke                → var(--kern-metric-border-radius-default)
+  --kn-knopf-hoehe               → var(--kern-metric-dimension-x-large)   /* 48 */
+  --kn-knopf-hoehe-gross         → var(--kern-metric-dimension-2x-large)   /* 56, KERN large */
+  --kn-knopf-hoehe-klein         → var(--kern-metric-dimension-large)   /* 32, KERN x-small */
+  --kn-kurve                     → var(--kn-easing)   /* Erweiterung, 01b */
+  --kn-linie                     → var(--kern-color-layout-border)
+  --kn-linie-leise               → var(--kern-color-decorative-border-default)
+  --kn-linie-stark               → var(--kern-color-form-input-border)
+  --kn-marke-ecke                → var(--kern-metric-border-radius-default)
+  --kn-menue-breite              → var(--kern-224)
+  --kn-rand-1                    → var(--kern-metric-border-width-light)   /* 1 */
+  --kn-rand-2                    → var(--kern-metric-border-width-default)   /* 2 */
+  --kn-rand-3                    → var(--kern-metric-border-width-bold)   /* 4 (war 3) */
+  --kn-raum-01                   → var(--kern-metric-space-2x-small)   /* 2 */
+  --kn-raum-02                   → var(--kern-metric-space-x-small)   /* 4 */
+  --kn-raum-03                   → var(--kern-metric-space-small)   /* 8 */
+  --kn-raum-04                   → entfällt   /* 12 px gibt es in KERN nicht: --kern-metric-space-small (8) oder -default (16) */
+  --kn-raum-05                   → var(--kern-metric-space-default)   /* 16 */
+  --kn-raum-06                   → var(--kern-metric-space-large)   /* 24 */
+  --kn-raum-07                   → var(--kern-metric-space-x-large)   /* 32 */
+  --kn-raum-09                   → var(--kern-metric-space-3x-large)   /* 48 */
+  --kn-raum-1                    → var(--kern-metric-space-x-small)   /* 4 */
+  --kn-raum-10                   → var(--kern-metric-space-5x-large)   /* 64 */
+  --kn-raum-12                   → var(--kern-metric-space-7x-large)   /* 96 */
+  --kn-raum-2                    → var(--kern-metric-space-small)   /* 8 */
+  --kn-raum-3                    → var(--kern-metric-space-small)   /* 8 (war 12) */
+  --kn-raum-4                    → var(--kern-metric-space-default)   /* 16 */
+  --kn-raum-5                    → var(--kern-metric-space-large)   /* 24 */
+  --kn-raum-6                    → var(--kern-metric-space-x-large)   /* 32 */
+  --kn-raum-7                    → var(--kern-metric-space-3x-large)   /* 48 */
+  --kn-raum-8                    → var(--kern-metric-space-5x-large)   /* 64 */
+  --kn-reihe-abstand             → entfällt   /* kern-row mit KERNs Abstand */
+  --kn-schalter-breite           → var(--kern-metric-dimension-x-large)   /* 48 */
+  --kn-schalter-griff            → var(--kern-18)
+  --kn-schalter-hoehe            → var(--kern-metric-dimension-default)   /* 24 */
+  --kn-schleier-gedrueckt        → calc(100% - var(--kern-color-action-state-opacity-active))
+  --kn-schleier-gewaehlt         → var(--kern-color-action-state-opacity-selected)
+  --kn-schleier-hover            → calc(100% - var(--kern-color-action-state-opacity-hover))
+  --kn-schrift                   → var(--kern-typography-font-family-default)
+  --kn-schrift-fest              → var(--kern-typography-font-family-fira-mono)
+  --kn-schritt-breite            → var(--kern-128)
+  --kn-spur-m                    → var(--kern-metric-space-none)
+  --kn-spur-s                    → var(--kern-metric-space-none)
+  --kn-spur-xs                   → var(--kern-metric-space-none)
+  --kn-stapel-abstand            → entfällt   /* kern-row mit KERNs Abstand */
+  --kn-stufe-01                  → var(--kern-font-size-14)
+  --kn-stufe-02                  → var(--kern-typography-font-size-small-static)   /* 16 */
+  --kn-stufe-05                  → var(--kern-font-size-20)
+  --kn-stufe-07                  → entfällt   /* 28 px: KERN-Überschrift (kern-heading-*) statt Schriftgrad */
+  --kn-stufe-09                  → entfällt   /* 36 px: KERN-Überschrift (kern-heading-*) statt Schriftgrad */
+  --kn-tabelle-hoehe             → var(--kern-metric-dimension-x-large)   /* 48 */
+  --kn-tabelle-hoehe-eng         → var(--kern-40)
+  --kn-tabelle-hoehe-weit        → var(--kern-metric-dimension-2x-large)   /* 56 */
+  --kn-tabelle-spalte            → var(--kern-metric-space-default)   /* 16 */
+  --kn-tabelle-zeile             → var(--kern-metric-space-small)   /* 8 */
+  --kn-text                      → var(--kern-color-layout-text-default)
+  --kn-text-2xl                  → var(--kern-typography-font-size-large-adaptive)/var(--kern-typography-line-height-large-adaptive)   /* 26/32 → 32/40 */
+  --kn-text-3xl                  → var(--kern-typography-font-size-x-large-adaptive)/var(--kern-typography-line-height-x-large-adaptive)   /* 32/40 → 48/56 */
+  --kn-text-invers               → var(--kern-color-layout-text-inverse)
+  --kn-text-l                    → var(--kern-typography-font-size-large-static)/var(--kern-typography-line-height-large-static)   /* 21/32 */
+  --kn-text-leise                → var(--kern-color-layout-text-muted)
+  --kn-text-m                    → var(--kern-typography-font-size-medium-static)/var(--kern-typography-line-height-medium-static)   /* 18/24 Fließtext */
+  --kn-text-s                    → var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static)   /* 16/24 */
+  --kn-text-s-eng                → var(--kern-typography-font-size-medium-static)/var(--kern-typography-line-height-medium-static)   /* 18/24 Knopf, Feld */
+  --kn-text-xl                   → var(--kern-typography-font-size-medium-adaptive)/var(--kern-typography-line-height-medium-adaptive)   /* 21/24 → 24/32 */
+  --kn-text-xs                   → var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static)   /* 16/24 */
+  --kn-warnung                   → var(--kern-color-feedback-warning)
+  --kn-warnung-fl                → var(--kern-color-feedback-warning-background)
+  --kn-zeit-spalte               → entfällt   /* intern (Zeitleiste) */
+  --kn-zeitleiste-punkt          → var(--kern-12)   /* Punkt der Zeitleiste */
+  --kn-ziel                      → var(--kern-metric-dimension-x-large)   /* 48 */
+  --kn-ziel-eng                  → var(--kern-40)   /* Tabellendichte "eng" */
+  --kn-ziel-weit                 → var(--kern-metric-dimension-2x-large)   /* Tabellendichte "weit" */
+-/-

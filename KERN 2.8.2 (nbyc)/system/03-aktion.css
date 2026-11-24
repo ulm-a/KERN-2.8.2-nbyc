@@ -1,0 +1,130 @@
+/* ==================================================================
+   KERN 2.8.2 (nbyc) — 03 AKTION (Zusatzbausteine)
+   ==================================================================
+   Teilknopf, Segmentwahl, Sprungmarke.
+   ================================================================== */
+
+/* Knöpfe sind KERNs kern-btn (seit Stufe 5b). Ergänzungen daran
+   (Gefahr, Ladezustand) stehen in 02b-kern-ergaenzung.css. */
+
+/* ------------------------------------------------------------------
+   TEILKNOPF (Knopf mit Aufklappmenü)
+   ------------------------------------------------------------------ */
+
+.kn-split-button { position: relative; display: inline-flex; }
+.kn-split-button > .kern-btn:first-child { border-start-end-radius: 0; border-end-end-radius: 0; }
+.kn-split-button > .kern-btn:last-child {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  margin-inline-start: calc(var(--kern-metric-border-width-default) * -1);
+  padding-inline: var(--kern-metric-space-small);
+}
+
+/* ------------------------------------------------------------------
+   SEGMENTWAHL
+   ------------------------------------------------------------------
+   Zwei bis vier sich ausschließende Sichten. Kein Ersatz für Reiter:
+   Segmente wechseln die DARSTELLUNG derselben Daten, Reiter wechseln
+   den INHALT.
+   ------------------------------------------------------------------ */
+
+.kn-segmented {
+  display: inline-flex;
+  border: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border-contextual);
+  border-radius: var(--kern-metric-border-radius-default);
+  overflow: hidden;
+}
+
+.kn-segmented__button {
+  position: relative;
+  isolation: isolate;
+  min-block-size: var(--kn-target-size);
+  padding-inline: var(--kern-metric-space-default);
+  border: 0;
+  border-inline-end: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border-contextual);
+  background: var(--kern-color-layout-background-default-contextual);
+  color: var(--kern-color-layout-text-default-contextual);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.kn-segmented__button:last-child { border-inline-end: 0; }
+/* Klein (Modus-Leisten) — bis 0.5.7 über kn-knopf--klein; seit Stufe 5b eigen. */
+.kn-segmented__button--small {
+  min-block-size: var(--kern-metric-dimension-large);
+  padding-inline: var(--kern-metric-space-small);
+  font-size: var(--kern-typography-font-size-small-static);
+}
+.kn-segmented__button:hover:not([aria-pressed="true"]) { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
+
+.kn-segmented__button[aria-pressed="true"] {
+  background: var(--kern-color-action-default-contextual);
+  color: var(--kern-color-action-on-default-contextual);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+}
+
+@media (forced-colors: active) {
+  .kn-segmented__button[aria-pressed="true"] { background: Highlight; color: HighlightText; }
+}
+
+/* ------------------------------------------------------------------
+   SPRUNGMARKE
+   ------------------------------------------------------------------
+   Muss der erste fokussierbare Punkt der Seite sein. Pflicht nach
+   BITV 2.0.
+   ------------------------------------------------------------------ */
+
+.kn-skip-link {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  z-index: 100;
+  padding: var(--kern-metric-space-small) var(--kern-metric-space-default);
+  /* EIGENES Farbpaar, nicht --kn-fokus-hilfe. Jenes Token ist im
+     Hellmodus gelb, im DUNKELMODUS aber schwarz — der feste dunkle
+     Text darauf ergab 1,31 zu 1. Am 12.08.2026 im Browser gemessen.
+     --kn-aktion / --kn-auf-aktion ist in allen vier Modi ein Paar. */
+  background: var(--kern-color-action-default-contextual);
+  color: var(--kern-color-action-on-default-contextual);
+  font-weight: var(--kern-typography-font-weight-semi-bold);
+  text-decoration: underline;
+  transform: translateY(-150%);
+}
+
+.kn-skip-link:focus-visible { transform: translateY(0); }
+.kn-segmented__button:active:not([aria-pressed="true"]) { background: var(--kern-color-action-state-indicator-tint-active-opacity); }
+
+/* ------------------------------------------------------------------
+   SCHWEBENDER AKTIONSKNOPF — FAB (M97, Entscheidung 13.10.2026)
+   ------------------------------------------------------------------
+   Aus kern-btn kern-btn--primary. Klein-rund (nur Symbol, Name über
+   kern-sr-only) oder breit (kn-fab--extended, Symbol + Text). Höchstens
+   einer je Seite. Bauauflagen (Vergleich 9.3, X1): die Seite hält unten
+   Platz frei, damit er nie den letzten Inhalt verdeckt; er steht in der
+   Tab-Reihenfolge dort, wo er im Markup steht; 56 px ≥ 44 px.
+   KEIN SCHATTEN (13.10.2026): KERN definiert Schatten-Tokens, setzt sie
+   aber in keinem Baustein sichtbar ein. Der FAB grenzt sich darum wie
+   KERN über eine Linie ab: 4 px (border-width-bold) in der Seitenfarbe
+   (layout-background-default — hell weiß, dunkel schwarz).
+   ------------------------------------------------------------------ */
+.kern-btn.kn-fab {
+  position: fixed;
+  inset-block-end: calc(var(--kern-metric-space-large) + env(safe-area-inset-bottom, 0px));
+  inset-inline-end: calc(var(--kern-metric-space-large) + env(safe-area-inset-right, 0px));
+  z-index: 60;
+  inline-size: var(--kern-metric-dimension-2x-large);
+  min-block-size: var(--kern-metric-dimension-2x-large);
+  padding: 0;
+  border: var(--kern-metric-border-width-bold) solid var(--kern-color-layout-background-default-contextual);
+  border-radius: var(--kern-metric-border-radius-circle);
+}
+.kern-btn.kn-fab--extended {
+  inline-size: auto;
+  gap: var(--kern-metric-space-x-small);
+  padding-inline: var(--kern-metric-space-default) var(--kern-metric-space-large);
+  border-radius: calc(var(--kern-metric-dimension-2x-large) / 2);
+}
+.kn-page:has(.kn-fab) {
+  padding-block-end: calc(var(--kern-metric-dimension-2x-large) + var(--kern-metric-space-large) * 2);
+}
+

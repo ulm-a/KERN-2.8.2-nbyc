@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Katalog — KERN 2.8.2 (nbyc) · Fassung 0.2.0</title>
+<link rel="stylesheet" href="system/kern-neu.css?v=2.8.2-nbyc.44">
+<style>
+/* Nur das Gerüst dieser Seite. Keine Komponente wird hier gestaltet —
+   sonst wäre der Katalog kein Nachweis. Alle Werte aus Token. */
+.kt { display: grid; grid-template-columns: 17rem minmax(0, 1fr); grid-template-rows: auto 1fr; min-block-size: 100vh; }
+/* --kt-leiste: Höhe der Kopfleiste, gemessen (Skript unten) — die Navigation steht darunter */
+.kt__nav {
+  position: sticky; inset-block-start: var(--kt-leiste, 0px); block-size: calc(100vh - var(--kt-leiste, 0px)); overflow-y: auto;
+  padding: var(--kern-metric-space-default) 0 var(--kern-metric-space-3x-large);
+  background: var(--kern-color-layout-background-hued);
+  border-inline-end: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default);
+}
+.kt__nav-kopf { padding: 0 var(--kern-metric-space-default) var(--kern-metric-space-default); }
+.kt__suche { margin: 0 var(--kern-metric-space-default) var(--kern-metric-space-default); }
+.kt__haupt { min-inline-size: 0; }
+/* Kopfleiste über die ganze Breite: links (über der Navigation) der Filter, rechts Modus und Kontrast */
+.kt__leiste {
+  grid-column: 1 / -1;
+  position: sticky; inset-block-start: 0; z-index: 70;
+  display: grid; grid-template-columns: 17rem minmax(0, 1fr); align-items: center;
+  background: var(--kern-color-layout-background-hued);
+  border-block-end: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default);
+}
+.kt__leiste-links {
+  display: flex; justify-content: flex-end; align-self: stretch; align-items: center;
+  padding: var(--kern-metric-space-x-small) var(--kern-metric-space-default);
+  border-inline-end: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default);
+}
+.kt__leiste-rechts {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--kern-metric-space-small);
+  padding: var(--kern-metric-space-x-small) var(--kern-metric-space-x-large);
+}
+.kt__leiste-rechts .kern-label { margin-inline-start: var(--kern-metric-space-default); padding-block: 0; }
+.kt__filtermenue { min-inline-size: max-content; white-space: nowrap; }
+.kt__leiste .kern-btn { margin-block: 0; }
+/* Filter aktiv: Punkt am Symbol — dazu sagt der Name des Knopfs den Filter, und die Zahl links nennt ihn */
+.kt__filter[data-kt-aktiv]::after {
+  content: ""; position: absolute; inset-block-start: var(--kern-metric-space-x-small); inset-inline-end: var(--kern-metric-space-x-small);
+  inline-size: var(--kern-8); block-size: var(--kern-8); border-radius: var(--kern-metric-border-radius-circle);
+  background: var(--kern-color-action-default-contextual);
+}
+@media (forced-colors: active) { .kt__filter[data-kt-aktiv]::after { background: CanvasText; } }
+.kt__inhalt { padding: var(--kern-metric-space-x-large); max-inline-size: 62rem; }
+.kt__kopfzeile { display: flex; align-items: baseline; gap: var(--kern-metric-space-small); flex-wrap: wrap; }
+.kt__gruppe-marke { color: var(--kern-color-layout-text-muted-contextual); font-size: 0.875rem; }
+.kt__zweck { font-size: 1.125rem; max-inline-size: 46rem; }
+.kt__wann { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: var(--kern-metric-space-default); }
+.kt__bsp { border: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); border-radius: var(--kern-metric-border-radius-large); overflow: hidden; }
+.kt__bsp-kopf { display: flex; align-items: center; gap: var(--kern-metric-space-small); padding: var(--kern-metric-space-small) var(--kern-metric-space-default); background: var(--kern-color-layout-background-hued); border-block-end: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); }
+.kt__buehne { padding: var(--kern-metric-space-large); background: var(--kern-color-layout-background-default-contextual); }
+/* ?rahmen=0: Beispiel ohne Rahmen — für die Bilder im Heft (13.10.2026) */
+.kt-ohne-rahmen .kt__bsp { border: 0; border-radius: 0; }
+.kt__quelle { margin: 0; padding: var(--kern-metric-space-default); background: var(--kern-color-layout-background-hued); border-block-start: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); font-family: var(--kern-typography-font-family-fira-mono); font-size: 0.8125rem; line-height: 1.6; overflow-x: auto; }
+.kt__quelle[hidden] { display: none; }
+.kt__hinweis--markup { padding-inline-start: var(--kern-metric-space-small); border-inline-start: var(--kern-metric-border-width-bold) solid var(--kern-color-feedback-warning-contextual); color: var(--kern-color-layout-text-default-contextual); }
+.kt__hinweis { margin: 0 0 var(--kern-metric-space-default); color: var(--kern-color-layout-text-muted-contextual); font-size: 0.875rem; max-inline-size: 46rem; }
+@media (max-width: 62rem) {
+  .kt { grid-template-columns: 1fr; } .kt__nav { position: static; block-size: auto; }
+  .kt__leiste { grid-template-columns: auto minmax(0, 1fr); }
+  .kt__leiste-links { justify-content: flex-start; border-inline-end: 0; }
+  .kt__leiste-rechts { padding-inline: var(--kern-metric-space-default); }
+}
+</style>
+</head>
+<body class="kn-page">
+
+<a class="kn-skip-link" href="#inhalt" data-kt-text="sprung">Zum Inhalt springen</a>
+
+<div class="kt">
+
+  <!-- Kopfleiste: links Filter (neu · bestehend · alle), rechts Sprache, Modus und Kontrast.
+       Kleinste KERN-Knöpfe (x-small, 32 px). "System" gibt es nicht als Knopf:
+       ohne Wahl gilt das Betriebssystem, gedrückt ist der passende Knopf. -->
+  <header class="kt__leiste">
+    <div class="kt__leiste-links">
+      <div class="kn-menu__anchor">
+        <button class="kern-btn kern-btn--tertiary kern-btn--x-small kt__filter" type="button" data-kn-menu
+                aria-controls="kt-filter" aria-expanded="false" aria-haspopup="menu" data-kt-filter-knopf>
+          <span class="kern-icon kn-icon--filter-list" aria-hidden="true"></span>
+          <span class="kern-sr-only" data-kt-filter-name>Komponenten filtern: alle</span></button>
+        <ul class="kn-menu kt__filtermenue" id="kt-filter" role="menu" aria-label="Komponenten filtern" data-kt-attr="aria-label:filterMenue" hidden>
+          <li role="none"><button class="kn-menu__item" role="menuitemradio" aria-checked="true" value="alle" tabindex="-1">
+            <span class="kern-icon kern-icon--check kn-menu__check" aria-hidden="true"></span><span><span data-kt-text="m_alle">Alle</span> <span data-kt-anzahl="alle"></span></span></button></li>
+          <li role="none"><button class="kn-menu__item" role="menuitemradio" aria-checked="false" value="neu" tabindex="-1">
+            <span class="kern-icon kern-icon--check kn-menu__check" aria-hidden="true"></span><span><span data-kt-text="m_neu">Neu in 2.8.2 (nbyc)</span> <span data-kt-anzahl="neu"></span></span></button></li>
+          <li role="none"><button class="kn-menu__item" role="menuitemradio" aria-checked="false" value="bestehend" tabindex="-1">
+            <span class="kern-icon kern-icon--check kn-menu__check" aria-hidden="true"></span><span><span data-kt-text="m_bestehend">Bestehend</span> <span data-kt-anzahl="bestehend"></span></span></button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="kt__leiste-rechts">
+      <span class="kern-label kern-label--small" id="kt-sprache" data-kt-text="sprache">Sprache</span>
+      <div class="kn-segmented" role="group" aria-labelledby="kt-sprache">
+        <button class="kn-segmented__button kn-segmented__button--small" type="button" data-kt-sprache value="de" lang="de" aria-pressed="true">Deutsch</button>
+        <button class="kn-segmented__button kn-segmented__button--small" type="button" data-kt-sprache value="en" lang="en" aria-pressed="false">English</button>
+      </div>
+      <span class="kern-label kern-label--small" id="kt-modus" data-kt-text="modus">Modus</span>
+      <div class="kn-segmented" role="group" aria-labelledby="kt-modus">
+        <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="light" aria-pressed="false" data-kt-text="hell">Hell</button>
+        <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="dark" aria-pressed="false" data-kt-text="dunkel">Dunkel</button>
+      </div>
+      <span class="kern-label kern-label--small" id="kt-kontrast" data-kt-text="kontrast">Kontrast</span>
+      <div class="kn-segmented" role="group" aria-labelledby="kt-kontrast">
+        <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="contrast" value="normal" aria-pressed="false" data-kt-text="normal">Normal</button>
+        <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="contrast" value="high" aria-pressed="false" data-kt-text="erhoeht">Erhöht</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       LINKE NAVIGATION
+       So führen Carbon, Material und GOV.UK durch ihre Kataloge:
+       Suche oben, Gruppen darunter, der aktuelle Punkt markiert.
+       ============================================================ -->
+  <nav class="kt__nav" aria-label="Komponenten" data-kt-attr="aria-label:nav">
+    <div class="kt__nav-kopf">
+      <a class="kern-link kn-link--plain" href="index.html">
+        <span class="kern-title" style="margin:0">KERN 2.8.2 (nbyc)</span></a>
+      <p class="kern-body kern-body--small kern-body--muted" style="margin:0" data-kt-zahl>Fassung <!--kn-fassung-->0.2.0<!--/kn-fassung--></p>
+      <p class="kern-body kern-body--small kern-body--muted" style="margin:0" data-kt-text="name">„nbyc“ = New by Claude – gebaut mit Claude, dem KI-Assistenten von Anthropic</p>
+    </div>
+
+    <div class="kt__suche">
+      <label class="kern-sr-only" for="suche" data-kt-text="sucheLabel">Komponenten durchsuchen</label>
+      <input class="kern-form-input__input" id="suche" type="search"
+             placeholder="Komponente suchen" autocomplete="off" data-kt-attr="placeholder:suche">
+    </div>
+
+    <div class="kn-side-nav" data-nav></div>
+  </nav>
+
+  <div class="kt__haupt">
+    <main class="kt__inhalt" id="inhalt" data-seite tabindex="-1"></main>
+  </div>
+</div>
+
+<script src="system/kern-neu.js?v=2.8.2-nbyc.44"></script>
+<script src="katalog/inhalt.js?v=2.8.2-nbyc.44"></script>
+<script src="katalog/kern-inhalt.js?v=2.8.2-nbyc.44"></script>
+<script src="katalog/inhalt-en.js?v=2.8.2-nbyc.44"></script>
+<script src="katalog/meta.js?v=2.8.2-nbyc.44"></script>
+<script>
+(function () {
+  "use strict";
+  if (new URLSearchParams(location.search).get("rahmen") === "0") document.documentElement.classList.add("kt-ohne-rahmen");
+
+  /* --- Sprache (E10, M84): Deutsch oder Englisch, gemerkt je Gerät ------
+     Oberflächentexte aus UI; Eintragstexte Englisch aus katalog/inhalt-en.js
+     (KATALOG_EN), Wiederkehrendes (Gruppe, Herkunft, Stand, Klassenart) aus
+     den Wörterlisten. Die Beispiele bleiben deutsche Musterdaten (lang="de"). */
+  var sprache = "de";
+  try { sprache = localStorage.getItem("kt-sprache") === "en" ? "en" : "de"; } catch (x) {}
+  var UI = {
+    de: {
+      name: "„nbyc“ = New by Claude – gebaut mit Claude, dem KI-Assistenten von Anthropic",
+      titel: "Katalog KERN 2.8.2 (nbyc)", sprung: "Zum Inhalt springen", nav: "Komponenten",
+      sucheLabel: "Komponenten durchsuchen", suche: "Komponente suchen", keine: "Keine Komponente gefunden.",
+      zahl: "Fassung %v · %k KERN-Bausteine, %e Erweiterungen", gefiltert: " · gefiltert: %f, %n",
+      filterMenue: "Komponenten filtern", filterName: "Komponenten filtern: %f", filterAnsage: "Filter: %f – %n Komponenten",
+      f_alle: "alle", f_neu: "neu in 2.8.2 (nbyc)", f_bestehend: "bestehend",
+      m_alle: "Alle", m_neu: "Neu in 2.8.2 (nbyc)", m_bestehend: "Bestehend",
+      modus: "Modus", hell: "Hell", dunkel: "Dunkel", kontrast: "Kontrast", normal: "Normal", erhoeht: "Erhöht",
+      sprache: "Sprache", spracheAnsage: "Sprache: Deutsch",
+      herkunft: "Herkunft", quelle: "Verwendung, Dos und Don’ts, Barrierefreiheit im Original:",
+      wann: "Wann nehmen", nicht: "Wann nicht", lebend: "Lebendes Beispiel",
+      qZeigen: "Quelltext zeigen", qVerbergen: "Quelltext verbergen", barriere: "Barrierefreiheit",
+      pflichten: "Pflichten der Umsetzung",
+      pflichtenHinweis: "Die „implementierungsabhängigen“ Punkte der KERN-Seite, mit Stand in KERN 2.8.2 (nbyc). Nativ = Browser-Element · KERN = im KERN-Markup · kern-neu.js = von 2.8.2 (nbyc) gebaut · Anwendung = Inhalt oder Zusammenhang · offen = noch nicht erfüllt.",
+      pflicht: "Pflicht", stand: "Stand", anmerkung: "Anmerkung",
+      tastatur: "Tastatur", taste: "Taste", wirkung: "Wirkung", ansage: "Ansage",
+      klassen: "Klassen", klasse: "Klasse", bedeutung: "Bedeutung", klassenVon: "Klassen von %n",
+      weitere: "Weitere Komponenten",
+      deutsch: "Deutsch", englisch: "Englisch", auchGenannt: "Auch genannt", abweichungen: "Abweichungen von KERN",
+      abwKeine: "keine — Erweiterung; KERN hat diesen Baustein nicht. Gebaut aus KERN-Tokens.",
+      abwKeineEigene: "keine eigene",
+      abwAlle: "Für alle Bausteine: %l (Modi, Fokus, hidden). Wortlaut, Grund und Beleg:",
+      markup: "Achtung, KERNs Original-Markup ist hier unsauber (F25): %b. Beim Übernehmen berichtigen — der Katalog zeigt es unverändert (E8).",
+      offen: "%n × <%t> nicht geschlossen", zuviel: "%n × </%t> zu viel"
+    },
+    en: {
+      name: "“nbyc” = New by Claude – built with Claude, Anthropic’s AI assistant",
+      titel: "Catalogue KERN 2.8.2 (nbyc)", sprung: "Skip to content", nav: "Components",
+      sucheLabel: "Search components", suche: "Search component", keine: "No component found.",
+      zahl: "Version %v · %k KERN components, %e extensions", gefiltert: " · filtered: %f, %n",
+      filterMenue: "Filter components", filterName: "Filter components: %f", filterAnsage: "Filter: %f – %n components",
+      f_alle: "all", f_neu: "new in 2.8.2 (nbyc)", f_bestehend: "existing",
+      m_alle: "All", m_neu: "New in 2.8.2 (nbyc)", m_bestehend: "Existing",
+      modus: "Mode", hell: "Light", dunkel: "Dark", kontrast: "Contrast", normal: "Normal", erhoeht: "High",
+      sprache: "Language", spracheAnsage: "Language: English",
+      herkunft: "Origin", quelle: "Usage, dos and don’ts, accessibility in the original (German):",
+      wann: "When to use", nicht: "When not to use", lebend: "Live example (German sample content)",
+      qZeigen: "Show source", qVerbergen: "Hide source", barriere: "Accessibility",
+      pflichten: "Implementation duties",
+      pflichtenHinweis: "The points KERN’s page leaves to the implementation, with their status in KERN 2.8.2 (nbyc). Native = browser element · KERN = in KERN’s markup · kern-neu.js = built by 2.8.2 (nbyc) · Application = content or context · open = not yet met.",
+      pflicht: "Duty", stand: "Status", anmerkung: "Note",
+      tastatur: "Keyboard", taste: "Key", wirkung: "Effect", ansage: "Announcement",
+      klassen: "Classes", klasse: "Class", bedeutung: "Meaning", klassenVon: "Classes of %n",
+      weitere: "More components",
+      deutsch: "German", englisch: "English", auchGenannt: "Also called", abweichungen: "Deviations from KERN",
+      abwKeine: "none — extension; KERN has no such component. Built from KERN tokens.",
+      abwKeineEigene: "none of its own",
+      abwAlle: "For all components: %l (modes, focus, hidden). Wording, reason and evidence (German):",
+      markup: "Note: KERN’s original markup is not clean here (F25): %b. Fix it when you copy it — the catalogue shows it unchanged (E8).",
+      offen: "%n × <%t> not closed", zuviel: "%n × </%t> too many"
+    }
+  };
+  /* Wiederkehrende Wörter aus den Daten (deutsch → englisch) */
+  var WORT = {
+    gruppe: { "Grundlagen": "Foundations", "Aktion": "Action", "Eingabe": "Input", "Navigation": "Navigation",
+      "Daten": "Data", "Rückmeldung": "Feedback", "Fläche": "Surface", "KERN · Text": "KERN · Text",
+      "KERN · Aktion": "KERN · Action", "KERN · Formular": "KERN · Form", "KERN · Inhalt": "KERN · Content",
+      "KERN · Rückmeldung": "KERN · Feedback", "KERN · Layout": "KERN · Layout" },
+    herkunft: { "KERN 2.8.2": "KERN 2.8.2", "Erweiterung (aus KERN-Tokens)": "Extension (built from KERN tokens)",
+      "Erweiterung (Grundlage, aus KERN-Tokens)": "Extension (foundation, built from KERN tokens)" },
+    stand: { "nativ": "native", "KERN": "KERN", "kern-neu.js": "kern-neu.js", "Anwendung": "Application", "offen": "open" },
+    art: { "Baustein": "Component", "Bestandteil": "Element", "Variante": "Variant" }
+  };
+  /* Fassung: EINE Quelle ist thema/fassung.json; hier gesetzt von
+     pruefung/fassung-setzen.py, nie von Hand (Prüfung 27). */
+  var FASSUNG = "0.2.0";  /* kn-fassung */
+
+  function T(schluessel, werte) {
+    var s = (UI[sprache] || UI.de)[schluessel];
+    Object.keys(werte || {}).forEach(function (w) { s = s.replace("%" + w, werte[w]); });
+    return s;
+  }
+  function EN(k) { return sprache === "en" ? (window.KATALOG_EN || {})[k.id] || {} : {}; }
+  /* Feld eines Eintrags in der gewählten Sprache; fehlt Englisch, bleibt Deutsch (Prüfung 17 meldet das) */
+  function feld(k, f) { var en = EN(k); return en[f] !== undefined ? en[f] : k[f]; }
+  function wort(liste, w) { return sprache === "en" && WORT[liste][w] ? WORT[liste][w] : w; }
+  function artEN(a) {
+    return sprache === "en" ? a.replace("Fehler im Original", "Error in the original").replace("Erweiterung", "Extension")
+      .replace("Ergänzung", "Addition") : a;
+  }
+
+  /* KERN zuerst (Grundsatz 1): die KERN-Bausteine aus kern-inhalt.js
+     (erzeugt), danach die eigenen Einträge, als Erweiterung gekennzeichnet. */
+  var K = (window.KERN_BAUSTEINE || []).concat(window.KATALOG.map(function (k) {
+    if (!k.herkunft) k.herkunft = k.gruppe === "Grundlagen" ? "Erweiterung (Grundlage, aus KERN-Tokens)" : "Erweiterung (aus KERN-Tokens)";
+    return k;
+  }));
+  /* Zahl aus den Daten, nicht von Hand (stand bis 13.10.2026 fest auf 33) */
+  var zahl = document.querySelector("[data-kt-zahl]");
+  function zahlText() {
+    return T("zahl", { v: FASSUNG, k: (window.KERN_BAUSTEINE || []).length,
+      e: window.KATALOG.filter(function (k) { return k.gruppe !== "Grundlagen"; }).length });
+  }
+  /* Filter (13.10.2026): alle · neu (in 2.8.2 (nbyc) dazugekommen, Liste aus
+     begriffe.json über meta.js) · bestehend. Gemerkt je Gerät, angesagt bei Wahl. */
+  var filter = "alle";
+  try { filter = localStorage.getItem("kt-filter") || "alle"; } catch (e) {}
+  function istNeu(k) { return (window.KATALOG_META && window.KATALOG_META.neu || []).indexOf(k.id) !== -1; }
+  function passt(k) { return filter === "alle" || (filter === "neu") === istNeu(k); }
+
+  /* Namen, Synonyme, Abweichungen je Eintrag (M70) — erzeugt aus begriffe.json
+     und ABWEICHUNGEN.txt (pruefung/katalog-meta-bauen.py) */
+  var META = window.KATALOG_META || { namen: {}, abweichungen: [] };
+  function namenVon(k) { return META.namen[k.id] || []; }
+  /* Suche über beide Sprachen (M84): „Schaltfläche“ und „Button“ finden dasselbe */
+  function suchtext(k) {
+    var en = (window.KATALOG_EN || {})[k.id] || {};
+    return [k.name, k.gruppe, k.zweck, en.name || "", en.zweck || "", WORT.gruppe[k.gruppe] || ""]
+      .concat(k.synonyme || [], namenVon(k).map(function (n) {
+        return n.code + " " + n.de + " " + n.en + " " + n.synonyme.join(" ");
+      })).join(" ").toLocaleLowerCase("de");
+  }
+  var nav    = document.querySelector("[data-nav]");
+  var seite  = document.querySelector("[data-seite]");
+  var suche  = document.getElementById("suche");
+
+  function e(t) {
+    return String(t).replace(/[&<>"]/g, function (z) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[z];
+    });
+  }
+
+  /* --- Linke Navigation, nach Gruppen -------------------------------- */
+  function zeichneNav(filterText) {
+    var such = (filterText || "").trim().toLocaleLowerCase("de");
+    var gruppen = [];
+    K.forEach(function (k) {
+      if (!passt(k)) return;
+      if (such && suchtext(k).indexOf(such) === -1) return;
+      var g = gruppen.filter(function (x) { return x.name === k.gruppe; })[0];
+      if (!g) { g = { name: k.gruppe, punkte: [] }; gruppen.push(g); }
+      g.punkte.push(k);
+    });
+
+    if (!gruppen.length) {
+      nav.innerHTML = '<p class="kern-body kern-body--small kern-body--muted" style="padding:0 1rem">' + e(T("keine")) + '</p>';
+      return;
+    }
+
+    var jetzt = location.hash.slice(1) || K[0].id;
+    nav.innerHTML = gruppen.map(function (g) {
+      return '<div class="kn-side-nav__group">' +
+        '<p class="kn-side-nav__title">' + e(wort("gruppe", g.name)) + '</p>' +
+        '<ul class="kn-side-nav__list">' +
+        g.punkte.map(function (k) {
+          return '<li><a class="kn-side-nav__item" href="#' + k.id + '"' +
+            (k.id === jetzt ? ' aria-current="page"' : "") + '>' + e(feld(k, "name")) + '</a></li>';
+        }).join("") + '</ul></div>';
+    }).join("");
+  }
+
+  /* --- Steckbrief: Klasse, Namen, Synonyme, Abweichungen (M70) ------- */
+  function einmal(liste) {
+    return liste.filter(function (x, i) { return x && liste.indexOf(x) === i; });
+  }
+  function zeile(schluessel, wert) {
+    return '<div class="kern-description-list-item"><dt class="kern-description-list-item__key">' + schluessel +
+      '</dt><dd class="kern-description-list-item__value">' + wert + '</dd></div>';
+  }
+  function steckbrief(k) {
+    var n = namenVon(k);
+    if (!n.length) {
+      return k.synonyme && k.synonyme.length ? '<p class="kt__hinweis">' + e(T("auchGenannt")) + ': ' + e(k.synonyme.join(", ")) + '</p>' : "";
+    }
+    var codes = n.map(function (x) { return x.code; });
+    var namen = einmal(n.map(function (x) { return x.de; }).concat(n.map(function (x) { return x.en; }), [k.name]));
+    var syn = einmal((k.synonyme || []).concat.apply(k.synonyme || [], n.map(function (x) { return x.synonyme; })))
+      .filter(function (s) { return namen.indexOf(s) === -1; });
+    var vonKern = codes.filter(function (c) { return c.indexOf("kern-") === 0; });
+    var abw;
+    if (!vonKern.length) {
+      abw = e(T("abwKeine"));
+    } else {
+      var spez = META.abweichungen.filter(function (a) {
+        return a.bausteine instanceof Array && a.bausteine.some(function (c) { return codes.indexOf(c) !== -1; });
+      });
+      var alle = META.abweichungen.filter(function (a) { return a.bausteine === "alle"; });
+      abw = (spez.length ? '<ul class="kern-list kern-list--bullet" style="margin:0">' + spez.map(function (a) {
+               return '<li>' + e(a.nr + " " + (sprache === "en" && a.titel_en ? a.titel_en : a.titel)) +
+                 ' <span class="kt__gruppe-marke">· ' + e(artEN(a.art)) + '</span></li>';
+             }).join("") + '</ul>' : e(T("abwKeineEigene"))) +
+            '<p class="kt__gruppe-marke" style="margin:0.5rem 0 0">' + e(T("abwAlle", { l: alle.map(function (a) { return a.nr; }).join(", ") })) +
+            ' <a class="kern-link" href="ABWEICHUNGEN.txt" hreflang="de">ABWEICHUNGEN.txt</a></p>';
+    }
+    return '<dl class="kern-description-list" style="margin-block:0 2rem">' +
+      zeile(e(T("klasse")), codes.map(function (c) { return '<span class="kn-code">' + e(c) + '</span>'; }).join(", ")) +
+      zeile(e(T("deutsch")), '<span lang="de">' + e(einmal(n.map(function (x) { return x.de; })).join(", ")) + '</span>') +
+      zeile(e(T("englisch")), '<span lang="en">' + e(einmal(n.map(function (x) { return x.en; })).join(", ")) + '</span>') +
+      (syn.length ? zeile(e(T("auchGenannt")), e(syn.join(", "))) : "") +
+      zeile(e(T("abweichungen")), abw) + '</dl>';
+  }
+
+  function liste(werte) { return werte.map(function (s) { return "<li>" + e(s) + "</li>"; }).join(""); }
+
+  /* --- Eine Komponentenseite ------------------------------------------ */
+  /* KERNs Beispiele verweisen auf "/img/kern-img-media.png" — einen absoluten
+     Pfad, der nur von einer Serverwurzel aus auflöst. Das Markup bleibt
+     unverändert (Instruktion §8): aufgelöst wird erst beim Rendern, auf das
+     mitgelieferte img/ dieses Pakets. Der angezeigte Quelltext bleibt KERNs
+     Original. Befund B1 des Assessments vom 16.11.2026. */
+  function bildPfad(h) {
+    return h.replace(/(\ssrc=")\/img\//g, '$1img/');
+  }
+
+  function zeichneSeite() {
+    var id = location.hash.slice(1) || K[0].id;
+    var k = K.filter(function (x) { return x.id === id; })[0] || K[0];
+    var en = EN(k), name = feld(k, "name");
+
+    var teile = [];
+    teile.push('<div class="kt__kopfzeile">' +
+      '<h1 class="kern-heading-large" style="margin:0">' + e(name) + '</h1>' +
+      '<span class="kt__gruppe-marke">' + e(wort("gruppe", k.gruppe)) + ' · ' + e(T("herkunft")) + ': ' +
+      e(en.herkunft || wort("herkunft", k.herkunft)) + '</span></div>');
+    teile.push('<p class="kern-body kt__zweck" style="margin-block:1rem 1rem">' + e(feld(k, "zweck")) + '</p>');
+    teile.push(steckbrief(k));
+    if (k.quelle) {
+      teile.push('<p class="kern-body kern-body--small" style="margin-block:0 2rem">' + e(T("quelle")) +
+        ' <a class="kern-link" href="' + e(k.quelle) + '" hreflang="de">' + e(k.quelle.replace("https://www.", "")) + '</a></p>');
+    }
+
+    /* Entscheidungshilfe — das, was der Recherche zufolge in KERN
+       ganz fehlt: nicht nur WAS es gibt, sondern WANN man es nimmt. */
+    var wann = feld(k, "wann"), nicht = feld(k, "nicht");
+    if (wann.length || nicht.length) teile.push('<div class="kt__wann" style="margin-block-end:2.5rem">' +
+      '<div class="kern-card"><div class="kern-card__container"><header class="kern-card__header">' +
+      '<h2 class="kern-title">' + e(T("wann")) + '</h2></header><div class="kern-card__body"><ul class="kern-list kern-list--bullet">' +
+      liste(wann) + '</ul></div></div></div>' +
+      '<div class="kern-card"><div class="kern-card__container"><header class="kern-card__header">' +
+      '<h2 class="kern-title">' + e(T("nicht")) + '</h2></header><div class="kern-card__body"><ul class="kern-list kern-list--bullet">' +
+      liste(nicht) + '</ul></div></div></div></div>');
+
+    /* Beispiele: live UND als Quelltext, aus demselben String. Inhalt sind
+       deutsche Musterdaten — darum lang="de" an der Bühne (WCAG 3.1.2). */
+    k.bsp.forEach(function (b, i) {
+      var qid = "q-" + k.id + "-" + i, bEN = (en.bsp || [])[i] || {};
+      teile.push('<h2 class="kern-heading-small">' + e(bEN.titel || b.titel) + '</h2>');
+      if (b.hinweis) teile.push('<p class="kt__hinweis">' + e(bEN.hinweis || b.hinweis) + '</p>');
+      /* F25: unsauberes Markup in KERNs Beispiel — vom Generator festgestellt (kern-katalog-bauen.py) */
+      if (b.markup) {
+        var befund = [];
+        Object.keys(b.markup.offen || {}).forEach(function (tag) { befund.push(T("offen", { n: b.markup.offen[tag], t: tag })); });
+        Object.keys(b.markup.zuviel || {}).forEach(function (tag) { befund.push(T("zuviel", { n: b.markup.zuviel[tag], t: tag })); });
+        teile.push('<p class="kt__hinweis kt__hinweis--markup">' + e(T("markup", { b: befund.join(", ") })) + '</p>');
+      }
+      teile.push('<div class="kt__bsp" style="margin-block-end:2.5rem">' +
+        '<div class="kt__bsp-kopf">' +
+          '<span class="kern-body kern-body--small kern-body--muted kern-ml-auto">' + e(T("lebend")) + '</span>' +
+          '<button class="kern-btn kern-btn--tertiary kern-btn--small" data-quelle="' + qid + '"' +
+                 ' aria-expanded="false" aria-controls="' + qid + '"><span class="kern-label">' + e(T("qZeigen")) + '</span></button>' +
+        '</div>' +
+        '<div class="kt__buehne" lang="de" data-kt-bsp="' + i + '"></div>' +
+        '<pre class="kt__quelle" id="' + qid + '" hidden>' + e(b.html) + '</pre>' +
+      '</div>');
+    });
+
+    var barriere = feld(k, "barriere");
+    if (barriere.length) teile.push('<h2 class="kern-heading-small">' + e(T("barriere")) + '</h2><ul class="kern-list kern-list--bullet">' +
+      liste(barriere) + '</ul>');
+
+    /* KERN-Bausteine: was KERN der Umsetzung überlässt — und wer es leistet. */
+    if (k.pflichten && k.pflichten.length) {
+      teile.push('<h2 class="kern-heading-small">' + e(T("pflichten")) + '</h2>' +
+        '<p class="kt__hinweis">' + e(T("pflichtenHinweis")) + '</p>' +
+        '<table class="kern-table" style="margin-block-end:2rem"><caption class="kern-sr-only">' + e(T("pflichten")) + ', ' +
+        e(name) + '</caption><thead class="kern-table__head"><tr class="kern-table__row"><th class="kern-table__header">' + e(T("pflicht")) +
+        '</th><th class="kern-table__header">' + e(T("stand")) + '</th><th class="kern-table__header">' + e(T("anmerkung")) +
+        '</th></tr></thead><tbody class="kern-table__body">' +
+        k.pflichten.map(function (z, i) {
+          var p = (en.pflichten || [])[i] || [];
+          return '<tr class="kern-table__row"><td class="kern-table__cell">' + e(p[0] || z[0]) + '</td><td class="kern-table__cell">' +
+            e(wort("stand", z[1])) + '</td><td class="kern-table__cell">' + e(p[1] !== undefined ? p[1] : z[2]) + '</td></tr>';
+        }).join("") + '</tbody></table>');
+    }
+    var tasten = feld(k, "tasten");
+    if (tasten && tasten.length) {
+      /* Tastaturvertrag (M50): Taste → Wirkung → Ansage; die dritte Spalte
+         erscheint, sobald ein Eintrag sagt, was angesagt wird */
+      var ansage = tasten.some(function (z) { return z[2]; });
+      teile.push('<h2 class="kern-heading-small">' + e(T("tastatur")) + '</h2>' +
+        '<table class="kern-table" style="margin-block-end:2rem"><caption class="kern-sr-only">' + e(T("tastatur")) + ', ' +
+        e(name) + '</caption><thead class="kern-table__head"><tr class="kern-table__row"><th class="kern-table__header" scope="col">' + e(T("taste")) +
+        '</th><th class="kern-table__header" scope="col">' + e(T("wirkung")) + '</th>' +
+        (ansage ? '<th class="kern-table__header" scope="col">' + e(T("ansage")) + '</th>' : '') + '</tr></thead><tbody class="kern-table__body">' +
+        tasten.map(function (z) {
+          return '<tr class="kern-table__row"><td class="kern-table__cell">' + e(z[0]) + '</td><td class="kern-table__cell">' + e(z[1]) + '</td>' +
+            (ansage ? '<td class="kern-table__cell">' + e(z[2] || "—") + '</td>' : '') + '</tr>';
+        }).join("") + '</tbody></table>');
+    }
+
+    teile.push('<h2 class="kern-heading-small" style="margin-block-start:2rem">' + e(T("klassen")) + '</h2>' +
+      '<table class="kern-table"><caption class="kern-sr-only">' + e(T("klassenVon", { n: name })) +
+      '</caption><thead class="kern-table__head"><tr class="kern-table__row"><th class="kern-table__header">' + e(T("klasse")) +
+      '</th><th class="kern-table__header">' + e(T("bedeutung")) + '</th></tr></thead><tbody class="kern-table__body">' +
+      k.klassen.map(function (z, i) {
+        var b = (en.klassen || [])[i] || wort("art", z[1]);
+        return '<tr class="kern-table__row"><td class="kern-table__cell kn-code">' + e(z[0]) + '</td><td class="kern-table__cell">' + e(b) + '</td></tr>';
+      }).join("") + '</tbody></table>');
+
+    /* Weiterblättern — wie in echten Katalogen unten auf jeder Seite. */
+    var i = K.indexOf(k);
+    var vor = K[i - 1], zurueck = K[i + 1];
+    teile.push('<nav class="kern-flex kern-flex-wrap kern-align-items-center kern-gap-sm" aria-label="' + e(T("weitere")) + '" ' +
+      'style="margin-block-start:3rem;padding-block-start:1.5rem;' +
+      'border-block-start:1px solid var(--kern-color-decorative-border-default)">' +
+      (vor ? '<a class="kern-link" href="#' + vor.id + '"><span class="kern-icon kern-icon--arrow-back" aria-hidden="true"></span>' + e(feld(vor, "name")) + '</a>' : "") +
+      (zurueck ? '<a class="kern-link kern-ml-auto" href="#' + zurueck.id + '">' +
+                 e(feld(zurueck, "name")) + ' →</a>' : "") + '</nav>');
+
+    seite.innerHTML = teile.join("");
+    /* Beispiele einzeln einsetzen: so bleibt unsauberes Markup in seiner Fläche —
+       KERNs Beispiel „Gruppe mit Hinweistext und Fehlermeldung“ (Checkboxen) schließt
+       ein </div> zu viel und brach sonst aus der Fläche aus (F25, 13.10.2026). */
+    Array.prototype.forEach.call(seite.querySelectorAll("[data-kt-bsp]"), function (buehne) {
+      buehne.innerHTML = bildPfad(k.bsp[Number(buehne.getAttribute("data-kt-bsp"))].html);
+    });
+    document.title = name + " — " + T("titel");
+
+    /* Quelltext ein- und ausblenden. */
+    Array.prototype.forEach.call(seite.querySelectorAll("[data-quelle]"), function (b) {
+      b.addEventListener("click", function () {
+        var q = document.getElementById(b.dataset.quelle);
+        var auf = !q.hidden;
+        q.hidden = auf;
+        b.setAttribute("aria-expanded", String(!auf));
+        b.querySelector(".kern-label").textContent = T(auf ? "qZeigen" : "qVerbergen");
+      });
+    });
+
+    /* Die Beispiele sind echtes Markup — also verdrahten. */
+    window.KN.start();
+    zeichneNav(suche.value);
+  }
+
+  /* Die Leiste oben steht fest (sticky). Damit Sprünge und Fokus innerhalb der
+     Seite nicht darunter landen, rechnet der Browser ihre Höhe ein
+     (scroll-padding) — gemessen, weil sie auf schmalen Bildschirmen umbricht. */
+  var leiste = document.querySelector(".kt__leiste");
+  function leistenhoehe() {
+    document.documentElement.style.scrollPaddingBlockStart = leiste.offsetHeight + "px";
+    document.documentElement.style.setProperty("--kt-leiste", leiste.offsetHeight + "px");   /* Navigation darunter */
+  }
+  leistenhoehe();
+  if (window.ResizeObserver) new ResizeObserver(leistenhoehe).observe(leiste);
+
+  /* Neuer Eintrag = neue Seite: oben beginnen, Fokus auf den Inhalt, ohne dass
+     der Browser die Oberkante unter die Leiste schiebt. */
+  window.addEventListener("hashchange", function () {
+    zeichneSeite();
+    window.scrollTo({ top: 0, behavior: "instant" });   /* KERN gleitet sonst (scroll-behavior: smooth) */
+    seite.focus({ preventScroll: true });
+  });
+
+  suche.addEventListener("input", function () { zeichneNav(suche.value); });
+
+  /* --- Filter in der Kopfleiste ---------------------------------------- */
+  var FILTER = ["alle", "neu", "bestehend"];
+  var filterMenue = document.getElementById("kt-filter");
+  var filterKnopf = document.querySelector("[data-kt-filter-knopf]");
+  function anzahl(f) { return K.filter(function (k) { return f === "alle" || (f === "neu") === istNeu(k); }).length; }
+  FILTER.forEach(function (f) {
+    document.querySelector('[data-kt-anzahl="' + f + '"]').textContent = "(" + anzahl(f) + ")";
+  });
+  function zeigeFilter() {
+    if (FILTER.indexOf(filter) === -1) filter = "alle";
+    [].forEach.call(filterMenue.querySelectorAll("[role='menuitemradio']"), function (r) {
+      r.setAttribute("aria-checked", String(r.value === filter));
+    });
+    document.querySelector("[data-kt-filter-name]").textContent = T("filterName", { f: T("f_" + filter) });
+    if (filter === "alle") filterKnopf.removeAttribute("data-kt-aktiv"); else filterKnopf.setAttribute("data-kt-aktiv", "");
+    if (zahl) zahl.textContent = zahlText() + (filter === "alle" ? "" : T("gefiltert", { f: T("f_" + filter), n: anzahl(filter) }));
+  }
+  filterMenue.addEventListener("kn-menu-wahl", function (ev) {
+    filter = ev.detail.value;
+    try { localStorage.setItem("kt-filter", filter); } catch (x) {}
+    zeigeFilter();
+    zeichneNav(suche.value);
+    window.KN.melde(T("filterAnsage", { f: T("f_" + filter), n: anzahl(filter) }));
+  });
+
+  /* --- Sprache umschalten (M84) --------------------------------------- */
+  function setzeTexte() {
+    document.documentElement.lang = sprache;
+    [].forEach.call(document.querySelectorAll("[data-kt-text]"), function (el) {
+      el.textContent = T(el.getAttribute("data-kt-text"));
+    });
+    [].forEach.call(document.querySelectorAll("[data-kt-attr]"), function (el) {
+      el.getAttribute("data-kt-attr").split(";").forEach(function (paar) {
+        var p = paar.split(":"); el.setAttribute(p[0], T(p[1]));
+      });
+    });
+    [].forEach.call(document.querySelectorAll("[data-kt-sprache]"), function (b) {
+      b.setAttribute("aria-pressed", String(b.value === sprache));
+    });
+    zeigeFilter();
+  }
+  [].forEach.call(document.querySelectorAll("[data-kt-sprache]"), function (b) {
+    b.addEventListener("click", function () {
+      if (b.value === sprache) return;
+      sprache = b.value;
+      try { localStorage.setItem("kt-sprache", sprache); } catch (x) {}
+      setzeTexte();
+      zeichneSeite();
+      window.KN.melde(T("spracheAnsage"));
+    });
+  });
+
+  setzeTexte();
+  zeichneSeite();
+})();
+</script>
+</body>
+</html>

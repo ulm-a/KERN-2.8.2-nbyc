@@ -1,0 +1,52 @@
+ABSCHNITTE — KERN OnePager (index.html)
+Einzige Quelle für "was steht wo" (Instruction Designer 2.8.2 (nbyc), Abschnitt 4).
+Im HTML trägt jeder Abschnitt <!-- ABSCHNITT: id --> und id="…" / data-abschnitt="…".
+Aufträge an die KI mit der ID: "verschiebe #fallliste hinter #antrag".
+Reihenfolge hier = Reihenfolge auf der Seite. Bei jeder Änderung mitziehen.
+================================================================================
+NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
+      KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
+      KI-Assistenten von Anthropic. Nicht das offizielle KERN.
+
+Inhalt: fiktive Stadt "Musterstadt", Leistung Bewohnerparkausweis. Alle Namen,
+Aktenzeichen und Beträge sind erfunden.
+
+Nr  ID               KERN-Bausteine (Steckbrief in _ Resources/kern/userdoccomponents)   Zweck
+--  ---------------  ------------------------------------------------------------------  ------------------------------
+ 1  kopf             kn-header · Sprache · Inspektor (Auge) · Modus-Schalter als           Seitenkopf, Modus
+                     Symbole (light-mode/dark-mode, brightness-medium) — D22, D24, D25
+ 2  navigation       kn-main-nav                                                          Sprung zu den Abschnitten
+ 3  start            text-preline · text-heading · text-subline · text-body · text-title  Einstieg, alle Textstile,
+                     text-label · button · link · badge · divider · icon (alle 36          Knöpfe, Links, Abzeichen,
+                     Symbole, Größen small/large/x-large) · grid · hilfsklassen ·          Symbole und Symbolgrößen,
+                     kopfzeile (als Beispiel, D22)                                         Kopfzeile als Beispiel
+ 4  hinweise         alert (info, success, warning, danger)                               Meldungen
+ 5  leistungen       card (large mit Bild, Standard, interactive + small mit               Angebote als Karten
+                     kern-link--stretched) · grid
+ 6  antrag           progress · tasklist · fieldset · input-text-text · input-select ·    Schrittfolge mit Formular,
+                     input-text-date · input-radios · input-text-email ·                  Fehlerzustand am Kennzeichen,
+                     input-text-tel · input-text-number (readonly) · input-text-url ·     Fahrzeugart, Zone, Einwilligung
+                     input-textarea · input-file · input-checkboxes; Fehlerzustände:      (Zustand nach dem Absenden);
+                     select--error, radio--error, checkbox--error, fieldset--error;       kern-label__optional an frei-
+                     disabled (Kundennummer, mit Erklärung)                               willigen Feldern
+ 6a zusammenfassung  summary-group mit zwei summary · description-list · btn--block       Prüfen vor dem Absenden
+ 7  gebuehren        table (striped, small, numerisch, Fuß, responsiv)                    Gebühren
+ 8  fallliste        search · table (sortierbar: kn-table-sort; Aktionen kopieren und     Sachbearbeitung: Suche,
+                     bearbeiten) · badge--small · kn-table-toolbar · kn-filter-tag ·      Filter, Sortierung, leer,
+                     loader (sichtbar beim Aktualisieren) · kn-empty-state                Aktualisieren
+ 9  bescheid         description-list--col · button · dialog                              Ergebnis, Rückfrage im Dialog
+10  fragen           accordion (Gruppe, einer geöffnet) · input-text-password             Häufige Fragen
+11  fuss             kn-footer · link--no-visited-state                                   Rechtliches
+--  (Statusstreifen) eigener Streifen am Seitenende                                       Fassung, Verbindung
+
+Abdeckung: alle 38 KERN-Bausteine aus "_ Resources/kern/userdoccomponents" und
+alle 171 Varianten/Bestandteile ihrer Beispiele — Prüfung PD1 ("KERN Designer/
+pruefung/pruefe-designer.py"). Nicht einzeln gezeigt: Raster- und Hilfsklassen
+(Abstände, Ausrichtung, Spalten — Layout-Werkzeuge) und kern-container-fluid.
+
+Verhalten (onepager.js): Live-Verbindung zum Designer · Suche und Filter der
+Fallliste mit Zähler, Leer-Zustand und "zurücksetzen" · Aktualisieren mit
+sichtbarer Ladeanzeige · Aktenzeichen kopieren · Dialog öffnen/schließen mit
+Fokus zurück zum Auslöser · Sprachwahl. Inspektor: inspektor.js. Sortierung, Modusknöpfe, Ansagen: kern-neu.js.
+Seitengerüst (Abstände der Abschnitte, Statusstreifen): onepager.css, nur Tokens.
+-/-

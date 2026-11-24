@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suche — Muster: Suche mit Ergebnisliste — KERN 2.8.2 (nbyc)</title>
+<link rel="stylesheet" href="../system/kern-neu.css?v=2.8.2-nbyc.44">
+<style>
+/* Nur das Seitengerüst. Keine Komponente wird hier gestaltet. */
+.su { max-inline-size: 52rem; margin-inline: auto; padding: var(--kern-metric-space-large) var(--kern-metric-space-default) var(--kern-metric-space-3x-large); }
+.su__filter { display: flex; flex-wrap: wrap; align-items: end; gap: var(--kern-metric-space-default); margin-block: var(--kern-metric-space-default) var(--kern-metric-space-large); }
+.su__marken { display: flex; flex-wrap: wrap; gap: var(--kern-metric-space-small); }
+.su__treffer { list-style: none; margin: 0; padding: 0; }
+.su__treffer > li { padding-block: var(--kern-metric-space-default); border-block-end: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); }
+.su__treffer > li > * { margin: 0; }
+.su__treffer > li > * + * { margin-block-start: var(--kern-metric-space-x-small); }
+.su__knoepfe { display: flex; flex-wrap: wrap; gap: var(--kern-metric-space-small); }
+.su__vorfuehrung { margin-block-start: var(--kern-metric-space-3x-large); padding-block-start: var(--kern-metric-space-large); border-block-start: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); }
+</style>
+</head>
+<body class="kn-page">
+
+<a class="kn-skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="kn-header">
+  <a class="kn-header__brand" href="../index.html">Musterbehörde <span>Darlehen</span></a>
+  <div class="kn-header__end">
+    <div class="kn-segmented" role="group" aria-label="Modus">
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="light" aria-pressed="false">Hell</button>
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="dark" aria-pressed="false">Dunkel</button>
+    </div>
+  </div>
+</header>
+
+<main class="su" id="inhalt">
+  <h1 class="kern-heading-medium">Merkblätter, Formulare und Leistungen</h1>
+
+  <form data-su-form novalidate>
+    <search class="kern-form-input" aria-label="Merkblätter, Formulare und Leistungen">
+      <label class="kern-label" for="su-q">Suchbegriff</label>
+      <div class="kern-hint" id="su-q-hinweis">Zum Beispiel Freistellung, Rückzahlung oder Nachweis.</div>
+      <div class="kern-input-group">
+        <input class="kern-form-input__input" id="su-q" name="q" type="search" aria-describedby="su-q-hinweis" autocomplete="off">
+        <button class="kern-btn kern-btn--primary" type="submit">
+          <span class="kern-icon kern-icon--search" aria-hidden="true"></span>
+          <span class="kern-label">Suchen</span>
+        </button>
+      </div>
+    </search>
+  </form>
+
+  <div class="su__filter">
+    <div role="group" aria-labelledby="su-art-titel">
+      <p class="kern-label kern-label--small" id="su-art-titel" style="margin:0 0 .25rem">Art</p>
+      <div class="su__marken">
+        <button class="kn-filter-tag" type="button" aria-pressed="false" data-su-art="Merkblatt">Merkblatt</button>
+        <button class="kn-filter-tag" type="button" aria-pressed="false" data-su-art="Formular">Formular</button>
+        <button class="kn-filter-tag" type="button" aria-pressed="false" data-su-art="Leistung">Leistung</button>
+      </div>
+    </div>
+    <div class="kern-form-input kern-ml-auto" style="margin:0">
+      <label class="kern-label kern-label--small" for="su-sort">Sortierung</label>
+      <div class="kern-form-input__select-wrapper">
+        <select class="kern-form-input__select" id="su-sort">
+          <option value="relevanz">Beste Treffer zuerst</option>
+          <option value="datum">Neueste zuerst</option>
+          <option value="titel">Titel A–Z</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <section aria-labelledby="su-ergebnis-titel" data-su-ergebnis>
+    <h2 class="kern-heading-small" id="su-ergebnis-titel" data-su-titel>Noch keine Suche</h2>
+    <div data-su-inhalt>
+      <p class="kern-body">Geben Sie oben einen Suchbegriff ein oder wählen Sie eine häufige Suche:</p>
+      <div class="su__knoepfe" style="margin-block-start:.5rem">
+        <button class="kern-btn kern-btn--tertiary kern-btn--small" type="button" data-su-vorschlag="Freistellung"><span class="kern-label">Freistellung</span></button>
+        <button class="kern-btn kern-btn--tertiary kern-btn--small" type="button" data-su-vorschlag="Rückzahlung"><span class="kern-label">Rückzahlung</span></button>
+        <button class="kern-btn kern-btn--tertiary kern-btn--small" type="button" data-su-vorschlag="Nachweis"><span class="kern-label">Nachweis</span></button>
+      </div>
+    </div>
+    <nav class="kn-pagination" aria-label="Seiten der Ergebnisliste" data-su-seiten hidden style="margin-block-start:1.5rem"></nav>
+  </section>
+
+  <!-- ================= VORFÜHRUNG (nur im Muster) ================= -->
+  <aside class="su__vorfuehrung" aria-labelledby="vf-titel">
+    <h2 class="kern-heading-small" id="vf-titel">Zustände vorführen</h2>
+    <p class="kern-body kern-body--small">Nur im Muster. „Langsam“ zeigt die Platzhalter und nach 1 s den Lader samt Ansage, „Fehler“ die Fehlermeldung mit „Erneut versuchen“. Ein Suchbegriff ohne Treffer (z. B. „Hund“) zeigt den Leerzustand.</p>
+    <p class="kern-label kern-label--small" id="vf-antwort" style="margin-block:1rem .25rem">Antwort des Suchdienstes</p>
+    <div class="kn-segmented" role="group" aria-labelledby="vf-antwort">
+      <button class="kn-segmented__button kn-segmented__button--small" type="button" data-su-antwort="schnell" aria-pressed="true">schnell</button>
+      <button class="kn-segmented__button kn-segmented__button--small" type="button" data-su-antwort="langsam" aria-pressed="false">langsam (2 s)</button>
+      <button class="kn-segmented__button kn-segmented__button--small" type="button" data-su-antwort="fehler" aria-pressed="false">Fehler</button>
+    </div>
+  </aside>
+</main>
+
+<script src="../system/kern-neu.js?v=2.8.2-nbyc.44"></script>
+<script>
+/* Seitenlogik des Musters (ES5): suchen, filtern, sortieren, blättern — mit den
+   Zuständen Start, lädt, keine Treffer, Fehler, Treffer. Ansagen über KN.melde,
+   Laden über KN.lade (Lader erst nach 1 s). Daten sind erfunden. */
+(function () {
+  "use strict";
+  var DATEN = [
+    ["Merkblatt", "Freistellung von der Rückzahlung", "2026-03-12", "Wann Sie von der Rückzahlung freigestellt werden und welche Einkommensgrenzen gelten."],
+    ["Formular", "Antrag auf Freistellung", "2026-03-12", "Antrag mit Angaben zu Einkommen und Familienstand. Nachweise laden Sie im Antrag hoch."],
+    ["Leistung", "Freistellung beantragen", "2026-02-02", "Online beantragen, Bescheid ins Postfach. Dauer in der Regel vier Wochen."],
+    ["Merkblatt", "Rückzahlung in Raten", "2025-11-20", "Höhe der Raten, Fälligkeit und was gilt, wenn eine Rate ausfällt."],
+    ["Formular", "Antrag auf Stundung der Rückzahlung", "2026-01-15", "Wenn Sie vorübergehend nicht zahlen können: Stundung für bis zu zwölf Monate."],
+    ["Leistung", "Rückzahlung vorzeitig ablösen", "2025-09-03", "Den Restbetrag auf einmal zahlen und einen Nachlass erhalten."],
+    ["Merkblatt", "Nachweise richtig einreichen", "2026-03-01", "Welche Nachweise wir brauchen, in welchem Format und wie groß die Dateien sein dürfen."],
+    ["Formular", "Einkommensnachweis nachreichen", "2026-02-20", "Fehlenden Nachweis zu einem laufenden Antrag hochladen."],
+    ["Leistung", "Adresse oder Bankverbindung ändern", "2025-12-10", "Änderungen mitteilen, damit Bescheide und Abbuchungen ankommen."],
+    ["Merkblatt", "Fristen im Rückzahlungsverfahren", "2026-01-28", "Welche Fristen gelten, wie Sie sie verlängern und was bei Fristablauf passiert."],
+    ["Formular", "Widerspruch gegen einen Bescheid", "2025-10-07", "Widerspruch begründen und Nachweise beifügen. Frist: ein Monat ab Bekanntgabe."],
+    ["Leistung", "Kontoauszug zum Darlehen anfordern", "2026-02-11", "Stand des Darlehens, Raten und Zahlungen als PDF ins Postfach."],
+    ["Merkblatt", "Darlehen und Einkommen aus dem Ausland", "2025-08-22", "Wie Einkommen aus dem Ausland angerechnet wird und welche Nachweise gelten."],
+    ["Formular", "Erlass wegen besonderer Härte", "2025-06-30", "Wenn die Rückzahlung eine besondere Härte bedeutet: Teil- oder Vollerlass beantragen."],
+    ["Leistung", "Bescheid erneut zustellen lassen", "2026-03-05", "Bescheid verloren? Wir stellen ihn erneut ins Postfach."],
+    ["Merkblatt", "Freistellung bei Kindererziehung", "2025-11-02", "Freistellung, solange Sie Kinder unter zehn Jahren erziehen und wenig verdienen."],
+    ["Formular", "Freistellung bei Kindererziehung beantragen", "2025-11-02", "Antrag mit Geburtsurkunde der Kinder und Einkommensnachweis."]
+  ];
+  var JE_SEITE = 5, antwort = "schnell", begriff = "", seite = 1, letzte = [];
+  var form = document.querySelector("[data-su-form]"), feld = document.getElementById("su-q");
+  var bereich = document.querySelector("[data-su-ergebnis]"), titel = document.querySelector("[data-su-titel]");
+  var inhalt = document.querySelector("[data-su-inhalt]"), seitenNav = document.querySelector("[data-su-seiten]");
+  var sortierung = document.getElementById("su-sort");
+
+  function e(t) { return String(t).replace(/[&<>"]/g, function (z) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[z]; }); }
+  function datum(iso) { var t = iso.split("-"); return t[2] + "." + t[1] + "." + t[0]; }
+  function arten() { return [].filter.call(document.querySelectorAll("[data-su-art]"), function (b) { return b.getAttribute("aria-pressed") === "true"; }).map(function (b) { return b.getAttribute("data-su-art"); }); }
+
+  function suche() {
+    var q = begriff.toLocaleLowerCase("de"), gewaehlt = arten();
+    var treffer = DATEN.filter(function (d) {
+      return (!gewaehlt.length || gewaehlt.indexOf(d[0]) !== -1) && (d[1] + " " + d[3]).toLocaleLowerCase("de").indexOf(q) !== -1;
+    }).map(function (d) {
+      return { art: d[0], titel: d[1], datum: d[2], text: d[3], punkte: d[1].toLocaleLowerCase("de").indexOf(q) !== -1 ? 2 : 1 };
+    });
+    var s = sortierung.value;
+    treffer.sort(function (a, b) {
+      if (s === "datum") return a.datum < b.datum ? 1 : -1;
+      if (s === "titel") return a.titel.localeCompare(b.titel, "de");
+      return b.punkte - a.punkte || (a.datum < b.datum ? 1 : -1);
+    });
+    return treffer;
+  }
+
+  function platzhalter() {
+    inhalt.innerHTML = '<ol class="su__treffer" aria-hidden="true">' + [1, 2, 3].map(function () {
+      return '<li><span class="kn-skeleton kn-skeleton--title"></span><span class="kn-skeleton"></span><span class="kn-skeleton kn-skeleton--short"></span></li>';
+    }).join("") + "</ol>";
+    seitenNav.hidden = true;
+  }
+
+  function zeigeTreffer(ansagen) {
+    var n = letzte.length, von = (seite - 1) * JE_SEITE, bis = Math.min(von + JE_SEITE, n);
+    titel.textContent = n + (n === 1 ? " Treffer" : " Treffer") + " für „" + begriff + "“";
+    if (!n) {
+      inhalt.innerHTML = '<div class="kn-empty-state"><p class="kn-empty-state__title">Keine Treffer für „' + e(begriff) + '“</p>' +
+        '<p class="kern-body">Prüfen Sie die Schreibweise oder versuchen Sie einen allgemeineren Begriff' +
+        (arten().length ? ' — oder heben Sie den Filter „Art“ auf.' : '.') + '</p>' +
+        (arten().length ? '<div class="su__knoepfe" style="margin-block-start:.5rem"><button class="kern-btn kern-btn--secondary kern-btn--small" type="button" data-su-filter-weg><span class="kern-label">Filter aufheben</span></button></div>' : '') +
+        '</div>';
+      seitenNav.hidden = true;
+    } else {
+      inhalt.innerHTML = '<ol class="su__treffer" start="' + (von + 1) + '">' + letzte.slice(von, bis).map(function (t) {
+        return '<li><h3 class="kern-title"><a class="kern-link" href="#inhalt">' + e(t.titel) + '</a></h3>' +
+          '<p class="kern-body kern-body--small kern-body--muted">' + e(t.art) + ' · ' + datum(t.datum) + '</p>' +
+          '<p class="kern-body">' + e(t.text) + '</p></li>';
+      }).join("") + "</ol>";
+      zeichneSeiten(n, von, bis);
+    }
+    if (ansagen) KN.melde(titel.textContent);
+  }
+
+  function zeichneSeiten(n, von, bis) {
+    var seiten = Math.ceil(n / JE_SEITE);
+    if (seiten < 2) { seitenNav.hidden = true; return; }
+    var h = '<button class="kn-pagination__button" type="button" data-su-seite="' + (seite - 1) + '"' + (seite === 1 ? ' aria-disabled="true"' : '') + '>Zurück</button>';
+    for (var i = 1; i <= seiten; i++) {
+      h += '<button class="kn-pagination__button" type="button" data-su-seite="' + i + '"' + (i === seite ? ' aria-current="page"' : '') + ' aria-label="Seite ' + i + '">' + i + '</button>';
+    }
+    h += '<button class="kn-pagination__button" type="button" data-su-seite="' + (seite + 1) + '"' + (seite === seiten ? ' aria-disabled="true"' : '') + '>Weiter</button>';
+    h += '<span class="kn-pagination__status">' + (von + 1) + ' bis ' + bis + ' von ' + n + '</span>';
+    seitenNav.innerHTML = h;
+    seitenNav.hidden = false;
+  }
+
+  function fehler() {
+    titel.textContent = "Suche nicht möglich";
+    inhalt.innerHTML = '<div class="kern-alert kern-alert--danger" role="alert"><div class="kern-alert__header">' +
+      '<span class="kern-icon kern-icon--danger" aria-hidden="true"></span><h3 class="kern-title">Fehler: Der Suchdienst antwortet nicht</h3></div>' +
+      '<div class="kern-alert__body"><p class="kern-body">Ihr Suchbegriff bleibt erhalten. Versuchen Sie es in einem Moment noch einmal.</p>' +
+      '<div class="su__knoepfe" style="margin-block-start:.5rem"><button class="kern-btn kern-btn--secondary kern-btn--small" type="button" data-su-nochmal><span class="kern-label">Erneut versuchen</span></button></div></div></div>';
+    seitenNav.hidden = true;
+  }
+
+  function starte(ansagen) {
+    if (!begriff) { feld.focus(); return; }
+    titel.textContent = "Suche läuft";
+    platzhalter();
+    KN.lade(bereich, true);
+    setTimeout(function () {
+      KN.lade(bereich, false);
+      if (antwort === "fehler") { fehler(); return; }
+      letzte = suche();
+      seite = 1;
+      zeigeTreffer(ansagen);
+    }, antwort === "langsam" ? 2000 : 300);
+  }
+
+  form.addEventListener("submit", function (ev) { ev.preventDefault(); begriff = feld.value.trim(); starte(true); });
+  sortierung.addEventListener("change", function () { if (begriff) starte(true); });
+  [].forEach.call(document.querySelectorAll("[data-su-art]"), function (b) {
+    b.addEventListener("click", function () { if (begriff) starte(true); });   /* aria-pressed setzt kern-neu.js */
+  });
+  bereich.addEventListener("click", function (ev) {
+    var v = ev.target.closest("[data-su-vorschlag]"), s = ev.target.closest("[data-su-seite]");
+    if (v) { feld.value = begriff = v.getAttribute("data-su-vorschlag"); starte(true); return; }
+    if (ev.target.closest("[data-su-nochmal]")) { starte(true); return; }
+    if (ev.target.closest("[data-su-filter-weg]")) {
+      [].forEach.call(document.querySelectorAll("[data-su-art]"), function (b) { b.setAttribute("aria-pressed", "false"); });
+      starte(true); return;
+    }
+    if (s && s.getAttribute("aria-disabled") !== "true") {
+      seite = Number(s.getAttribute("data-su-seite"));
+      zeigeTreffer(false);
+      titel.setAttribute("tabindex", "-1");
+      titel.focus();   /* neue Seite: Fokus an den Anfang der Liste, Titel wird gelesen */
+      KN.melde("Seite " + seite);
+    }
+  });
+  [].forEach.call(document.querySelectorAll("[data-su-antwort]"), function (b) {
+    b.addEventListener("click", function () {
+      antwort = b.getAttribute("data-su-antwort");
+      [].forEach.call(document.querySelectorAll("[data-su-antwort]"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+    });
+  });
+})();
+</script>
+</body>
+</html>

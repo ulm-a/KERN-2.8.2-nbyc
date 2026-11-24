@@ -1,0 +1,67 @@
+name: Fehler melden
+description: Etwas sieht falsch aus oder lässt sich nicht bedienen
+labels: ["Fehler"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ein Fehler im **offiziellen KERN** gehört an KERN selbst — hier wird er nicht
+        nachgebaut und nicht still repariert. Wenn unklar ist, wo er herkommt: einfach
+        melden, das klären wir.
+  - type: textarea
+    id: was
+    attributes:
+      label: Was ist zu sehen?
+      description: Und was wäre zu erwarten gewesen?
+    validations:
+      required: true
+  - type: textarea
+    id: schritte
+    attributes:
+      label: Schritte zum Nachstellen
+      placeholder: |
+        1. katalog.html öffnen
+        2. …
+        3. …
+    validations:
+      required: true
+  - type: input
+    id: ort
+    attributes:
+      label: Wo
+      description: Seite, Baustein, Datei und Zeile, wenn bekannt
+      placeholder: "katalog.html, Baustein kn-drawer"
+  - type: dropdown
+    id: modus
+    attributes:
+      label: Modus
+      multiple: true
+      options:
+        - hell
+        - dunkel
+        - erhöhter Kontrast
+        - Dichte kompakt
+        - Dichte weit
+        - Windows-Kontrastmodus
+    validations:
+      required: true
+  - type: input
+    id: umgebung
+    attributes:
+      label: Browser und Betriebssystem
+      placeholder: "Chromium 149, Windows 11 · oder Safari 26, macOS 27"
+    validations:
+      required: true
+  - type: input
+    id: fassung
+    attributes:
+      label: Fassung
+      description: Steht auf der Startseite im Kasten „Diese Fassung"
+      placeholder: "0.2.0"
+    validations:
+      required: true
+  - type: textarea
+    id: hilfsmittel
+    attributes:
+      label: Mit Hilfsmittel?
+      description: Screenreader, Sprachsteuerung, Tastatur allein, Zoom — und was angesagt wurde

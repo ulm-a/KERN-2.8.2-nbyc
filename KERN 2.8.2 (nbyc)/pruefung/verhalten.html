@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verhaltensprüfung — KERN 2.8.2 (nbyc) · Fassung 0.2.0</title>
+<link rel="stylesheet" href="../system/kern-neu.css?v=2.8.2-nbyc.44">
+<style>
+  .vp-buehne { position: absolute; inset-inline-start: -10000px; inline-size: 1100px; }
+  .vp-ok { color: var(--kern-color-feedback-success-contextual); }
+  .vp-fehler { color: var(--kern-color-feedback-danger-contextual); font-weight: 600; }
+</style>
+</head>
+<body class="kn-page">
+<main class="kern-container" style="padding-block: 2rem">
+  <h1 class="kern-heading-medium">Verhaltensprüfung</h1>
+  <p class="kern-body kern-body--small kern-body--muted" style="margin:0">KERN 2.8.2 (nbyc) · Fassung <!--kn-fassung-->0.2.0<!--/kn-fassung--></p>
+  <p class="kern-body">Lädt die Katalogbeispiele, verdrahtet sie mit kern-neu.js und löst Bedienschritte als
+    Ereignisse aus (Klick, Taste, Eingabe). Prüft die Logik des Skripts in jedem Browser — NICHT die
+    eingebaute Bedienung des Browsers (Tab-Bewegung, Esc am nativen Dialog) und NICHT Screenreader.
+    Mit <span class="kn-code">?melden=1</span> schickt die Seite das Ergebnis an den Prüfserver
+    (Anfrage <span class="kn-code">/_ergebnis?…</span>, erscheint in dessen Protokoll).</p>
+  <p class="kern-body" id="vp-stand">läuft …</p>
+  <table class="kern-table kern-table--small"><caption class="kern-sr-only">Ergebnisse</caption>
+    <thead class="kern-table__head"><tr class="kern-table__row"><th class="kern-table__header" scope="col">Prüfung</th><th class="kern-table__header" scope="col">Ergebnis</th></tr></thead>
+    <tbody class="kern-table__body" id="vp-liste"></tbody></table>
+</main>
+<div class="vp-buehne" id="vp-buehne" aria-hidden="false"></div>
+
+<script src="../system/kern-neu.js?v=2.8.2-nbyc.44"></script>
+<script src="../katalog/inhalt.js?v=2.8.2-nbyc.44"></script>
+<script src="../katalog/kern-inhalt.js?v=2.8.2-nbyc.44"></script>
+<script>
+(function () {
+  "use strict";
+  var buehne = document.getElementById("vp-buehne");
+  var ergebnisse = [];
+  function warte(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function beispiel(id, nr) {
+    var k = (window.KATALOG || []).concat(window.KERN_BAUSTEINE || []).filter(function (x) { return x.id === id; })[0];
+    if (!k) throw new Error("Katalogeintrag fehlt: " + id);
+    var div = document.createElement("div");
+    /* ohne Nummer: das erste Beispiel; als Text: das erste Beispiel, das ihn enthält */
+    var b = typeof nr === "string" ? k.bsp.filter(function (x) { return x.html.indexOf(nr) !== -1; })[0] : k.bsp[nr || 0];
+    if (!b) throw new Error("kein passendes Beispiel in " + id);
+    div.innerHTML = b.html;
+    buehne.appendChild(div);
+    KN.start(div);
+    return div;
+  }
+  function taste(el, key, extra) {
+    var e = new KeyboardEvent("keydown", Object.assign({ key: key, bubbles: true, cancelable: true }, extra || {}));
+    el.dispatchEvent(e);
+  }
+  function soll(bedingung, text) { if (!bedingung) throw new Error(text); }
+  function alle_schliessen() { Array.prototype.forEach.call(document.querySelectorAll("dialog[open]"), function (d) { d.close(); }); }
+  function ansage() { var b = document.querySelector("body > [data-kn-announce='polite']"); return b ? b.textContent : ""; }
+
+  var PRUEFUNGEN = [
+    ["Menü: Klick öffnet, Fokus erster Eintrag; Ende; Esc schließt mit Fokus zurück", async function () {
+      var d = beispiel("menue"), k = d.querySelector("[data-kn-menu]"), m = d.querySelector("[role='menu']");
+      k.click(); await warte(20);
+      soll(!m.hidden && k.getAttribute("aria-expanded") === "true", "Menü nicht offen");
+      soll(document.activeElement && document.activeElement.textContent.trim() === "Bearbeiten", "Fokus nicht auf dem ersten Eintrag");
+      taste(document.activeElement, "End"); soll(document.activeElement.textContent.trim() === "Vorgang löschen", "Ende wirkt nicht");
+      taste(document.activeElement, "Escape"); soll(m.hidden && document.activeElement === k, "Esc schließt nicht mit Rückkehr");
+    }],
+    ["Auswahlmenü: Option wählen setzt aria-checked, schließt, Fokus zurück, meldet Ereignis", async function () {
+      var d = beispiel("menue", "menuitemradio"), k = d.querySelector("[data-kn-menu]"), m = d.querySelector("[role='menu']"), gemeldet = null;
+      m.addEventListener("kn-menu-wahl", function (e) { gemeldet = e.detail.value; });
+      taste(k, "ArrowDown"); await warte(20);
+      soll(!m.hidden && document.activeElement.getAttribute("role") === "menuitemradio", "↓ öffnet nicht auf einer Option");
+      taste(document.activeElement, "End");
+      document.activeElement.click(); await warte(20);
+      var gewaehlt = Array.prototype.filter.call(m.querySelectorAll("[role='menuitemradio']"), function (r) { return r.getAttribute("aria-checked") === "true"; });
+      soll(gewaehlt.length === 1 && gewaehlt[0].value === "fristnah", "aria-checked nicht genau auf der Wahl");
+      soll(m.hidden && document.activeElement === k, "schließt nicht mit Fokus zurück");
+      soll(gemeldet === "fristnah", "Ereignis kn-menu-wahl fehlt");
+    }],
+    ["Schublade: öffnet mit Fokus hinein, Esc schließt, inert", async function () {
+      var d = beispiel("schublade"), k = d.querySelector("[data-kn-drawer]"), s = d.querySelector(".kn-drawer");
+      soll(s.inert === true, "geschlossen nicht inert");
+      k.click(); await warte(20);
+      soll(s.hasAttribute("data-kn-open") && !s.inert && document.activeElement === s, "öffnet nicht mit Fokus");
+      taste(s, "Escape"); soll(!s.hasAttribute("data-kn-open") && s.inert && document.activeElement === k, "Esc schließt nicht");
+    }],
+    ["Combobox: Tippen filtert, Trefferzahl wird angesagt", async function () {
+      var d = beispiel("combobox"), f = d.querySelector("[role='combobox']");
+      f.focus(); f.value = "st"; f.dispatchEvent(new Event("input", { bubbles: true }));
+      var sichtbar = Array.prototype.filter.call(d.querySelectorAll("[role='option']"), function (o) { return !o.hidden; }).length;
+      soll(sichtbar === 2, "erwartet 2 Treffer, sichtbar " + sichtbar);
+      await warte(900); soll(ansage() === "2 Treffer", "Ansage: " + ansage());
+    }],
+    ["Baum: ↓ wandert, → öffnet", async function () {
+      var d = beispiel("baum"), e = d.querySelectorAll("[role='treeitem']");
+      e[0].focus(); taste(e[0], "ArrowDown");
+      soll(document.activeElement === e[1], "↓ wandert nicht");
+      var zu = Array.prototype.filter.call(e, function (x) { return x.getAttribute("aria-expanded") === "false"; })[0];
+      zu.focus(); taste(zu, "ArrowRight"); soll(zu.getAttribute("aria-expanded") === "true", "→ öffnet nicht");
+    }],
+    ["Mehrfachauswahl: Klick wählt, Marke und Ansage", async function () {
+      var d = beispiel("mehrfachauswahl"), o = d.querySelector("[role='option'][aria-selected='false']");
+      var vorher = d.querySelectorAll(".kn-multiselect__chips li").length;
+      o.click(); await warte(200);
+      soll(d.querySelectorAll(".kn-multiselect__chips li").length === vorher + 1, "keine neue Marke");
+      soll(/ausgewählt/.test(ansage()), "keine Ansage: " + ansage());
+    }],
+    ["Mehrfachauswahl: ↓ öffnet, Ende/Pos1 springen zum letzten/ersten Eintrag (M101)", async function () {
+      var d = beispiel("mehrfachauswahl"), f = d.querySelector("[role='combobox']");
+      var o = Array.prototype.slice.call(d.querySelectorAll("[role='option']"));
+      f.focus(); taste(f, "ArrowDown");
+      soll(f.getAttribute("aria-activedescendant") === o[0].id, "↓ markiert nicht den ersten Eintrag");
+      taste(f, "End"); soll(f.getAttribute("aria-activedescendant") === o[o.length - 1].id, "Ende springt nicht zum letzten");
+      taste(f, "Home"); soll(f.getAttribute("aria-activedescendant") === o[0].id, "Pos1 springt nicht zum ersten");
+    }],
+    ["Esc schließt nur die innerste Fläche: Menü in Schublade (M100)", async function () {
+      var d = beispiel("schublade"), k = d.querySelector("[data-kn-drawer]"), s = d.querySelector(".kn-drawer");
+      var m = (window.KATALOG || []).filter(function (x) { return x.id === "menue"; })[0];
+      var innen = document.createElement("div"); innen.innerHTML = m.bsp[0].html; s.appendChild(innen);
+      KN.start(d);
+      k.click(); await warte(20);
+      var mk = innen.querySelector("[data-kn-menu]"), menue = innen.querySelector("[role='menu']");
+      mk.click(); await warte(20);
+      soll(!menue.hidden && s.hasAttribute("data-kn-open"), "Menü oder Schublade nicht offen");
+      taste(document.activeElement, "Escape");
+      soll(menue.hidden && document.activeElement === mk, "erstes Esc schließt das Menü nicht mit Fokus zurück");
+      soll(s.hasAttribute("data-kn-open"), "erstes Esc hat auch die Schublade geschlossen");
+      taste(document.activeElement, "Escape");
+      soll(!s.hasAttribute("data-kn-open") && document.activeElement === k, "zweites Esc schließt die Schublade nicht");
+    }],
+    ["Kalender: öffnet modal am gewählten Tag, → nächster Tag, Abbrechen schließt mit Rückkehr", async function () {
+      var d = beispiel("kalender"), f = d.querySelector("input"), k = d.querySelector("[data-kn-date-picker-open]");
+      f.value = "14.10.2026"; k.click(); await warte(30);
+      var dlg = d.querySelector("dialog");
+      soll(dlg.open, "Kalender nicht offen");
+      soll(document.activeElement.getAttribute("data-datum") === "14.10.2026", "Fokus nicht auf 14.10.");
+      taste(document.activeElement, "ArrowRight"); soll(document.activeElement.getAttribute("data-datum") === "15.10.2026", "→ wirkt nicht");
+      dlg.querySelector("[data-zu]").click(); await warte(30);
+      soll(!dlg.open && document.activeElement === k, "Abbrechen schließt nicht mit Rückkehr");
+    }],
+    ["Kalender-Datum: ungültige Eingabe zeigt den Fehler sichtbar", async function () {
+      var d = beispiel("kalender"), f = d.querySelector("input"), m = d.querySelector(".kern-error");
+      soll(getComputedStyle(m).display === "none", "Meldung anfangs sichtbar");
+      f.value = "31.02.2026"; f.dispatchEvent(new Event("blur"));
+      soll(f.getAttribute("aria-invalid") === "true" && getComputedStyle(m).display !== "none", "kein Fehlerzustand");
+    }],
+    ["Uhrzeit: 930 → 09:30", async function () {
+      var d = beispiel("uhrzeit"), f = d.querySelector("input");
+      f.value = "930"; f.dispatchEvent(new Event("blur")); soll(f.value === "09:30", "Wert " + f.value);
+    }],
+    ["Formularprüfung: leer absenden → Zusammenfassung mit Fokus und 3 Verweisen", async function () {
+      var d = beispiel("fehlerliste"), form = d.querySelector("form"), s = form.querySelector(".kn-error-summary");
+      form.requestSubmit(); await warte(20);
+      soll(!s.hidden && document.activeElement === s, "Zusammenfassung ohne Fokus");
+      soll(s.querySelectorAll("a").length === 3, "Verweise: " + s.querySelectorAll("a").length);
+    }],
+    ["Reiter: → wählt den nächsten", async function () {
+      var d = beispiel("reiter"), t = d.querySelectorAll("[role='tab']");
+      t[0].focus(); taste(t[0], "ArrowRight"); soll(t[1].getAttribute("aria-selected") === "true", "→ wirkt nicht");
+    }],
+    ["Zahlenfeld: + erhöht, Ansage mit Beschriftung", async function () {
+      var d = beispiel("zahlfeld"), f = d.querySelector("input"), k = d.querySelectorAll(".kn-number-stepper__button");
+      var v = Number(f.value); k[k.length - 1].click(); await warte(200);
+      soll(Number(f.value) === v + 1, "Wert " + f.value); soll(/: /.test(ansage()), "Ansage: " + ansage());
+    }],
+    ["Segmentwahl und Filtermarke schalten aria-pressed", async function () {
+      var d = beispiel("segmente"), b = d.querySelectorAll(".kn-segmented__button");
+      b[1].click(); soll(b[1].getAttribute("aria-pressed") === "true" && b[0].getAttribute("aria-pressed") === "false", "Segmentwahl");
+      var m = beispiel("marke"), f = m.querySelector(".kn-filter-tag[aria-pressed='false']");
+      f.click(); soll(f.getAttribute("aria-pressed") === "true", "Filtermarke");
+    }],
+    ["Datentabelle: Auswahl zeigt Stapelaktionen, Sortierung setzt aria-sort und sagt an", async function () {
+      var d = beispiel("datentabelle"), c = d.querySelector("[data-kn-row-select]");
+      c.click(); soll(d.querySelector(".kn-table-toolbar").hasAttribute("data-kn-batch-active"), "keine Stapelaktionen");
+      var s = d.querySelector(".kn-table-sort__button"); s.click(); await warte(200);
+      soll(s.closest("th").getAttribute("aria-sort") === "ascending", "aria-sort"); soll(/^Sortiert nach/.test(ansage()), "Ansage: " + ansage());
+    }],
+    ["KERN-Dialog: öffnet, Erstfokus auf dem Titel, Name gesetzt", async function () {
+      var d = beispiel("kern-dialog", "data-dialog-target"), k = d.querySelector("[data-dialog-target]");
+      k.click(); await warte(20);
+      var dlg = document.getElementById(k.getAttribute("data-dialog-target"));
+      soll(dlg.open, "nicht offen"); soll(dlg.getAttribute("aria-labelledby"), "kein Name");
+      soll(document.activeElement && document.activeElement.id === dlg.getAttribute("aria-labelledby"), "Erstfokus nicht auf dem Titel");
+      dlg.close();
+    }],
+    ["Ansage und Laden: KN.melde, KN.lade nach 1 s", async function () {
+      KN.melde("Probe"); await warte(200); soll(ansage() === "Probe", "melde: " + ansage());
+      var b = document.createElement("section"); buehne.appendChild(b);
+      KN.lade(b, true); soll(b.getAttribute("aria-busy") === "true" && !b.querySelector(".kern-loader"), "sofort");
+      await warte(1200); soll(!!b.querySelector(".kern-loader"), "Lader fehlt nach 1 s");
+      KN.lade(b, false); soll(!b.hasAttribute("aria-busy") && !b.querySelector(".kern-loader"), "nicht beendet");
+    }],
+    ["Englische Systemtexte (lang=en)", async function () {
+      var d = document.createElement("div"); d.lang = "en";
+      d.innerHTML = '<table id="vp-en" data-kn-selectable><tbody><tr><td><input type="checkbox" data-kn-row-select></td></tr></tbody></table><p data-kn-status-of="vp-en"></p>';
+      buehne.appendChild(d); KN.start(d);
+      soll(d.querySelector("p").textContent === "Nothing selected", d.querySelector("p").textContent);
+    }]
+  ];
+
+  /* Gegenprobe: ?gegenprobe=1 legt das Hochzählen lahm — die Zahlenfeld-Prüfung MUSS dann rot sein */
+  if (new URLSearchParams(location.search).get("gegenprobe") === "1") { HTMLInputElement.prototype.stepUp = function () {}; }
+
+  async function laufe() {
+    var liste = document.getElementById("vp-liste");
+    for (var i = 0; i < PRUEFUNGEN.length; i++) {
+      var p = PRUEFUNGEN[i], ok = true, grund = "ok";
+      /* jede Prüfung auf leerer Bühne — doppelte IDs würden sonst die erste Kopie treffen */
+      alle_schliessen(); buehne.innerHTML = "";
+      try { await p[1](); } catch (e) { ok = false; grund = e.message; }
+      ergebnisse.push({ name: p[0], ok: ok, grund: grund });
+      var tr = document.createElement("tr"); tr.className = "kern-table__row";
+      tr.innerHTML = '<td class="kern-table__cell"></td><td class="kern-table__cell"></td>';
+      tr.children[0].textContent = p[0];
+      tr.children[1].textContent = grund; tr.children[1].className += ok ? " vp-ok" : " vp-fehler";
+      liste.appendChild(tr);
+    }
+    var gut = ergebnisse.filter(function (e) { return e.ok; }).length;
+    var stand = gut + " von " + ergebnisse.length + " Prüfungen bestanden";
+    document.getElementById("vp-stand").textContent = stand;
+    window.VP_ERGEBNIS = { gut: gut, alle: ergebnisse.length, fehler: ergebnisse.filter(function (e) { return !e.ok; }) };
+    if (new URLSearchParams(location.search).get("melden") === "1") {
+      var text = encodeURIComponent(navigator.userAgent) + "&gut=" + gut + "&alle=" + ergebnisse.length + "&fehler=" +
+        encodeURIComponent(window.VP_ERGEBNIS.fehler.map(function (e) { return e.name.slice(0, 30) + ": " + e.grund; }).join(" | "));
+      try { await fetch("/_ergebnis?browser=" + text, { cache: "no-store" }); } catch (e) {}
+    }
+  }
+  if (document.readyState === "complete") { laufe(); } else { window.addEventListener("load", laufe); }
+})();
+</script>
+</body>
+</html>

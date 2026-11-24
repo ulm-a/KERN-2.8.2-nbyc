@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Story-Prüfung — KERN 2.8.2 (nbyc)</title>
+<!-- KERN 2.8.2 (nbyc) — interne Adaption von KERN 2.8.2, nicht das offizielle KERN; "nbyc" = "New by Claude".
+     Prüft die erzeugten Stories OHNE Node und ohne Storybook (E12, M102): lädt jede Story-Datei als
+     ES-Modul, rendert jede Story durch dieselben Dekoratoren wie Storybook (.storybook/preview.js),
+     wartet auf KN.start und misst. Ergebnis in window.SBP_ERGEBNIS (für pruefung/webkit-pruefen.swift).
+     Aufruf über den Prüfserver im Projektordner (Port 8058), am einfachsten per Doppelklick auf
+     "KERN 2.8.2 (nbyc) Storybook/Stories prüfen.command"; per Doppelklick auf diese Seite (file://) meldet sie NICHT GEPRÜFT. Prüft NICHT: Storybook selbst (Oberfläche,
+     Markdown der Doku-Seite, main.js) — das geht nur mit Node beim Empfänger. -->
+<link rel="stylesheet" href="../../KERN%202.8.2%20(nbyc)/system/kern-neu.css">
+<script src="../../KERN%202.8.2%20(nbyc)/system/kern-neu.js"></script>
+<script src="stories-liste.js"></script>
+</head>
+<body class="kn-page">
+<main class="kern-container">
+  <h1 class="kern-heading-large">Story-Prüfung</h1>
+  <p class="kern-body" id="sbp-stand">läuft …</p>
+  <table class="kern-table">
+    <thead><tr class="kern-table__row"><th class="kern-table__header" scope="col">Prüfung</th><th class="kern-table__header" scope="col">Ergebnis</th></tr></thead>
+    <tbody class="kern-table__body" id="sbp-liste"></tbody>
+  </table>
+  <div id="sbp-buehne" aria-hidden="true"></div>
+</main>
+<script>
+/* M103: Ohne Server (Doppelklick, file://) laden Browser keine ES-Module — dann stand hier ewig
+   "läuft …". Jetzt laut: "NICHT GEPRÜFT" mit dem Weg, wie es geht (nie still, Guiding §2). */
+(function () {
+  function melde(t) {
+    var s = document.getElementById("sbp-stand");
+    s.textContent = t;
+    window.SBP_ERGEBNIS = { gut: 0, alle: 1, stories: 0, fehler: [{ name: "Start", ok: false, grund: t }] };
+  }
+  if (location.protocol === "file:") {
+    melde("NICHT GEPRÜFT — diese Seite braucht den Prüfserver: Per Doppelklick (file://) laden Browser keine ES-Module. " +
+          "Start: Doppelklick auf „KERN 2.8.2 (nbyc) Storybook/Stories prüfen.command“ — oder im Projektordner " +
+          "python3 -m http.server 8058 --bind 127.0.0.1 und dann http://127.0.0.1:8058/KERN%202.8.2%20(nbyc)%20Storybook/pruefung/stories-pruefen.html");
+    return;
+  }
+  setTimeout(function () {
+    if (!window.SBP_LAEUFT) melde("NICHT GEPRÜFT — das Prüfskript ist nicht gestartet (ES-Modul nicht geladen). Konsole des Browsers ansehen.");
+  }, 5000);
+})();
+</script>
+<script type="module">
+import { decorators, globalTypes, initialGlobals } from "../.storybook/preview.js";
+
+window.SBP_LAEUFT = true;   /* nur erreicht, wenn das Modul samt preview.js geladen ist */
+const fehlerImLauf = [];
+window.addEventListener("error", (e) => fehlerImLauf.push(String(e.message)));
+const fehlerAlt = console.error;
+console.error = (...a) => { fehlerImLauf.push(a.join(" ")); fehlerAlt.apply(console, a); };
+
+/* Gegenprobe: ?gegenprobe=1 legt KN.start lahm — "Verhalten verdrahtet" MUSS dann rot sein */
+if (new URLSearchParams(location.search).get("gegenprobe") === "1") window.KN.start = function () {};
+
+const buehne = document.getElementById("sbp-buehne");
+const bild = () => new Promise((r) => setTimeout(r, 30));   /* kein requestAnimationFrame: ruht im verdeckten Fenster */
+const ergebnisse = [];
+function zeile(name, ok, grund) {
+  ergebnisse.push({ name, ok, grund });
+  const tr = document.createElement("tr"); tr.className = "kern-table__row";
+  tr.innerHTML = '<td class="kern-table__cell"></td><td class="kern-table__cell"></td>';
+  tr.children[0].textContent = name; tr.children[1].textContent = ok ? "ok" : grund;
+  document.getElementById("sbp-liste").appendChild(tr);
+}
+
+/* Eine Story so rendern, wie Storybook es tut: Dekoratoren um render(), dann einhängen */
+async function rendere(story, globals) {
+  let fn = () => story.render();
+  for (const d of decorators) { const innen = fn; fn = () => d(innen, { globals }); }
+  const el = fn();
+  buehne.appendChild(el);
+  await bild();
+  return el;
+}
+
+async function laufe() {
+  const zahlen = window.SB_ZAHLEN || {}, dateien = window.SB_STORIES || [];
+  const titel = new Set(), doppelteTitel = [], ohneDoku = [], leer = [], nichtVerdrahtet = [], idDoppelt = [], idOriginal = [], seitenIdDoppelt = [];
+  let stories = 0, mitKn = 0, seitenEigenerRahmen = 0;
+  for (const pfad of dateien) {
+    let modul;
+    try { modul = await import(pfad); } catch (e) { zeile("Laden " + pfad, false, e.message); continue; }
+    const meta = modul.default || {};
+    if (titel.has(meta.title)) doppelteTitel.push(meta.title); titel.add(meta.title);
+    const doku = (((meta.parameters || {}).docs || {}).description || {}).component || "";
+    if (meta.title !== "Einführung" && !(doku.length > 40 && doku.includes("### English"))) ohneDoku.push(meta.title);
+    const seitenIds = new Map();
+    for (const [name, story] of Object.entries(modul)) {
+      if (name === "default" || typeof (story || {}).render !== "function") continue;
+      stories++;
+      let el;
+      try { el = await rendere(story, initialGlobals); } catch (e) { zeile(meta.title + " · " + name, false, e.message); continue; }
+      /* leer = kein Text UND kein sichtbares Element (Symbole sind Flächen ohne Text) */
+      const sichtbar = Array.from(el.querySelectorAll("*")).some((x) => { const r = x.getBoundingClientRect(); return r.width > 0 && r.height > 0; });
+      if (!el.textContent.trim() && !sichtbar) leer.push(meta.title + " · " + name);
+      /* hat das Beispiel Verhalten (data-kn-…), muss KN.start es verdrahtet haben (Merker knFertig…) */
+      const braucht = el.querySelector("[data-kn-combobox], [data-kn-menu], [data-kn-drawer], [data-kn-tabs], [data-kn-tree], [data-kn-multiselect], [data-kn-popover]");
+      if (braucht) { mitKn++; if (!Object.keys(braucht.dataset).some((k) => k.startsWith("knFertig"))) nichtVerdrahtet.push(meta.title + " · " + name); }
+      const ids = Array.from(el.querySelectorAll("[id]"), (x) => x.id);
+      const d = ids.filter((x, i) => ids.indexOf(x) !== i);
+      /* Doppelte IDs in KERNs eigenen Beispielen: Befund im Original (E6), zählt nicht — eigene: Fehler */
+      if (d.length) (((meta.parameters || {}).kern || {}).herkunft === "KERN 2.8.2" ? idOriginal : idDoppelt)
+        .push(meta.title + " · " + name + ": " + [...new Set(d)].join(", "));
+      new Set(ids).forEach((x) => seitenIds.set(x, (seitenIds.get(x) || 0) + 1));
+      el.remove();
+      Array.from(document.querySelectorAll("dialog[open]"), (x) => x.close());
+    }
+    /* Doku-Seite: dieselbe ID in zwei Beispielen ist nur dann ein Fehler, wenn die Beispiele NICHT je
+       im eigenen Rahmen stehen (docs.story.inline = false, von stories-bauen.py gesetzt) */
+    const s = [...seitenIds].filter(([, n]) => n > 1).map(([x]) => x);
+    const eigenerRahmen = ((((meta.parameters || {}).docs || {}).story) || {}).inline === false;
+    if (s.length && !eigenerRahmen) seitenIdDoppelt.push(meta.title + ": " + s.join(", "));
+    if (s.length && eigenerRahmen) seitenEigenerRahmen++;
+  }
+  const erwartet = (zahlen.stories || 0) + 1;   /* + Einführung */
+  zeile("Story-Dateien geladen: " + dateien.length + " (Katalog: " + ((zahlen.kern || 0) + (zahlen.eigen || 0)) + " Einträge + Einführung)",
+        dateien.length === (zahlen.kern || 0) + (zahlen.eigen || 0) + 1, "erwartet " + ((zahlen.kern || 0) + (zahlen.eigen || 0) + 1));
+  zeile("Stories gerendert: " + stories + " von " + erwartet, stories === erwartet, "erwartet " + erwartet);
+  zeile("Titel eindeutig", !doppelteTitel.length, doppelteTitel.join(" · "));
+  zeile("Doku-Text Deutsch + Englisch je Eintrag", !ohneDoku.length, ohneDoku.join(" · "));
+  zeile("keine leere Story", !leer.length, leer.join(" · "));
+  zeile("Verhalten verdrahtet (KN.start), " + mitKn + " Stories mit Verhalten", !nichtVerdrahtet.length, nichtVerdrahtet.join(" · "));
+  zeile("IDs je Story eindeutig (eigene Beispiele)", !idDoppelt.length, idDoppelt.join(" · "));
+  zeile("Doku-Seiten ohne doppelte IDs (" + seitenEigenerRahmen + " Seiten mit eigenem Rahmen je Beispiel)", !seitenIdDoppelt.length, seitenIdDoppelt.join(" · "));
+  zeile("Werkzeugleiste: Modus, Kontrast, Sprache", ["kernTheme", "kernKontrast", "kernSprache"].every((k) => globalTypes[k]), "fehlt");
+  zeile("keine Skriptfehler beim Rendern", !fehlerImLauf.length, fehlerImLauf.slice(0, 5).join(" · "));
+  window.SBP_HINWEISE = { befundImOriginal: idOriginal };   /* zählt nicht (E6); Rückmeldung an das KERN-Team nur nach Freigabe */
+  const gut = ergebnisse.filter((e) => e.ok).length;
+  document.getElementById("sbp-stand").textContent = gut + " von " + ergebnisse.length + " Prüfungen bestanden · " +
+    stories + " Stories · Befund im Original (zählt nicht): " + (idOriginal.join(" · ") || "keiner");
+  window.SBP_ERGEBNIS = { gut, alle: ergebnisse.length, stories, fehler: ergebnisse.filter((e) => !e.ok), befundImOriginal: idOriginal };
+}
+laufe();
+</script>
+</body>
+</html>

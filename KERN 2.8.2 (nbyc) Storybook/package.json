@@ -1,0 +1,19 @@
+{
+  "name": "kern-2-8-2-nbyc-storybook",
+  "private": true,
+  "version": "0.2.0",
+  "description": "KERN 2.8.2 (nbyc) — interne Adaption von KERN 2.8.2, nicht das offizielle KERN. Storybook-Stories, erzeugt aus dem Katalog (nbyc = New by Claude).",
+  "license": "EUPL-1.2",
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006 --host 127.0.0.1",
+    "build-storybook": "storybook build -o storybook-static"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "9.1.21",
+    "@storybook/addon-docs": "9.1.21",
+    "@storybook/html-vite": "9.1.21",
+    "storybook": "9.1.21",
+    "vite": "6.4.5"
+  }
+}

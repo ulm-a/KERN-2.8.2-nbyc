@@ -1,0 +1,79 @@
+/* KERN OnePager — Inspektor. Werkzeug-Ebene im Aussehen des Designers:
+   nur --kd-* aus "KERN Designer/stil/designer-tokens.css" ([data-kd-werkzeug]).
+   Wirkt nicht auf KERN-Bausteine; die Messung im OnePager lässt sie aus. */
+
+.kd-insp {
+  position: fixed; z-index: 10000;
+  inline-size: min(36em, calc(100vw - var(--kd-raum-4)));
+  max-block-size: min(70vh, 40em); overflow: auto;
+  padding: var(--kd-raum-3) var(--kd-raum-4);
+  background: var(--kd-grund); color: var(--kd-text);
+  border: var(--kd-linie) solid var(--kd-linie-stark); border-radius: var(--kd-radius);
+  font-family: var(--kd-schrift); font-size: var(--kd-text-s); line-height: var(--kd-zeile);
+  box-shadow: 0 var(--kd-raum-1) var(--kd-raum-4) color-mix(in srgb, var(--kd-grund) 60%, transparent);
+  text-align: start; letter-spacing: normal; text-transform: none;
+}
+.kd-insp[hidden] { display: none; }
+.kd-insp :focus-visible { outline: var(--kd-linie-fokus) solid var(--kd-akzent); outline-offset: var(--kd-linie-fokus); }
+
+.kd-insp__kopf { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--kd-raum-1) var(--kd-raum-3);
+  padding-block-end: var(--kd-raum-2); border-block-end: var(--kd-linie) solid var(--kd-linie-farbe); }
+.kd-insp__name { font-size: var(--kd-text-m); font-weight: var(--kd-gewicht-stark); }
+.kd-insp__stufe { text-transform: uppercase; letter-spacing: var(--kd-laufweite-versal); font-size: var(--kd-text-xs);
+  font-weight: var(--kd-gewicht-stark); color: var(--kd-akzent); }
+/* Steuerung oben rechts im Tooltip (D21): [Aus ⌥ I] [Esc ✕] — Zielfläche ≥ Bedienhöhe */
+.kd-insp__steuer { margin-inline-start: auto; display: inline-flex; gap: var(--kd-raum-1); align-self: flex-start; }
+.kd-insp__steuerknopf {
+  display: inline-flex; align-items: center; gap: var(--kd-raum-1); min-block-size: var(--kd-bedienhoehe);
+  padding: 0 var(--kd-raum-2); border: var(--kd-linie) solid var(--kd-linie-stark); border-radius: var(--kd-radius);
+  background: none; color: var(--kd-text); font: inherit; font-size: var(--kd-text-xs); line-height: 1; white-space: nowrap; cursor: pointer;
+}
+.kd-insp__steuerknopf:hover { background: var(--kd-ebene-2); }
+.kd-insp__taste { font-family: inherit; font-size: var(--kd-text-xs); color: var(--kd-text-leise);
+  padding: 0 var(--kd-raum-1); border: var(--kd-linie) solid var(--kd-linie-farbe); }
+.kd-insp__kreuz { font-size: var(--kd-text-s); }
+.kd-insp__code { flex-basis: 100%; font-size: var(--kd-text-xs); color: var(--kd-text-leise); overflow-wrap: anywhere; }
+.kd-insp__klein { margin: 0; font-size: var(--kd-text-xs); color: var(--kd-text-leise); }
+
+.kd-insp__gruppe { padding-block: var(--kd-raum-2); border-block-end: var(--kd-linie) solid var(--kd-linie-farbe); }
+.kd-insp__titel { margin: 0 0 var(--kd-raum-1); text-transform: uppercase; letter-spacing: var(--kd-laufweite-versal);
+  font-size: var(--kd-text-xs); font-weight: var(--kd-gewicht-stark); color: var(--kd-text-leise); }
+.kd-insp__zeile { display: grid; grid-template-columns: minmax(6em, max-content) minmax(5em, max-content) minmax(0, 1fr); gap: var(--kd-raum-1) var(--kd-raum-3);
+  align-items: baseline; padding-block: var(--kd-raum-1); }
+@media (max-width: 30em) { .kd-insp__zeile { grid-template-columns: 1fr 1fr; } .kd-insp__kette { grid-column: 1 / -1; } }
+.kd-insp__was { color: var(--kd-text-leise); }
+.kd-insp__wert { display: inline-flex; align-items: center; gap: var(--kd-raum-1); font-variant-numeric: tabular-nums; }
+.kd-insp__muster { inline-size: calc(var(--kd-einheit) * 3); block-size: calc(var(--kd-einheit) * 3); border: var(--kd-linie) solid var(--kd-linie-stark); }
+.kd-insp__kette { overflow-wrap: anywhere; }
+.kd-insp__token {
+  display: inline; padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: var(--kd-text-xs); color: var(--kd-akzent); text-decoration: underline; text-underline-offset: 2px;
+  min-block-size: 0; text-align: start; white-space: normal; overflow-wrap: anywhere;
+}
+.kd-insp__token:hover { color: var(--kd-text); }
+.kd-insp__pfeil, .kd-insp__trenner, .kd-insp__herkunft, .kd-insp__roh { font-size: var(--kd-text-xs); color: var(--kd-text-leise); }
+.kd-insp__marke { margin-inline-start: var(--kd-raum-2); font-size: var(--kd-text-xs); font-weight: var(--kd-gewicht-stark);
+  text-transform: uppercase; letter-spacing: var(--kd-laufweite-versal); }
+.kd-insp__marke--rot { color: var(--kd-rot); }   .kd-insp__marke--rot::before { content: "✕ "; }
+.kd-insp__marke--gelb { color: var(--kd-gelb); } .kd-insp__marke--gelb::before { content: "▲ "; }
+.kd-insp__marke--gruen { color: var(--kd-gruen); } .kd-insp__marke--gruen::before { content: "✓ "; }
+.kd-insp__fuss { padding-block-start: var(--kd-raum-2); }
+.kd-insp__hinweis { margin: 0 0 var(--kd-raum-1); color: var(--kd-akzent); font-size: var(--kd-text-xs); }
+.kd-insp__hinweis:empty { display: none; }
+
+/* Schalter "Inspektor" (D24): sieht aus wie die KERN-Schalter im Seitenkopf (.op-modus in
+   onepager.css); Auge = an, durchgestrichen = aus, kleines ⌥ = "nur mit ⌥". Ohne Seitenkopf
+   steht er fest oben rechts. */
+.op-modus--insp { inline-size: auto; min-inline-size: var(--op-kopf-hoehe, var(--kern-metric-dimension-default)); gap: 2px; padding-inline: var(--kern-metric-space-2x-small); }
+.op-modus__taste { font-size: var(--kern-typography-font-size-small-static); line-height: 1; }
+.op-modus__taste[hidden] { display: none; }
+body > .kd-insp-ecke { position: fixed; z-index: 9999; inset-block-start: var(--kern-metric-space-small); inset-inline-end: var(--kern-metric-space-small);
+  background: var(--kern-color-layout-background-default); color: var(--kern-color-layout-text-default); }
+@media print { .kd-insp-ecke { display: none; } }
+
+/* Schalter im Statusstreifen */
+.op-status__knopf { margin-inline-start: auto; font: inherit; color: inherit; background: none; cursor: pointer;
+  border: var(--kern-metric-border-width-light) solid currentColor; border-radius: var(--kern-metric-border-radius-default);
+  padding-inline: var(--kern-metric-space-x-small); min-block-size: var(--kern-metric-dimension-default); }
+.op-status__knopf[aria-pressed="true"] { font-weight: var(--kern-typography-font-weight-semi-bold); }
+@media (forced-colors: active) { .kd-insp, .kd-insp__steuerknopf { border-color: CanvasText; } .kd-insp__token { color: LinkText; } }

@@ -1,0 +1,56 @@
+name: Prüfungen
+
+# Was hier läuft, läuft auch örtlich mit denselben Befehlen (siehe CONTRIBUTING.md).
+# Nicht dabei: pruefe-designer.py und die Katalog-Generatoren — sie brauchen KERNs
+# eigene Beispieldateien, die diesem Repository nicht beiliegen (THIRD-PARTY.md, 2).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pruefungen:
+    name: pruefe.py und Storybook-Stories
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 27 Prüfungen des Systems
+        working-directory: "KERN 2.8.2 (nbyc)"
+        run: python3 pruefung/pruefe.py
+
+      - name: Stories stimmen mit dem Katalog überein
+        run: python3 "KERN 2.8.2 (nbyc) Storybook/werkzeug/stories-bauen.py" --pruefen
+
+  storybook:
+    name: Storybook baut
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: "KERN 2.8.2 (nbyc) Storybook/package-lock.json"
+
+      - name: Pakete aus dem Lockfile
+        working-directory: "KERN 2.8.2 (nbyc) Storybook"
+        run: npm ci
+
+      - name: Bauen
+        working-directory: "KERN 2.8.2 (nbyc) Storybook"
+        run: npm run build-storybook

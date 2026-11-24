@@ -1,0 +1,139 @@
+LIZENZEN UND HERKUNFT — KERN 2.8.2 (nbyc)
+Stand: 13.10.2026 (Fassung 0.5.7: in Git, Tag 0.5.7)
+================================================================================
+NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
+      KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
+      KI-Assistenten von Anthropic. Nicht das offizielle KERN.
+
+Dieses Dokument sagt, was hier woher kommt und unter welchen Bedingungen es
+benutzt werden darf. Es ist nach bestem Wissen zusammengestellt und ersetzt
+KEINE rechtliche Prüfung. Vor einer Weitergabe nach außen oder vor einem
+Einsatz beim Kunden gehört es der Rechtsabteilung vorgelegt.
+
+
+1  DER EIGENE CODE IN DIESEM ORDNER
+--------------------------------------------------------------------------------
+system/01b-erweiterung.css, 02- … 06-*.css (02b eingeschlossen), kern-neu.css,
+system/kern-neu.js, katalog/*, katalog.html, index.html, muster/*,
+pruefung/* und alle .txt-Dateien sind für dieses Vorhaben geschrieben.
+NICHT dazu gehört system/kern.css (Punkt 2).
+
+  RECHTEINHABER   Capgemini
+  LIZENZ          EUPL-1.2 (entschieden 13.10.2026, K25) — dieselbe Lizenz
+                  wie KERN. Lizenztext: system/kern-LICENSE.md (EUPL v1.2,
+                  für KERN und für den eigenen Code gleich).
+                  Lizenziert unter der EUPL.
+
+
+2  KERN 2.8.2 — EINGEBUNDEN, UNVERÄNDERT
+--------------------------------------------------------------------------------
+  QUELLE          KERN Design System, @kern-ux/native 2.8.2 (23.09.2026),
+                  Datei dist/kern.css
+  DATEI HIER      system/kern.css — Byte für Byte gleich (SHA-256
+                  516fe93d218b483c…; geprüft von pruefe.py, Prüfung 10)
+  LIZENZ          EUPL-1.2; Lizenztext liegt bei: system/kern-LICENSE.md
+  ÜBERNOMMEN      KERNs gesamtes CSS: Tokens, Bausteine, Raster, Hilfs-
+                  klassen, Symbole (seit M81). Eigene Anpassungen stehen in
+                  eigenen Dateien danach (ABWEICHUNGEN.txt).
+  NAME            Intern "KERN 2.8.2 (nbyc)" (E7, seit 13.10.2026; vorher
+                  "KERN 0.5.8"). Das ist NICHT das offizielle KERN und darf
+                  nicht als solches ausgegeben werden. Weil die Nummer der
+                  des offiziellen KERN gleicht, steht der Zusatz "(nbyc)"
+                  immer dabei. "nbyc" steht für "New by Claude": neu gebaut
+                  mit Claude, dem KI-Assistenten von Anthropic. Entschieden 13.10.2026: Der Name
+                  bleibt in der Vorlage an das KERN-Team; die Absprache nach
+                  K26 ("nicht KERN ohne Absprache") geschieht mit dieser
+                  Vorlage. Vor jeder anderen Weitergabe nach außen wird der
+                  Name neu entschieden.
+
+  BEARBEITUNG     Ob die eigenen Dateien als Bearbeitung im Sinne der EUPL
+                  gelten, ist ohne Folge: Sie stehen ohnehin unter EUPL-1.2
+                  (Punkt 1).
+
+
+3  SYMBOLE — ÜBER KERN, URSPRUNG MATERIAL SYMBOLS
+--------------------------------------------------------------------------------
+  QUELLE          Die Symbole (kern-icon--…) stecken als SVG-Masken in
+                  kern.css. Laut KERN-Dokumentation sind es Google Material
+                  Symbols (Stil rounded, fill, weight 400, grade 0, optical
+                  size 24).
+  LIZENZ          Apache-2.0 — geprüft 13.10.2026 an der Quelle:
+                  github.com/google/material-design-icons, README und
+                  LICENSE (die Ordner "symbols" und "variablefont" enthalten
+                  ausdrücklich Material Symbols).
+  LÜCKE IM ORIGINAL  Das KERN-Paket nennt Herkunft und Lizenz der Symbole
+                  nicht (Vergleich, Teil 6, F6).
+  BEI WEITERGABE  Apache-2.0 verlangt, den Lizenztext beizulegen. Er liegt
+                  hier noch NICHT bei — gehört zur Weitergabe-Prüfung.
+  EIGENE SYMBOLE  eines, seit 13.10.2026: kn-icon--filter-list
+                  (system/02b-kern-ergaenzung.css, Katalogfilter). Form
+                  "filter_list" aus Material Symbols, in KERNs Bauart als
+                  Maske gesetzt. Der Pfad (drei Balken) ist nachgezeichnet,
+                  NICHT aus der Originaldatei kopiert und nicht mit ihr
+                  verglichen (kein Download ohne Freigabe). Gleiche Lizenz-
+                  pflicht wie oben. Sonst keine mask-/SVG-Regeln in
+                  system/02- … 06-*.css.
+
+
+4  FIRA SANS — DIE SCHRIFT
+--------------------------------------------------------------------------------
+  QUELLE          Fira Sans, entworfen von Erik Spiekermann und Ralph du
+                  Carrois für Mozilla; Rechte: The Mozilla Foundation und
+                  Telefónica S.A.
+  LIZENZ          SIL Open Font License 1.1 (OFL-1.1) — geprüft 13.10.2026:
+                  github.com/mozilla/Fira, Datei LICENSE
+  DATEIEN         schrift/fira-sans/*.woff2 — die 10 eingebundenen Schnitte
+                  (300–700, normal und kursiv); die 22 nie geladenen sind
+                  seit 13.10.2026 entfernt (M29, in Git erhalten).
+  LIZENZTEXT      schrift/fira-sans/OFL.txt — liegt bei (M28, 13.10.2026,
+                  mit Freigabe geladen von
+                  https://github.com/mozilla/Fira/raw/refs/heads/master/LICENSE,
+                  4479 Bytes, unverändert; Inhalt geprüft: OFL 1.1).
+
+  WEITERE OFL-BEDINGUNGEN, die hier eingehalten sind:
+    · Die Schrift wird nicht verkauft.
+    · Die Schriftdateien sind unverändert.
+    · Der Name "Fira Sans" wird nicht für eine geänderte Fassung benutzt.
+
+
+5  IBM CARBON — MASSE ENTFERNT, EINE BEWEGUNGSKURVE BLEIBT
+--------------------------------------------------------------------------------
+  0.5.7 übernahm Carbons Maßskalen (Zahlen, kein Code). In 2.8.2 (nbyc) sind alle
+  Carbon-Maße entfernt (Entscheidung E2, Maßnahme M20). Prüfung 11 sucht
+  die entfallenen Namen, Prüfung 9 seit 13.10.2026 jedes rohe Maß — die
+  letzten Carbon-Maße (Schieberegler 14/2 px) fand erst die Kurzprüfung
+  nach Stufe 5.
+  GEBLIEBEN: die Bewegungskurve --kn-easing = cubic-bezier(0.2, 0, 0.38,
+  0.9), Carbons "productive standard" (system/01b, Abschnitt 2; KERN hat
+  keine Bewegungstokens). Das ist ein einzelner Zahlenwert, kein Code;
+  Herkunft steht an der Stelle. Carbon selbst steht unter Apache-2.0.
+
+
+6  WAS NICHT ENTHALTEN IST
+--------------------------------------------------------------------------------
+Dieses System lädt NICHTS aus dem Netz. Keine Google Fonts, kein CDN,
+keine Analyse, kein Tracker, keine Schriftabfrage. Alles liegt örtlich —
+auch kern.css lädt nichts nach (geprüft: kein @import, keine Schrift-
+dateien, nur eingebettete SVG-Grafiken).
+
+Das ist für eine Behördenanwendung kein Komfortmerkmal, sondern
+Voraussetzung: jede Netzabfrage aus dem Browser wäre eine Übermittlung
+personenbezogener Daten (mindestens der IP-Adresse) an einen Dritten und
+damit nach DSGVO begründungspflichtig.
+
+Es gibt keine Abhängigkeit zu npm. Das ganze System sind CSS- und
+JavaScript-Dateien in diesem Ordner.
+
+
+7  ZUSAMMENFASSUNG FÜR EILIGE
+--------------------------------------------------------------------------------
+  DARF ICH ES INTERN BENUTZEN?      Ja.
+  DARF ICH ES DEM BVA ZEIGEN?       Ja, als Arbeitsstand — mit dem Hinweis
+                                    "interne Adaption, nicht das offizielle
+                                    KERN".
+  DARF ICH ES WEITERGEBEN?          Erst wenn der Apache-Lizenztext der
+                                    Symbole (Punkt 3) beiliegt und Lizenz
+                                    und Name (Punkte 1 und 2) entschieden
+                                    sind. OFL.txt liegt bei (Punkt 4).
+  DARF ICH ES "KERN" NENNEN?        Intern "KERN 2.8.2 (nbyc)" (E7). Nach außen:
+                                    neu entscheiden, vorher nein.

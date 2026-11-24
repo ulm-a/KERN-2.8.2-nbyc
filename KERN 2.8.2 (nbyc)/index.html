@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KERN 2.8.2 (nbyc) · Fassung 0.2.0</title>
+<link rel="stylesheet" href="system/kern-neu.css?v=2.8.2-nbyc.44">
+</head>
+<body class="kn-page">
+
+<a class="kn-skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="kn-header">
+  <a class="kn-header__brand" href="index.html">KERN <span>2.8.2 (nbyc) · Fassung <!--kn-fassung-->0.2.0<!--/kn-fassung--></span></a>
+  <div class="kn-header__end">
+    <div class="kn-segmented">
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="light" aria-pressed="false">Hell</button>
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="dark" aria-pressed="false">Dunkel</button>
+    </div>
+    <div class="kn-segmented">
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="contrast" value="normal" aria-pressed="false">Normal</button>
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="contrast" value="high" aria-pressed="false">Kontrast</button>
+    </div>
+  </div>
+</header>
+
+<main class="kern-container kn-container--narrow" id="inhalt" style="padding-block:3rem">
+
+
+  <h1 class="kern-heading-large">KERN 2.8.2 (nbyc)</h1>
+  <p class="kern-body kern-body--large">Eine interne Adaption von KERN 2.8.2 für die
+  öffentliche Verwaltung: KERN unverändert, dazu Tastatur und Rückmeldung für jede Bedienung,
+  Erweiterungen aus KERN-Tokens und vier Darstellungsmodi.</p>
+
+  <div class="kern-alert kern-alert--info" style="margin-block:2rem">
+    <div class="kern-alert__header">
+      <span class="kern-icon kern-icon--info" aria-hidden="true"></span>
+      <h2 class="kern-title">Verhältnis zu KERN</h2>
+    </div>
+    <div class="kern-alert__body">
+      <p class="kern-body">Alle Tokens stammen aus KERN 2.8.2 (erzeugt aus dem offiziellen
+      Paket). KERNs Bausteine werden unverändert genutzt; eigene Zusatzbausteine ergänzen, was KERN nicht hat. Dies ist
+      <b>nicht das offizielle KERN</b>. Wer das braucht, nimmt <span class="kn-code">@kern-ux/native</span>.</p>
+      <p class="kern-body">Zum Namen: 2.8.2 ist die Version des eingebundenen offiziellen KERN; „nbyc“ steht für
+      „New by Claude“ – neu gebaut mit Claude, dem KI-Assistenten von Anthropic.</p>
+    </div>
+  </div>
+
+  <h2 class="kern-heading-medium">2.8.2 (nbyc), Fassung <!--kn-fassung-->0.2.0<!--/kn-fassung--> — was schon KERN ist und was noch nicht</h2>
+  <dl class="kern-description-list" style="margin-block-end:2rem">
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">KERN</dt><dd class="kern-description-list-item__value"><b>kern.css 2.8.2 unverändert eingebunden</b> (Byte für Byte, Prüfsumme gleich) — Tokens, Bausteine, Raster, Hilfsklassen. Token-Vergleich: 4152 von 4152 Werten gleich.</dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">KERN-Beispiele</dt><dd class="kern-description-list-item__value">Alle 135 offiziellen Beispiele rendern wie bei KERN (hell, 375 und 1280 px). Dunkel weichen nur Browser-Grundfarben ab — mit Absicht, siehe <b>ABWEICHUNGEN.txt</b>.</dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">Maße und Farben</dt><dd class="kern-description-list-item__value">Die Bausteine zeigen KERNs Werte: Schrift 18 px, Knopf und Feld 48 px, Ecken 4 px, Fokus 4 px mit Abstand, KERNs Farbrollen. Die Carbon-Maße aus 0.5.7 sind entfernt.</dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">Thema</dt><dd class="kern-description-list-item__value">Hell und dunkel über KERNs Schalter <span class="kn-code">data-kern-theme</span>.</dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">Katalog</dt><dd class="kern-description-list-item__value">38 KERN-Bausteine mit Original-Beispielen und den Pflichten, die KERN der Umsetzung überlässt — je mit Stand. Dialog und Passwort-Anzeige haben Verhalten aus kern-neu.js.</dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">Erweiterungen</dt><dd class="kern-description-list-item__value">Was KERN nicht hat (z. B. Schublade, Reiter, Kalender, Baumansicht, Datentabelle mit Stapelaktionen), ist als Erweiterung mit englischem Namen nach KERNs Schema gebaut — nur aus KERN-Tokens, Zustände nach KERN, Tastatur nach WAI-ARIA. Die 16 Doppelungen aus 0.5.7 sind durch KERN ersetzt; alte Namen nennt <b>UMSTIEG.txt</b>.</dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">Noch nicht</dt><dd class="kern-description-list-item__value">Prüfung in Firefox, mit Screenreadern und im Windows-Kontrastmodus (Schritte in <b>pruefung/GERAETETEST.txt</b>).</dd></div>
+  </dl>
+  <p class="kern-body">Belege je Schritt in <b>AENDERUNGEN.txt</b>. Für den Einstieg: <b>LIESMICH.txt</b>.</p>
+
+  <h2 class="kern-heading-medium">Ansehen</h2>
+  <div class="kn-auto-grid" style="margin-block-end:2rem">
+    <article class="kern-card kern-card--interactive">
+      <div class="kern-card__container">
+        <header class="kern-card__header"><h3 class="kern-title"><a href="katalog.html" class="kern-link--stretched">Komponentenkatalog</a></h3></header>
+        <section class="kern-card__body"><p class="kern-body kern-body--small kern-body--muted">Alle Komponenten, jede mit
+      Zweck, Entscheidungshilfe, lebenden Beispielen, Quelltext, Barrierefreiheit und
+      Klassenliste.</p></section>
+      </div>
+    </article>
+    <article class="kern-card kern-card--interactive">
+      <div class="kern-card__container">
+        <header class="kern-card__header"><h3 class="kern-title"><a href="muster/fallbearbeitung.html" class="kern-link--stretched">Muster: Fallbearbeitung</a></h3></header>
+        <section class="kern-card__body"><p class="kern-body kern-body--small kern-body--muted">Auftragsliste, Vorgang,
+      Verlauf; Arbeitsvorrat gefüllt, leer, beim Laden und mit Fehler. Der Nachweis,
+      dass Sachbearbeitung damit geht.</p></section>
+      </div>
+    </article>
+    <article class="kern-card kern-card--interactive">
+      <div class="kern-card__container">
+        <header class="kern-card__header"><h3 class="kern-title"><a href="muster/formularstrecke.html" class="kern-link--stretched">Muster: Formularstrecke</a></h3></header>
+        <section class="kern-card__body"><p class="kern-body kern-body--small kern-body--muted">Antrag in drei Schritten
+      mit Prüfen, Ändern, Fehlerzusammenfassung, Sendefehler und Bestätigung.</p></section>
+      </div>
+    </article>
+    <article class="kern-card kern-card--interactive">
+      <div class="kern-card__container">
+        <header class="kern-card__header"><h3 class="kern-title"><a href="muster/suche.html" class="kern-link--stretched">Muster: Suche</a></h3></header>
+        <section class="kern-card__body"><p class="kern-body kern-body--small kern-body--muted">Suche mit Filtern, Sortierung
+      und Seiten; Vorschläge, Laden, keine Treffer und Fehler.</p></section>
+      </div>
+    </article>
+    <article class="kern-card kern-card--interactive">
+      <div class="kern-card__container">
+        <header class="kern-card__header"><h3 class="kern-title"><a href="token.json" class="kern-link--stretched">token.json</a></h3></header>
+        <section class="kern-card__body"><p class="kern-body kern-body--small kern-body--muted">Erzeugt aus KERN 2.8.2: 519 KERN-Token
+      und 26 Erweiterungs-Token, je Modus. Nie von Hand geändert.</p></section>
+      </div>
+    </article>
+  </div>
+
+  <h2 class="kern-heading-medium">Benutzen</h2>
+  <pre class="kn-code" style="padding:1rem;background:var(--kern-color-layout-background-hued);border-radius:var(--kern-metric-border-radius-default);overflow-x:auto">&lt;link rel="stylesheet" href="system/kern-neu.css?v=2.8.2-nbyc.44"&gt;
+&lt;script src="system/kern-neu.js?v=2.8.2-nbyc.44" defer&gt;&lt;/script&gt;</pre>
+  <p class="kern-body">Kein Bauwerkzeug, kein Netz, öffnet per Doppelklick. Vollständiger
+  Einstieg in <b>LIESMICH.txt</b>, Aufbau und Änderungswege in <b>METHODE.txt</b>.</p>
+  <p class="kern-body kern-body--small kern-body--muted">Untergrenze der Browser: Chrome und Edge ab
+  111, Firefox ab 121, Safari ab 16.2 — wegen <span class="kn-code">oklch()</span>,
+  <span class="kn-code">color-mix()</span> und Container-Abfragen. Begründung in
+  LIESMICH.txt.</p>
+
+  <h2 class="kern-heading-medium">Geprüft — Stand 2.8.2 (nbyc), 13.10.2026</h2>
+  <ul class="kern-list kern-list--bullet">
+    <li><b>Token-Vergleich</b> gegen das offizielle KERN 2.8.2: 4152 von 4152 berechneten Werten
+        gleich, hell und dunkel, 375 und 1280 px. Gegenprobe: ein verfälschtes Token wird erkannt.</li>
+    <li><b>Kontrast nach KERNs Anspruch</b> (Text 7 zu 1, großer Text 4,5 zu 1, Grenzen 3 zu 1),
+        gemessen am gerenderten Katalog und Muster in hell, dunkel und beiden Kontrastmodi:
+        keine Unterschreitung (METHODE.txt, Abschnitt 09).</li>
+    <li><b>Maße</b> im Browser gemessen: Knopf 48, Schrift 18, Ecke 4, Hauptknopf #2044AA;
+        Tastaturfokus 4 px mit 2 px Abstand.</li>
+    <li><b>25 automatische Prüfungen</b>, Aufruf
+        <span class="kn-code">python3 pruefung/pruefe.py</span>, jede neue mit Gegenprobe
+        (Liste in LIESMICH.txt). Ohne Beanstandung.</li>
+    <li><b>Gesperrt nach KERN</b>: <span class="kn-code">aria-disabled</span> statt
+        <span class="kn-code">disabled</span> — bleibt per Tab erreichbar, das Skript sperrt
+        Klick, Tasten und Eingabe. Mit echter Eingabe geprüft an Knopf, Feld, Schalter, Regler.</li>
+    <li><b>Durchsicht</b> von Katalog und Muster nach dem Einbinden von KERN: 3036 Elemente je
+        Ansicht (hell/dunkel, 375/1280 px) ohne eine Stilabweichung gegenüber vorher.</li>
+    <li><b>Prüfstand</b> mit den offiziellen KERN-Beispielen: hell 135 von 135 deckungsgleich
+        (375 und 1280 px); dunkel 7 von 135 — einzige Ursache ist das Farbschema des Browsers
+        (abgeschaltet: 135 von 135). Gegenprobe: eine falsche Ecke wird erkannt.</li>
+    <li><b>Tastaturfokus</b> (echter Tab): KERN-Knopf wie KERN; Elemente mit tabindex zeigen
+        den Ring wieder — in KERN 2.8.2 fehlt er dort (Fehler F17, siehe ABWEICHUNGEN.txt).</li>
+    <li><b>Tastatur und Ansagen</b> (Stufe 6/7): je Erweiterung Taste, Wirkung und Ansage im
+        Katalog; Fokus an 114 eigenen und 158 KERN-Elementen in 4 Modi gemessen (mindestens
+        4,97 zu 1); Verhaltensprüfung 17 von 17 in Chromium und WebKit. Einzelheiten:
+        METHODE.txt, Abschnitte 08 bis 10.</li>
+  </ul>
+  <div class="kern-alert kern-alert--warning" style="margin-block:1.5rem">
+    <div class="kern-alert__header">
+      <span class="kern-icon kern-icon--warning" aria-hidden="true"></span>
+      <h2 class="kern-title">Zwei Kontrastfehler wurden dabei gefunden</h2>
+    </div>
+    <div class="kern-alert__body">
+      <p class="kern-body">Die Sprungmarke hing an
+      <span class="kn-code">--kn-fokus-hilfe</span>; dieses Token ist im Dunkelmodus
+      schwarz, der feste dunkle Text darauf ergab 1,31 zu 1. Das Bildnis setzte eine Fläche,
+      aber keine Textfarbe, und erbte damit die inverse des Kopfes: 1,30 zu 1.
+      Beide sind behoben. <b>Beide standen seit 0.5.6 im System und waren beim Ansehen
+      nicht aufgefallen</b> — gefunden hat sie erst die Messung.</p>
+    </div>
+  </div>
+  <h2 class="kern-heading-medium">Diese Fassung</h2>
+  <dl class="kern-description-list">
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">Fassung</dt><dd class="kern-description-list-item__value"><!--kn-fassung-->0.2.0<!--/kn-fassung--> (16.11.2026) — unsere Fassung, nicht KERNs Version</dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">KERN-Bezugsversion</dt><dd class="kern-description-list-item__value">2.8.2 vom 23.09.2026 — wird nie hochgezählt</dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">Versionsstempel</dt><dd class="kern-description-list-item__value"><span class="kn-code">2.8.2-nbyc.44</span> — Cache-Marke des Browsers, nicht die Fassung</dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">kern.css</dt><dd class="kern-description-list-item__value">unverändert, SHA-256 <span class="kn-code">516fe93d…1fcd79e</span></dd></div>
+    <div class="kern-description-list-item"><dt class="kern-description-list-item__key">Abweichungen</dt><dd class="kern-description-list-item__value">ABWEICHUNGEN.txt — jede Abweichung von KERN mit Grund und Beleg</dd></div>
+  </dl>
+
+</main>
+
+<footer class="kn-footer">
+  <div class="kern-container kn-container--narrow">
+    <p class="kn-footer__legal" style="margin:0;border:0;padding:0">KERN 2.8.2 (nbyc), Fassung <!--kn-fassung-->0.2.0<!--/kn-fassung--> (KERN 2.8.2 eingebunden, Erweiterungen aus KERN-Tokens), interne Adaption von KERN —
+    Tokens aus KERN 2.8.2 (EUPL-1.2), Fira Sans (SIL OFL).
+    Alle Beispieldaten sind erfunden.</p>
+  </div>
+</footer>
+
+<script src="system/kern-neu.js?v=2.8.2-nbyc.44"></script>
+</body>
+</html>

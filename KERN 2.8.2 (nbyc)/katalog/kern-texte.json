@@ -1,0 +1,225 @@
+{
+ "hinweis": "Wann nehmen / Wann nicht / Barrierefreiheit für KERN-Bausteine. Von Hand gepflegt; Herkunft: Katalog 0.5.7 (Einträge der Doppelungen, Stufe 5b), auf KERN 2.8.2 berichtigt. kern-katalog-bauen.py liest von hier. [W] = Fachwissen, nicht KERN-Vorgabe.",
+ "text-body": {
+  "wann": [
+   "Für jede Textstelle eine KERN-Textrolle — nie eine eigene Größe."
+  ],
+  "nicht": [
+   "Die Größe sagt nichts über die Gliederungsebene: Überschriftenebene (h1–h6) und Textrolle sind zweierlei."
+  ],
+  "barriere": [
+   "WCAG 1.4.12: Text bleibt lesbar, wenn Nutzende Zeilenhöhe, Abstände und Laufweite vergrößern — keine festen Höhen um Text.",
+   "Keine Schrift unter KERNs kleinster Stufe."
+  ]
+ },
+ "button": {
+  "wann": [
+   "Für eine Handlung: absenden, speichern, löschen, öffnen.",
+   "Genau ein Hauptknopf (kern-btn--primary) je Bildschirmabschnitt — KERN: einer je Seite."
+  ],
+  "nicht": [
+   "Für einen Ortswechsel — dafür ist der Link da.",
+   "Nie zwei Hauptknöpfe nebeneinander: dann ist keiner mehr der Hauptknopf."
+  ],
+  "barriere": [
+   "Immer <button>, nie ein <div> mit Klickereignis.",
+   "Bedienziel nach WCAG 2.5.8 mindestens 24 × 24 px; KERNs Regelhöhe ist 48 px.",
+   "Gesperrt nach KERN: lieber ausblenden; wenn nötig aria-disabled=\"true\" statt disabled — der Knopf bleibt per Tab erreichbar und wird vorgelesen, kern-neu.js sperrt Klick, Enter und Leertaste.",
+   "Ladezustand (Erweiterung data-kn-loading): nicht bedienbar, die Beschriftung bleibt für Hilfsmittel erhalten."
+  ]
+ },
+ "link": {
+  "wann": [
+   "Für jeden Ortswechsel — auch innerhalb der Seite."
+  ],
+  "nicht": [
+   "Für eine Handlung. Ein Link, der etwas löscht, ist ein Knopf."
+  ],
+  "barriere": [
+   "Die Beschriftung muss allein verständlich sein. Nie „hier klicken“.",
+   "Die Unterstreichung bleibt — sie wirkt auch ohne Farbwahrnehmung."
+  ]
+ },
+ "search": {
+  "wann": [
+   "Überall, wo in einer Menge gesucht wird — Vorgänge, Nachweise, Personen."
+  ],
+  "nicht": [
+   "Nicht für das Filtern einer kurzen, sichtbaren Liste. Dafür reichen Filtermarken (kn-filter-tag).",
+   "Der Platzhaltertext ersetzt keine Beschriftung."
+  ],
+  "barriere": [
+   "type=\"search\" — Hilfsmittel kündigen das Feld dann als Suche an.",
+   "KERN: Beschriftung sichtbar; nur die globale Suche im Seitenkopf darf sie verbergen (kern-sr-only).",
+   "Ein Knopf mit Lupe allein braucht einen Namen (kern-sr-only)."
+  ]
+ },
+ "input-text-text": {
+  "wann": [
+   "Für jede freie Eingabe."
+  ],
+  "nicht": [
+   "Nie ohne Beschriftung. Ein Platzhaltertext ist keine Beschriftung: er verschwindet beim Tippen."
+  ],
+  "barriere": [
+   "<label for> ist Pflicht.",
+   "Hinweis und Fehler über aria-describedby verbinden — sonst liest der Screenreader sie nicht.",
+   "aria-invalid=\"true\" am fehlerhaften Feld.",
+   "Die Fehlerleiste links (kern-form-input--error) macht den Fehler auch ohne Farbwahrnehmung sichtbar."
+  ]
+ },
+ "input-checkboxes": {
+  "wann": [
+   "Für Möglichkeiten, die alle sichtbar sein sollen — mehrere zugleich wählbar."
+  ],
+  "nicht": [
+   "Für viele Möglichkeiten: KERN nimmt die Auswahlliste für 5 bis 15; darüber eine Combobox mit Suche (kn-combobox)."
+  ],
+  "barriere": [
+   "Gruppen immer in <fieldset> mit <legend> — sonst fehlt der Zusammenhang."
+  ]
+ },
+ "input-radios": {
+  "wann": [
+   "Für genau eine Wahl aus wenigen, sichtbaren Möglichkeiten. KERN bevorzugt Auswahlknöpfe vor der Auswahlliste."
+  ],
+  "nicht": [
+   "Vorauswahl nur bei Einstellungen (KERN)."
+  ],
+  "barriere": [
+   "Gruppen immer in <fieldset> mit <legend>.",
+   "Pfeiltasten wechseln die Wahl innerhalb der Gruppe; Tab verlässt sie."
+  ]
+ },
+ "input-text-password": {
+  "wann": [
+   "Bei jeder Anmeldung.",
+   "Der Anzeigen-Knopf ist keine Bequemlichkeit, sondern Barrierefreiheit: wer nicht blind tippen kann, braucht ihn."
+  ],
+  "nicht": [
+   "Nicht für Kennungen, die kein Geheimnis sind.",
+   "Niemals das Einfügen aus der Zwischenablage sperren — das treibt Menschen zu schlechteren Passwörtern."
+  ],
+  "barriere": [
+   "Der Anzeigen-Knopf hat einen Namen für Hilfsmittel (kern-sr-only „Passwort anzeigen“); aria-pressed sagt, ob das Passwort gerade sichtbar ist.",
+   "autocomplete current-password bzw. new-password, damit Passwortverwaltungen das Feld erkennen."
+  ]
+ },
+ "input-text-date": {
+  "wann": [
+   "Für Geburtsdaten, Fristende, weit zurückliegende Termine — überall, wo Tippen schneller ist als Blättern."
+  ],
+  "nicht": [
+   "Für die Wahl eines nahen Termins in den nächsten Wochen — dafür kommt das Kalender-Datum (kn-date-picker, M89)."
+  ],
+  "barriere": [
+   "Ein <fieldset> mit <legend> — sonst hört man dreimal „Tag, Monat, Jahr“, ohne zu wissen, wozu.",
+   "inputmode=\"numeric\" statt type=\"number\": kein Drehrad, aber die Zifferntastatur auf dem Telefon.",
+   "Jedes Teilfeld hat eine eigene sichtbare Beschriftung."
+  ]
+ },
+ "summary": {
+  "wann": [
+   "Am Ende jeder Antragsstrecke. Ohne sie sendet man blind ab."
+  ],
+  "nicht": [
+   "Für Daten, die man nicht ändern kann — dort genügt die Description List."
+  ],
+  "barriere": [
+   "Jeder Ändern-Link braucht verborgenen Zusatztext — sonst hört man dreimal nur „Ändern“.",
+   "<dl> mit <dt> und <dd>, damit der Zusammenhang erhalten bleibt."
+  ]
+ },
+ "description-list": {
+  "wann": [
+   "Für alles, was zu einem Vorgang feststeht: Aktenzeichen, Darlehenssumme, Frist — wenn nichts davon bearbeitet wird."
+  ],
+  "nicht": [
+   "Wenn Werte änderbar sein sollen — dafür Summary mit Ändern-Link je Zeile.",
+   "Für Vergleiche zwischen mehreren Fällen. Das ist eine Tabelle."
+  ],
+  "barriere": [
+   "Eine echte <dl> mit <dt> und <dd> — Screenreader lesen dann Paare, nicht zwei Spalten.",
+   "Beträge mit gleich breiten Ziffern — KERN setzt tabellarische Ziffern seitenweit."
+  ]
+ },
+ "tasklist": {
+  "wann": [
+   "Für mehrteilige Verfahren: welche Nachweise fehlen, welche Prüfschritte offen sind — in beliebiger Reihenfolge erledigbar."
+  ],
+  "nicht": [
+   "Wenn die Reihenfolge zwingend ist — dafür die Schrittfolge (kn-steps).",
+   "Ohne Angabe, wie viele von wie vielen erledigt sind."
+  ],
+  "barriere": [
+   "Der Stand steht als Text in der Marke, nicht nur als Farbe.",
+   "Die Zählung „2 von 4“ gehört über die Liste.",
+   "Eine echte Liste, damit die Anzahl angesagt wird."
+  ]
+ },
+ "card": {
+  "wann": [
+   "Für gleichrangige Einheiten nebeneinander."
+  ],
+  "nicht": [
+   "Für Fließtext. Karten um alles herum machen eine Seite unruhig."
+  ],
+  "barriere": [
+   "Eine klickbare Karte (kern-card--interactive) ist EIN Link — nicht mehrere darin. Sonst weiß niemand, was der Klick tut."
+  ]
+ },
+ "accordion": {
+  "wann": [
+   "Für Zusatzerklärungen, häufige Fragen, seltene Angaben."
+  ],
+  "nicht": [
+   "Für Pflichtangaben. Was alle ausfüllen müssen, darf nicht verborgen sein.",
+   "Nie für Fehlermeldungen."
+  ],
+  "barriere": [
+   "Natives <details>/<summary>: Zustand und Tastatur (Enter, Leertaste) liefert der Browser — ohne ARIA und ohne Skript."
+  ]
+ },
+ "dialog": {
+  "wann": [
+   "Vor zerstörenden Handlungen.",
+   "Wenn ohne Antwort nicht weitergearbeitet werden kann."
+  ],
+  "nicht": [
+   "Für Bestätigungen, die man verpassen darf — dafür die flüchtige Meldung (kn-toast).",
+   "Für Formulare mit mehr als drei Feldern. Dann eine eigene Seite."
+  ],
+  "barriere": [
+   "Natives <dialog> mit showModal(): der Rest der Seite wird für Hilfsmittel unerreichbar.",
+   "Tab bleibt im Dialog, Esc schließt; nach dem Schließen geht der Fokus auf den Auslöser zurück (kern-neu.js).",
+   "aria-labelledby zeigt auf die Überschrift.",
+   "Der Titel ist eine Frage, die Knöpfe sind Antworten — nie „OK“ und „Abbrechen“."
+  ]
+ },
+ "alert": {
+  "wann": [
+   "Im Fluss der Seite, dort wo es hingehört."
+  ],
+  "nicht": [
+   "Als einziger Träger einer Farbe. Die Art steht immer auch als Wort im Titel."
+  ],
+  "barriere": [
+   "Der Titel nennt die Art in Worten: Hinweis, Erfolgreich, Achtung, Fehler.",
+   "KERNs Beispiele setzen role=\"alert\" bei allen Arten. Empfehlung [W]: role=\"alert\" nur für Meldungen, die nach einer Handlung erscheinen; ein Hinweis, der beim Laden schon dasteht, braucht keine Live-Rolle — sonst unterbricht jede Seite beim Laden."
+  ]
+ },
+ "loader": {
+  "wann": [
+   "Beim Abruf aus einem Fachverfahren, dessen Antwortzeit niemand kennt — KERN: erst ab 1 s Wartezeit.",
+   "Immer mit einem Satz daneben, was gerade passiert."
+  ],
+  "nicht": [
+   "Länger als etwa zehn Sekunden ohne weitere Erklärung.",
+   "Nicht, wenn der Fortschritt bezifferbar ist — dann den Fortschrittsbalken (kn-progress-bar)."
+  ],
+  "barriere": [
+   "Die Ansage trägt role=\"status\" (im KERN-Beispiel vorhanden).",
+   "Bei „Bewegung reduzieren“ hört die Drehung auf (Erweiterung AB03)."
+  ]
+ }
+}

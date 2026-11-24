@@ -1,0 +1,28 @@
+/* ERZEUGT von "KERN 2.8.2 (nbyc) Storybook/werkzeug/stories-bauen.py" aus dem Katalog
+   KERN 2.8.2 (nbyc) — Fassung 0.2.0 (16.11.2026)
+   (KERN 2.8.2 (nbyc)/katalog) — nicht von Hand ändern (E12).
+   KERN 2.8.2 (nbyc) — interne Adaption von KERN 2.8.2, nicht das offizielle KERN;
+   "nbyc" = "New by Claude". */
+
+export default {
+  title: "Erweiterungen (kn-)/Fläche/Popover und Hinweis auf Klick",
+  tags: ["autodocs"],
+  parameters: {
+    kern: {"id": "popover", "herkunft": "Erweiterung (aus KERN-Tokens)", "quelle": "", "ids_in_mehreren_beispielen": []},
+    docs: { description: { component: "Zeigt zusätzliche Information erst auf Klick — auch auf Touch-Geräten. Der Hinweis auf Klick sagt einen kurzen Text an; das Popover darf Links und Knöpfe enthalten.\n\n**Wann nehmen**\n\n- Hilfe zu einem Feld, die nicht jeder braucht.\n- Ein kurzer Begriff, den man nachschlagen will, ohne die Seite zu verlassen.\n\n**Wann nicht**\n\n- Für Pflichtangaben oder Fehler — die gehören sichtbar auf die Seite.\n- Wenn der Inhalt eine Entscheidung verlangt — dafür der Dialog.\n- Nicht als Ersatz für eine gute Beschriftung.\n\n**Barrierefreiheit**\n\n- Der Knopf hat einen Namen (kern-sr-only) — ein Fragezeichen allein ist stumm.\n- Hinweis auf Klick: Text erst beim Klick in die Blase und angesagt (zentrale Ansage, M61) (WCAG 4.1.3).\n- Popover: aria-expanded am Knopf; Esc schließt und gibt den Fokus zurück; kein Fokus-Gefängnis, weil nicht modal.\n- Anders als der Kurzhinweis auch auf Touch bedienbar (WCAG 1.4.13).\n\n**Tastaturvertrag**\n\n| Taste | Wirkung | Ansage |\n|---|---|---|\n| Enter, Leertaste am Knopf (Popover) | öffnet, Fokus auf das erste Element darin |  |\n| Esc | schließt, Fokus zurück |  |\n| Tab hinaus | schließt |  |\n| Enter, Leertaste (Hinweis auf Klick) | zeigt den Text | der Text |\n| Esc | blendet ihn aus |  |\n\n**Klassen**\n\n| Klasse | Bedeutung |\n|---|---|\n| `kn-toggletip` | Hülle des Hinweises auf Klick |\n| `data-kn-toggletip` | Text des Hinweises |\n| `kn-toggletip__bubble` | Statusregion (role=status) |\n| `kn-popover` | Hülle |\n| `data-kn-popover` | Knopf, mit aria-controls |\n| `kn-popover__panel` | der Bereich (hidden) |\n\n**Bezeichnungen / Names**\n\n| Code | Deutsch | English |\n|---|---|---|\n| `kn-popover` | Popover | Popover |\n| `kn-toggletip` | Hinweis auf Klick | Toggletip |\n\nHerkunft / Origin: Erweiterung (aus KERN-Tokens)\n\n---\n\n### English — Popover and toggletip\n\nShows additional information only on click — on touch devices too. The toggletip announces a short text; the popover may contain links and buttons.\n\n**When to use**\n\n- Help for a field that not everyone needs.\n- A short term you want to look up without leaving the page.\n\n**When not to use**\n\n- For required information or errors — they belong visibly on the page.\n- When the content requires a decision — use the dialog.\n- Not as a replacement for a good label.\n\n**Accessibility**\n\n- The button has a name (kern-sr-only) — a question mark alone is silent.\n- Toggletip: the text goes into the bubble only on click and is announced (central announcement, M61) (WCAG 4.1.3).\n- Popover: aria-expanded on the button; Esc closes and returns focus; no focus trap, because it is not modal.\n- Unlike the tooltip, it can also be operated on touch (WCAG 1.4.13).\n\n**Keyboard contract**\n\n| Key | Effect | Announcement |\n|---|---|---|\n| Enter, Space on the button (popover) | opens, focus on the first element inside |  |\n| Esc | closes, focus back |  |\n| Tab out | closes |  |\n| Enter, Space (toggletip) | shows the text | the text |\n| Esc | hides it |  |\n\n**Classes**\n\n| Class | Meaning |\n|---|---|\n| `kn-toggletip` | Wrapper of the toggletip |\n| `data-kn-toggletip` | Text of the toggletip |\n| `kn-toggletip__bubble` | Status region (role=status) |\n| `kn-popover` | Wrapper |\n| `data-kn-popover` | Button, with aria-controls |\n| `kn-popover__panel` | the area (hidden) |\n" } }
+  }
+};
+
+const html01 = "<p class=\"kern-body\">Anrechenbares Einkommen\n  <span class=\"kn-toggletip\">\n    <button class=\"kern-btn kern-btn--tertiary kern-btn--small\" type=\"button\" data-kn-toggletip=\"Einkommen nach Abzug der Freibeträge, gerechnet auf den Monat.\">\n      <span class=\"kern-icon kern-icon--help\" aria-hidden=\"true\"></span><span class=\"kern-sr-only\">Was heißt anrechenbares Einkommen?</span></button>\n    <span class=\"kn-toggletip__bubble\"></span>\n  </span>\n</p>";
+export const Beispiel01 = {
+  name: "Hinweis auf Klick (Toggletip)",
+  render: () => html01,
+  parameters: { docs: { source: { code: html01 }, description: { story: "Klick oder Enter auf das Symbol schreibt den Text in eine Statusregion — Screenreader sagen ihn an. Esc oder Klick daneben schließt.\n\nClick or Enter on the icon writes the text into a status region — screen readers announce it. Esc or a click elsewhere closes it." } } }
+};
+
+const html02 = "<div class=\"kn-popover\">\n  <button class=\"kern-btn kern-btn--secondary\" type=\"button\" data-kn-popover aria-expanded=\"false\" aria-controls=\"po-1\"><span class=\"kern-label\">Rechtsgrundlage</span></button>\n  <div class=\"kn-popover__panel\" id=\"po-1\" hidden tabindex=\"-1\">\n    <p class=\"kern-body kern-body--small\">§ 18a Abs. 1 BAföG — Freistellung bei geringem Einkommen.</p>\n    <a class=\"kern-link\" href=\"#\">Gesetzestext öffnen</a>\n  </div>\n</div>";
+export const Beispiel02 = {
+  name: "Popover mit Link",
+  render: () => html02,
+  parameters: { docs: { source: { code: html02 }, description: { story: "Enter öffnet und setzt den Fokus in den Bereich; Esc schließt und gibt den Fokus zurück.\n\nEnter opens it and moves focus into the area; Esc closes it and returns focus." } } }
+};

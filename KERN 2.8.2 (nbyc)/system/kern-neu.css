@@ -1,0 +1,27 @@
+/* ==================================================================
+   KERN 2.8.2 (nbyc) · in Arbeit — KERN 2.8.2 unverändert, Erweiterungen aus KERN-Tokens
+   ==================================================================
+   Ein eigenständiges Design-System in der Formensprache von KERN.
+   Keine Abhängigkeit, kein Paket, kein Bauwerkzeug.
+
+   EINBINDEN: nur diese Datei und das Skript.
+     <link rel="stylesheet" href="system/kern-neu.css">
+     <script src="system/kern-neu.js"></script>
+
+   REIHENFOLGE IST WICHTIG: Schrift, KERN, dann alles Eigene.
+   KERN verlangt: KERN-Dateien unverändert, Eigenes in eigenen Dateien
+   DANACH (kern-ux.de, "Einbinden von KERN"; Auswertung V02).
+   ================================================================== */
+
+/* Jede eingebundene Datei trägt den Versionsstempel — sonst mischt der Browser
+   nach einem Update alte und neue Bausteindateien (13.10.2026). Setzen nur mit
+   pruefung/stempel.py; Prüfung 22 wacht darüber. */
+@import "../schrift/fira-sans.css?v=2.8.2-nbyc.44";
+@import "kern.css?v=2.8.2-nbyc.44";           /* KERN 2.8.2 UNVERÄNDERT (EUPL-1.2, kern-LICENSE.md) — M81 */
+@import "01b-erweiterung.css?v=2.8.2-nbyc.44";  /* nur, was KERN nicht hat — M19 */
+@import "02-basis.css?v=2.8.2-nbyc.44";
+@import "02b-kern-ergaenzung.css?v=2.8.2-nbyc.44";  /* Erweiterungen an KERN-Klassen — Stufe 5b */
+@import "03-aktion.css?v=2.8.2-nbyc.44";
+@import "04-eingabe.css?v=2.8.2-nbyc.44";
+@import "05-navigation.css?v=2.8.2-nbyc.44";
+@import "06-inhalt.css?v=2.8.2-nbyc.44";

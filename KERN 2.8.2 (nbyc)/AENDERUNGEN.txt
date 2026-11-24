@@ -1,0 +1,1880 @@
+ÄNDERUNGEN — KERN (bis 0.5.7 "KERN NEU")
+Neueste Fassung oben. Ab 2.8.2 (nbyc) je Eintrag: Kennung · WAS · WARUM · BELEG.
+Arbeitsliste: "_ Instructions/Maßnahmen KERN 2.8.2 (nbyc).txt" (Projektordner).
+Fassung: 0.2.0 · 16.11.2026
+================================================================================
+NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
+      KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
+      KI-Assistenten von Anthropic. Nicht das offizielle KERN.
+
+NÄCHSTE FASSUNG  —  begonnen 16.10.2026
+--------------------------------------------------------------------------------
+Neue Einträge hier oben anfügen (Kennung · WAS · WARUM · BELEG). Nächste freie
+Kennungen und der Ablauf einer Änderung: "_ Instructions/Übergabe KERN 2.8.2
+(nbyc).txt" (Projektordner).
+
+M109 ÜBERGABE BERICHTIGT: GEMESSENE ZAHLEN ZUM ZIP IN DER WURZEL,
+     PAPIERKORB NICHT PRÜFBAR, FASSUNGSHINWEIS OHNE TOTEN ORDNER  24.11.2026
+     WAS    Keine Änderung am System, nur an Unterlagen.
+            1. "_ Instructions/Übergabe KERN 2.8.2 (nbyc).txt": Der Nachtrag
+               zu O3 vom 16.11.2026 nannte für "KERN 2.8.2 (nbyc) 0.2.0.zip"
+               in der Projektwurzel 2,0 MB, 73 Einträge und "kein Heft".
+               Gemessen am 24.11.2026: 3 974 447 Bytes (3,97 MB), 74 echte
+               Einträge — 73 im Systemordner plus das Heft
+               "_ Documentation/KERN 2.8.2 (nbyc) 0.2.0 Dokumentation.pdf"
+               (2,3 MB) —, dazu 74 Einträge "__MACOSX" und .DS_Store. Der
+               Schluss bleibt: Es ist nicht das Paket aus paket.sh (kein
+               Designer, kein OnePager, kein "_ Resources", kein "_ LIES
+               MICH ZUERST", keine Rückmeldung, keine Startdatei).
+               O3 nennt jetzt vier Punkte vor einem Paketlauf: sauberer
+               git status, die beiden Dateien aus "_ Export" im
+               ARBEITSBAUM (--add-file), Inhalt noch auf 0.1.4 (O2) und die
+               Frage nach "_ Assessment". Der Abbruch aus O4 droht beim
+               Paketlauf nicht, weil "_ Resources/kern/userdoccomponents"
+               mit ins ZIP geht.
+               O1: Aus einer KI-Sitzung ist der Papierkorb NICHT prüfbar —
+               "~/.Trash" antwortet "Operation not permitted", auch
+               "test -e" sagt dort immer "nein"; die Sicherung ist Commit
+               4419ad3.
+               "_ Export": Der Ordner ist im Arbeitsbaum gelöscht (drei
+               Dateien, nicht committet), von der Nutzerin am 24.11.2026 als
+               Absicht bestätigt; im Git liegt er weiter. Ordnerliste um
+               diesen Vermerk und um "_ Assessment" ergänzt. Nächste freie
+               Maßnahme jetzt M110.
+            2. "KERN 2.8.2 (nbyc)/thema/fassung.json": Der Hinweis sagte, die
+               Fassung sei "abgelegt im Ordner KERN 2.8.2a (nbyc)" — den
+               Ordner hat M108 aufgelöst. Satzteil entfernt; Fassung, Datum
+               und a11y unberührt. Der Designer trägt den Hinweis
+               unverändert in die nächste Fassung (server.py Zeile 500,
+               hinweis=f_alt.get("hinweis", "")), von Hand geändert wird nur
+               dieser Text, nie die Fassung.
+     WARUM  Sitzungsbeginn 24.11.2026 ("mach Dich vertraut"): Beim Nachmessen
+            der Angaben der Übergabe stimmten drei nicht mehr mit dem Stand
+            auf der Platte überein. Eine Übergabe mit falschen Zahlen führt
+            die nächste Sitzung in die Irre, und ein Hinweis auf einen
+            Ordner, den es nicht gibt, ist eine Anleitung ins Leere
+            (Core Rules §5). Auswahl der Nutzerin: "3, dann 2" — zuerst
+            berichtigen, dann das Paket bauen.
+     BELEG  ZIP gemessen: "unzip -Z1 … | grep -vc '^__MACOSX'" = 74;
+            "unzip -Z1 … | grep -v '^__MACOSX' | cut -d/ -f1 | sort | uniq -c"
+            = 73 "KERN 2.8.2 (nbyc)" + 1 "_ Documentation"; Dateigröße
+            3 974 447 Bytes (ls -la); Heft im ZIP 2 320 791 Bytes.
+            Papierkorb: "test -r ~/.Trash" falsch, "ls ~/.Trash" meldet
+            "Operation not permitted". "_ Export": git status zeigt drei
+            Zeilen " D". Toter Ordnername: Suche "2.8.2a" im Projekt findet
+            außer in fassung.json nur Stellen, an denen der alte Name
+            Geschichte ist (Assessment-Bericht, AENDERUNGEN M108, Übergabe
+            O1 und M108-Rückblick, zwei Skriptkommentare zur Pfadsuche).
+            pruefe.py nach der Änderung: 27 Prüfungen ohne Beanstandung,
+            Rückgabewert 0; Prüfung 27 "Fassung 0.2.0 (16.11.2026) an allen
+            14 Stellen".
+            NICHT GEPRÜFT: der Papierkorb (nicht prüfbar, siehe oben);
+            Paket 0.2.0 (steht als nächstes an, braucht Entscheidungen zu
+            O2 und O3).
+
+
+M108 FASSUNG 0.2.0 — ASSESSMENT AUSGEWERTET, FÜNF BEFUNDE BEHOBEN,
+     FASSUNG ÜBERALL SICHTBAR                                 16.11.2026
+     WAS    Auswertung des externen Prüfberichts (105 Seiten, 16.11.2026,
+            Editor 8.8.3, Chromium 149, Windows) in "_ Assessment/BEFUNDE
+            Assessment 2026-11-16.txt": fünf Befunde bei uns (B1–B5), sieben
+            Unterschiede, die keine Mängel sind (K1–K7), je mit Rechnung
+            oder Messung. Behoben:
+            B1  Eigenes Platzhalterbild "img/kern-img-media.png" (640 × 360,
+                beschriftet). KERNs Markup bleibt unverändert; der absolute
+                Pfad wird erst beim Rendern aufgelöst (neue Funktion
+                bildPfad in katalog.html und kern-beispiele-bauen.py). AB14.
+            B2  pruefe.py Zeile 113/123: os.path.basename statt
+                endswith("/kern.css") — unter Windows greift der Ausschluss
+                sonst nie und die fremde kern.css wird beanstandet.
+            B3  katalog_lesen.py übergibt den Katalog als DATEI an node bzw.
+                osascript statt als Argument (gemessen 403 173 Zeichen gegen
+                Windows' Grenze von 32 767).
+            B4  Zwei Zusatzbeispiele am Knopf (ZUSATZ in
+                kern-katalog-bauen.py) zeigen small, large und x-large —
+                KERNs Klassen hatten kein einziges Beispiel.
+            B5  Fehler im Original F27, neu gefunden: hover ist spezifischer
+                als active, der gedrückte Zustand war unsichtbar.
+                Ausweichwert nach E6 in 01b-erweiterung.css, Abschnitt 5.
+                AB13.
+            Neu Prüfung 26 (gedrückt schlägt hover) und Prüfung 27 (Fassung
+            einheitlich) — jetzt 27 Prüfungen.
+            Fassung 0.2.0 sichtbar gemacht: neues Werkzeug
+            "pruefung/fassung-setzen.py" schreibt sie aus der einzigen Quelle
+            thema/fassung.json an 17 Stellen in 10 Dateien (Startseite,
+            Katalog, Prüfstand, Verhaltensseite, sechs Unterlagen,
+            package.json des Storybooks); Startseite neu mit dem Kasten
+            "Diese Fassung" (Fassung, KERN-Bezugsversion, Versionsstempel,
+            Prüfsumme, Verweis auf ABWEICHUNGEN); die von Hand gepflegte
+            Zeile "Stand 13.10.2026" entfällt an allen sechs Stellen (zwei
+            Angaben für dieselbe Sache, Guiding §3). UMSTIEG.txt ist erzeugt,
+            die Kopfzeile schreibt deshalb umstieg-bauen.py. Stories tragen
+            die Fassung im Kopfkommentar und auf der Einführungsseite.
+            Storybook umbenannt in "KERN 2.8.2 (nbyc) Storybook", Startdatei
+            entsprechend; alle Verweise in neun Quelldateien nachgezogen,
+            die 86 Stories neu erzeugt. Die Einträge M102/M103/M107 oben
+            nennen weiter den alten Namen — dort ist er Geschichte.
+            Heft neu: Teil H Assessment, Kapitel 20 (was gemessen wurde) und
+            21 (was 0.2.0 daraus gemacht hat), 28 Seiten; Zahlen in Kapitel
+            19 auf 195 Beispiele und 196 Stories berichtigt.
+            Die Skripte finden "_ Resources" jetzt aufwärts statt fest im
+            Elternordner (_projekt_mit), weil das System in einem eigenen
+            Ablageordner liegen kann.
+            Zum Schluss aufgeräumt (Freigabe 16.11.2026): der Ablageordner
+            "KERN 2.8.2a (nbyc)" ist aufgelöst, seine fünf Einträge liegen in
+            der Projektwurzel; das alte Storybook, die alte
+            "_ Documentation" und die alte Startdatei sind im Papierkorb,
+            node_modules ist ins neue Storybook übernommen. Die Skripte
+            brauchten dafür keine Änderung.
+     WARUM  Nutzerin 16.11.2026: Report verstehen, nötige Verbesserungen
+            finden, neues Design-System, HandOff und Heft. Danach: "mach
+            einen Vorschlag, wo und wie die Version 0.2.0 zu sehen sein
+            soll" — Entscheidung "Ja, alle drei Stufen"; Umbenennungen des
+            Storybooks und des Assessment-Ordners auf ihren Zuruf.
+            Der Report trennt ausdrücklich nicht zwischen Editor-Zusatz und
+            Portfehler ("Red rectangles … do not assign blame"); diese
+            Trennung ist die eigentliche Arbeit und steht in BEFUNDE.
+     BELEG  pruefe.py 27 Prüfungen ohne Beanstandung. Prüfstand 135 von 135
+            deckungsgleich (hell), Card-Bilder geladen und auf beiden Seiten
+            307 × 173 px. Storybook-Prüfseite 10 von 10, 196 Stories;
+            stories-bauen.py --pruefen ok. F27 mit echtem Mausdruck in
+            Chromium gemessen: ohne F27 gedrückt = hover
+            oklch(0.474128 0.155392 265.02), mit F27
+            oklch(0.519855 0.141884 265.02). Gegenproben in KOPIEN rot:
+            Prüfung 26 ohne F27 meldet alle drei Varianten (3,0) gegen
+            (2,0); Prüfung 27 mit anderer Fassung in der Quelle meldet alle
+            14 Stellen. K1 nachgerechnet: darkblue-700 oklch(42.84 % 0.1689
+            265.02) mit 8 % Weiß = oklch(0.474128 0.155388 265.02), der vom
+            Report notierte Port-Wert — Abweichung 4·10⁻⁶ im Chroma.
+            Heft 28 Seiten, 23 Einträge, Seiten 25 und 26 gerendert geprüft.
+
+
+M107 STORYBOOK PER DOPPELKLICK; HEFT KAPITEL 19 NACHGETRAGEN  02.11.2026
+     WAS    Neu "KERN Storybook [ Start ].command" im Projektordner (wie die
+            Startdatei des Designers): wechselt in "KERN Storybook", findet
+            Node auch ohne ~/.zshrc, beim ersten Start npm install, startet
+            storybook dev mit --no-open und öffnet 127.0.0.1:6006 erst, wenn
+            die Seite antwortet; läuft es schon, öffnet es nur die Seite.
+            Hinweis in "KERN Storybook/LIESMICH.txt" (c3d80d7). Heft Kapitel
+            19, Kasten "Starten": Startdatei und Weg von Hand im Ordner
+            "KERN Storybook"; Nachtrag im Kolophon; Heft als 0.1.4 neu gebaut
+            (Fassung unverändert, das System ist gleich). Nicht im Paket für
+            das KERN-Team (paket.sh nennt seine Pfade einzeln; E12).
+     WARUM  Nutzerin 02.11.2026: "lege mir in den Ordner einen Link zum
+            Storybook interface"; danach npm install im Projektordner ergab
+            ENOENT package.json — der Weg von Hand nannte den Ordner zu leise.
+            Heft nachziehen: "Ja, beide".
+     BELEG  Startdatei mit umgeleitetem "open": erster Start (Storybook
+            antwortet, index.json 279 Einträge = 194 Stories + 85 Doku-Seiten),
+            zweiter Start "läuft schon"; Nutzerin: "funktioniert". Heft:
+            bauen.sh ohne Überlauf, 26 Seiten; Seiten 24 und 26 als Bild
+            angesehen.
+
+M106 BEFUND F26 IN DER RÜCKMELDUNG (A13), JETZT 26 BEFUNDE  01.11.2026
+     WAS    F26 (doppelte IDs im zweiten Task-List-Beispiel, gefunden von der
+            Story-Prüfseite, M102) eingetragen: Vergleich Teil 6, ABWEICHUNGEN,
+            Rückmeldung als A13 (Wo, Wirkung, Vorschlag; Zuordnung A13 F26).
+            Zahl 25 → 26 bzw. F1–F25 → F1–F26 in Heft (S. 3, 14, 20),
+            LIES MICH ZUERST, Mail-Entwurf (Betreff, Text, "sieben weitere
+            Fehler A5, A8–A13"), METHODE, Vergleich (K28), Übergabe. Rück-
+            meldung aus Git zurückgeholt (von der Nutzerin mit den alten
+            Entwürfen gelöscht; Freigabe: "a · aus Git zurückholen"), ihr
+            Kopf auf Paket 0.1.4 — er nannte seit 0.1.2 fälschlich noch
+            "beigelegt dem Paket 0.1.1" und "neu in 0.1.1" (Versäumnis in D35
+            und D36).
+     WARUM  Nutzerin 01.11.2026: "F26 ✔ = in die Rückmeldung".
+     BELEG  Fundstellen in tasklist.examples.html nachgelesen (Z. 96, 100,
+            125, 129, 144, 150). Suche nach "25 Befunde", "F1–F25", "25 Fehler",
+            "25 Punkte", "A8–A12" in Export, Heft, Übergabe, LIESMICH, METHODE,
+            Storybook: 0 Treffer (Geschichte in AENDERUNGEN/Changes bleibt).
+            Heft-Seiten 14 und 26 als Bild angesehen.
+
+M105 HEFT: TEIL G, KAPITEL 19 "KERN STORYBOOK FÜR DIE ENTWICKLUNG"  01.11.2026
+     WAS    _ Documentation/quelle/dokument.html: neue Seite Kapitel 19 · Teil G
+            Übergabe (Vorspann, echtes Bild der Doku-Seite Mehrfachauswahl,
+            Ablauf Katalog → Erzeugen → Ansehen, Starten, Geprüft und
+            Grenzen); Glossar "Storybook / Story"; Titelseite (Teil G im
+            Vorspann), Überblick (Hinweis "Neu seit 01.11.2026"), Anhang
+            (Fassung 0.1.3, Werkzeugzeile). stil.css: --teil-g = neutral-600
+            (#5B6185, aus oklch(50.20% 0.0579 276.79) gerechnet; die Formel
+            gegen violet-600 = #9533BE gegengeprüft). Bild: werkzeug/bilder-
+            storybook.sh → quelle/bilder/storybook-ansicht.png (hell, 1280 ×
+            760). "_ Documentation/_ LIES MICH.txt" nachgezogen.
+     WARUM  Nutzerin 01.11.2026: "Ja, Kapitel ins Heft" (Weg a: Kapitel im
+            bestehenden Heft, Storybook bleibt außerhalb des Pakets).
+     BELEG  bauen.sh: 26 Seiten, 21 Einträge im Inhalt, 48 Verknüpfungen,
+            21 Lesezeichen, kein Überlauf. Seiten 1, 2, 3, 24, 25, 26 aus dem
+            fertigen PDF als Bild angesehen. Zahlen nachgezählt: 85 Einträge
+            (38 KERN + 47 eigene), 193 Beispiele, 86 Story-Dateien (Generator),
+            194 Stories und 85 Doku-Seiten (index.json des gebauten
+            Storybook). Bild aus einem statisch gebauten Storybook im
+            Scratchpad (Node der Nutzerin in ~/.local, node_modules der
+            Nutzerin), nichts im Projektordner gebaut. F26 bewusst NICHT
+            erwähnt (Freigabe für das KERN-Team steht aus).
+
+M104 STORYBOOK MIT NPM GEPRÜFT; VERSIONEN MIT SICHERHEITSLÜCKEN ERSETZT  01.11.2026
+     WAS    package.json: storybook, @storybook/html-vite, -addon-docs,
+            -addon-a11y 9.0.10 → 9.1.21 (letzte Fassung von Storybook 9),
+            vite 6.3.5 → 6.4.5; Skript "storybook" mit --host 127.0.0.1
+            (Entwicklungsserver nur auf diesem Rechner). LIESMICH: npm-Weg
+            als geprüft beschrieben, mit Messung und offenem Audit-Befund.
+     WARUM  Prüfauftrag der Nutzerin (M103). Mit Freigabe der Nutzerin Node.js
+            22.23.4 (darwin-arm64, nodejs.org, Prüfsumme gegen SHASUMS256.txt
+            ok) in den Scratchpad geladen, nichts ins System installiert,
+            npm-Zwischenspeicher ebenfalls im Scratchpad. npm audit mit den
+            in M102 gesetzten Versionen: Storybook 9.0.10 KRITISCH (u. a.
+            Code-Einschleusung über den Entwicklungsserver aus dem lokalen
+            Netz, GHSA-px85-f4q5-jh77, GHSA-f2ph-cmg5-wxc8), Vite 6.3.5 HOCH
+            (u. a. Dateien lesen über den Dev-Server, GHSA-p9ff-h696-f583).
+            M102 hatte nur geprüft, ob es die Versionen gibt — nicht, ob sie
+            Lücken haben (Fehler in M102).
+     BELEG  Kopie mit Pfad "Projekt mit Leerzeichen (Klammern)", Schritte
+            genau nach LIESMICH: npm install 92 Pakete; build-storybook ohne
+            Fehler, index.json 194 Stories + 85 Doku-Seiten; npm run
+            storybook lauscht nur auf 127.0.0.1:6006 (lsof), /kern/system/
+            kern-neu.js 200. Im Browser (Storybook 9.1.21): Doku-Seite
+            Combobox und Mehrfachauswahl — kern-neu.css geladen, KN vorhanden,
+            Verhalten verdrahtet (knFertigCombobox, knFertigMehrfach), Fira
+            Sans, Tastaturvertrag-Tabelle mit "Pos1 / Ende", Teil "English";
+            Story Datentabelle mit Werkzeugleiste dunkel/English →
+            data-kern-theme=dark, lang=en, Systemtext "Nothing selected";
+            keine Konsolenfehler. npm audit danach: nur noch @vitest/mocker
+            (mittel, GHSA-82fw-gwwq-j7x9, GHSA-qxg6-89mg-rqv8), behoben erst
+            in Storybook 10. Entscheidung der Nutzerin 01.11.2026: "Auf 9
+            bleiben" (wie KERN) — Lücke bewusst hingenommen, in E12 und
+            LIESMICH vermerkt. Node, Kopien und Zwischenspeicher danach
+            gelöscht.
+
+M103 STORYBOOK-ANLEITUNGEN BERICHTIGT, PRÜFEN PER DOPPELKLICK  01.11.2026
+     WAS    "KERN Storybook/Stories prüfen.command" neu: startet den Prüf-
+            server im Projektordner (127.0.0.1:8058) und öffnet die Prüfseite;
+            läuft er schon, nur die Seite; belegt ein fremdes Programm den
+            Port, sagt es das (Rückgabe 1). stories-pruefen.html: per Doppel-
+            klick (file://) oder wenn das ES-Modul nicht lädt, steht jetzt
+            "NICHT GEPRÜFT" mit dem Weg statt ewig "läuft …". LIESMICH:
+            beide Wege Schritt für Schritt (cd in den Ordner, 127.0.0.1 statt
+            localhost wie der Server), npm-Weg ausdrücklich NOCH NICHT
+            GEPRÜFT mit Voraussetzung Node 20 und dem Fehlerbild "command not
+            found: npm".
+     WARUM  Nutzerin 01.11.2026: "beide Anleitungen mit/ohne npm funktionieren
+            nicht … überprüfen". Nachgestellt: (1) Prüfseite per Doppelklick →
+            WebKit nach 8 s weiter "läuft …" (ES-Module laden nicht aus
+            file://), keine Meldung; (2) auf diesem Rechner kein node/npm →
+            "npm install" scheitert sofort; der npm-Weg war nie ausprobiert
+            (M102: NICHT GEPRÜFT), die LIESMICH sagte das aber nicht dort, wo
+            die Anleitung steht.
+     BELEG  file:// in WebKit → SBP_ERGEBNIS "NICHT GEPRÜFT — diese Seite
+            braucht den Prüfserver …". Startdatei mit unterdrücktem "open"
+            (nichts auf dem Bildschirm der Nutzerin): Server startet, Seite
+            10/10, 194 Stories (WebKit); zweiter Start → "läuft schon";
+            fremder Server auf 8058 → Meldung, Rückgabe 1; nach Ende Port
+            wieder frei. zsh -n ohne Fehler.
+            NICHT GEPRÜFT: der npm-Weg (kein Node auf diesem Rechner).
+
+M102 STORYBOOK-ÜBERGABE: STORIES AUS DEM KATALOG ERZEUGT  01.11.2026
+     WAS    Neuer Ordner "KERN Storybook" neben dem System (E12):
+            werkzeug/stories-bauen.py erzeugt aus dem Katalog 86 Story-Dateien
+            (38 KERN-Bausteine, 47 Erweiterungen, Einführung) mit 193 Beispielen
+            im Format von KERNs eigenem Storybook (@storybook/html-vite 9);
+            Doku-Seite je Baustein Deutsch + Englisch (Zweck, Wann, Nicht,
+            Barrierefreiheit, Tastaturvertrag, Klassen, Pflichten, Bezeich-
+            nungen), Quelltext = Katalog-Markup wörtlich. .storybook/ mit
+            Werkzeugleiste Modus/Kontrast/Sprache und Bühne (KN.start);
+            package.json mit festen, im npm-Verzeichnis geprüften Versionen
+            (nur für Empfänger mit Node). pruefung/stories-pruefen.html prüft
+            die Stories ohne Node. Beispiele mit derselben ID in einem Eintrag
+            (KERNs Originale, F19 u. a.) stehen auf der Doku-Seite je in
+            eigenem Rahmen. Instruktion: E12, Abschnitt 11 (Ausnahme npm beim
+            Empfänger). .gitignore: node_modules, storybook-static,
+            package-lock.json.
+     WARUM  Auftrag der Nutzerin 01.11.2026: Handoff an die Entwicklung mit
+            Storybook; Weg a gewählt (Stories erzeugen, kein npm im Projekt).
+     BELEG  stories-bauen.py: 86 Dateien, 193 Beispiele; --pruefen ok, Gegen-
+            probe in einer Kopie (Story-Datei von Hand ergänzt) → Rückgabe 1
+            mit genau dieser Datei. Prüfseite Chromium und WebKit: 10/10
+            Prüfungen, 194 Stories gerendert (193 + Einführung), keine Skript-
+            fehler, Verhalten in 10 Stories verdrahtet; ?gegenprobe=1 → genau
+            "Verhalten verdrahtet" rot. Erster Lauf fand: Symbol-Beispiel als
+            "leer" (Prüfung zu eng — jetzt sichtbare Fläche statt Text) und
+            doppelte IDs in KERNs Task-List-Beispiel 2 (task3-status,
+            task3-title) → als Befund im Original geführt (Vorschlag F26) —
+            sowie 11 Doku-Seiten mit gleicher ID in zwei Beispielen → eigener
+            Rahmen. Werkzeugleiste gemessen: dunkel/erhöht setzen
+            data-kern-theme/data-kn-contrast, "English" → Systemtext "Nothing
+            selected". Einführung als Bild angesehen. Versionen per npm-
+            Verzeichnis (Abfrage 01.11.2026): alle sechs vorhanden, builder-vite
+            9.0.10 erlaubt vite ^5 || ^6.
+            NICHT GEPRÜFT: Storybook selbst (npm install, Oberfläche, Markdown
+            der Doku-Seiten, main.js) — hier gibt es kein Node (E12).
+
+M101 POS1/ENDE IN DER MEHRFACHAUSWAHL  01.11.2026
+     WAS    kern-neu.js (Mehrfachauswahl): Pos1/Ende springen zum ersten/
+            letzten sichtbaren Eintrag, solange einer aktiv ist — sonst
+            bewegen sie die Schreibmarke im Feld (wie die Combobox).
+            Tastaturvertrag im Katalog um "Pos1 / Ende" ergänzt (inhalt.js,
+            inhalt-en.js "Home / End"). verhalten.html: neue Prüfung
+            "Mehrfachauswahl: ↓ öffnet, Ende/Pos1 springen". LIESMICH und
+            METHODE: 19 Abläufe, Messung 01.11.2026.
+     WARUM  Code-Review 01.11.2026, Befund R2 (Muss): Instruktion 9 verlangt
+            "Pos1/Ende in allen Listen mit Pfeiltasten"; die Mehrfachauswahl
+            kannte nur ↓ ↑.
+     BELEG  verhalten.html 19/19 Chromium und WebKit; Gegenprobe mit dem
+            alten kern-neu.js → diese Prüfung rot ("Ende springt nicht zum
+            letzten"). pruefe.py ohne Beanstandung (Prüfung 17 zweisprachig,
+            Prüfung 20 Tastentabelle).
+
+M100 ESC SCHLIESST NUR DIE INNERSTE FLÄCHE  01.11.2026
+     WAS    kern-neu.js: neue Hilfe verbrauche(e) (preventDefault +
+            stopPropagation). Menü, Menüknopf, kern-dropdown, Combobox,
+            Popover, Kurzinfo-Knopf und Mehrfachauswahl verbrauchen Esc NUR,
+            wenn sie dabei wirklich etwas schließen (bzw. die Combobox das
+            Feld leert); Schublade und Kurzhinweis brechen ab, wenn Esc schon
+            verbraucht ist (e.defaultPrevented). verhalten.html: neue Prüfung
+            "Esc schließt nur die innerste Fläche: Menü in Schublade".
+            Versionsstempel 2.8.2-nbyc.43.
+     WARUM  Code-Review 01.11.2026, Befund R1 (Muss): ein Esc im Menü einer
+            Schublade schloss Menü UND Schublade, der Fokus sprang zum
+            Auslöser der Schublade; eine Combobox in einem modalen Dialog
+            hätte den Dialog mit geschlossen. Instruktion 9: Esc schließt jede
+            Überlagerung und gibt den Fokus an IHREN Auslöser zurück.
+     BELEG  Vorher nachgestellt (Katalog, Chromium): Menü in Schublade, ein
+            Esc → beide zu, Fokus "Verlauf anzeigen". Nachher verhalten.html
+            19/19 in Chromium 152.0.7977.167 und WebKit (webkit-pruefen.swift).
+            Gegenprobe: dieselbe Prüfseite mit dem alten kern-neu.js (Stand
+            345ee19, aus dem Zwischenspeicher des Browsers) → genau die zwei
+            neuen Prüfungen (M100, M101) rot, die übrigen 17 grün;
+            ?gegenprobe=1 → genau "Zahlenfeld" rot (18/19). Mit echter
+            Esc-Taste (nicht nur Ereignis) gemessen: Combobox in modalem
+            KERN-Dialog — 1. Esc schließt die Liste, Dialog bleibt offen;
+            2. Esc leert das Feld; 3. Esc schließt den Dialog. Prüfstand WebKit
+            hell 135/135, dunkel 7/135 (AB06, unverändert). pruefe.py: 25
+            Prüfungen ohne Beanstandung.
+
+M99  HEFT-ORDNER "_ Documentation", HEFT-PDF DORT  16.10.2026
+     WAS    Die Nutzerin hat "_ Documentation 2.8.2 (nbyc)/" in "_ Documentation/"
+            umbenannt und das Heft-PDF aus "_ Export" dorthin verschoben, neuer
+            Name "KERN 2.8.2 (nbyc) Dokumentation.pdf". Nachgezogen: bauen.sh
+            schreibt das PDF unter diesem Namen nach "_ Documentation"; paket.sh
+            nimmt es von dort ins ZIP (im ZIP unter dem neuen Namen);
+            tabellen.py (Kommentar), "_ Documentation/_ LIES MICH.txt",
+            "_ Export/_ LIES MICH ZUERST.txt" (Dateiname des Hefts),
+            Instruktion 11, Übergabe (Stand, Ablauf 6, Ordner, nächste
+            Kennung). Ältere Einträge hier und in "Maßnahmen" nennen den alten
+            Ordner absichtlich (Geschichte) und bleiben.
+     WARUM  Wunsch im Chat 16.10.2026 (Option a): Umbenennung übernehmen.
+            Ohne Nachziehen bräche paket.sh ab ("Fehlt: …pdf"), bauen.sh legte
+            das PDF wieder nach "_ Export".
+     BELEG  Alle 19 Dateien des Ordners und das PDF byte-gleich mit dem
+            letzten Commit (cmp gegen git show HEAD:…). zsh -n für bauen.sh und
+            paket.sh, py_compile für tabellen.py ohne Fehler. Suche nach
+            "Documentation 2.8.2 (nbyc)" und "Design-Systeme im Vergleich.pdf":
+            nur noch Geschichte. pruefe.py: 25 Prüfungen ohne Beanstandung.
+            Kein Versionsstempel: am System selbst ist nichts sichtbar
+            geändert. Paketprüfung: Nachtrag unten.
+     NACHTRAG Paketprüfung 16.10.2026: paket.sh auf Commit 36e0e9c — 245 Dateien,
+            pruefe.py im entpackten ZIP ohne Beanstandung. Dateiliste gegen
+            das ZIP davor: einzige Änderung ist der Name des Heft-PDFs (Größe
+            gleich, 1 244 523 Byte). Nicht versandt.
+     DEUTUNG Das Heft-PDF bleibt im ZIP für das KERN-Team, unter dem neuen
+            Namen — bestätigt im Chat 16.10.2026.
+
+================================================================================
+
+2.8.2 (nbyc)  —  abgeschlossen 13.10.2026 (begonnen 12.10.2026), Git-Tag 2.8.2-nbyc
+--------------------------------------------------------------------------------
+Thema: KERN-Adaption nach der E-Mail des KERN-Teams. KERN 2.8.2 als
+Fundament (Tokens, Semantik, Layering, Maße, Zustände), volle Tastatur-
+bedienung mit Rückmeldung, KERN-Markup für KERN-Bausteine.
+
+ENTSCHEIDUNGEN (12./13.10.2026, im Chat): E1–E10, Wortlaut in
+"Maßnahmen KERN 2.8.2 (nbyc).txt", Abschnitt 0. Kurz: KERN-Klassen + kn- für
+Zusätze · Carbon-Maße raus, dafür Einstellseite mit Export · Kontrast-
+und Bewegungsmodus bleiben als Erweiterung · deaktiviert wie KERN ·
+flüchtige Meldung ohne Knopf · Fehler im Original als benannte Ausnahme ·
+Name "KERN 2.8.2 (nbyc)", nur intern.
+
+PROJEKT ABGESCHLOSSEN, FÜR ÄNDERUNGEN VORBEREITET  14.10.2026 (Wunsch im Chat)
+     WAS    Übergabe neu geschrieben (feste Gliederung nach Guiding §11, ohne
+            Gesprächsverlauf lesbar: Stand, nächste freie Kennungen, offene
+            Aufträge, "So beginnt eine Änderung", Ordner). Instruktion: Stand,
+            E7 (Name und Lizenz entschieden), Prüfungen 1–25, Arbeitsweise
+            (Deutsch, Name erklären, Paket neu bauen), "Nicht tun" auf den
+            heutigen Stand. Neu "_ Documentation 2.8.2 (nbyc)/werkzeug/
+            paket.sh": baut das ZIP aus dem letzten Commit und prüft es
+            entpackt. Neu CLAUDE.md im Projektordner: nur Verweis auf
+            Übergabe, Instruktion, Guiding Instructions. Zwischenüberschrift
+            "NÄCHSTE FASSUNG" oben. Prüfserver beendet.
+     WARUM  Die Nutzerin löscht den Cache; eine neue Sitzung muss allein aus
+            den Dateien weiterarbeiten können.
+     BELEG  pruefe.py ohne Beanstandung; paket.sh nach diesem Commit
+            ausgeführt: ZIP aus Git gebaut, entpackt ohne Beanstandung.
+
+ORDNER "_ Recherche"  13.10.2026 (Wunsch im Chat)
+     WAS    "_ Recheche" heißt richtig "_ Recherche" (git mv); 31 Verweise in
+            14 Dateien nachgezogen (Unterlagen, Heft, tabellen.py,
+            kern-katalog-bauen.py, Rückmeldung, LIES MICH ZUERST). Heft und
+            Paket neu gebaut.
+     BELEG  Keine Fundstelle "Recheche" mehr (außer hier); pruefe.py ohne
+            Beanstandung; Heft 21 Seiten; ZIP entpackt geprüft.
+
+AUFGERÄUMT: UNNÖTIGES IN DEN PAPIERKORB  13.10.2026 (Wunsch im Chat)
+     WAS    In den Papierkorb (wiederherstellbar, nicht endgültig gelöscht):
+            der ganze Ordner "_ Archiv" (KERN 0.5.7, Stufe 5 Plan, Heft-
+            Werkzeug Englisch, ungenutzte Schriftdatei, Zip 2.8.2 (nbyc),
+            Kopie der Guiding Instructions vom 10.10.2026); der Entwurf der
+            Rückmeldung (ersetzt durch die endgültige Fassung); eine alte
+            Vergleichskopie in .claude/alt-stand; alle .DS_Store. Verweise
+            auf "_ Archiv" zeigen jetzt auf die Git-Tags (VERGLEICH,
+            begriffe.json, Arbeitsgrundlagen, Instruktion, Maßnahmen,
+            Übergabe, Heft, bauen.sh); .gitignore ohne Archiv-Zeile. Paket
+            M98 neu gebaut.
+     WARUM  Alles davon steht im Git: KERN 0.5.7 im Tag 0.5.7, der Rest im
+            Tag 2.8.2-nbyc; das Zip ist daraus Byte für Byte neu erzeugbar
+            (git archive 2.8.2-nbyc, verglichen: gleich). Einzige Ausnahme
+            ohne Git: die Guiding-Kopie (Stand 10.10.2026, weicht von der
+            heutigen Quelle ab) — nur im Papierkorb.
+            Danach (Wunsch im Chat): alles, was an das KERN-Team geht, liegt in
+            "_ Export" — ZIP, "Rückmeldung an das KERN-Team.txt", Heft-PDF
+            (bauen.sh schreibt es jetzt dorthin), "_ LIES MICH ZUERST.txt".
+            Das ZIP ist nicht im Git (.gitignore), es wird mit git archive
+            gebaut. Die Heft-Quellen liegen jetzt direkt in "_ Documentation
+            2.8.2 (nbyc)" (umbenannt und verschoben durch Dich); bauen.sh
+            und tabellen.py auf die neue Tiefe angepasst.
+     BELEG  pruefe.py ohne Beanstandung, Heft 21 Seiten.
+
+NAME ERKLÄRT  13.10.2026 (Wunsch im Chat: "in allen Unterlagen die Version
+              2.8.2 (nbyc) erklären")
+     WAS    "nbyc" = "New by Claude" — neu gebaut mit Claude, dem KI-
+            Assistenten von Anthropic; 2.8.2 = Version des eingebundenen KERN.
+            Gleicher Block unter dem Kopf von LIESMICH, METHODE, ABWEICHUNGEN,
+            AENDERUNGEN, LIZENZ (auch Punkt 2 NAME), VERGLEICH, UMSTIEG (über
+            umstieg-bauen.py), GERAETETEST, den drei Arbeitsgrundlagen
+            (_ Recherche), Instruktion, Maßnahmen, Übergabe, Heft-LIES MICH.
+            Startseite (Kasten "Verhältnis zu KERN"), Katalog unter dem Titel
+            (Deutsch/Englisch), Heft (Titelseite, Glossar, E7, Impressum),
+            Rückmeldung an das KERN-Team, LIES MICH ZUERST. Nebenbei im Heft:
+            Titelseite und Stand "alle acht Stufen abgeschlossen" statt
+            "Stufe 7 von 8". Paket M98 neu gebaut. Stempel .42.
+     BELEG  Katalog in Chromium: Zeile wechselt mit der Sprache (Deutsch ↔
+            Englisch), 1280 px 239 px breit unter dem Titel. Heft 21 Seiten,
+            Titelseite angesehen, kein Überlauf. pruefe.py ohne Beanstandung.
+
+M98  PAKET FÜR DAS KERN-TEAM  13.10.2026
+     WAS    ZIP "_ Export/KERN 2.8.2 (nbyc) – Vorlage für das KERN-Team.zip" (nicht versandt). Inhalt: dieser Ordner, KERNs Original
+            (_ Resources/kern-ux-native-2.8.2, _ Resources/kern) für den
+            Prüfstand, die drei Arbeitsgrundlagen (_ Recherche), Heft-PDF,
+            "Rückmeldung an das KERN-Team.txt" (aus dem Entwurf: ohne
+            Entwurfsvermerk, mit Name und Lizenz, Prüfstand liegt bei) und
+            "_ LIES MICH ZUERST.txt". Nicht darin: _ Instructions, _ Archiv,
+            Sitzungsdateien, Heft-Quellen, Entwurf, gespeicherte KERN-Seiten.
+            Entscheidungen im Chat: Name bleibt "KERN 2.8.2 (nbyc)" (K26 —
+            Absprache mit dem Paket), eigener Code EUPL-1.2 (K25; LIZENZ.txt,
+            Arbeitspapier A54/K25 ✓, Heft E7). Gerätetest macht jemand
+            anderes; das Paket nennt ihn als offen.
+     BELEG  13.10.2026, ZIP entpackt (245 Dateien, Namen UTF-8, kein
+            .DS_Store, nichts aus _ Instructions/_ Archiv): pruefe.py im
+            entpackten Ordner ohne Beanstandung (25 Prüfungen); eigener
+            Server auf dem entpackten Ordner: Katalog vollständig, keine
+            fehlende Datei, keine Konsolenfehler; WebKit: Prüfstand 135 von
+            135 deckungsgleich, Verhalten 17/17; per file:// (Doppelklick)
+            Startseite, Katalog und drei Muster mit Skript und Fira Sans.
+
+VERSION ABGESCHLOSSEN  13.10.2026, Git-Tag 2.8.2-nbyc
+     WAS    Seiten tragen "Stand 13.10.2026" statt "in Arbeit" (Titel, Kopf,
+            Katalogzähler Deutsch/Englisch, Fuß). Startseite: Modusschalter
+            ohne "System" wie im Katalog (gedrückt ist, was das System zeigt).
+            Fallbearbeitung und Katalogbeispiele Kopf-/Fußzeile:
+            "Musterbehörde" statt einer echten Behörde (Auswahllisten im
+            Katalog nennen weiter echte Behörden als Daten). Heft: Stufe 8
+            abgeschlossen. Stempel .41. Zip "_ Archiv/KERN 2.8.2 (nbyc).zip".
+     WARUM  Abschluss nach Skill "projekt"; Entscheidungen im Chat 13.10.2026.
+     BELEG  Startseite in Chromium, System dunkel → "Dunkel" gedrückt, ohne
+            System-Knopf; 375 px ohne Überlauf. pruefe.py ohne Beanstandung.
+     OFFEN  Gerätetest (pruefung/GERAETETEST.txt), M98 Paket für das
+            KERN-Team.
+
+STUFE 8f  Muster: Formularstrecke, Suche, Fallbearbeitung mit Zuständen (M74)
+     WAS    Neu muster/formularstrecke.html: Antrag in drei Schritten (Person,
+            Einkommen, Prüfen) plus Bestätigung; KERN-Felder, Datum, Auswahl
+            als fieldset, Datei; Prüfung mit data-kn-validate="event" (neu in
+            kern-neu.js: Ereignis "kn-gueltig" statt Absenden); Zusammen-
+            fassung mit "Ändern"; Sendefehler als kern-alert mit Fokus.
+            Neu muster/suche.html: <search> in einem Formular, Filter nach Art,
+            Sortierung, 5 Treffer je Seite (Fokus auf den Titel), Zustände
+            Start/Vorschläge, lädt (Platzhalter, KN.lade), keine Treffer
+            (kn-empty-state, "Filter aufheben"), Fehler ("Erneut versuchen").
+            Fallbearbeitung: drei Spalten erst ab 100rem, darunter steht der
+            Verlauf unter der Arbeitsfläche; Arbeitsvorrat gefüllt / leer /
+            lädt / Fehler ("Erneut laden" setzt den Fokus auf die Tabelle).
+            Alle drei mit Vorführknöpfen (nur im Muster). Startseite: Karten
+            für beide neuen Muster, "Noch nicht" ohne Muster.
+            kn-error-summary (04-eingabe.css): Titel und Verweise in Textfarbe
+            statt Rot. Heftbild katalog-fehlerliste.png neu (bilder.sh sendet
+            das Katalogbeispiel dafür einmal leer ab). Stempel .40.
+     WARUM  M74 (A40 Musterbibliothek, A23 Zustände je Ansicht). Fallbear-
+            beitung: bei 1280 px blieben der Tabelle 622 px, das Aktenzeichen
+            brach in drei Zeilen (Befund 12.10.2026). Fehlerzusammenfassung:
+            Rot auf getönter Fläche 4,97 : 1 (hell) / 5,34 : 1 (dunkel), unter
+            KERNs Anspruch 7 : 1 — gefunden erst in der Formularstrecke, weil
+            der Katalog den Kasten bis zum Absenden verbirgt.
+     BELEG  13.10.2026, Chromium: Fallbearbeitung 1280 px → Spalten 224/1056,
+            Tabelle 1008 px, Aktenzeichen einzeilig, kein Querrollen; 1600 px
+            drei Spalten (224/992/384); 375 px eine Spalte, kein Überlauf.
+            Zustände per Taste: "Erneut laden" → Tabelle hat den Fokus, Ring
+            4 px sichtbar. Kontrast je Zustand in 4 Modi (METHODE 09): Fall-
+            bearbeitung 3 Zustände, Formularstrecke 5, Suche 5 — 0 unter
+            Anspruch (vorher Formularstrecke je Fehlerzustand 5–6 Verweise).
+            WebKit: Verhalten 17/17; Fallbearbeitung leer/lädt (aria-busy)/
+            Fehler/Fokus nach "Erneut laden"; Formularstrecke leer abgesendet
+            → Zusammenfassung mit 5 Verweisen und Fokus, Durchlauf bis
+            "Antrag ist eingegangen"; Suche Treffer und Fehler. Heft: Bild neu
+            erzeugt und angesehen (Textfarbe, 3 Verweise). pruefe.py ohne
+            Beanstandung.
+     DOKU   METHODE 06 (Muster nicht mehr offen) und 09 (Messung je Zustand,
+            Lücke der Katalogmessung), LIESMICH (muster/), Startseite, Heft
+            (Überblick, Kapitel 14, Kasten Erweiterungen), Arbeitspapier A40
+            NB ✓, A23, Maßnahmen M74 erledigt.
+
+STUFE 8b  Steckbrief je Katalogeintrag (M70)
+     WAS    Jede Katalogseite zeigt unter dem Titel: Klasse · Deutsch ·
+            Englisch · Auch genannt · Abweichungen von KERN (je AB mit Art;
+            dazu die Liste der ABs, die für alle Bausteine gelten; Verweis auf
+            ABWEICHUNGEN.txt). Erweiterungen: "keine — KERN hat diesen
+            Baustein nicht". Die Suche findet Klasse, deutschen und englischen
+            Namen und Synonyme (vorher nur Name, Gruppe, Zweck, KERN-Synonyme).
+            Quellen: begriffe.json (neu: Feld "katalog" je Baustein, Synonyme
+            der 56 Erweiterungen, 6 fehlende KERN-Bausteine: kern-title,
+            -subline, -label, -icon, -kopfzeile, Hilfsklassen; kn-menu heißt
+            "Überlaufmenü", kern-dropdown "Aufklappmenü"); ABWEICHUNGEN.txt
+            (neu: Zeile "Bausteine:" je AB, maschinenlesbar; AB01/AB02 nannten
+            noch data-kn-kontrast="hoch" und --kn-dauer-*/--kn-kurve).
+            Neu pruefung/katalog-meta-bauen.py → katalog/meta.js (erzeugt).
+            pruefe.py: Prüfung 23 ZUORDNUNG UND ERZEUGTES. Stempel .25.
+     WARUM  M70: Herkunft, Namen, Synonyme, Abweichungen je Eintrag aus der
+            Quelle, nicht abgeschrieben.
+     BELEG  13.10.2026, Katalog in Chromium: Dialog zeigt AB08, AB09 und die
+            7 allgemeinen; Überlaufmenü (kern-dropdown + kn-menu) AB10, AB12;
+            Teilknopf "keine — Erweiterung"; Suche "split button" → Teilknopf,
+            "snackbar" → Flüchtige Meldung, "kern-btn" → Button. Prüfung 23:
+            81 Einträge zugeordnet (38 KERN + 43 Erweiterungen). Gegenprobe in
+            Kopie (Zuordnung entfernt, falsche ID, AB-Titel geändert): 4
+            Meldungen, Rückgabe 1. WebKit Verhalten 16/16. pruefe.py ohne
+            Beanstandung.
+     BEFUND kn-banner (06-inhalt.css, 7 Regeln) hatte seit Stufe 5b-1 keinen
+            Katalogeintrag mehr — er stand im entfernten Eintrag "Meldung".
+            Entschieden 13.10.2026: katalogisieren (unten, STUFE 8b-2).
+
+F25 IN DER DOKU: HINWEIS AM BETROFFENEN KERN-BEISPIEL (Wunsch 13.10.2026)
+     WAS    kern-katalog-bauen.py prüft jedes KERN-Beispiel mit einem HTML-Parser
+            und vermerkt unsauberes Markup am Beispiel (Feld "markup": nicht
+            geschlossene bzw. überzählige Elemente). Der Katalog zeigt dort
+            einen Hinweis, Deutsch oder Englisch: „KERNs Original-Markup ist hier
+            unsauber (F25): … Beim Übernehmen berichtigen — der Katalog zeigt es
+            unverändert (E8).“ Genauer beschrieben in ABWEICHUNGEN, Arbeitspapier
+            und Rückmeldung: Datum und Fieldset schreiben am Ende <div> statt
+            </div>. Stempel .37.
+     BELEG  13.10.2026, WebKit: Input Date 4 Hinweise, Fieldset 2, Checkboxen 1,
+            Button 0 — genau die sieben Beispiele. pruefe.py ohne Beanstandung.
+
+STUFE 8e  Katalog Deutsch und Englisch (M84, M85, M87; E10)
+     WAS    katalog.html: Umschalter Deutsch · English in der Kopfleiste (kleinste
+            Segmentknöpfe, lang je Knopf, aria-pressed), gemerkt je Gerät,
+            angesagt („Sprache: Deutsch“ / „Language: English“); lang am
+            Dokument. Oberflächentexte aus einer Tabelle UI.de/UI.en (Kopfleiste,
+            Filter, Suche, Navigation, Überschriften, Tabellenköpfe, Steckbrief,
+            Pflichten, Tastatur, Titel); Wiederkehrendes (Gruppe, Herkunft,
+            Stand, Klassenart) aus Wörterlisten. Eintragstexte Englisch neu in
+            katalog/inhalt-en.js für alle 85 Einträge (47 eigene, 38 KERN): Name,
+            Zweck, Wann/Wann nicht, Barrierefreiheit, Beispieltitel und -hinweise,
+            Tasten, Klassen, Pflichten — britische Schreibung, KERNs Ton. Suche
+            über beide Sprachen. Beispiele bleiben deutsche Musterdaten mit
+            lang="de" (WCAG 3.1.2). ABWEICHUNGEN: Zeile „Englisch:“ je AB, über
+            meta.js. Neu pruefung/katalog_lesen.py (liest die JS-Daten mit node
+            oder macOS-JavaScriptCore) und Prüfung 17 ZWEISPRACHIG.
+            Nebenbei gefunden: F25 — sieben KERN-Beispiele mit unsauberem Markup;
+            das überzählige </div> im Checkbox-Beispiel brach aus der
+            Beispielfläche aus. Der Katalog setzt Beispiele jetzt einzeln ein.
+            Berichtigt: „KERN NEU“ in Sprungmarke, Banner-Kopf-Beschreibung.
+            Docs, Heft (25 Prüfungen, F1–F25), Arbeitspapier, Rückmeldung (A12)
+            nachgezogen. Stempel .36.
+     BELEG  13.10.2026. Prüfung 17: 85 Einträge vollständig; Gegenprobe in
+            Kopie (Eintrag ohne Englisch, fehlende Zeile, kopierter deutscher
+            Zweck) → 3 Meldungen. Chromium: Umschalten mit echten Tasten (Tab,
+            Enter), lang de/en, aria-pressed, beide Ansagen; Suche „slider“ →
+            Slider, „schaltfläche“ → Button (englische Oberfläche). Alle 85
+            Seiten englisch durchsucht: deutsche Wörter nur in Synonymen, KERNs
+            Originaltitel und Beispielflächen (lang=de). Nach dem Umbau: auf allen
+            85 Seiten 0 Seitenteile in Beispielflächen, 0 Beispielteile außerhalb.
+            375 px: Leiste 127 px, kein Überlauf. WebKit: Verhalten 17/17,
+            Katalog lädt. pruefe.py ohne Beanstandung.
+
+AUFGERÄUMT: NICHT MEHR GEBRAUCHTES IN "_ Archiv" (Wunsch 13.10.2026)
+     WAS    Verschoben (git mv, Verlauf bleibt): Ordner "KERN 0.5.7" (bleibt
+            außerdem im Git-Tag 0.5.7; umstieg-testen.py liest aus dem Tag);
+            "_ Instructions/Stufe 5 Plan.txt" (Stufe 5 erledigt, Namen jetzt in
+            begriffe.json); Heft-Werkzeug englisch.py/englisch_1.py (Vorlage,
+            Englisch nicht beauftragt; bauen.sh en meldet das); schrift/fira-
+            sans/fira-sans.scss (ungenutzter Sass-Rest aus 0.5.x, falsche Pfade,
+            nirgends erwähnt). Dazu die nicht versionierte Kopie
+            "_ Instructions/Guiding Instructions.txt" — Stand 10.10.2026, die
+            zentrale Fassung ist vom 13.10.2026 (.gitignore ergänzt).
+            Verweise angepasst: VERGLEICH.txt, Heft (Quellen), Anforderungen,
+            Arbeitspapier, Instruktion, Maßnahmen, begriffe.json (hinweis),
+            Heft-LIES-MICH. Bleibt bewusst: "Instruction 0.5.7.txt" (einziger
+            Wortlaut der E-Mail des KERN-Teams, zitiert von Anforderungen und
+            Heft); historische Einträge in AENDERUNGEN.
+     BELEG  13.10.2026: Suche nach "KERN 0.5.7/", "Stufe 5 Plan", "englisch_",
+            "fira-sans.scss" außerhalb Archiv und Geschichte: 0. pruefe.py ohne
+            Beanstandung; umstieg-testen.py unverändert 630/222/31; UMSTIEG
+            aktuell; Heft baut (21 Seiten).
+
+STUFE 8d  Rückmeldung an das KERN-Team als Entwurf (M76, K28)
+     WAS    "_ Documentaion/Rückmeldung an das KERN-Team – Entwurf.txt": Brief
+            an das KERN-Team mit allen 24 Befunden F1–F24, je Fundstelle
+            (kern.css-Zeile bzw. Doku-Seite), Wirkung, Vorschlag; Teil A
+            Fehler mit Wirkung (11), B Doku ↔ Code (9), C Hinweise (4, davon
+            neu C4: Schatten-Tokens ungenutzt). Kopf: ENTWURF — NICHT
+            VERSENDEN; offen für Dich: Name nach außen (K26), Lizenz (K25),
+            Angebot Prüfstand [optional], Absender. Der interne Arbeitsname
+            steht mit Absicht nicht im Brief. Nachgezogen: METHODE 06,
+            Arbeitspapier Teil 6 (H1), Heft Kapitel 9 und 14 (PDF neu),
+            Maßnahmen M97 (FAB ohne Schatten).
+     BELEG  13.10.2026: Fundstellen gegen dist/kern.css 2.8.2 nachgeprüft
+            (Z. 64, 72–84, 118–124, 624–625, 699/703, 1026, 2969, 3088,
+            3482–3485, 436). Zuordnung A1–C4 ↔ F1–F24 vollständig.
+            NICHT VERSANDT.
+
+KEIN SCHATTEN MEHR — RÄNDER STATT SCHATTEN (Wunsch 13.10.2026)
+     WAS    Nach dem FAB auch die übrigen sechs: Combobox-Liste, Kalender,
+            Überlaufmenü, Schublade, Popover/Hinweis auf Klick ohne Schatten,
+            Rand einheitlich 2 px (border-width-default, vorher teils 1 px) in
+            layout-border; flüchtige Meldung (dunkel gefüllt) wie der FAB 4 px
+            in der Seitenfarbe. Neu Prüfung 24 KEIN SCHATTEN (kein Schatten-
+            Token, kein box-/text-shadow mit Unschärfe in system/02–06; Linien
+            und Ringe ohne Unschärfe erlaubt). METHODE Regel 7, LIESMICH,
+            index (24 Prüfungen), Arbeitspapier A46, Heft (24 Prüfungen,
+            Verhaltensprüfung 17/17) nachgezogen; PDF neu. Stempel .33.
+     BELEG  13.10.2026, Chromium, 4 Modi: Ränder gegen Seite ≥ 4,51 : 1 (hell)
+            bzw. 4,65 (dunkel), mit erhöhtem Kontrast 3 px und 21 : 1;
+            Meldung Füllung/Ring 21 : 1; nirgends box-shadow. Prüfung 24 ohne
+            Befund; Gegenprobe in Kopie (Schatten mit Unschärfe und Schatten-
+            Token) → beide gemeldet. Verhaltensprüfung WebKit 17/17.
+
+STUFE 8c  Inhaltsleitfaden "Sprache und Texte" (M75)
+     WAS    Neuer Katalogeintrag unter Grundlagen: verweist auf KERNs „Sprache
+            und Tonalität“ (Quelle verlinkt; kein zweiter Leitfaden) und nennt
+            nur die Regeln für Bausteintexte, aus KERN: Stil (KERNs eigene
+            Beispiele: „Einen Reisepass beantragen“, „Wir bitten Sie“,
+            Doppelpunkt beim Gendern), Fehlermeldung am Feld (V14: konstruktiv,
+            eine Ursache, Handlungsoption) als lebendes KERN-Markup und als
+            „So / Nicht so“, Beschriftung ohne Doppelpunkt mit „- Optional“ und
+            Hinweis als ganzer Satz (lebend), Knopf, Verweis, Datum, Uhrzeit,
+            Zahl und Betrag. Barrierefreiheit (2.4.4/2.4.6, gleicher Wortlaut
+            Feld/Zusammenfassung, lang steuert Systemtexte), Tasten, Klassen.
+            Stempel .32. Nachgezogen: METHODE 06, Arbeitspapier A38 (NB ✓) und
+            K34, Heft (Titel, Überblick, Kapitel 10 und 14), PDF neu.
+     WARUM  M75: „eine Seite im Katalog, Beispiele aus KERN“; A38.
+     BELEG  13.10.2026, Chromium: 44 Textelemente in 4 Modi, kleinster Kontrast
+            7,01 : 1 (KERNs „- Optional“) — KERNs 7 : 1 erfüllt; Fehlermeldung
+            sichtbar (display flex); Bild (WebKit) angesehen. Verhaltensprüfung
+            WebKit 17/17. pruefe.py ohne Beanstandung (Prüfung 7, 14, 20).
+            Heft: 21 Seiten, kein Überlauf, 36 Verknüpfungen.
+
+FAB OHNE SCHATTEN, MIT RAND; BEISPIEL ÜBER SCROLLENDEM INHALT (Wunsch 13.10.2026)
+     WAS    KERN definiert Schatten-Tokens (--kern-shadow-elevation-low/-default/
+            -high), setzt sie aber in keinem Baustein ein (0 Verwendungen in
+            kern.css; alle 18 box-shadow dort sind Linien und Fokus). Der FAB
+            folgt dem: kein Schatten, statt dessen 4 px Rand (border-width-bold)
+            in der Seitenfarbe (layout-background-default: hell weiß, dunkel
+            schwarz) — trennt den Knopf vom Inhalt darunter. Katalogbeispiel
+            neu: Arbeitsvorrat als scrollbare Tabelle (tabindex=0, role=region,
+            Name), die Knöpfe stehen darüber; Barrierehinweise und Tasten
+            ergänzt. Der runde Knopf stand im alten Beispiel verdeckt hinter dem
+            breiten (11rem < 213 px Breite) — jetzt 17rem. Stempel .30.
+            Übrige schwebende Erweiterungen (Menü, Combobox, Kalender,
+            Schublade, Meldung, Popover) behalten KERNs Schatten-Tokens — offen.
+     BELEG  13.10.2026, Chromium, 4 Modi: Schatten none, Rand 4 px; Füllung/Rand
+            ≥ 8,51 : 1, Rand/Tabellentext ≥ 18,08 : 1; 56 × 56 px (border-box).
+            Liste scrollt (scrollTop 200), Knöpfe bleiben stehen. Bild (WebKit)
+            nach dem Scrollen: Zeilen laufen unter beiden Knöpfen durch, beide
+            sichtbar. pruefe.py ohne Beanstandung.
+
+KATALOG: KOPFLEISTE MIT FILTER, MODUS OHNE "SYSTEM" (Wunsch 13.10.2026)
+     WAS    katalog.html: Kopfleiste über die ganze Breite. Links (über der
+            Navigation) ein Filterknopf, kleinste KERN-Größe (kern-btn--x-small,
+            32 px), Symbol kn-icon--filter-list (neu, 02b; Form nach Material
+            Symbols "filter_list", nachgezeichnet — LIZENZ.txt, Punkt 3). Er
+            öffnet ein Auswahlmenü Alle (84) · Neu in 2.8.2 (nbyc) (11) ·
+            Bestehend (73); "neu" = begriffe.json neu_geplant, über meta.js
+            (katalog-meta-bauen.py). Filter wirkt mit der Suche zusammen, wird je
+            Gerät gemerkt, angesagt ("Filter: … – 11 Komponenten"), sichtbar als
+            Punkt am Symbol und in der Zahlzeile. Rechts nur Hell/Dunkel und
+            Normal/Erhöht, ohne "System" und ohne Tabulator-Hinweis; Gruppen mit
+            role=group und Namen. Navigation steht unter der Leiste (--kt-leiste,
+            gemessen). kern-neu.js: kn-menu kann role=menuitemradio (aria-checked,
+            Ereignis kn-menu-wahl); Modusknöpfe ohne "system" zeigen den
+            geltenden Systemwert und folgen ihm, bis gewählt wird. Katalog
+            "Überlaufmenü": drittes Beispiel "Auswahlmenü (Filter)", Tasten,
+            Barrierefreiheit, Klassen. verhalten.html: Prüfung 17 Auswahlmenü.
+            Stempel .28. index.html behält die Modusknöpfe mit "System".
+     BELEG  13.10.2026. Chromium: ↓ am Filterknopf öffnet auf "Alle (84)", ↓ →
+            "Neu …", Wahl: Menü zu, Fokus zurück, aria-checked nur auf "neu",
+            Navigation 11 Einträge, Ansage "Filter: neu in 2.8.2 (nbyc) – 11
+            Komponenten". Ohne Speicher, System dunkel: "Dunkel" und "Normal"
+            gedrückt; Klick "Hell" setzt data-kern-theme=light. Leiste 43 px,
+            Navigation beim Scrollen ab 43 px. Kontrast in 4 Modi: Symbol und
+            Punkt ≥ 7,73 : 1, Fokusring 4 px ≥ 7,72 : 1. Verhaltensprüfung 17/17
+            in Chromium und WebKit; Gegenprobe in Kopie (aria-checked nicht
+            gesetzt) → genau die neue Prüfung rot. Prüfstand WebKit hell 135/135.
+            Bilder (WebKit) von Leiste und Menü angesehen. pruefe.py ohne
+            Beanstandung.
+
+HEFT AUF 2.8.2 (nbyc) UMGESTELLT, MIT INHALTSVERZEICHNIS (Wunsch 13.10.2026)
+     WAS    "_ Documentaion/2.8.2 (nbyc) PDF": Das Heft verglich in Kapitel 1–10
+            KERN 2.8.2 mit 0.5.7 (44 Fundstellen). Jetzt: Matrix und KERN-
+            Anforderungen mit Spalte "(nbyc)" statt 0.5.7, neu bewertet mit Beleg
+            — zuerst im Arbeitspapier "_ Recherche/Design Systeme Vergleich.txt",
+            Teil 2 (Spalte NB, 12 K-Zeilen ergänzt; KE bei K30 jetzt ✓, gemessen;
+            57 bleibt dort als Ausgangspunkt). Kapitel 6–8: KERN = 2.8.2 (nbyc),
+            0.5.7 nur als Spalte "vorher". Kapitel 10 neu: "Was KERN 2.8.2 (nbyc)
+            ergänzt – und was noch fehlt", Tastaturbefunde vorher → jetzt mit
+            Beleg. Titel, Überblick ("Ergebnis in fünf Sätzen"), Steckbrief,
+            Kapitel 1, 9, 11, 12, 14, Glossar, Über dieses Heft auf Stand.
+            Neue Seite 2 "Inhaltsverzeichnis", erzeugt von werkzeug/inhalt.py
+            (auch Seitenzahlen und Seitenverweise); pdf.swift setzt daraus
+            Verknüpfungen und Lesezeichen, entfernt WebKits tote interne
+            Verweise und bricht ab, wenn Inhalt in die Fußzeile ragt. "(nbyc)"
+            bleibt in Großbuchstaben-Überschriften klein.
+     BELEG  13.10.2026. PDF 21 Seiten; 36 Verknüpfungen, alle mit gültigem Ziel
+            (je Eintrag geprüft: Titel → Seite), 16 Lesezeichen. 0.5.7 noch 15×,
+            nur "vorher", Umstieg, Glossar, Quellen; "NBYC" 0×. Überlaufprüfung
+            fand die zu volle Matrix (94 px) — Begründungen im Heft jetzt nur bei
+            ~/–/? (wie die Legende sagt). Seiten 1–3, 7, 10, 11, 15, 19 angesehen.
+
+KATALOG: SPRUNG LANDETE UNTER DER LEISTE (gemeldet 13.10.2026, Safari, file://)
+     WAS    Nach einem Klick in der linken Navigation lag die Überschrift des
+            Eintrags unter der feststehenden Leiste (Modus/Kontrast). Ursache:
+            seite.focus() scrollte die Oberkante des Inhalts an den Fensterrand,
+            und die Scrollstellung der vorigen Seite blieb stehen. Jetzt: neuer
+            Eintrag beginnt oben (scrollTo, "instant", weil KERN html auf
+            scroll-behavior: smooth setzt), Fokus mit preventScroll;
+            scroll-padding-block-start = gemessene Höhe der Leiste (ResizeObserver,
+            sie bricht auf schmalen Bildschirmen um) — gilt auch für Sprünge und
+            Fokus innerhalb der Seite, z. B. Verweise der Fehlerzusammenfassung.
+     BELEG  13.10.2026. Chromium: aus y 1216–2859 auf Button, Teilknopf, Dialog →
+            y 0, Überschrift bei 131 px, Leiste endet bei 99 px; Verweis der
+            Fehlerzusammenfassung: Beschriftung bei 334 px, unter der Leiste.
+            WebKit über http und file://: y 1135 → 0, Überschrift 83 px, Leiste
+            endet bei 51 px, Fokus auf #inhalt. pruefe.py ohne Beanstandung.
+
+STUFE 8b-2  Seitenbanner katalogisiert (kn-banner)
+     WAS    Neuer Katalogeintrag "Seitenbanner" (Rückmeldung): Zweck, wann /
+            wann nicht (Abgrenzung zu kern-alert und Fehlerzusammenfassung),
+            zwei Beispiele (Information; Erfolg nach Seitenwechsel mit Fokus),
+            Barrierefreiheit (role=region mit Namen, Art als Wort), Tasten.
+            Kopf jetzt wie KERNs kern-alert: getönte Fläche (feedback-*-
+            background), Standardtext, KERN-Schriftgrad large-static, ohne
+            Außenabstand. Verwaister Kommentar "Meldung im Fluss" entfernt.
+            Katalog: 44 Erweiterungen. Stempel .26.
+     WARUM  Das Banner war bedienbar im System, aber nirgends beschrieben und
+            nie gemessen. Der alte Kopf (weiß auf Rückmeldefarbe) erreichte
+            5,5 : 1 — unter KERNs 7 : 1 für Text (K30); als h2 erbte er
+            außerdem 27 px Browser-Schriftgröße und 22 px Außenabstand.
+     BELEG  13.10.2026, Chromium, Katalog #banner, 4 Modi: Kopf ≥ 14,55 : 1,
+            Text ≥ 18,08 : 1, Rand ≥ 6,01 : 1; Kopf 21 px, Abstand 0. Bild in
+            WebKit (bild.swift) angesehen. Prüfung 20 (Tasten), 23 (82
+            Einträge zugeordnet) und alle übrigen ohne Beanstandung.
+
+STUFE 8a  Dokumente auf Stand (M73) und Umstiegsliste getestet (M72)
+     WAS    LIESMICH.txt neu (war Stand 0.5.7: kn-knopf/kn-feld, data-kn-thema,
+            01-token.css, 9 Prüfungen): Verhältnis zu KERN, Einbindung mit
+            Stempel über stempel.py, erste Seite im KERN-Markup mit
+            Formularprüfung, Dateien, Modi (data-kern-theme, data-kn-contrast,
+            data-kn-density), Regeln, 22 Prüfungen, Browsergrenze neu gezählt
+            (kern.css: 279× oklch, 54× :has). METHODE.txt 00–07 neu: Regeln
+            1–9 nach Instruktion Abschnitt 5 (KERN zuerst, Ausnahme E4),
+            Dateien und Änderungswege, Katalog, Fehler e)–h) aus 2.8.2 (nbyc),
+            Prüfverfahren; 08–10 bleiben, Safari-Vermerke berichtigt.
+            index.html: Standzeilen (war "Stufe 5 erledigt", "13 Prüfungen",
+            "LIESMICH noch 0.5.7").
+            UMSTIEG: Der Test gegen 0.5.7 fand Lücken — Tokens fehlten ganz,
+            Zeitleisten-Varianten standen am Block (kn-zeitleiste--fertig)
+            statt am Punkt (__punkt--fertig), data-kn-thema/-ziel/-dialog-auf/
+            -dialog-zu/-aufklapper/-passwort, kn-fest, kn-fokus, kn-schleier,
+            kn-gesperrt, kn-marke-text fehlten; kn-wahl--gerahmt,
+            kn-toast__zu und kn-toast--gefahr zeigten auf Namen, die es nicht
+            gibt. begriffe.json: neu tokens_057 (113 Zuordnungen aus der
+            Brücke vor 5d, Git 4b2d366^, plus 11), entfallen (12 Einträge),
+            Zeitleiste berichtigt. UMSTIEG.txt Teil E (Tokens) und "Entfallen".
+            Neu pruefung/umstieg-testen.py.
+            VERGLEICH.txt (M71, freigegeben 13.10.2026): Carbon-Fassung durch
+            Verweis auf "_ Recherche/Design Systeme Vergleich.txt" ersetzt;
+            sie liegt unverändert in KERN 0.5.7/ und im Git-Tag 0.5.7.
+     WARUM  M73 (keine Fundstelle mit alten Namen außer in der Geschichte);
+            M72 (Liste vollständig, an muster/ getestet).
+     BELEG  13.10.2026. Erste Seite aus LIESMICH in WebKit: leer abgesendet →
+            Zusammenfassung "Es ist 1 Angabe zu prüfen" mit Fokus, Feld
+            aria-invalid, Meldung sichtbar (display flex). Suche nach kn-feld,
+            kn-knopf, data-kn-thema, 01-token, kn-raum in LIESMICH: 0; in
+            METHODE nur in Geschichte (00, 04, 07). umstieg-testen.py: Muster
+            0.5.7 99/99 Namen zugeordnet; alle Quellen 630 umbenannt, 222
+            durch KERN-Markup, 31 entfallen, 0 Lücken. Gegenprobe (Kopie ohne
+            --kn-text-leise und kn-fest, Zeitleiste verfälscht): 3 Lücken
+            gemeldet, Rückgabe 1. pruefe.py ohne Beanstandung.
+
+VERSIONSSTEMPEL  an jeder eingebundenen Datei, gesetzt von EINER Stelle
+     WAS    system/kern-neu.css: alle 9 @import-Zeilen tragen ?v= (vorher keine —
+            nach einem Update konnte der Browser alte und neue Bausteindateien
+            mischen). pruefung/stempel.py setzt den Stempel in allen Dateien
+            und erzeugt den Prüfstand neu (bisher von Hand in 5 Dateien);
+            "--zeigen" nennt ihn. pruefe.py: Prüfung 22 VERSIONSSTEMPEL (an
+            jeder @import-Zeile und jedem eigenen css/js-Verweis, überall
+            gleich; Referenz in "_ Resources" ausgenommen); Prüfung 10 liest
+            Importe ohne Stempel. Stempel jetzt 2.8.2-nbyc.24.
+     BELEG  13.10.2026. Katalog in Chromium: 10 CSS-Dateien, alle mit
+            ?v=2.8.2-nbyc.24, Status 200, keine Fehler. WebKit: Verhalten 16/16,
+            Prüfstand hell 135/135. Gegenproben in Kopie: Import ohne Stempel
+            und ein abweichender Stempel in index.html — beide gemeldet.
+            pruefe.py ohne Beanstandung.
+
+STUFE 7c/7d  Browser (M68) — Verhaltensprüfung, WebKit, Gerätetest-Schritte
+     WAS    pruefung/verhalten.html (16 Prüfungen über die Katalogbeispiele:
+            Menü, Schublade, Combobox, Baum, Mehrfachauswahl, Kalender,
+            Datum/Uhrzeit, Formularprüfung, Reiter, Zahlenfeld, Umschalter,
+            Datentabelle, KERN-Dialog, melde/lade, englische Texte; jede auf
+            leerer Bühne; ?gegenprobe=1, ?melden=1) — erster automatischer
+            Verhaltenstest (K02). pruefung/webkit-pruefen.swift (Seite in
+            WebKit ohne Safari-Programm). Prüfstand: ?auto=light|dark (+
+            ?melden=1). pruefung/GERAETETEST.txt: Teile A Firefox, B
+            VoiceOver/Safari, C NVDA/JAWS und Windows-Kontrastmodus, je
+            Vorbereitung · Tun · Erwartung und "Kurz antworten". METHODE 10.
+            M67 (Bildvergleich, KANN) nicht gebaut: der Prüfstand misst Lage,
+            Größe und 17 Stilwerte je Element genauer als ein Pixelvergleich.
+     BELEG  13.10.2026. Chromium 152: Verhalten 16/16. WebKit (macOS 27.0.1):
+            Verhalten 16/16 (6 s), Prüfstand hell 135/135, dunkel 7/135 (AB06,
+            wie Chromium). Gegenprobe in beiden: 15/16, rot "Zahlenfeld". Erster
+            Chromium-Lauf 14/16 — beide Fehlschläge lagen am Testaufbau (doppelte
+            IDs zweier Kalender-Kopien; KERN-Dialog-Beispiel ohne Auslöser) und
+            sind im Test behoben. Firefox: nicht ausführbar in der Sitzung
+            (Sandbox: "Operation not permitted" für Hilfsprozesse; Seite nie
+            angefragt) — Prozess beendet, Wegwerf-Profil nur im Scratchpad.
+     ACHTUNG  Bei der Versionsabfrage startete "Safari --version" ein zweites
+            Safari (Prozess 20733, nur dieser beendet; Dein Safari 8886 lief
+            weiter). Versionen seither nur aus Info.plist gelesen.
+
+STUFE 7b  Kontrast nach KERNs Anspruch (K30, M66)
+     WAS    Messung des gerenderten Texts und der Grenzen von Bedienelementen
+            in vier Modi über alle Katalogeinträge und das Muster; Messliste
+            METHODE.txt Abschnitt 09. Behoben: text-muted auf getönter Fläche
+            → text-default bei kn-side-nav__count, kn-side-nav__title,
+            kn-file-list__size, kn-footer__legal.
+     BELEG  13.10.2026, Chromium 152. Text: KERN 0 unter Anspruch (831
+            Elemente × 4 Modi); eigene vorher 4 (hell, 5,73–6,38), Muster 2
+            (6,38), nachher 0 (16,44 : 1). Grenzen: 210 × 4 Modi, 0 unter 3 : 1
+            (Gruppe Segmentwahl 4,51/4,65, KERN-Dateiknopf 8,51/9,54
+            nachgemessen). Prüfstand 135/135; pruefe.py ohne Beanstandung.
+     ERLEDIGT  Versionsstempel an den @import-Dateien — siehe Eintrag
+            VERSIONSSTEMPEL (13.10.2026).
+
+STUFE 7a  Prüfungen nach M65 vervollständigt
+     WAS    pruefe.py: 13b DATA-ATTRIBUTE OHNE VERHALTEN (jedes data-kn im
+            Markup kommt in kern-neu.js oder im CSS vor); 14 KERN-KLASSEN
+            (jede kern-Klasse in Katalog, Seiten, Muster und Skript steht in
+            kern.css oder in KERNs Beispielen); 21 FOKUS-TOKEN (Fokusringe nur
+            in KERNs Fokuston, Inversfarbe oder Systemfarbe — Plan-Nr. 12 war
+            schon durch TOKEN.JSON belegt); 7 KATALOG prüft kn-Klassen jetzt in
+            Katalog, Seiten, Muster und Skript (vorher nur Katalog).
+            Neuer Befund F24 (ABWEICHUNGEN B, Vergleich Teil 6): KERNs
+            Beispiele nutzen 7 Klassen, die kern.css nicht kennt — darunter
+            der Tippfehler kern-boby und kern-icon--md/--sm (CSS: --small/
+            --large). Unser Markup übernimmt KERNs Beispiele (E8), deshalb
+            zählen diese Klassen nicht als unser Fehler.
+     BELEG  13.10.2026. pruefe.py ohne Beanstandung (39 data-kn-Attribute
+            mit Verhalten). Gegenproben in Kopie: data-kn-unbekannt (13b),
+            kern-btnn (14), outline red (21), kn-gibtsnicht im Muster (7) —
+            jede gemeldet.
+
+STUFE 6e  Tastaturverträge im Katalog (M50), Tastaturprotokoll (M62) — Stufe 6 abgeschlossen
+     WAS    Katalog: Tastentabelle "Taste → Wirkung → Ansage" für alle 34
+            bedienbaren Erweiterungen (dritte Spalte erscheint, wenn
+            gefüllt); KERN-Dialog: Erstfokus und Fokus ohne Auslöser (Erzeuger).
+            pruefe.py Prüfung 20 TASTENTABELLE (Markup-Bedienelemente und
+            Widget-Rollen). METHODE.txt Abschnitt 08: Protokoll je Baustein
+            (Fokus in 4 Modi gemessen, Reihenfolge, Falle, Tasten, Ansage;
+            "nicht geprüft" getrennt).
+            Beim Prüfen gefunden und behoben:
+            · Zahlenfeld: − und + taten nichts (kein Skript) → ein Schritt,
+              an min/max gesperrt, neuer Wert mit Beschriftung angesagt.
+            · Segmentwahl, Filtermarke, Werkzeugleisten-Filter: aria-pressed
+              wechselte nie (keine Rückmeldung, K15) → schalten jetzt;
+              Segmentwahl genau eine, Modusknöpfe unberührt.
+            · Teilknopf: dem Pfeilknopf fehlte aria-controls — das Menü ließ
+              sich nie öffnen → Beispiel berichtigt; das Skript findet ein
+              Menü direkt hinter dem Knopf auch ohne aria-controls.
+            · Kopfzeile kn-header: Fokusring auf der invertierten Fläche nur
+              2,2–2,5 : 1 → Ring in der Textfarbe der Kopfzeile.
+            · F23 (AB12): KERN-Dropdown-Kopfzeile ohne Fokusstil (1-px-
+              Browserring) → 4-px-Ring wie KERN.
+     BELEG  13.10.2026, Chromium. Fokusmessung (Tab-Taste vorab, Übergänge
+            aus): Erweiterungen 114 Elemente × 4 Modi ohne Mangel, kleinster
+            Kontrast 7,72 : 1 (vorher Kopfzeile 2,20/2,47, Dropdown 1 px);
+            KERN 158 Elemente in 24 Einträgen × 4 Modi, kleinster 4,97 : 1;
+            Karte/Aufgabenliste: Ring am ::after 4 px (nachgemessen). Echte
+            Tasten: Zahlenfeld Enter → 1 ("Anzahl der Kinder: 1"), Leertaste
+            Enter → 0, "Weniger" gesperrt; Tab Tab Enter (+) → 1. Segmentwahl
+            Enter → nur "Karten" gedrückt, Tab Leertaste → nur "Zeitleiste".
+            Filtermarken: Enter → "Fristen" an, Umschalt+Tab Leertaste →
+            "Offen" aus. Schalter Leertaste → aus. Regler → , Ende → 480
+            ("480 Minuten"). Reiter → Ende → "Verlauf" gewählt, Panel
+            sichtbar, Tab → Panel. Teilknopf (nach Berichtigung) ↓ →
+            "Bewilligen und drucken", Ende Enter → zu, Fokus Knopf.
+            Zeichenzähler: a b → "Noch 19 Zeichen" angesagt. Code: kein
+            positives tabindex (0 Treffer); Tab nur im Menü behandelt, ohne
+            Blockade. Prüfung 20 Gegenprobe in Kopie: Baum und FAB ohne
+            Tabelle gemeldet (erster Gegenprobe-Versuch war blind für
+            Widget-Rollen — Prüfung erweitert). Prüfstand 135/135; pruefe.py
+            ohne Beanstandung.
+     NICHT GEPRÜFT  Screenreader, Sprachsteuerung, Windows-Kontrastmodus,
+            Firefox, Safari (Stufe 7, M66–M68); Sprungmarke (im Katalog lenkt
+            #inhalt die Seitennavigation um), Dateidialog der Ablage.
+
+STUFE 6d  Laden (M57), Formularprüfung und Fehlerzusammenfassung (M58), Reiter (M59), Dialog (M60)
+     WAS    form[data-kn-validate]: prüft beim Absenden Pflichtfelder
+            (aria-required; Gruppen data-kn-required — aria-required ist an
+            role=group nicht erlaubt); KERNs Fehlerzustand je Feld (Feld,
+            Auswahlliste, Gruppe mit allen Optionen), Zusammenfassung oben
+            mit Anzahl und Verweisen, Fokus darauf (role=alert, KERN V14);
+            Verweise in jeder .kn-error-summary setzen den Fokus ins Feld und
+            holen die Beschriftung ins Bild; Ausfüllen hebt den Fehler auf;
+            "check-only" nur prüfen. feldFehler() kennt Auswahlliste und
+            Gruppe; leeres aria-describedby wird entfernt. Katalog: Beispiel
+            "Formular mit Prüfung" statt statischer Liste (deren Verweise
+            zeigten auf Felder anderer Seiten).
+            KN.lade(bereich, an): aria-busy sofort, EIN KERN-Lader erst nach
+            1 s, Ansage "Wird geladen …"/"Geladen." nur, wenn er sichtbar
+            war; Knopf: data-kn-loading + gesperrt.
+            Reiter: Panel ohne Bedienelement bekommt tabindex=0.
+            Dialog: Erstfokus [autofocus] → erstes Feld → Titel (nie
+            Schließen); Name fehlt → aus der Überschrift; ohne Auslöser
+            nach dem Schließen Fokus an <main>. pruefe.py Prüfung 13
+            DIALOG-TITEL. Pflichten im KERN-Katalog nachgezogen (kern-
+            neu.js 21 statt 7, offen 1).
+            BEHOBEN (F22, AB11): .kern-error setzt display:flex und hob hidden
+            auf — die Fehlermeldung von Uhrzeit und Kalender-Datum war seit
+            Paket 3 IMMER sichtbar. Damals nur die Eigenschaft hidden
+            gemessen, nicht die Sichtbarkeit (Messfehler).
+     BELEG  13.10.2026, Chromium, echte Tasten. Formular leer, Enter auf
+            "Weiter" → Fokus auf der Zusammenfassung, "Es sind 3 Angaben zu
+            prüfen", drei Verweise, drei Meldungen sichtbar, Klassen select--
+            error und fieldset--error, aria-invalid an den Optionen. Tab Enter
+            → Fokus "fl-betrag"; 1 2 0 → Fehler weg, describedby entfernt.
+            Dritter Verweis → "fl-weg-post"; Leertaste → Gruppe ohne Fehler.
+            Zweiter Verweis → Auswahlliste. Vollständig → Meldung "Alle
+            Angaben sind vollständig.", kein Absenden. Uhrzeit und Datum:
+            Meldung anfangs display none. Reiter: alle drei Panels tabindex
+            0. KN.lade: sofort aria-busy ohne Lader; nach 1,15 s ein Lader +
+            Ansage; zweites lade(true) → weiter einer; lade(false) → weg,
+            "Geladen."; nach 0,3 s fertig → kein Lader, keine Ansage; Knopf
+            data-kn-loading + aria-disabled und zurück. Dialog (KERN-Beispiel):
+            Fokus auf dem Titel, Name gesetzt, zurück zum Auslöser; ohne
+            Auslöser → MAIN (close-Ereignis im verdeckten Fenster erst nach
+            0,94 s — Drosselung der Testumgebung). Prüfung 13 Gegenprobe in
+            Kopie: Dialog ohne aria-labelledby gemeldet. Prüfstand 135/135
+            hell und dunkel (AB06 aus); pruefe.py ohne Beanstandung.
+
+STUFE 6c  Menü (M54), Combobox (M55), Sortierung (M56)
+     WAS    kn-menu nach APG "Menu Button": am Knopf ↓/Enter/Leertaste → erster,
+            ↑ → letzter Eintrag; im Menü ↓ ↑ rundum, Pos1/Ende, Tippsuche
+            (Anfangsbuchstabe), Esc → zu + Fokus Knopf, Tab → zu; nach einer
+            Aktion zu + Fokus Knopf; li role=none, Einträge tabindex=-1,
+            aria-haspopup=menu (Katalog und Muster, das Skript ergänzt es
+            auch). kern-dropdown (KERN, <details>): Esc → zu + Fokus Kopf-
+            zeile, ↓ aus der Kopfzeile öffnet/geht in die Liste, ↓ ↑ Pos1/Ende
+            zwischen Verweisen/Feldern, ↑ am Anfang zurück zur Kopfzeile;
+            neues Katalogbeispiel. Combobox: Trefferzahl angesagt (0,6 s nach
+            dem Tippen), Pos1/Ende springen in der Liste, solange dort ein
+            Eintrag aktiv ist (sonst Schreibmarke), Esc schließt, zweites Esc
+            leert (ohne Ansage); behoben: ↑ ohne aktiven Eintrag sprang zum
+            vorletzten statt zum letzten. Sortierung: "Sortiert nach Frist,
+            aufsteigend" angesagt. Texte DE/EN (treffer, sortiert).
+     BELEG  13.10.2026, Chromium, echte Tasten. Menü: ↓ → "Bearbeiten",
+            aria-expanded=true; Ende → "Vorgang löschen"; ↓ → "Bearbeiten";
+            w → "Wiedervorlage setzen"; v → "Vorgang löschen"; Esc → zu,
+            Fokus Knopf; ↑ → "Vorgang löschen"; Pos1, Enter → zu, Fokus
+            Knopf; Leertaste, Tab → zu. Dropdown: Enter, ↓ → "Alle Vorgänge";
+            Ende → "Fristnah"; ↑ Pos1 ↑ → Kopfzeile; ↓ Esc → zu, Fokus
+            Kopfzeile; ↓ aus geschlossener Kopfzeile → offen, "Alle Vorgänge".
+            Combobox: s t → 2 sichtbar, Ansage "2 Treffer"; ↑ → letzter; Pos1
+            → erster (Schreibmarke bleibt 2); Esc → zu; Pos1 → Schreibmarke 0;
+            Esc → leer, keine neue Ansage. Sortierung Frist: Enter → "Sortiert
+            nach Frist, aufsteigend", Enter → "…, absteigend". Prüfstand
+            135/135; pruefe.py ohne Beanstandung (Prüfung 19: 22 Schlüssel).
+     ENTSCHEIDUNG (BESTÄTIGT 13.10.2026): kn-menu bleibt Erweiterung für AKTIONS-
+            menüs (APG Menu Button); KERNs Dropdown ist "in Bearbeitung", nur
+            CSS für Verweise/Filter auf <details> — kein Ersatz für ein
+            Aktionsmenü. Abweichung vom Stufe-5-Plan (Teil A: kn-menue →
+            kern-dropdown).
+
+STUFE 6b  Schublade (M51), Kurzhinweis (M53); flüchtige Meldung (M52) mit 6a erledigt
+     WAS    Schublade, ausdrücklich NICHT modal: Öffnen → Fokus in die Fläche
+            (tabindex=-1, Name aus aria-label); Esc und Schließen → zu, Fokus
+            zurück auf den Auslöser; verlässt der Fokus die Fläche (Tab
+            hinaus, Klick daneben), schließt sie — der Fokus liegt nie
+            verdeckt hinter ihr (WCAG 2.4.11); immer nur eine offen; Knöpfe IN
+            der Schublade schließen nur, aria-expanded nur an Knöpfen außen.
+            Geschlossen: inert (sofort) und visibility: hidden (nach der
+            Bewegung) — vorher war sie nur aus dem Bild geschoben, ihre Knöpfe
+            blieben in der Tab-Reihenfolge und vorlesbar.
+            Kurzhinweis (WCAG 1.4.13): Esc blendet aus ohne Fokuswechsel
+            (data-kn-dismissed, bis Zeiger/Fokus gehen); Brücke über die 4 px
+            zwischen Anker und Blase (überfahrbar); Antippen zeigt (Touch),
+            Tippen daneben blendet aus. Katalogtexte entsprechend; Hinweis
+            "für Wichtiges Aufklapper oder Hinweis auf Klick".
+     BELEG  13.10.2026, Chromium, echte Tasten. Schublade geschlossen: Tab
+            überspringt sie (inert, hidden). Enter → Fokus auf "Verlauf",
+            aria-expanded=true; Tab → "Verlauf schließen"; Esc → zu, Fokus
+            "Verlauf anzeigen". Schließen-Knopf (Enter) → Fokus zurück. Tab
+            Tab hinaus → zu, Fokus auf dem nächsten Link, aria-expanded=false;
+            Umschalt+Tab sofort danach → "Verlauf anzeigen" (erster Lauf ohne
+            inert landete im Schließen-Knopf der schließenden Schublade —
+            behoben). Klick daneben → zu. Kurzhinweis (Übergänge abgeschaltet
+            gemessen): Fokus → sichtbar; Esc → verborgen, Fokus bleibt; Tab
+            weg und zurück → wieder sichtbar; Klick (Antippen) → sichtbar;
+            Lücke 4 px = Brücke 4 px. Prüfstand 135/135; pruefe.py ohne
+            Beanstandung.
+     ENTSCHEIDUNG (nach M51 offen gelassen): nicht modal + Schließen beim
+            Verlassen — statt modal mit Fokusfalle. BESTÄTIGT 13.10.2026.
+
+STUFE 6a  Zentrale Ansage (M61) und Systemtexte Deutsch/Englisch (M86)
+     WAS    kern-neu.js: TEXTE.de/.en — jeder Text, den das Skript zeigt oder
+            ansagt (20 Schlüssel: Auswahl, Zeichenzähler, Kopieren, Mehrfach-
+            auswahl, Kalender mit Monaten/Wochentagen/Tagesnamen, Dichte-Stufen
+            samt Export-Kopf); Sprache nach dem nächsten lang-Attribut.
+            melde(text, art): zwei unsichtbare Bereiche (polite/assertive),
+            Text geleert und nach 100 ms gesetzt (gleicher Text wird erneut
+            angesagt), nach 5 s geleert; bei offenem modalem Dialog liegen
+            die Bereiche IM Dialog (außerhalb ist alles inert). KN.melde
+            öffentlich. Umgezogen: Tabellenauswahl (Zähler immer angesagt,
+            M56 Teil 2), Zeichenzähler (ab 20 Rest, erst wenn das Tippen 0,7 s
+            ruht), flüchtige Meldung (M52), Hinweis auf Klick, Mehrfachauswahl,
+            Dichte-Stufe, Kalender-Monatswechsel (nicht beim Öffnen).
+            Sichtbare Statuszeilen tragen kein aria-live/role mehr (Katalog,
+            Muster; das Skript entfernt es auch, sonst doppelte Ansage).
+            pruefe.py Prüfung 19 SYSTEMTEXTE: Schlüssel in beiden Sprachen,
+            kein deutsches Systemwort an der Tabelle vorbei.
+     BELEG  13.10.2026, Chromium. Datentabelle: Klick → Ansage "1 Zeile
+            ausgewählt. Aktionen über der Tabelle" (Bereich in body), Tab
+            Leertaste → "2 Zeilen ausgewählt"; Statuszeile ohne aria-live.
+            Kalender mit Tasten: Öffnen → keine Ansage; Bild↓ → "November
+            2026" im Bereich IM Dialog; → im selben Monat → keine neue Ansage.
+            Englisch (Bereich lang=en, vom Skript verdrahtet): "Nothing
+            selected", "1 row selected", "25/15 characters remaining", "2
+            characters too many", Marke "Berlin remove", "Bonn selected, 2
+            selected", Kalender "October 2026", "Mo/Monday", "Cancel",
+            "Previous month", "Wednesday, 14 October 2026". Hinweis auf Klick:
+            Blase ohne role, Ansage = Text, Esc leert. Kopieren (Zwischen-
+            ablage als Attrappe): Meldung sichtbar, Region ohne role/aria-live,
+            Ansage "In die Zwischenablage kopiert.". Prüfung 19 Gegenprobe in
+            Kopie: fehlender en-Schlüssel und "Keine Treffer gefunden" im Code
+            gemeldet. Prüfstand 135/135 (hell); pruefe.py ohne Beanstandung.
+     NICHT GEPRÜFT  Ansage mit echtem Screenreader (NVDA, JAWS, VoiceOver) —
+            besonders die Region im modalen Dialog; Testschritte folgen (M62/M68).
+
+HEFT  "KERN 2.8.2 (nbyc) – Design-Systeme im Vergleich" auf Stand Stufe 5 (13.10.2026)
+     WAS    Heft (_ Documentaion/2.8.2 (nbyc) PDF): Titel, Überblick (Kennzahlen
+            jetzt: 135/135, 4152/4152, 38 KERN-Bausteine, 43 Erweiterungen,
+            0 fehlende Bausteine gegenüber Carbon/Material, 5/8 Stufen),
+            Bildunterschriften, Kapitel 9 (F1–F21), 10 (Stand-Kasten), 11
+            (alle 29 KERN-Bausteine mit KERN-Klasse, Erweiterungen je Klasse),
+            12 (43 Erweiterungen, Vollständigkeit vorher/jetzt), 13 (E1–E10,
+            Prüfstand 135/135), 14 (Stufen 1–5 erledigt, Stufe 6 als Nächstes),
+            Glossar, Über dieses Heft. Kapitel 1–10 bleiben die Analyse des
+            Ausgangspunkts. KERN-Anforderungen K29–K35 aufgenommen; dafür auf
+            zwei Seiten geteilt → 20 Seiten. Bilder ohne Rahmen (Wunsch):
+            stil.css ohne Bildrahmen; Prüfstand und Katalog kennen den Schalter
+            "?rahmen=0" nur für die Fotos. Katalogbilder aus dem aktuellen
+            Katalog (Datentabelle, Baum, Mehrfachauswahl neu).
+            Vergleich Teil 9.5: Zählung nach Stufe 5f. tabellen.py: 60 + 35
+            Einträge, TEILUNG_K, zweizeilige Gruppenköpfe (C5 wurde sonst an
+            K28 angehängt).
+     BELEG  Überlauf je Seite im Browser gemessen (alle 20 Seiten frei, Seite
+            16 knappste mit 9 px); geänderte Seiten aus dem fertigen PDF als
+            Bild angesehen; Tastaturbefunde gegen kern-neu.js geprüft
+            (Schublade und Kurzhinweis offen → Stufe 6, flüchtige Meldung
+            erledigt). Katalog ohne Schalter mit Rahmen (1px), Bilder mit
+            Schalter 2 px breiter. pruefe.py ohne Beanstandung.
+     GELÖSCHT  Drei alte Bilder (katalog-combobox, -kennzahl, -seitenweiser),
+            nicht mehr benutzt — mit Freigabe 13.10.2026 (in Git erhalten).
+
+UMBENANNT  "KERN 0.5.8" heißt jetzt "KERN 2.8.2 (nbyc)" (13.10.2026, im Chat)
+     WAS    Ordner "KERN 2.8.2 (nbyc)", "_ Documentaion/2.8.2 (nbyc) PDF"
+            (samt PDF-Dateiname), "_ Instructions/Instruction 2.8.2 (nbyc).txt",
+            "Maßnahmen KERN 2.8.2 (nbyc).txt", "Übergabe KERN 2.8.2 (nbyc).txt"
+            (git mv, Verlauf bleibt). Inhalte in 44 Dateien, 247 Stellen:
+            "KERN NEU 0.5.8" und "0.5.8" → "2.8.2 (nbyc)", Pfade in Adressen
+            → "KERN%202.8.2%20%28nbyc%29", Stempel "0.5.8.N" → "2.8.2-nbyc.N"
+            (auch in den Verlaufseinträgen; der laufende Stempel jetzt
+            2.8.2-nbyc.20). Seitentitel "… · in Arbeit" statt doppelter
+            Klammern; Kopfkommentare von kern-neu.css/.js ohne "noch 0.5.7".
+            Nicht geändert: das offizielle "KERN 2.8.2" (kern.css, Belege),
+            der Vorgänger "KERN NEU 0.5.7" und sein Ordner.
+     REGEL  Eigenes System immer mit "(nbyc)"; "KERN 2.8.2" allein = das
+            offizielle KERN (E7, LIZENZ.txt).
+     BELEG  Danach steht "0.5.8" nur noch in den Herkunftsvermerken (E7 in
+            Maßnahmen und Instruction, LIZENZ.txt, dieser Eintrag). Erzeuger neu gelaufen: token.json,
+            kern-beispiele.html, kern-inhalt.js gleich; UMSTIEG.txt nur
+            Spaltenbreite. Browser unter dem neuen Pfad: Startseite, Katalog
+            (38/43), Muster ohne Ladefehler, Skript aktiv; Prüfstand hell
+            135/135. pruefe.py ohne Beanstandung.
+     OFFEN  Das PDF-Heft trägt den neuen Namen erst beim nächsten Bau.
+
+KURZPRÜFUNG NACH STUFE 5  Mängel QK1–QK7 (Skill "qualitaet", 13.10.2026)
+     WAS    QK1 (Muss) kn-header bricht um (flex-wrap an Kopfzeile, Marke,
+            Endbereich) — auf 375 px war die Seite seitlich verschiebbar
+            (WCAG 1.4.10). Dabei gefunden: kn-steps rollte waagerecht ohne
+            fokussierbaren Inhalt (Firefox/Safari per Tastatur nicht
+            erreichbar, WCAG 2.1.1) → bricht jetzt um; der Codeblock rollt
+            weiter (Code bricht nicht um), ist dafür tabindex=0 + role=region
+            mit Namen.
+            QK2 Schieberegler ohne Carbon-Maße: Griff wie KERNs Optionsfeld
+            (dimension-large 32, Rand border-width-default), Spur border-
+            width-bold 4; freie Spur in KERNs Feldrahmenfarbe, in Chromium
+            und Firefox gleich (vorher hued bzw. Rahmenfarbe). Widersprüch-
+            liche Kommentare ersetzt. Dabei gefunden: die Endwerte klebten
+            zusammen ("30 min8 h": Flex-Spalte von kern-form-input) →
+            align-self: stretch; Katalogtexte (20/40 px, "NEU GEBAUT …")
+            berichtigt.
+            QK3 Kalender-Datum prüft Eingetipptes beim Verlassen: "1.2.2026",
+            "01022026" → 01.02.2026; "31.02.2026", "x" → KERNs Fehler-
+            zustand mit Meldung (Feld-ID + "-fehler"); eine Wahl im Kalender
+            hebt den Fehler auf. Gemeinsame Hilfe feldFehler() für Datum und
+            Uhrzeit.
+            QK4 Prüfung 9 neu: jede Zahl mit px/rem/ms/s in Baustein-CSS,
+            auch in calc(), var()-Rückfallwerten, Pseudoelementen und
+            @container — die alte Fassung prüfte nur 11 Eigenschaften, ließ
+            calc() durch und nahm Pseudoelemente aus. Ausnahmen: 0, ±1px,
+            forced-colors-Blöcke, Zeile mit /* roh: Grund */. Prüfung 11
+            beschreibt ehrlich, dass ihr Rohwert-Teil nur für eine zurück-
+            geholte Brücke gilt.
+            QK5 Aufgeräumt: sechs leere Abschnitte aus 5b (Typografie,
+            Verweis, Suchfeld, Datumsfeld, Aufgabenliste, Aufklapper), leerer
+            @container, verwaister Laufweiten-Kommentar, "Dichten — Carbon",
+            Dateiköpfe 05/06 ("Bausteine noch 0.5.7").
+            QK6 LIZENZ (Dateiliste, Abschnitt 5), ABWEICHUNGEN C (Brücke
+            entfernt), Startseite (Phase, Erweiterungen, Noch nicht,
+            Fußzeile — ohne feste Zahlen), Katalog: Zahl aus den Daten (38
+            KERN-Bausteine, 43 Erweiterungen statt fest "33"), Herkunft
+            "Erweiterung (aus KERN-Tokens)" statt "(Stand 0.5.7)" an allen
+            45 Einträgen; Avatar klein 32 statt "28 Pixel".
+            QK7 Rohwerte auf KERN-Stufen: 16rem → --kern-256, 18rem →
+            --kern-256, 13rem → --kern-192, 28rem → --kern-480, 5rem →
+            --kern-80, -2rem → -1 × --kern-32, 1rem → --kern-16, 2rem →
+            space-x-large; Schleifen 800/1400 ms → --kn-duration-loop/
+            -loop-slow (01b). @container 26rem bleibt roh (var() dort nicht
+            erlaubt). --kn-easing ist Carbons "productive standard" — bleibt,
+            Herkunft jetzt an der Stelle und in LIZENZ vermerkt.
+     BESTÄTIGT (Annahmen aus 5f, "Annahmen ok" 13.10.2026): Woche ab
+            Montag; Datum TT.MM.JJJJ, Kalender nur modal, ohne Grenzdaten;
+            Uhrzeit HH:MM (24 h); Stapelaktionen ersetzen die Werkzeuge;
+            Ansage "Aktionen über der Tabelle" nur beim ersten Ankreuzen;
+            Seitenleiste mit Beschriftung, aktueller Bereich gefüllt;
+            aufklappbare Zeilen nur im Katalog.
+     BELEG  13.10.2026, Chromium. Muster 375 px: Kopfzeile 90 px hoch,
+            Seite 375 breit, kein Element ragt hinaus; Schritte 2 × 2;
+            Desktop: Kopfzeile 64 px wie vorher. Schieberegler: Griff und
+            Spur im Bild mit Token-Maßen; freie Spur gegen Grund 16,05/17,33,
+            gefüllte 8,51/9,54 (hell/dunkel). Datum mit echten Tasten:
+            31022026 Tab → Fehler, describedby "dp-1-hinweis dp-1-fehler";
+            01022026 → 01.02.2026, Fehler weg; x → Fehler; Kalender Enter
+            Enter → 13.10.2026, Fehler weg. Katalog: "38 KERN-Bausteine, 43
+            Erweiterungen". Prüfung 9 Gegenprobe in Kopie: width 14px im
+            Pseudoelement, calc(100% - 3rem), 200ms, var(--x, 2px) gemeldet;
+            forced-colors 2px, roh-Vermerk, 0px/±1px nicht. Prüfstand hell
+            135/135, dunkel 7/135 — mit abgeschaltetem AB06 135/135 (allein
+            AB06, wie bisher). pruefe.py ohne Beanstandung; token.json neu.
+
+STUFE 5f Paket 4  Datentabelle erweitert (M93) und schmale Seitenleiste (M94)
+     WAS    06-inhalt: kn-table-toolbar (bündig auf der Tabelle), kn-table-
+            batch (Stapelaktionen; liegen in derselben Rasterzelle wie die
+            Werkzeuge und ersetzen sie per visibility — Höhe bleibt, nichts
+            Unsichtbares fokussierbar), kn-table-columns (Spaltenwahl im
+            Popover), kn-table-expand (Offenlegungs-Knopf + Detailzeile),
+            kn-popover--end (Feld zum Leistenende ausgerichtet). 05-
+            navigation: kn-nav-rail (80 breit, Anzeige 56 × 32, Beschriftung
+            immer sichtbar; aktueller Bereich gefüllt wie der gewählte
+            Kalendertag — die blasse Tönung allein reichte nicht für 3:1).
+            kern-neu.js: starteAuswahl kennt Stapelaktionen (Zahl, einmalig
+            "Aktionen über der Tabelle", "Auswahl aufheben" → Fokus auf "Alle
+            auswählen"); starteSortierung nimmt Detailzeilen mit;
+            starteTabellenErweiterung (Aufklappen, Spaltenwahl mit colspan).
+            Katalog: "Datentabelle erweitert" (2 Beispiele), "Schmale
+            Seitenleiste". Muster Fallbearbeitung: Werkzeugleiste, Stapel-
+            aktionen und Spaltenwahl (statt Menüpunkt "Spalten wählen");
+            aufklappbare Zeilen nur im Katalog.
+     BELEG  13.10.2026, Chromium, echte Tasten. Katalog: Leertaste auf Zeile
+            1 → Stapelaktionen sichtbar, "1 ausgewählt", Ansage "1 Zeile
+            ausgewählt. Aktionen über der Tabelle"; Tab Tab Leertaste → "2
+            Zeilen ausgewählt", "Alle auswählen" teilweise; Leiste 65 px vor
+            und nach. "Auswahl aufheben" (Enter) → 0, Werkzeuge sichtbar,
+            Fokus "Alle auswählen". Leertaste dort → "4 ausgewählt", noch
+            einmal → "Nichts ausgewählt". Sortieren behält die Auswahl.
+            "Spalten" Enter → Fokus auf "Art"; Tab, Leertaste →
+            "Antragsteller" in allen 5 Zeilen aus; Esc → zu, Fokus "Spalten".
+            Aufklappen: Enter/Leertaste öffnen, Enter schließt, Pfeil 90°.
+            Sortieren mit Detailzeilen: "1 [Detail 1] 2 3 [Detail 3]" und
+            umgekehrt. colspan 3 → 2 → 1 → 2. Seitenleiste: 80 breit,
+            Einträge 79 × 66, Fokusring sichtbar. Kontrast (K30) Hell/
+            Dunkel: Beschriftung 18,08/19,09; aktuelle Anzeige gegen Grund
+            und Symbol darauf 8,51/9,54; Rand 4,51/4,65. Muster: Leiste und
+            Tabellenanfang springen beim Ankreuzen nicht (65 px, y 578); auf
+            375 px bricht die Leiste um (213 px, gleich mit Auswahl).
+            Prüfstand 135/135 (hell); pruefe.py ohne Beanstandung.
+            Messhinweis: Im verdeckten Fenster laufen Übergänge nicht weiter
+            — eine erste Messung ergab 2,2 (Farbe mitten im Übergang);
+            Kontrast deshalb mit abgeschalteten Übergängen gemessen.
+     BEFUND (nicht aus diesem Paket, für Stufe 7): kn-header bricht nicht um
+            (flex-wrap: nowrap) — auf 375 px ist die Kopfzeile im Muster 665
+            breit, die Seite wird seitlich verschiebbar (WCAG 1.4.10).
+
+STUFE 5f Paket 3  Kalender-Datum und Uhrzeit (M89)
+     WAS    04-eingabe: kn-date-picker (Dialog, Kopf, Raster, Tag mit
+            --outside, heute aria-current=date mit Rahmen, gewählt aria-
+            pressed mit Fläche; Hover/Druck über KERNs Tönungs-Tokens).
+            kern-neu.js: starteKalender (APG Date Picker Dialog, modal per
+            showModal, Woche ab Montag, Monatsende gekappt: 31.01. + 1 Monat
+            = 28.02.), starteUhrzeit (data-kn-time-input; "930", "9.30", "9:30",
+            "9" → HH:MM; Fehler mit KERNs Fehlerzustand, Fehler-ID nur bei
+            Fehler in aria-describedby). Markup nach KERNs Passwort-Beispiel
+            (kern-input-group + kern-btn--secondary, p.kern-error). Kein
+            natives type=date/time. Katalog: "Kalender-Datum", "Uhrzeit".
+     BELEG  13.10.2026, Chromium, echte Tasten. Kalender: Feld 14.10.2026,
+            Tab, Enter → Dialog, Fokus auf 14.10.; → 15.10.; ↓ 22.10.;
+            Pos1 19.10.; Ende 25.10.; ← ↑ 17.10.; Bild↓ 17.11. "November
+            2026"; Umschalt+Bild↑ 17.11.2025 ("Montag, 17. November 2025");
+            Enter → Feld 17.11.2025, Fokus auf dem Knopf. Leertaste öffnet
+            mit gewähltem Tag; → Esc → Feld unverändert, Fokus auf dem Knopf.
+            Tab → Abbrechen; Umschalt+Tab → "Nächster Monat", Enter →
+            Dezember 2025; immer genau ein Tab-Halt im Raster. Monatsende:
+            31.01.2026 +1 → 28.02.2026; 29.02.2028 +12 → 28.02.2029.
+            Kontrast (K30) Hell/Dunkel: Tag 18,08/19,09; Kopf und Nachbar-
+            monat 7,01/10,46; Heute-Rahmen und Gewählt 8,51/9,54.
+            Uhrzeit: Tasten 9 3 0 Tab → 09:30; "2500" → Fehlerzustand,
+            Meldung sichtbar, aria-describedby "ti-1-hinweis ti-1-fehler";
+            danach 9.30 → 09:30, Fehler weg, describedby nur Hinweis;
+            14:59 bleibt. Logik zusätzlich: 24:00, 12:60, 9.3, abc, "7 30"
+            → Fehler; leer → kein Fehler. (Die Taste "." kommt im Test-
+            werkzeug nicht an — Trennzeichen deshalb über gesetzten Wert
+            geprüft.) pruefe.py ohne Beanstandung; Prüfstand 135/135 (hell).
+
+STUFE 5f Paket 2  Baumansicht (M91) und Mehrfachauswahl (M90)
+     WAS    05-navigation: kn-tree (APG Tree View, wandernder Tab-Halt,
+            Fokusring auf der Zeile — KERN-Regel für [tabindex] und F17-
+            Ausweichwert dort gezielt überstimmt). 04-eingabe: kn-multiselect
+            auf kn-combobox (aria-multiselectable, Häkchen statt Fläche,
+            aktuelle Option kn-is-active). kern-neu.js: starteBaum,
+            starteMehrfachauswahl (Ansagen über role=status). Katalog:
+            "Baumansicht" (Aktenplan), "Mehrfachauswahl" (Zuständige Stellen).
+     BELEG  13.10.2026, Chromium, echte Tasten. Baum: ↓ 1.1; ↓↓ 1.3; → öffnet
+            1.3; → 1.3.1; ← zurück zu 1.3; ← schließt 1.3; Ende → "3
+            Organisation"; Pos1; Taste "2" → "2 Darlehen", "3" → "3
+            Organisation"; Enter wählt (aria-selected). Immer genau ein Tab-
+            Halt; Ring 4 px am Label, keiner am treeitem. (Die Texteingabe-
+            Funktion des Testwerkzeugs löst keinen Tastendruck aus — Buchstaben
+            deshalb als echte Tasten geprüft.) Mehrfachauswahl: ↓ öffnet,
+            aktiv "Bundesverwaltungsamt Köln"; Enter → Marke + Ansage "…
+            ausgewählt, 2 ausgewählt"; ↓↓ Enter → 3; Esc schließt; Rücktaste
+            im leeren Feld entfernt "Studierendenwerk München" (Ansage "…
+            entfernt, 2 ausgewählt"); Umschalt+Tab auf eine Marke, Enter →
+            entfernt, Fokus zurück ins Feld. pruefe.py ohne Beanstandung.
+
+STUFE 5f Paket 1  Neue Bausteine: Popover, Hinweis auf Klick, KI-Kennzeichnung, FAB, Zähler-Marke, Codeblock (M88, M92, M95, M96, M97)
+     WAS    06-inhalt: kn-popover, kn-toggletip, kn-ai-label, kn-count-badge,
+            kn-code-block; 03-aktion: kn-fab (+ --extended), Seite hält
+            unten Platz frei (kn-page:has(.kn-fab)). kern-neu.js:
+            starteAufKlick (Popover/Toggletip, ohne natives popover-Attribut
+            wegen der Browser-Untergrenze), starteKopieren (Bestätigung als
+            flüchtige Meldung, E5). Katalog: 5 neue Einträge. Nur KERN-
+            Tokens und KERN-Symbole (help, info, add, mail, content-copy).
+     BELEG  13.10.2026, Chromium, echte Tasten: Hinweis auf Klick — Enter
+            schreibt den Text in die Statusregion (Blase sichtbar, aria-
+            expanded true), Esc leert. Popover — Enter öffnet, Fokus auf den
+            Link darin; Esc schließt, Fokus zurück auf den Knopf. FAB: klein
+            56 × 56 rund, breit 205 × 56 (Ecke 28), fixed, Schatten; Seiten-
+            polster unten 104 px. Zähler-Marke 20 × 20, Kontrast hell 6,01 /
+            dunkel 6,99, Knopfname "Nachrichten, 3 neu". Codeblock: kopierter
+            Text = Codeinhalt (Zwischenablage im Test ersetzt, nicht
+            beschrieben), Meldung "In die Zwischenablage kopiert." (success).
+            KI-Kennzeichnung: Text "KI-gestützt" + benannter Hinweisknopf.
+            pruefe.py ohne Beanstandung.
+
+STUFE 5e  Dichte-Stufen und Einstellseite (M77–M80), Seitenrahmen mit Kopfzeile (M47)
+     WAS    01b Abschnitt 7: Dichte-Stufen als EINE Quelle — compact setzt
+            --kern-metric-dimension-x-large auf --kern-40, spacious auf
+            dimension-2x-large; dazu --kn-target-size, --kn-table-row-space.
+            Nur Maß-Tokens, nur Werte aus KERNs Skala. (Dichte-Regeln aus
+            02-basis hierher verschoben.) kern-neu.js starteDichte: liest die
+            Stufen aus dem geladenen CSS (nicht abgeschrieben), schaltet die
+            Vorschau, füllt die Token-Tabelle, Statuszeile "Abweichung von
+            KERN", Export kern-anpassung.css (gesperrt in der Grundstellung).
+            Katalog: neuer Eintrag "Dichte-Stufen (Einstellseite)" unter
+            Grundlagen; Seitenrahmen mit zweitem Beispiel "Mit KERN-
+            Kopfzeile (nur öffentliche Stellen)" — KERN-Markup unverändert.
+            NEU Prüfung 15 DICHTE-STUFEN. token-lesen.py: Modi dichte-
+            kompakt/-weit.
+     ENTSCHEIDUNG BEIM BAUEN (BESTÄTIGT 13.10.2026 im Chat)  M47 sah die Kopfzeile im
+            Muster Fallbearbeitung vor. Das Muster ist eine interne Fach-
+            anwendung; KERN: Kopfzeile nur für Websites öffentlicher Stellen.
+            Daher nur im Katalogbeispiel, nicht im Muster.
+     BELEG  13.10.2026, Chromium, echte Pfeiltasten in der Auswahlgruppe:
+            normal Knopf/Feld/Seitenweiser 48 px, Export gesperrt; kompakt
+            Knopf 42 (KERNs Beschriftung mit Grundlinien-Abständen ist höher
+            als 40), Feld 40, Seitenweiser 40; weit 56/56/56; Ankreuzfeld
+            immer 32 (eigenes KERN-Token). Statuszeile richtig. Export
+            (Download abgefangen, nicht gespeichert): genau die drei Tokens
+            der Stufe, Datum, Bezug 2.8.2, Hinweis "Abweichung von KERN".
+            Kopfzeile: 32 px hoch, position static (nie sticky), Flagge 24,
+            Schrift 16. Prüfung 15 grün; Gegenprobe (Farbe und 7px in der
+            Stufe, Kopie) → 3 Befunde. pruefe.py ohne Beanstandung.
+
+STUFE 5d  Zusatzbausteine auf KERN-Tokens und KERNs Aussehen (M45, M46, M25 Teil 2, E5)
+     WAS    Schritt 1 (ohne sichtbare Änderung): jedes var(--kn-…) der Brücke
+            durch sein KERN-Ziel ersetzt, Farben als *-contextual (V05);
+            Brücke system/01-token.css ENTFERNT (in Git erhalten). Eigene
+            Tokens nur noch in 01b, englisch: --kn-target-size und
+            --kn-table-row-space (Dichte-Umschaltung bleibt wirksam),
+            --kn-duration-1/-2, --kn-easing, --kn-fill, --kn-time-column.
+            Schritt 2 (sichtbar, gewollt): Hover/gedrückt nach KERNs Formel
+            (action-state-indicator-tint-hover/-active-opacity) an Segmentwahl,
+            Combobox-Option, Zahlenfeld-Knopf, Seitennavigation, Reiter,
+            Seitenweiser, Menüpunkt, Sortierkopf, Filtermarke, Tabellenzeile;
+            gesperrt über KERNs Deckkraft-Token (E4) an Schalter, Regler,
+            Zahlenfeld-Knopf, Seitenweiser, Menüpunkt. Maße an den KERN-
+            Verwandten: Schalter 56 × 32 / Griff 24 (wie Ankreuzfeld 32),
+            Filtermarke Ecke 4 px und 600 (wie kern-badge), Seitenweiser 600
+            (wie kern-btn). Ladezustand data-kn-loading am kern-btn (02b,
+            ::after, weil KERN ::before für die Trefferfläche kleiner Knöpfe
+            nutzt). Flüchtige Meldung nach E5: kein Knopf, Sammelstelle
+            role=status, nur neutral oder success; Katalogbeispiel ohne
+            Fehlermeldung. Entfernt: ungenutzte Hilfen kn-schleier, kn-fokus,
+            kn-gesperrt; leere Knopf-Abschnitte; Animation kn-toast-in.
+            Werkzeuge: token-lesen.py ohne Brücke, Prüfung 8 und 11 ohne Brücke.
+     BELEG  13.10.2026, Chromium. Schritt 1 gegen Stand 5c, 35 Seiten ×
+            (1280 hell, 375 dunkel, 1280 erhöhter Kontrast), inkl. ::before/
+            ::after: 105 Ansichten, 28 428 Elemente — Abweichungen NUR an den
+            drei gesperrten Beispielen (Deckkraft 0,4, Schritt 2, gewollt).
+            Maße (Katalog): Segmentwahl, Reiter, Seitenweiser, Zahlenfeld,
+            Combobox, Seitennavigation, Menü, Sortierkopf, Teilknopf je 48 px
+            wie kern-btn/kern-form-input. Schalter gemessen 56 × 32, Griff 24,
+            4 px Rand beidseitig, mittig. Hover (echte Maus, Filtermarke):
+            Aktionsfarbe 12 % = KERN-Token. Meldung: role=status, 0 Knöpfe.
+            Ladezustand: Kreisel 20 px, Kontrast hell 8,51 / dunkel 9,54;
+            KERNs ::before am kleinen Knopf bleibt. Prüfstand: 375 hell
+            135/135, 1280 dunkel 7/135 (AB06). pruefe.py ohne Beanstandung.
+     NICHT GEPRÜFT  Kontrast der Zusatzbausteine nach K30 (7 : 1) — mit
+            M66 in Stufe 7; Windows-Kontrastmodus (Gerät).
+
+STUFE 5c  Zusatzbausteine englisch (E9, M72, M83)
+     WAS    Alle Namen aus katalog/begriffe.json (eine Quelle, ergänzt um
+            Menü, Tabellen-Erweiterungen, Zahlenfeld-Knöpfe, Dateiliste,
+            Fortschrittsbalken, Raster, Container-Abfrage und die Werte):
+            42 Zusatzbausteine mit Bestandteilen, Varianten, data-Attributen,
+            Skript-Schlüsseln (dataset) und Werten umbenannt — z. B.
+            kn-schublade → kn-drawer, kn-reiter__knopf → kn-tabs__tab,
+            data-kn-zaehler-ziel → data-kn-char-count-target. data-kn-stand
+            getrennt in data-kn-state (Schritte: done/current) und
+            data-kn-status-of (Statuszeile einer Tabelle). Modus-Schalter
+            data-kn-mode="theme|contrast" mit light/dark/high/system,
+            Speicher kn-theme/kn-contrast; KN.toast(text, "success"|"danger").
+            Animationen kn-spin, kn-shimmer. token-lesen.py kennt
+            data-kn-contrast="high". NEU pruefung/umstieg-bauen.py →
+            UMSTIEG.txt 0.5.7 → 2.8.2 (nbyc) (erzeugt; alte Fassung im Tag 0.5.7).
+     BELEG  13.10.2026, Chromium. Durchsicht Stand 5b gegen 5c, 33 Einträge
+            + Startseite + Muster, 1280 hell und 375 dunkel: 70 Ansichten,
+            18 952 Elemente, 0 Stil- und 0 Strukturabweichungen. Lage-
+            abweichungen nur durch geänderten Text (neue Namen in Klassen-
+            tabellen und Texten); Stichprobe Schieberegler 375: 12 Elemente
+            mit geändertem Text, 11 Folgeverschiebungen, 0 ohne Erklärung.
+            Funktionsprobe: Thema dunkel gesetzt und gemerkt, Kontrast hoch
+            (Textrolle weiß), System setzt zurück; Combobox 2 Treffer;
+            Schublade öffnet; Zähler "Noch 15 Zeichen" + Warnzustand; Regler
+            "210 Minuten"; Sortierung aufsteigend, Auswahl "4 Zeilen
+            ausgewählt"; Meldung kn-toast--success; Menü öffnet; Reiter per
+            Pfeiltaste (echte Taste). pruefe.py ohne Beanstandung.
+     OFFEN  Interne Hilfen kn-schleier, kn-fokus, kn-gesperrt und die
+            --kn-Tokens der Brücke folgen in 5d. LIESMICH/METHODE nennen noch
+            alte Namen (M73, Stufe 8).
+
+STUFE 5b  Doppelungen durch KERN ersetzt (E1; Plan Stufe 5, Teil A)
+     WAS    16 Katalogeinträge mit KERN-Gegenstück entfernt (Typografie, Knopf,
+            Verweis, Suche, Feld, Ankreuzfeld, Passwort, Datum, Zusammenfassung,
+            Wertepaare, Aufgabenliste, Karte, Aufklapper, Dialog, Meldung,
+            Ladeanzeige). Ihre Texte "Wann nehmen/nicht", "Barrierefreiheit"
+            sind auf KERN berichtigt und stehen in katalog/kern-texte.json
+            (vom Erzeuger in die KERN-Einträge übernommen). Berichtigt u. a.:
+            Knopf "keine Deckkraft" (KERN nutzt Deckkraft), Accordion "Kopf ist
+            ein button" (KERN: details/summary), Suche "Beschriftung darf
+            unsichtbar sein" (KERN: sichtbar), Typografie-Zitat WCAG 1.4.12.
+            Katalog-Gerüst, Startseite, Muster und die 33 verbleibenden
+            Einträge auf KERN-Markup umgestellt (kern-btn mit kern-label,
+            kern-form-input, kern-badge, kern-alert, kern-card, kern-table,
+            kern-description-list, kern-link, KERN-Typografie und -Hilfs-
+            klassen, search + kern-input-group, kern-dialog mit data-dialog-
+            target). Muster-Dialog "Antrag ablehnen?" nun KERN-Dialog.
+            NEU system/02b-kern-ergaenzung.css: Ergänzungen an KERN-Klassen
+            (kn-btn--danger, kn-btn--danger-secondary, kn-link--muted/--plain,
+            kn-code, kn-container--narrow, kn-input--width-10/-20,
+            kn-badge--outline, kn-dialog--danger, kn-swatch).
+            Entfernt: 162 CSS-Regeln der Doppelungen (02–06), drei Skript-
+            Funktionen (alter Aufklapper, alter Dialog, altes Passwortfeld).
+            Segmentknöpfe klein jetzt über kn-segmente__knopf--klein.
+            NEU Prüfung 18 CSS-SYNTAX (siehe FEHLER).
+     FEHLER (meiner, gefunden und behoben)  Der Entferner trennte Selektor-
+            listen an jedem Komma — auch innerhalb von :where(…). Ergebnis:
+            ":where(button, [role="button"] {" in 02-basis.css; der Browser
+            verwarf ab dort den REST der Datei (3 statt 18 Regeln geladen),
+            sichtbar an der Startseite (Karten untereinander). Prüfstand und
+            pruefe.py hatten es nicht bemerkt. Behoben; neue Prüfung 18
+            meldet solche Selektoren (Gegenprobe: am kaputten Stand rot,
+            02-basis.css:68). Danach je Datei Browser-Regeln = Datei-Regeln
+            (04-eingabe: 6 ::-moz-Regeln verwirft Chrome absichtlich).
+            Stand vor 5b (HEAD) geprüft: keine weiteren kaputten Selektoren.
+     BELEG  13.10.2026, Chromium: Prüfstand 375/1280 hell 135/135; alle 33
+            eigenen Einträge ohne alte Doppel-Klasse, jeder kern-btn mit
+            Beschriftung; Startseite Karten im Raster (2 Spalten bei schmaler
+            Bahn); Muster: Dialog per Enter auf "Ablehnen", Fokus auf
+            Schließen, Esc schließt, Fokus zurück. Gefahr-Knöpfe Kontrast hell
+            6,01, dunkel 6,99 (Pflicht 4,5). pruefe.py ohne Beanstandung.
+     OFFEN  kn-menue → kern-dropdown (Stufe 6, M54); Ladezustand data-kn-
+            loading am kern-btn (5d); Umbenennung der Zusatzbausteine (5c).
+
+STUFE 4  KERN-Bausteine M30–M41: Verhalten, Pflichten, Katalog
+     WAS    kern-neu.js "KERN-BAUSTEINE: VERHALTEN": Dialog (data-dialog-
+            target öffnet modal, X schließt, Fokus zurück zum Auslöser,
+            Hintergrund-Klick nur mit data-kn-close-on-backdrop) und Passwort
+            anzeigen (aria-pressed, Symbol visibility/-off). KERN liefert dafür
+            kein Skript (nur kern-kopfzeile.js).
+            01b: Ausweichwert F21 (Scrollsperre nur bei modalem Dialog).
+            NEU pruefung/kern-katalog-bauen.py → katalog/kern-inhalt.js
+            (erzeugt): 38 KERN-Bausteine aus Steckbriefen und Original-
+            Beispielen (135 + 1 gekennzeichnetes Zusatzbeispiel "modal
+            öffnen"), je Herkunft, Synonyme, Verweis auf kern-ux.de, Klassen
+            aus den Beispielen gelesen, "Pflichten der Umsetzung" (108, aus
+            Auswertung Teil 3) mit Stand, Tastatur. Katalog: KERN zuerst,
+            eigene Einträge als "Erweiterung (Stand 0.5.7)"; Suche über
+            Synonyme. Prüfung 16 nimmt kern-inhalt.js aus (KERNs Originale
+            zeigen disabled).
+     STAND PFLICHTEN  Anwendung 52 · KERN 32 · kern-neu.js 7 · nativ 4 ·
+            offen 13 (v. a. Fehlerzusammenfassung als Statusmeldung → M58,
+            Hochladestatus/Ansagen → M61, schließbare Meldung).
+     BELEG  13.10.2026, Chromium, echte Tasten im Katalog:
+            Dialog — siehe ABWEICHUNGEN AB09 (alle Wege bestanden), modal
+            offen: Seite scrollt nicht; nicht-modal offen: scrollt (AB08).
+            Passwort — Tab Feld → Knopf; Leertaste: Klartext, aria-pressed
+            true, Symbol visibility; Enter: zurück; Wert bleibt.
+            Accordion — Enter öffnet, Leertaste schließt, Ring 4 px.
+            Optionsfelder — Leertaste wählt, Pfeil runter wechselt, Ring 4 px.
+            Tabellenbereich (tabindex 0) — per Fokus erreichbar, Ring 4 px
+            (das ist AB05/F17: mit KERN allein kein Ring).
+            Prüfstand nach den Änderungen: 375 und 1280 px hell 135/135.
+            pruefe.py ohne Beanstandung.
+     NICHT GEPRÜFT  Scrollen per Taste (Pfeil/Bild runter) — löst in dieser
+            Testumgebung auch auf freien Seiten nichts aus (Gegenprobe 0 px),
+            also kein Beleg in keine Richtung. Screenreader-Ansagen (Gerät).
+            Auswahlliste, Dateiauswahl, Ankreuzfeld bei KERN nicht eigens.
+     NEU IM ORIGINAL  F19 (doppelte ID), F20 (Doku-Skript Dialog), F21
+            (Scrollsperre) — Vergleich Teil 6.
+
+STUFE 3  Durchsicht nach M81 · M22–M29 · M25 Teil 1 (E4-Technik)
+     DURCHSICHT  Katalog (49 Einträge) und Muster Fallbearbeitung, Stand
+            vor M81 (Commit ec94d18) gegen jetzt, je Element im Inhalts-
+            bereich: Lage/Größe (1 px) und 20 Stilwerte; hell/dunkel ×
+            375/1280 px, je 3036 Elemente. Ergebnis: 0 Stilabweichungen.
+            Lage: nur Messartefakte — unsichtbare Elemente (0 × 0 px) und die
+            am Fenster festgemachte Schublade verschieben sich nicht mit dem
+            Inhalt, der wegen der längeren Seitenleisten-Beschriftung um
+            24 px tiefer beginnt. Gegenprobe: Eintrag "Knopf" mit einer
+            neuen Textzeile → Struktur- und Lageabweichung gemeldet.
+            BERICHTIGT: KERNs Ziffernform (tabular-nums slashed-zero auf
+            html) erreicht Seiten mit kn-page NICHT — der font-Kurzwert auf
+            kn-page setzt sie zurück (gemessen: normal | normal).
+     M22    Typografie-Klassen: kommen mit kern.css; Beispiele "Text …"
+            deckungsgleich (375/768/1280 hell). OFFEN: Nutzungsregeln V12
+            in Katalogeinträgen der KERN-Bausteine (M70, M87).
+     M23    Raster/Hilfsklassen: kommen mit kern.css; Grid (6) und
+            Hilfsklassen (23) deckungsgleich bei 375, 768 und 1280 px hell.
+            Prüfstand 768 px: hell 135/135, dunkel 7/135 — Ursache AB06
+            (color-scheme abgeschaltet: 135/135).
+     M24    Fokus: Kontrast der Fokusfarbe gegen den Untergrund, gemessen
+            (Canvas, WCAG-Formel; Gegenprobe Schwarz/Weiß = 21,00):
+            hell Ebene 0/1/2: 8,50 / 7,72 / 8,50; dunkel: 9,56 / 8,23 /
+            7,30 — Pflicht 3 : 1. Ring der eigenen Bausteine = KERNs
+            Fokusfarbe auf allen sechs Untergründen. Windows-Kontrast:
+            NICHT GEPRÜFT (Gerät, M68).
+     M25    Teil 1 — E4-Technik: kern-neu.js sperrt zentral alles mit
+            aria-disabled="true" (Einfangphase, Dokumentebene): Klick,
+            Eingabe (beforeinput), Enter/Leertaste, bei Regler/Auswahl/
+            Option auch Werttasten und Ziehen. CSS: jede :disabled-Regel
+            in 03–05 auch für [aria-disabled="true"]; :not(:disabled) schließt
+            aria-disabled mit aus. Katalog: 5 Beispiele auf aria-disabled
+            umgestellt, Knopf-Eintrag mit KERN-Hinweis.
+            BELEG echte Eingabe (Chromium): Knopf gesperrt per Tab
+            erreichbar, Ring 4 px; Klick, Enter, Leertaste → 0 Auslösungen,
+            freier Knopf → 1. Feld: "xy" und Rücktaste → Wert unverändert,
+            freies Feld → "xy". Schalter: Klick und Leertaste → bleibt aus,
+            freier schaltet um. Regler: 3× Pfeil rechts, Ende, Ziehen →
+            bleibt 40, freier 150 → 180. pruefe.py Prüfung 16 grün.
+            NICHT GEPRÜFT: Ansage "nicht verfügbar" im Screenreader (Gerät),
+            Einfügen per Tastatur, Seitenweiser-Knopf eigens.
+            OFFEN (Stufe 5, M45): Aussehen gesperrt nach KERN (Deckkraft-
+            Token) statt eigener Farbe; KERN-Zustandsformel für eigene
+            Bausteine; Prüfung 3 auf KERN-Zustände.
+     M26    Symbole kommen mit kern.css (Icon-Beispiele deckungsgleich);
+            eigene Bausteine nutzen keine Symbolgrafiken. Herkunft und
+            Lizenz geprüft an der Quelle: Material Symbols, Apache-2.0
+            (github.com/google/material-design-icons). LIZENZ.txt neu für
+            2.8.2 (nbyc) (KERN EUPL, Symbole, Fira, Carbon entfernt).
+     M27    Kopfzeile kommt mit kern.css; Beispiele deckungsgleich.
+            OFFEN: Hinweis "nur öffentliche Stellen" im Katalogeintrag (M70).
+     M28    OFL.txt: mit Freigabe (13.10.2026) geladen von github.com/
+            mozilla/Fira (LICENSE, 4479 Bytes), erst im Scratchpad geprüft
+            (Text, "SIL OPEN FONT LICENSE Version 1.1", Rechte Mozilla/
+            Telefónica), dann unverändert nach schrift/fira-sans/OFL.txt.
+     M29    Schrift: 32 Dateien, 10 eingebunden (300–700, normal/kursiv).
+            Mit Freigabe gelöscht (git rm, in Git erhalten): die 22 nie
+            geladenen Schnitte (2,98 MB; Ordner 4,2 → 1,4 MB) sowie
+            system/00-kern-token.css und pruefung/kern-token-uebernehmen.py
+            (seit M81 unbenutzt).
+
+M21 M65  token.json aus KERN 2.8.2 erzeugt; Prüfungen 10, 11, 12, 16 (Stufe 2/7)
+     WAS    M21 pruefung/token-lesen.py neu: liest system/kern.css (Teil
+            "kern"), 01-token.css ("bruecke"), 01b-erweiterung.css
+            ("erweiterung"); Modi grund, hell, dunkel, ab-md, ebene-0/1/2,
+            kontrast-hell/-dunkel, erzwungene-farben, bewegung-reduziert;
+            Schichten primitiv/semantik/kontextuell/komponente; Kopf mit
+            kernVersion 2.8.2 und SHA-256 von kern.css; kein Zeitstempel.
+            Bricht mit Datei:Zeile ab bei Verweis ins Leere, bei Widerspruch
+            zweier Blöcke desselben Modus und bei unbekanntem Zusammenhang.
+            Modus --pruefen für Prüfung 12.
+            M65 pruefe.py: 10 KERN-Treue (kern.css Byte für Byte = 2.8.2,
+            erste Einbindung, alter Auszug nicht eingebunden) · 11 kein
+            Carbon (entfallene Namen; jedes benutzte --kn-Token muss
+            definiert sein; Brücke ohne Rohwerte) · 12 token.json aktuell ·
+            16 Felder (kein natives required, kein disabled ohne benannte
+            Ausnahme). Nummern 13–15 folgen (M65 Rest, M80).
+     WARUM  Guiding §3 (eine Quelle, erzeugt statt gepflegt), K27
+            (Versionsbezug), E4, KERN-Formularregeln (Auswertung V14, V15).
+     BELEG  13.10.2026: token.json — kern 519 Token (645 Werte aus 744
+            Definitionen; hell/dunkel über Systemwahl und Schalter gleich),
+            Brücke 113, Erweiterung 22. Gefunden: --kern-120/-144 ohne
+            Definition (F1); Doppelangabe kopfzeile-padding im selben Block
+            (F18, neu). Gegenproben in einer KOPIE (Scratchpad), alle rot:
+            Brückenverweis verfälscht → Abbruch 01-token.css:110; dunkel
+            über Schalter ≠ Systemwahl → Abbruch kern.css:944; kern.css um
+            ein Zeichen verändert → 10; 01-token vor kern.css → 10;
+            var(--kn-raum-04) → 11; undefiniertes --kn-Token → 11; Rohwert
+            1px in der Brücke → 11; token.json von Hand geändert → 12;
+            natives required → 16.
+     STAND  pruefe.py: Prüfungen 1–12 ohne Beanstandung; Prüfung 16 meldet
+            5 Stellen (disabled in katalog/inhalt.js: Knopf, Feld, Schalter,
+            Regler, Seitenweiser) — Abbau mit E4 in Stufe 4/5 (M25, M30,
+            M32). pruefe.py gibt deshalb bis dahin 1 zurück.
+
+M81 M82  kern.css 2.8.2 unverändert eingebunden; Basis grenzt sich ab (Stufe 3)
+     WAS    M81 system/kern.css = dist/kern.css 2.8.2, Byte für Byte
+            (SHA-256 516fe93d…); kern-neu.css importiert sie als erste Datei
+            statt des Auszugs 00-kern-token.css (Datei bleibt liegen, nicht
+            mehr eingebunden — entfernen nur nach Freigabe). Lizenz daneben:
+            system/kern-LICENSE.md (EUPL-1.2). pruefe.py prüft kern.css nicht
+            nach unseren Regeln (Prüfung 2 und 5 ausgenommen) — KERNs Code
+            wird nur auf Gleichheit geprüft (Prüfung 10, M65).
+            M82 02-basis.css: Seitenrahmen (Rand 0, Grundschrift, Textfarbe)
+            nicht mehr auf body, sondern auf der Klasse kn-page (auf index,
+            katalog, muster gesetzt); Schrift-Erben der Formularelemente,
+            Fokusring, ":focus ohne :focus-visible" und "gesperrt" gelten
+            nur noch für Elemente OHNE kern-Klasse.
+            01b-erweiterung.css: Abschnitt 5 Ausweichwert F17 (Tastatur-
+            fokus bei tabindex, Fehler im Original); Abschnitt 6 color-scheme
+            (von 01-token.css hierher, als Erweiterung benannt).
+            NEU: ABWEICHUNGEN.txt — Liste aller Abweichungen von KERN und
+            aller angepassten Fehler im Original (Auftrag 13.10.2026).
+     WARUM  E8 a) und KERNs eigene Vorgabe: KERN-Dateien unverändert, Eigenes
+            danach, Eigenes überschreibt KERN nicht (Auswertung V02).
+     BELEG  Browser (Chromium 152), 13.10.2026, Stempel ?v=2.8.2-nbyc.6:
+            Prüfstand nach M81 allein: 6 von 135 (Ursache: unser body und
+            "button { font: inherit }"). Nach M82: hell 375 px 135/135,
+            hell 1280 px 135/135; dunkel 375 und 1280 px je 7/135 — einzige
+            Ursache color-scheme (probeweise abgeschaltet: 135/135 in beiden
+            Breiten). Sichtbar betroffen nur Text ohne KERN-Textklasse (97
+            Stellen), keine Stelle mit KERN-Textklasse, kein Rand.
+            Gegenprobe: falsche Ecke an kern-btn eingeschleust → 0 von 4.
+            Token-Vergleich neu gezählt: 519 Token-Namen × hell/dunkel ×
+            375/1280 × html/body = 4152 von 4152 gleich. Gegenprobe:
+            verfälschtes --kern-metric-space-default erkannt (1rem/0.75rem).
+            Fokus, echter Tab-Druck: KERN-Knopf = KERN (4 px, Abstand 2 px);
+            <span tabindex="0"> nur kern.css → kein Ring (F17), 2.8.2 (nbyc) → 4 px;
+            eigener Knopf 4 px statt Browser-Ring; Mausklick → kein Ring.
+            Katalog: body 18 px, Rand 0, kn-page gesetzt.
+            F16 (textarea-Polster !important in kern.css) gemessen: unser
+            Textfeld will 8/16 px, KERN erzwingt 8/16 → heute ohne Wirkung.
+            pruefe.py: Rückgabe 0.
+     FOLGE  Seit M81 wirkt KERNs Grundstellung auch auf eigene Bausteine.
+            Durchsicht nachgeholt (Eintrag STUFE 3): keine Stilabweichung.
+
+M16 M18 M19 M20  Bausteine zeigen KERN-Werte; Carbon-Maße entfernt (Stufe 2)
+     WAS    01-token.css neu: Brücke — jeder alte kn-Name zeigt auf ein
+            KERN-Token oder rechnet mit KERNs Formel; keine eigenen Farb-
+            oder Maßwerte mehr; 222 eigene Farbprimitive und alle Carbon-
+            Tokens entfernt (raum-04, stufe-03…14, hoehe-04, ziel "bequem",
+            ecke-pille, rand 3 px, Laufweiten → 0).
+            M16 Fokus: 4 px (border-width bold) in action-focus, ohne gelben
+            Saum; Knöpfe 2 px Abstand (KERN focus-offset); der Fokus setzt
+            keinen eigenen Eckenradius mehr (02-basis.css).
+            M18 Thema: kern-neu.js setzt data-kern-theme="light|dark"
+            (Knöpfe "Hell/Dunkel" bleiben); color-scheme in 01-token.css.
+            M19 01b-erweiterung.css: erhöhter Kontrast (setzt KERN-Rollen
+            auf andere KERN-Grundfarben, hell und dunkel), Bewegungsdauern,
+            ruhige Bewegung, Windows-Kontrast. Ausweichwerte zu F1–F3: keine
+            nötig (von keinem Baustein gelesen).
+            Bausteine, fünf Stellen ohne KERN-Gegenstück: Textbereich-
+            Polsterung 12 → 8 px; Zeitleisten-Punkt eigenes Token (KERN 12);
+            Seitennavigation min. 48 statt 36; kleines Bildnis 32 statt 28;
+            Tabellendichte über --kn-ziel-eng/-weit (40/56) statt 36/48 roh.
+     WARUM  E-Mail: KERNs Abstände, Größen, Farben, Radien, Outlining,
+            Zustände. E2: Carbon-Maße ganz entfernen. E3: Erweiterungen
+            behalten und kennzeichnen.
+     ENTSCHEIDUNG BEIM BAUEN (bitte bestätigen)
+            · raum-3 (12 px, 47 Stellen) → 8 px; KERN kennt nur 8 oder 16,
+              die Stellen sind Polsterung/Lücke innerhalb einer Einheit.
+            · flaeche-3 → getönte Fläche (hued). Erst auf KERNs feedback-
+              default-background gelegt: im Dunkeln leiser Text nur 4,23 : 1.
+     BELEG  Browser (Chromium), 12.10.2026, Stempel ?v=2.8.2-nbyc.4:
+            Token-Vergleich unverändert 1038/1038 (hell/dunkel, 375/1280).
+            Katalog "Knopf" hell: Hauptknopf 48 px hoch, 18 px, 600, Ecke 4,
+            Fläche #2044AA, Schrift #FFFFFF, Seite #FFFFFF, Text #131525.
+            Tastaturfokus (echter Tab): Umriss 4 px solid, Abstand 2 px,
+            Ecke bleibt 4 px.
+            Kontrast, 22 Paare × 4 Modi (hell, dunkel, hell+hoch, dunkel+
+            hoch): Text min. 4,97 (hell) / 5,32 (dunkel), Linien und Fokus
+            min. 4,51 / 4,65; keine Unterschreitung.
+            Muster Fallbearbeitung 800 und 1280 px, hell/dunkel/Kontrast
+            angesehen: kein Bruch; Modus-Wahl danach zurückgesetzt.
+            Prüfstand: 0 von 135 deckungsgleich (erwartet, KERN-Klassen in
+            Stufe 4); abweichende Stilwerte 9625 → 6968 (−28 %).
+            pruefe.py: Rückgabe 0.
+     OFFEN  Muster Fallbearbeitung bei 1280 px mit Seitenleiste und Verlauf:
+            Spalten zu eng für 18-px-Schrift (Aktenzeichen brechen auf drei
+            Zeilen, Platzhalter abgeschnitten) → M74.
+            Brücke folgt dem Thema, nicht den Ebenen level-1/2 → Stufe 4.
+
+M73  (Teil 2) Startseite und Katalog auf den Stand nach Stufe 2
+     WAS    Beschriftung "Tokens und Maße KERN, Bausteine noch 0.5.7";
+            Abschnitt "was schon KERN ist und was noch nicht"; Abschnitt
+            "Geprüft" auf die heutigen Messungen statt der Carbon-Zahlen von
+            0.5.7; KERN-Bezug 2.8.2 statt 2.7.2; token.json als "noch Stand
+            0.5.7" gekennzeichnet (M21).
+     WARUM  Die Seiten müssen sagen, was gilt — nicht, was in 0.5.7 galt.
+     BELEG  Startseite gerendert und als Text gelesen, 12.10.2026.
+
+M10 M11 M12 M13 M14 M15 M17  KERN-Tokens 1:1 übernommen (Stufe 2, erster Schritt)
+     WAS    system/00-kern-token.css, ERZEUGT von
+            pruefung/kern-token-uebernehmen.py aus KERN 2.8.2 dist/kern.css:
+            14 Blöcke, 744 Token-Definitionen, wörtlich — Primitive (Größen,
+            Schriftgrade, 222 Farben), Metrik (Abstand, Größe, Linie, Radius,
+            Grundlinie, Typografie, Schatten), Anpassung ab 768 px, Farbrollen
+            hell/dunkel mit data-kern-theme, Ebenen level 0/1/2 mit
+            contextual-Tokens, .kern-layer. Eingebunden als erste Datei in
+            kern-neu.css. pruefe.py zählt die Datei als Token-Datei.
+     WARUM  E-Mail: "Basis-Tokens übernehmen … und daraus die semantischen".
+            Erzeugt statt abgetippt: EINE Quelle (Guiding §3).
+     WAS NOCH NICHT  Die Bausteine benutzen weiter die alten kn-Tokens mit
+            Carbon-Maßen — das Aussehen ist UNVERÄNDERT 0.5.7. Umstellung:
+            M16 (Fokus), M20 (Carbon raus, kn-Tokens auf KERN zeigen lassen),
+            dann Stufe 3/4. Prüfstand bleibt bis Stufe 4 bei 0 von 135.
+     BELEG  kern-token-uebernehmen.py --pruefen: "entspricht KERN 2.8.2".
+            Browser (Chromium, Claude-App), 12.10.2026: alle --kern-Tokens aus
+            kern.css am Wurzelelement und am body berechnet und verglichen —
+            1038 von 1038 gleich in hell 375, hell 1280, dunkel 375,
+            dunkel 1280 px.
+            Gegenprobe alt: 0.5.7 → 6 von 1038 gleich (die in KERN leeren
+            Tokens, F1/F2). Gegenprobe Fehler: ein Token verfälscht
+            (space-default 15px) → 1036 von 1038, beide Stellen benannt.
+            pruefe.py: Rückgabe 0, alle neun Prüfungen ok.
+
+M73  (Teil 1) Versionsangaben ehrlich beschriftet
+     WAS    Startseite, Katalog, Kopf jeder System-Datei: "KERN 2.8.2 (nbyc) · in
+            Arbeit — Inhalt noch Stand 0.5.7" statt "KERN NEU 0.5.7".
+            Sätze, die Geschichte erzählen ("ab 0.5.7 …"), bleiben.
+     WARUM  Rückfrage im Chat 12.10.2026: Die Seiten nannten 0.5.7, obwohl
+            der Ordner 2.8.2 (nbyc) heißt. Der Ordner war bis hier nur eine Kopie;
+            das muss man sehen, ohne die Unterlagen zu lesen.
+     BELEG  grep "KERN NEU 0.5.7|>0.5.7<|Version 0.5.7" in index.html,
+            katalog.html, system/ → 0 Treffer.
+
+M04  Prüfstand "KERN-Beispiele" (Soll gegen Ist)
+     WAS    pruefung/kern-beispiele-bauen.py liest die 135 Beispiele aus
+            "_ Resources/kern/userdoccomponents" (38 Bausteine) und erzeugt
+            pruefung/kern-beispiele.html (ERZEUGT, nicht von Hand ändern).
+            Jedes Beispiel zweimal: SOLL mit KERN 2.8.2 (M03), IST mit
+            2.8.2 (nbyc). Gemessen je Element: Lage und Größe (Toleranz 1 px) und
+            17 Stilwerte; Animationen/Übergänge vor dem Messen angehalten.
+            Breite 375/768/1280 px, Thema hell/dunkel, "Alle messen".
+            Örtlicher Server: python3 -m http.server 8058 im Projektordner,
+            dann http://localhost:8058/KERN%202.8.2%20%28nbyc%29/pruefung/kern-beispiele.html
+            (über file:// verweigert der Browser den Zugriff auf die Rahmen).
+     WARUM  K19: KERN-Beispiele müssen mit 2.8.2 (nbyc) unverändert richtig
+            aussehen. Die Zahl "deckungsgleich" ist der Fortschrittsmesser
+            für Stufe 2–4.
+     BELEG  Gegenprobe gleich: IST = offizielles kern.css → 540 von 540
+            deckungsgleich (135 × hell/dunkel × 375/1280 px). Erster Lauf
+            meldete die Ladeanzeige (3,3 px, dreht sich) — behoben durch
+            Anhalten der Animation.
+            Gegenprobe Fehler: IST = kern.css + ".kern-btn{border-radius:0}"
+            → alle 4 Knopf-Beispiele rot, Befund "borderTopLeftRadius
+            Soll 4px / Ist 0px".
+            AUSGANGSWERT 2.8.2 (nbyc) (= Stand 0.5.7), 12.10.2026, Browser-Bereich
+            der Claude-App (Chromium): 0 von 135 deckungsgleich — hell 375,
+            dunkel 375 und hell 1280 px. Erwartet, da 2.8.2 (nbyc) noch kn-Klassen
+            hat (E1 noch nicht umgesetzt).
+            NACHTRAG: Startwerte per Adresse (?baustein=button&breite=375&
+            thema=light) und Paar-Breite nach Inhalt — für die Bilder im Heft
+            "_ Documentaion/+ KERN 2.8.2 (nbyc) Design-Systeme". Messung unverändert.
+
+M03  Referenz KERN 2.8.2 abgelegt
+     WAS    "_ Resources/kern-ux-native-2.8.2/" (Projektordner): src/,
+            dist/kern.css, kern-grid.css, kern-utilities.css, kern-kopfzeile.js,
+            LICENSE.md, README.md, CHANGELOG.md, package.json — 73 Dateien,
+            1,2 MB, ohne Schriften und .min-Dateien; dazu "_ LIES MICH.txt".
+     WARUM  Vergleichsquelle für Prüfung 10 (KERN-Treue) und Sollbild für
+            die Beispielseite M04. Wird nicht ausgeliefert.
+     BELEG  Quelle cdn.jsdelivr.net/npm/@kern-ux/native@2.8.2, 73 von 73
+            geladen; dist/kern.css SHA-256 beginnt 516fe93d218b483c.
+
+M01  Ordner "KERN 2.8.2 (nbyc)" angelegt
+     WAS    Kopie von "KERN 0.5.7"; Versionsstempel "?v=2.8.2-nbyc.0" in allen
+            15 Einbindungen und Anleitungen (index, katalog, Muster,
+            LIESMICH, METHODE). Inhalt sonst unverändert — Texte nennen
+            noch 0.5.7, das zieht M73 nach.
+     WARUM  0.5.7 bleibt als Vergleich lauffähig (Maßnahmen M01).
+     BELEG  grep "?v=" → 15× 2.8.2-nbyc.0, 1× 0.5.7.1 (Geschichte in diesem
+            Protokoll, Eintrag 0.5.7). pruefung/pruefe.py auf der Kopie:
+            Rückgabe 0, ohne Beanstandung.
+
+M02  Git für den Projektordner
+     WAS    Git im Ordner "2026 Design Systeme"; Commit des Ausgangsstands,
+            Tag "0.5.7"; .gitignore (Mac-Dateien, Sperrdatei, Kopie der
+            Guiding Instructions).
+     WARUM  Guiding §13: Rückfallebene ist der Tag, nicht eine Ordnerkopie.
+     BELEG  git log: 5ea1f05 (tag: 0.5.7). Eintrag nachgetragen, weil
+            dieses Protokoll erst mit M01 entstand.
+
+0.5.7  —  12.08.2026
+--------------------------------------------------------------------------------
+Thema: die Maße von IBM Carbon 10.59.2 übernehmen. Farben, Schrift und
+Formensprache bleiben KERN. Belege in VERGLEICH.txt, Umstieg in UMSTIEG.txt.
+
+GEÄNDERT
++ Abstandsskala von 8 auf 13 Stufen (Carbons spacing-01 bis -13).
+  Kein Abstand im Bestand ändert sich — die alten acht waren bereits
+  eine Teilmenge. Ergänzt sind 2, 40, 80, 96 und 160 Pixel.
++ Typoskala auf Carbons gerechnete Stufen. Die sieben Rollen liegen
+  jetzt auf 12, 14, 16, 20, 28, 32 und 42 Pixel; die volle
+  14-stufige Skala steht als --kn-stufe-01 bis -14 bereit.
++ Zeilenhöhen auf Carbons rollengebundene Werte (1,199 bis 1,5).
++ Laufweite eingeführt: 0,32px bei 12px, 0,16px bei 14px, 0 ab 16px.
+  Gab es in 0.5.6 überhaupt nicht.
++ Eckenradius auf 0 für Knopf, Feld, Karte und Tabelle (war 4 und 8).
+  Marke auf Carbons Pille, 15px (war 4px).
++ Fokusrahmen von 3px auf 2px, Versatz von 2px auf 0. Der gelbe
+  Hilfsring bleibt — er hat in Carbon keine Entsprechung.
++ Knopfhöhen 32 / 40 / 48 / 64 (waren 32 / 44 / 52).
+  Knopfschrift 14px in ALLEN Größen (war 16, groß 18).
+  Knopfrahmen 1px (war 2px).
++ Feld auf feste Höhe 40 statt Mindesthöhe 44, Polsterung senkrecht 0,
+  seitlich 16, Rahmen 1px, Schrift 14px.
++ Tabelle: Zeilenhöhe 48, seitliche Polsterung 16, dazu zwei neue
+  Dichten .kn-tabelle--eng (32) und .kn-tabelle--weit (64).
++ Ankreuzfeld 16, Optionsfeld 18 (waren beide 24).
+  Schalter 48 × 24 mit Griff 18 (war 52 × 30).
+  Regler: Schiene 2, Griff 14 (waren 6 und 20).
++ Höhenskala --kn-hoehe-01 bis -05 und Symbolgrößen ergänzt.
+
+BEDIENZIEL — BEWUSSTE VERSCHLECHTERUNG, OFFEN BENANNT
+! Von 44 auf 40 Pixel, weil das Carbons Maß ist. WCAG 2.2 2.5.8 (AA,
+  24 Pixel) bleibt erfüllt, 2.5.5 (AAA, 44 Pixel) nicht mehr.
+  <html data-kn-ziel="bequem"> stellt 44 wieder her, ohne sonst etwas
+  zu verändern. Für Arbeitsplätze mit Dauerbenutzung empfohlen.
+
+BEHOBEN
+! NAMENSKOLLISION. ".kn-tabellenrahmen" benutzte
+  "var(--kn-tabelle-hoehe, none)" als frei setzbare Maximalhöhe.
+  Mit 0.5.7 wurde derselbe Name als Zeilenhöhe eingeführt — jede
+  gerahmte Tabelle wäre auf 48 Pixel zusammengefallen. Der Rahmen
+  heißt jetzt "--kn-tabellenrahmen-hoehe".
+  Im Quelltext war das nicht zu sehen: die Seite bleibt heil und zeigt
+  nur falsche Maße. Gefunden beim Nachmessen im Browser.
+! FELDHÖHE. Nach der Umstellung auf 40 kam im Browser weiter 44 heraus:
+  Mindesthöhe 40, aber 24 Zeilenhöhe + 16 Polsterung + 4 Rahmen ergeben
+  44. Erst feste Höhe und Polsterung 0 ergeben Carbons Maß.
+
+NEU BEIM PRÜFEN
++ Prüfung 8 "Token als Rückfallwert" — sucht die Kollision von oben.
++ Prüfung 9 "Rohe Maße in Komponenten" — jedes Maß muss aus einem
+  Token kommen.
+! Prüfung 9 war im ersten Anlauf WIRKUNGSLOS: sie las zeilenweise und
+  verlangte die Eigenschaft am Zeilenanfang, wodurch jede einzeilige
+  Regel durchrutschte. Aufgefallen nur, weil eine Gegenprobe einen
+  absichtlichen Verstoß einbaute und er nicht gemeldet wurde. Liest
+  jetzt regelweise. Lehre: eine Prüfung, die nie anschlägt, ist erst
+  bewiesen, wenn sie an einem echten Fehler anschlägt.
+
+KATALOG VOLLSTÄNDIG
++ 23 Bausteine nachgetragen, die seit 0.5.6 im CSS lagen, aber nicht im
+  Katalog standen: Seitenrahmen, Brotkrumen, Sprungmarke, Teilknopf,
+  Werkzeugleiste, Suche, Zahlenfeld, Passwortfeld, Zeichenzähler,
+  Datumsfeld, Dateiablage, Fortschrittsbalken, Ladeanzeige, Kurzhinweis,
+  Warnhinweis, Bestätigung, Schublade, Einschub, Phasenmarke,
+  Wertepaare, Kennzahl, Bildnis, Aufgabenliste.
+  Der Katalog hat damit 49 statt 26 Einträge. Jeder mit Zweck,
+  Entscheidungshilfe, lebendem Beispiel, Quelltext, Barrierehinweisen
+  und Klassenliste — kein Platzhalter darunter.
++ Versionsstempel auf "?v=0.5.7.1" erhöht, damit Browser die neue
+  Katalogdatei auch wirklich holen.
+
+NEUE UNTERLAGEN
++ LIESMICH.txt      Einstieg für Entwickelnde, Browseruntergrenze
++ VERGLEICH.txt     Die Maße gegen Carbon, Zahl für Zahl, mit Beleg
++ UMSTIEG.txt       Von 0.5.6 auf 0.5.7
++ AENDERUNGEN.txt   Diese Datei
++ LIZENZ.txt        Code, Schrift, Herkunft
++ token.json        Alle Token maschinenlesbar
+
+OFFEN
+- Lizenztext der Schrift (OFL.txt) fehlt. Bis dahin nicht weitergabefähig.
+- Farbrückfall in sRGB für Browser ohne oklch. Betrifft nur Schicht 1
+  in 01-token.css, ist aber Voraussetzung für ältere Arbeitsplätze.
+- Fünf Carbon-Komponenten fehlen ganz: Mehrfachauswahl, Kopierknopf,
+  Baumansicht, Zeitwahl, Codeblock. Dazu der Kalender beim Datumsfeld.
+  Siehe VERGLEICH.txt, Abschnitt 8.
+- Muster: Formularstrecke und Suche mit Ergebnisliste.
+- Inhaltsleitfaden für deutsche Verwaltungssprache.
+- Figma-Bibliothek.
+
+
+0.5.6  —  08.08.2026
+--------------------------------------------------------------------------------
+Erste vollständige Fassung. Eigenständiges System ohne Abhängigkeit,
+in der Formensprache von KERN 2.7.2 mit eigenen Maßen.
++ Drei Tokenschichten, vier Modi (hell, dunkel, erhöhter Kontrast,
+  ruhige Bewegung).
++ 26 Komponenten im Katalog mit linker Navigation, Beispiel,
+  Quelltext, Barrierehinweisen.
++ Muster "Fallbearbeitung".
++ Sieben automatische Prüfungen.
+! Schieberegler war unbenutzbar: logische Maße (inline-size) werden in
+  Vendor-Pseudoelementen nicht angewandt. Behoben mit physischen
+  Maßen. Prüfung 5 sucht das seither.
+! Ein dataset-Schlüssel mit Bindestrich warf einen SyntaxError und
+  legte das ganze Skript still lahm. Prüfung 4 sucht das seither.
+! Merker-Kollision: vier Komponenten waren tot, weil der Merkername
+  mit dem auswählenden data-Attribut kollidierte. Behoben mit dem
+  Präfix "knFertig". Prüfung 6 sucht das seither.

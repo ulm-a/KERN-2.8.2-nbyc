@@ -1,0 +1,115 @@
+/* KERN OnePager — nur das Seitengerüst. Keine Komponente wird hier gestaltet.
+   Alle Werte aus KERN-Tokens (Instruction Designer, Abschnitt 4 und 12). */
+
+.op-nav {
+  border-block-end: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border);
+  background: var(--kern-color-layout-background-default);
+  padding-block: var(--kern-metric-space-x-small);
+}
+.op-nav__liste { gap: var(--kern-metric-space-x-small); }
+
+main:focus { outline: none; }
+
+.op-abschnitt {
+  padding-block: var(--kern-metric-space-3x-large) var(--kern-metric-space-large);
+  border-block-end: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border);
+  scroll-margin-block-start: var(--kern-metric-space-large);
+}
+.op-abschnitt:last-child { border-block-end: 0; }
+.op-abschnitt > * + * { margin-block-start: var(--kern-metric-space-default); }
+
+.op-reihe { gap: var(--kern-metric-space-small); margin-block: var(--kern-metric-space-large); }
+.op-stapel > * + * { margin-block-start: var(--kern-metric-space-default); }
+.op-raster { row-gap: var(--kern-metric-space-large); }
+.op-aufgaben, .op-formular, .op-teil, .op-werkzeug { margin-block-start: var(--kern-metric-space-x-large); }
+.op-formular > * + * { margin-block-start: var(--kern-metric-space-x-large); }
+.op-teil > * + * { margin-block-start: var(--kern-metric-space-default); }
+.op-schmal { max-inline-size: 28rem; margin-block-start: var(--kern-metric-space-default); }
+.op-filter { display: flex; flex-wrap: wrap; align-self: flex-end; align-items: flex-end; gap: var(--kern-metric-space-x-small); }
+.op-leer { margin-block-start: var(--kern-metric-space-default); }
+
+.op-symbole {
+  display: flex; flex-wrap: wrap; gap: var(--kern-metric-space-large);
+  margin-block-start: var(--kern-metric-space-x-large); padding: 0; list-style: none;
+}
+.op-symbole li { display: flex; flex-direction: column; align-items: center; gap: var(--kern-metric-space-2x-small); }
+
+.op-status {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--kern-metric-space-x-small);
+  padding: var(--kern-metric-space-x-small) var(--kern-metric-space-default);
+  background: var(--kern-color-layout-background-hued);
+  color: var(--kern-color-layout-text-default);     /* KERN-Anspruch 7 : 1 — gedämpft lag bei 6,38 (D12) */
+  font-size: var(--kern-typography-font-size-small-static);
+  border-block-start: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border);
+}
+/* "live": Punkt in Erfolgsfarbe (Nicht-Text, ≥ 3 : 1), Text bleibt in Textfarbe */
+.op-status[data-op-live="ja"] [data-op-verbindung]::before { content: "● "; color: var(--kern-color-feedback-success); }
+
+/* Hervorheben aus dem Designer ("im OnePager zeigen") */
+[data-op-hervor] {
+  outline: var(--kern-metric-border-width-heavy) dashed var(--kern-color-action-focus-default);
+  outline-offset: var(--kern-metric-space-2x-small);
+}
+
+/* Lange deutsche Wörter ("Bewohnerparkausweis") ragten bei 320 px aus der
+   Display-Überschrift (WCAG 1.4.10, gemessen 16.10.2026: 493 px Inhalt in 288 px).
+   Silbentrennung nach lang-Attribut, notfalls Umbruch im Wort. */
+main :is(h1, h2, h3, h4, h5, .kern-title) { hyphens: auto; overflow-wrap: break-word; }
+
+/* Höhe aller Bedienelemente im Seitenkopf (D26): die kleinste KERN-Stufe, die WCAG 2.2 · 2.5.8
+   (24 × 24 px) ohne Ausnahme erfüllt; Symbole darin eine Stufe kleiner (16 px). */
+.kn-header {
+  --op-kopf-hoehe: var(--kern-metric-dimension-default);    /* 24 px */
+  --op-kopf-symbol: var(--kern-metric-dimension-x-small);   /* 16 px */
+}
+/* Modus-Schalter im Kopf (D22): Symbol statt Wort, Name für Screenreader im Knopf */
+.op-modus {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  inline-size: var(--op-kopf-hoehe, var(--kern-metric-dimension-default)); block-size: var(--op-kopf-hoehe, var(--kern-metric-dimension-default));
+  padding: 0; background: none; color: inherit; cursor: pointer;
+  border: var(--kern-metric-border-width-light) solid currentColor; border-radius: var(--kern-metric-border-radius-default);
+}
+.op-modus .kern-icon { background-color: currentColor; }
+.op-modus .kern-icon { inline-size: var(--op-kopf-symbol, var(--kern-metric-dimension-x-small)); block-size: var(--op-kopf-symbol, var(--kern-metric-dimension-x-small));
+  min-inline-size: var(--op-kopf-symbol, var(--kern-metric-dimension-x-small)); min-block-size: var(--op-kopf-symbol, var(--kern-metric-dimension-x-small)); }
+.op-modus[aria-pressed="true"] .op-modus__aus, .op-modus:not([aria-pressed="true"]) .op-modus__an { display: none; }
+.op-modus[data-kn-mode="contrast"][aria-pressed="true"] {
+  background: var(--kern-color-layout-text-inverse-contextual); color: var(--kern-color-layout-background-inverted);
+}
+@media (forced-colors: active) {
+  .op-modus .kern-icon { background-color: ButtonText; }
+  .op-modus[data-kn-mode="contrast"][aria-pressed="true"] { background: Highlight; }
+  .op-modus[data-kn-mode="contrast"][aria-pressed="true"] .kern-icon { background-color: HighlightText; }
+}
+
+/* Kopfzeile als Beispiel im Start-Abschnitt (D22) */
+.op-beispiel { margin: var(--kern-metric-space-large) 0 0; }
+.op-beispiel__titel { display: block; margin-block-end: var(--kern-metric-space-x-small); }
+.op-beispiel .kern-kopfzeile { border: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border); }
+
+/* Sprachwahl im Seitenkopf: nativ, in den Farben des Kopfs */
+/* D25: Safari zeichnet die native Auswahl mit eigener, fester Höhe und übergeht min-block-size —
+   darum eigene Gestalt (appearance: none) mit fester Höhe wie die Schalter daneben; Pfeil wie
+   KERNs Auswahl (dasselbe Symbol aus kern.css, hier in der Textfarbe des Kopfs). */
+.op-sprache { position: relative; display: inline-flex; }
+.op-sprache::after {
+  content: ""; position: absolute; inset-block: 0; inset-inline-end: var(--kern-metric-space-x-small); margin-block: auto;
+  inline-size: var(--kern-metric-dimension-x-small, 16px); block-size: var(--kern-metric-dimension-x-small, 16px);
+  background-color: currentColor; pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='' viewBox='0 -960 960 960' width='' fill='%23000000'%3E%3Cpath d='M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='' viewBox='0 -960 960 960' width='' fill='%23000000'%3E%3Cpath d='M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.op-sprache__wahl {
+  -webkit-appearance: none; appearance: none;
+  block-size: var(--op-kopf-hoehe);                       /* = Inspektor- und Modus-Schalter (D22, D25, D26) */
+  font-size: var(--kern-typography-font-size-small-static);
+  padding-inline: var(--kern-metric-space-x-small) calc(var(--kern-metric-space-x-small) * 2 + var(--kern-metric-dimension-x-small, 16px));
+  font: inherit; line-height: 1; color: inherit; background: transparent; cursor: pointer;
+  border: var(--kern-metric-border-width-light) solid currentColor; border-radius: var(--kern-metric-border-radius-default);
+}
+@media (forced-colors: active) { .op-sprache::after { background-color: ButtonText; } }
+.op-sprache__wahl option { color: var(--kern-color-layout-text-default); background: var(--kern-color-layout-background-default); }
+
+/* Absenden-Knopf unter der Zusammenfassung; Aktualisieren unten bündig mit der Suche */
+.op-absenden { margin-block-start: var(--kern-metric-space-large); }
+.op-neu-laden { align-self: flex-end; }

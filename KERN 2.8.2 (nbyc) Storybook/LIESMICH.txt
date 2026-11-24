@@ -1,0 +1,117 @@
+KERN STORYBOOK — KERN 2.8.2 (nbyc)
+Stand: 01.11.2026 · E12, M102 · Übergabe an die Entwicklung
+================================================================================
+NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
+      KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
+      KI-Assistenten von Anthropic. Nicht das offizielle KERN.
+
+WEITERGABE
+  Empfänger ist die Entwicklung im eigenen Haus. Der Name "KERN 2.8.2 (nbyc)"
+  bleibt dafür (Entscheidung E7, 01.11.2026). Für jeden anderen Empfänger
+  wird der Name vorher neu entschieden.
+
+WAS DAS IST
+  Alle Bausteine des Systems als Storybook — im selben Format wie KERNs eigenes
+  Storybook (kern-ux-plain: @storybook/html-vite 9):
+    · 38 KERN-Bausteine und 47 Erweiterungen (kn-), 193 Beispiele, dazu
+      "Einführung" (Name, Einbinden, Abweichungen von KERN)
+    · je Baustein eine Doku-Seite: Zweck, Wann nehmen / nicht, Barriere-
+      freiheit, Tastaturvertrag, Klassen, KERNs Pflichten, Bezeichnungen —
+      Deutsch und Englisch
+    · Werkzeugleiste: Modus (System/hell/dunkel), Kontrast (System/normal/
+      erhöht), Sprache der Systemtexte (Deutsch/English)
+    · Quelltext je Beispiel = Katalog-Markup wörtlich; Verhalten (Tastatur,
+      Ansagen) über kern-neu.js wie in jeder Seite
+
+EINZIGE QUELLE IST DER KATALOG
+  Die Stories sind ERZEUGT — nie von Hand ändern. Ändert sich der Katalog
+  ("KERN 2.8.2 (nbyc)/katalog"), neu erzeugen (aus dem Projektordner):
+      python3 "KERN 2.8.2 (nbyc) Storybook/werkzeug/stories-bauen.py"
+  Nur prüfen, ob die Stories zum Katalog passen (Rückgabe 1, wenn nicht):
+      python3 "KERN 2.8.2 (nbyc) Storybook/werkzeug/stories-bauen.py" --pruefen
+  Dafür ist kein Node nötig (gelesen wird mit JavaScriptCore über osascript).
+
+STARTEN MIT NPM (beim Empfänger)
+  Einfach: Doppelklick auf "KERN 2.8.2 (nbyc) Storybook [ Start ].command" im Projektordner
+  (neben "KERN Designer [ Start ].command"). Beim ersten Start läuft
+  npm install; danach öffnet sich http://127.0.0.1:6006 im Browser. Beenden:
+  Terminal-Fenster schließen. Von Hand geht es so:
+  Voraussetzung: Node.js 20 oder neuer mit npm. Ohne Node meldet das Terminal
+  "command not found: npm" — dann zuerst Node installieren (LTS-Fassung von
+  nodejs.org; prüfen mit: node --version).
+  Im Terminal, im Ordner "KERN 2.8.2 (nbyc) Storybook" (Pfad anpassen):
+      cd "<Projektordner>/KERN 2.8.2 (nbyc) Storybook"
+      npm install
+      npm run storybook          → Storybook unter http://127.0.0.1:6006
+                                   (nur dieser Rechner; Browser selbst öffnen,
+                                   falls er nicht von allein aufgeht)
+      npm run build-storybook    → Ordner storybook-static (statisch, ohne Server)
+  Geprüft 01.11.2026 mit Node 22.23.4 in einer Kopie (Pfad mit Leerzeichen
+  und Klammern), genau nach diesen Schritten: npm install (92 Pakete),
+  build-storybook (194 Stories, 85 Doku-Seiten),
+  storybook dev — im Browser gemessen: kern-neu.css/-js geladen, Verhalten
+  verdrahtet, Werkzeugleiste (dunkel, English) wirkt, Doku-Seiten mit
+  Tabellen und englischem Teil, keine Konsolenfehler.
+  npm audit: eine mittlere Lücke bleibt (@vitest/mocker in Storybook 9 —
+  npm zählt sie je abhängigem Paket, "9 moderate";
+  behoben erst in Storybook 10) — betrifft nur den Entwicklungsserver; der
+  lauscht darum nur auf 127.0.0.1 (--host im Skript "storybook").
+  Entschieden 01.11.2026: Storybook bleibt auf Fassung 9 wie KERNs eigenes
+  Storybook (Instruktion, E12). Wechsel auf 10 erst nach neuer Entscheidung.
+  Der Ordner "KERN 2.8.2 (nbyc)" muss DANEBEN liegen: Storybook lädt das System
+  von dort (staticDirs in .storybook/main.js) — es gibt keine Kopie.
+  Versionen in package.json fest (keine Bereiche), geprüft am 01.11.2026 im
+  npm-Verzeichnis: storybook, @storybook/html-vite, @storybook/addon-docs,
+  @storybook/addon-a11y je 9.1.21 (12.10.2026, letzte Fassung von
+  Storybook 9); vite 6.4.5 (21.10.2026; builder-vite erlaubt ^5 || ^6 || ^7).
+  Vorher 9.0.10 / 6.3.5 — die hatten bekannte Lücken (Storybook kritisch,
+  Vite hoch; npm audit), darum ersetzt (M104).
+  node_modules, storybook-static und package-lock.json gehören nicht ins Git
+  (.gitignore im Projektordner).
+
+AUFBAU
+  .storybook/main.js           Rahmen (html-vite), Stories, Addons, staticDirs
+  .storybook/preview.js        Werkzeugleiste und Bühne: setzt data-kern-theme,
+                               data-kn-contrast und lang, ruft KN.start
+  .storybook/preview-head.html lädt kern-neu.css und kern-neu.js
+  stories/einfuehrung.stories.js, stories/kern/*.stories.js,
+  stories/eigen/*.stories.js   ERZEUGT (werkzeug/stories-bauen.py)
+  pruefung/stories-pruefen.html  Prüfseite ohne Node (siehe unten)
+  Stories prüfen.command       startet Prüfserver und Prüfseite (Doppelklick)
+  pruefung/stories-liste.js    ERZEUGT — Liste der Story-Dateien für die Prüfseite
+  werkzeug/stories-bauen.py    der Generator
+
+PRÜFEN OHNE NODE
+  Einfach: Doppelklick auf "Stories prüfen.command" (in diesem Ordner). Es
+  startet den Prüfserver im Projektordner (127.0.0.1:8058) und öffnet die
+  Prüfseite; beenden mit Schließen des Terminal-Fensters. Läuft der Server
+  schon, öffnet es nur die Seite; belegt ein anderes Programm den Port, sagt
+  es das. (Beim ersten Start fragt macOS evtl. nach — Rechtsklick → Öffnen.)
+  Von Hand: im Terminal
+      cd "<Projektordner>"
+      python3 -m http.server 8058 --bind 127.0.0.1
+  und im Browser
+      http://127.0.0.1:8058/KERN%202.8.2%20(nbyc)%20Storybook/pruefung/stories-pruefen.html
+  NICHT per Doppelklick auf stories-pruefen.html: Aus einer lokalen Datei
+  (file://) laden Browser keine ES-Module — die Seite meldet dann "NICHT
+  GEPRÜFT" mit diesem Hinweis. Die Seite zeigt Prüfergebnisse, keine
+  Storybook-Oberfläche.
+  Lädt jede Story-Datei als ES-Modul, rendert jede Story durch dieselbe
+  Vorschau (.storybook/preview.js) und misst: alle Dateien und Stories da,
+  Titel eindeutig, Doku-Text DE + EN, keine leere Story, Verhalten verdrahtet,
+  IDs eindeutig, keine Skriptfehler. ?gegenprobe=1 legt KN.start lahm —
+  "Verhalten verdrahtet" muss dann rot sein. In WebKit:
+      swift "KERN 2.8.2 (nbyc)/pruefung/webkit-pruefen.swift" \
+        "http://127.0.0.1:8058/KERN%202.8.2%20(nbyc)%20Storybook/pruefung/stories-pruefen.html" \
+        "window.SBP_ERGEBNIS"
+  NICHT geprüft wird damit Storybook selbst (Oberfläche, Darstellung der
+  Doku-Seiten aus Markdown, main.js) — das geht nur mit Node.
+
+BESONDERHEITEN
+  · Beispiele, die dieselbe ID tragen (KERNs Original-Beispiele, z. B. F19
+    Dialog), stehen auf der Doku-Seite je in eigenem Rahmen (iframe, 420 px
+    hoch) — sonst gälten Beschriftungen für das falsche Feld. KERNs Markup
+    bleibt unverändert (E6).
+  · Befund im Original: KERNs Task-List-Beispiel 2 vergibt task3-status und
+    task3-title doppelt (Vorschlag F26, noch nicht in der Rückmeldung).
+-/-

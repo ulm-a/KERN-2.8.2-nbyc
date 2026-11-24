@@ -1,0 +1,294 @@
+/* ==================================================================
+   KERN 2.8.2 (nbyc) — 01b ERWEITERUNG (Entscheidung E3, Maßnahme M19)
+   ==================================================================
+
+   Was KERN 2.8.2 nicht hat und KERN 2.8.2 (nbyc) zusätzlich bietet:
+     1  erhöhter Kontrast   data-kn-contrast="high" / prefers-contrast
+     2  Bewegungsdauern     --kn-dauer-*, --kn-easing
+     3  ruhige Bewegung     prefers-reduced-motion
+     4  Windows-Kontrast    forced-colors: Fokus in Systemfarbe
+     5  Ausweichwerte       Fehler im Original (E6), je mit F-Nummer
+     6  Farbschema          color-scheme passend zum KERN-Thema
+     7  Dichte-Stufen       kompakt · normal (= KERN) · weit (E2, M77–M80)
+
+   REGEL: Hier stehen keine eigenen Farben. Der Kontrastmodus setzt
+   KERNs eigene Rollen-Tokens auf ANDERE KERN-Grundfarben — so wirkt er
+   auf alles, was KERN-Tokens liest, auch auf künftige KERN-Bausteine.
+
+   Ausweichwerte zu Fehlern im Original (E6): Abschnitt 5, je mit
+   F-Nummer (Vergleich, Teil 6). Zurzeit: F17, F21, F22, F23, F27. Nicht nötig: F1 und F2
+   (von keinem Baustein gelesen); F3 (Dialogbreite) folgt in Stufe 4.
+   ================================================================== */
+
+/* ------------------------------------------------------------------
+   1  ERHÖHTER KONTRAST
+   ------------------------------------------------------------------
+   Kann keines der verglichenen Systeme als eigenen Modus. Er nimmt der
+   Oberfläche die Zwischenstufen: Flächen an die Enden, Linien dunkel
+   und dicker, Schatten weg. Zwei Fassungen: hell und dunkel.
+   Spezifität: hell (0,2,0) schlägt KERNs Themenwahl (0,1,0);
+   dunkel (0,3,0) schlägt hell.
+   ------------------------------------------------------------------ */
+
+:root[data-kn-contrast="high"] {
+  --kern-color-layout-background-hued:         var(--kern-color-white);
+  --kern-color-layout-background-default-surface: var(--kern-color-white);
+  --kern-color-feedback-default-background:    var(--kern-color-neutral-050);
+  --kern-color-layout-text-muted:              var(--kern-color-neutral-900);
+  --kern-color-layout-border:                  var(--kern-color-black);
+  --kern-color-decorative-border-default:      var(--kern-color-neutral-800);
+  --kern-color-form-input-border:              var(--kern-color-black);
+  --kern-metric-border-width-light:            var(--kern-2);
+  --kern-metric-border-width-default:          var(--kern-3);
+  --kern-shadow-elevation-low:     none;
+  --kern-shadow-elevation-default: none;
+  --kern-shadow-elevation-high:    none;
+  --kern-color-action-state-opacity-hover:     82%;
+  --kern-color-action-state-opacity-active:    72%;
+  --kern-color-action-state-opacity-selected:  0.24;
+}
+
+@media (prefers-contrast: more) {
+  :root:not([data-kn-contrast="normal"]) {
+    --kern-color-layout-background-hued:         var(--kern-color-white);
+    --kern-color-layout-background-default-surface: var(--kern-color-white);
+    --kern-color-feedback-default-background:    var(--kern-color-neutral-050);
+    --kern-color-layout-text-muted:              var(--kern-color-neutral-900);
+    --kern-color-layout-border:                  var(--kern-color-black);
+    --kern-color-decorative-border-default:      var(--kern-color-neutral-800);
+    --kern-color-form-input-border:              var(--kern-color-black);
+    --kern-metric-border-width-light:            var(--kern-2);
+    --kern-metric-border-width-default:          var(--kern-3);
+    --kern-shadow-elevation-low:     none;
+    --kern-shadow-elevation-default: none;
+    --kern-shadow-elevation-high:    none;
+    --kern-color-action-state-opacity-hover:     82%;
+    --kern-color-action-state-opacity-active:    72%;
+    --kern-color-action-state-opacity-selected:  0.24;
+  }
+}
+
+/* Dunkel mit erhöhtem Kontrast — nur die Farben; Linien wie oben. */
+:root[data-kern-theme="dark"][data-kn-contrast="high"] {
+  --kern-color-layout-background-default:      var(--kern-color-black);
+  --kern-color-layout-background-hued:         var(--kern-color-black);
+  --kern-color-layout-background-default-surface: var(--kern-color-black);
+  --kern-color-feedback-default-background:    var(--kern-color-neutral-950);
+  --kern-color-layout-text-default:            var(--kern-color-white);
+  --kern-color-layout-text-muted:              var(--kern-color-neutral-050);
+  --kern-color-layout-border:                  var(--kern-color-white);
+  --kern-color-decorative-border-default:      var(--kern-color-neutral-100);
+  --kern-color-form-input-border:              var(--kern-color-white);
+  --kern-color-form-input-background:          var(--kern-color-black);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-kern-theme="light"])[data-kn-contrast="high"] {
+    --kern-color-layout-background-default:      var(--kern-color-black);
+    --kern-color-layout-background-hued:         var(--kern-color-black);
+    --kern-color-layout-background-default-surface: var(--kern-color-black);
+    --kern-color-feedback-default-background:    var(--kern-color-neutral-950);
+    --kern-color-layout-text-default:            var(--kern-color-white);
+    --kern-color-layout-text-muted:              var(--kern-color-neutral-050);
+    --kern-color-layout-border:                  var(--kern-color-white);
+    --kern-color-decorative-border-default:      var(--kern-color-neutral-100);
+    --kern-color-form-input-border:              var(--kern-color-white);
+    --kern-color-form-input-background:          var(--kern-color-black);
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root[data-kern-theme="dark"]:not([data-kn-contrast="normal"]) {
+    --kern-color-layout-background-default:      var(--kern-color-black);
+    --kern-color-layout-background-hued:         var(--kern-color-black);
+    --kern-color-layout-background-default-surface: var(--kern-color-black);
+    --kern-color-feedback-default-background:    var(--kern-color-neutral-950);
+    --kern-color-layout-text-default:            var(--kern-color-white);
+    --kern-color-layout-text-muted:              var(--kern-color-neutral-050);
+    --kern-color-layout-border:                  var(--kern-color-white);
+    --kern-color-decorative-border-default:      var(--kern-color-neutral-100);
+    --kern-color-form-input-border:              var(--kern-color-white);
+    --kern-color-form-input-background:          var(--kern-color-black);
+  }
+}
+
+@media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+  :root:not([data-kern-theme="light"]):not([data-kn-contrast="normal"]) {
+    --kern-color-layout-background-default:      var(--kern-color-black);
+    --kern-color-layout-background-hued:         var(--kern-color-black);
+    --kern-color-layout-background-default-surface: var(--kern-color-black);
+    --kern-color-feedback-default-background:    var(--kern-color-neutral-950);
+    --kern-color-layout-text-default:            var(--kern-color-white);
+    --kern-color-layout-text-muted:              var(--kern-color-neutral-050);
+    --kern-color-layout-border:                  var(--kern-color-white);
+    --kern-color-decorative-border-default:      var(--kern-color-neutral-100);
+    --kern-color-form-input-border:              var(--kern-color-white);
+    --kern-color-form-input-background:          var(--kern-color-black);
+  }
+}
+
+/* ------------------------------------------------------------------
+   2  BEWEGUNGSDAUERN — KERN hat keine Bewegungstokens.
+   ------------------------------------------------------------------ */
+:root {
+  /* Dichte (Erweiterung, Dichte-Stufen M77–M80): Grundwert = KERN. */
+  --kn-target-size:     var(--kern-metric-dimension-x-large);   /* 48 */
+  --kn-table-row-space: var(--kern-metric-space-small);
+  --kn-duration-1: 120ms;
+  --kn-duration-2: 200ms;
+  /* Schleifen: Ladekreis (data-kn-loading) und Platzhalter (kn-skeleton);
+     bis 13.10.2026 als Rohwerte in den Bausteinen (Mangel QK7). */
+  --kn-duration-loop:      800ms;
+  --kn-duration-loop-slow: 1400ms;
+  /* Herkunft: IBM Carbon, Kurve "productive standard". KERN hat keine
+     Bewegungstokens; die Kurve ist ein Verlauf, kein Maß (E2 betrifft
+     Carbons Maße). */
+  --kn-easing:   cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+/* ------------------------------------------------------------------
+   3  RUHIGE BEWEGUNG — wird befolgt, nicht umgeschaltet.
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  :root { --kn-duration-1: 0ms; --kn-duration-2: 0ms; }
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   4  WINDOWS-KONTRAST — Flächen werden ignoriert, nur Ränder zählen.
+   ------------------------------------------------------------------ */
+@media (forced-colors: active) {
+  :root {
+    --kern-shadow-elevation-low:     none;
+    --kern-shadow-elevation-default: none;
+    --kern-shadow-elevation-high:    none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   5  AUSWEICHWERTE ZU FEHLERN IM ORIGINAL (E6)
+   ------------------------------------------------------------------
+   F17  kern.css 2.8.2 setzt für Elemente mit tabindex (dazu area, iframe,
+        contenteditable) den Fokusring bei :focus und nimmt ihn bei
+        :focus-visible wieder weg (outline: 0) — also genau umgekehrt:
+        Ring beim Mausklick, KEIN Ring bei Tastaturbedienung (WCAG 2.4.7).
+        Gemessen 13.10.2026 mit kern.css allein: Tab auf <div tabindex="0">
+        → outline none; Mausklick → 4 px. Gleiche Selektoren wie KERN,
+        später geladen; Werte = KERNs eigener Fokus (4 px, Abstand 2 px).
+   ------------------------------------------------------------------ */
+area[href]:not([tabindex="-1"]):focus:focus-visible,
+iframe:not([tabindex="-1"]):focus:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus:focus-visible,
+[contentEditable=true]:not([tabindex="-1"]):focus:focus-visible {
+  outline: var(--kern-metric-border-width-bold) solid var(--kern-color-action-focus-default-contextual);
+  outline-offset: var(--kern-2);
+}
+/* F21  kern.css 2.8.2: body:has(.kern-dialog[open]) { overflow: hidden }
+        sperrt das Scrollen der Seite bei JEDEM offenen Dialog — auch bei
+        einem nicht-modalen (dialog.show() oder Attribut open), den KERN für
+        Informationen ausdrücklich empfiehlt. Gemessen 13.10.2026 im Katalog
+        (Mausrad, 5 Schritte): ohne offenen Dialog 500 px, mit nicht-modal
+        offenem KERN-Dialog 0 px. Die Sperre bleibt, solange ein Dialog
+        MODAL offen ist (:modal); sonst scrollt die Seite. */
+body:has(.kern-dialog[open]):not(:has(.kern-dialog:modal)) {
+  overflow: visible;
+}
+
+/* F22  kern.css 2.8.2 setzt an Bausteinen display (z. B. .kern-error:
+        flex) — das hebt das hidden-Attribut auf: eine verborgene Fehler-
+        meldung bleibt sichtbar. Gefunden 13.10.2026 (Stufe 6d) an Uhrzeit
+        und Kalender-Datum, deren Meldung von Anfang an zu sehen war.
+        hidden verbirgt immer. */
+[hidden] { display: none !important; }
+
+/* F23  kern.css 2.8.2: die Kopfzeile von kern-dropdown (summary) hat keinen
+        Fokusstil — es bleibt der dünne Ring des Browsers (1 px) statt KERNs
+        4-px-Ring. Gefunden 13.10.2026 (Stufe 6e, Fokusmessung). Ring wie bei
+        KERNs übrigen Bausteinen. */
+.kern-dropdown__header:focus-visible {
+  outline: var(--kern-metric-border-width-bold) solid var(--kern-color-action-focus-default-contextual);
+  outline-offset: var(--kern-metric-space-none);
+}
+
+/* F27  kern.css 2.8.2: die hover-Regel des Knopfs ist spezifischer als seine
+        active-Regel —
+          .kern-btn--primary:not(:disabled):hover   (0,3,0)
+          .kern-btn--primary:active                 (0,2,0)
+        Beim Drücken mit Maus oder Finger treffen BEIDE zu, hover gewinnt:
+        es gibt keine Druckrückmeldung. Gilt für primary, secondary und
+        tertiary. Belegt durch das Assessment vom 16.11.2026: dort nennen
+        M6 (hover) und M7 (pressed) denselben Hintergrund
+        oklch(0.474128 0.155392 265.02) — nachgerechnet der hover-Wert aus
+        darkblue-700 mit 8 % Weiß. Das war immer so; die Spezifität steht so
+        in KERN 2.8.2 selbst.
+        Gleiche Selektoren wie KERNs hover-Regel, nur mit :active, später
+        geladen; Werte = KERNs eigene Zustandstokens, kein eigener Wert.
+        aria-disabled wird ausgenommen — KERNs active-Regel tut das nicht,
+        ein gesperrter Knopf hätte sonst eine Druckrückmeldung (E4). */
+.kern-btn--primary:not(:disabled):active,
+.kern-btn--primary:not([aria-disabled=true]):active {
+  background: var(--kern-color-action-state-indicator-shade-active);
+}
+.kern-btn--secondary:not(:disabled):active,
+.kern-btn--secondary:not([aria-disabled=true]):active,
+.kern-btn--tertiary:not(:disabled):active,
+.kern-btn--tertiary:not([aria-disabled=true]):active {
+  background: var(--kern-color-action-state-indicator-tint-active-opacity);
+}
+
+@media (forced-colors: active) {
+  area[href]:not([tabindex="-1"]):focus:focus-visible,
+  iframe:not([tabindex="-1"]):focus:focus-visible,
+  [tabindex]:not([tabindex="-1"]):focus:focus-visible,
+  [contentEditable=true]:not([tabindex="-1"]):focus:focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+/* ------------------------------------------------------------------
+   6  FARBSCHEMA DES BROWSERS — KERN setzt color-scheme nicht.
+   ------------------------------------------------------------------
+   Ohne diese Angabe zeichnet der Browser im dunklen KERN-Thema seine
+   Grundfarben hell: Text ohne KERN-Klasse schwarz, Verweise ohne Klasse
+   #0000EE, Scrollleisten und Auswahllisten hell — auf dunklem Grund
+   kaum lesbar. Gemessen 13.10.2026 im Prüfstand (dunkel, 375 px): das
+   ist die EINZIGE Abweichung von KERN; probeweise abgeschaltet → 135 von
+   135 deckungsgleich. Sichtbar anders: 97 Textstellen OHNE KERN-Text-
+   klasse (bei KERN schwarz auf Dunkel, hier hell); 0 Stellen mit KERN-
+   Textklasse, 0 sichtbare Ränder. Liste: ABWEICHUNGEN.txt, AB06.
+   ------------------------------------------------------------------ */
+[data-kern-theme="dark"] { color-scheme: dark; }
+[data-kern-theme="light"] { color-scheme: light; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-kern-theme]) { color-scheme: dark; }
+}
+
+/* ------------------------------------------------------------------
+   7  DICHTE-STUFEN (E2, präzisiert 13.10.2026; M77–M80)
+   ------------------------------------------------------------------
+   EINE Quelle: Die Einstellseite im Katalog liest diese zwei Regeln für
+   Tabelle und Export (kern-anpassung.css); Prüfung 15 prüft sie.
+   Regeln: nur Maß-Tokens, nur Werte aus KERNs Skala (var(--kern-…)),
+   nie Farben. "normal" ist KERN und braucht keine Regel.
+   KERNs --kern-metric-dimension-x-large (48) ist die Bedienhöhe von
+   kern-btn, kern-form-input, kern-input-group, kern-dropdown und dem
+   Symbol x-large — eine Stufe ändert sie gemeinsam.
+   Schutzgrenze (M79): kompakt = 40 px = KERNs kleiner Knopf; WCAG 2.5.8
+   verlangt 24 px. Jede andere Stufe als normal ist eine Abweichung von
+   KERN (ABWEICHUNGEN.txt, AB10).
+   ------------------------------------------------------------------ */
+[data-kn-density="compact"] {
+  --kern-metric-dimension-x-large: var(--kern-40);
+  --kn-target-size: var(--kern-40);
+  --kn-table-row-space: var(--kern-metric-space-x-small);
+}
+[data-kn-density="spacious"] {
+  --kern-metric-dimension-x-large: var(--kern-metric-dimension-2x-large);
+  --kn-target-size: var(--kern-metric-dimension-2x-large);
+  --kn-table-row-space: var(--kern-metric-space-default);
+}

@@ -1,0 +1,89 @@
+/* KERN Designer — eigene Tokens (--kd-*). EINZIGE Stelle für das Aussehen des
+   Designers (Instruction Designer, Abschnitt 0 DESIGNER_TOKENS und 6).
+   Charakter "nerdige Maschine" nach dem Vorbild SpringClean, aber eigene Werte —
+   kein bekanntes Design-System. Nichts hiervon wirkt auf den OnePager.
+   Gilt auch für Werkzeug-Ebenen in anderen Seiten ([data-kd-werkzeug], z. B. der
+   Inspektor im OnePager); color-scheme setzt designer.css, nicht diese Datei.
+   Kontraste berechnet 16.10.2026 (WCAG 2.2): alle Texte ≥ 4,7 : 1 auf jeder
+   Fläche, Ränder von Bedienelementen ≥ 3,7 : 1. */
+
+@font-face { font-family: "KD Mono"; src: url("../schrift/IBMPlexMono-Regular.otf") format("opentype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "KD Mono"; src: url("../schrift/IBMPlexMono-Medium.otf") format("opentype"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "KD Mono"; src: url("../schrift/IBMPlexMono-SemiBold.otf") format("opentype"); font-weight: 600; font-display: swap; }
+
+:root, [data-kd-werkzeug] {
+  /* ---- Größe: klein (Grundstellung) · groß ---- */
+  --kd-basis: 13px;
+  --kd-einheit: calc(var(--kd-basis) * 4 / 13);          /* 4 px bei klein */
+
+  /* ---- Schrift ---- */
+  --kd-schrift: "KD Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --kd-text-xs: calc(var(--kd-basis) * 0.846);           /* 11 px bei klein */
+  --kd-text-s:  calc(var(--kd-basis) * 0.923);           /* 12 px */
+  --kd-text-m:  var(--kd-basis);                         /* 13 px */
+  --kd-text-l:  calc(var(--kd-basis) * 1.231);           /* 16 px */
+  --kd-zeile: 1.45;
+  --kd-laufweite-versal: 0.08em;
+  --kd-gewicht-normal: 400;
+  --kd-gewicht-mittel: 500;
+  --kd-gewicht-stark: 600;
+
+  /* ---- Raum (Vielfache der Einheit) ---- */
+  --kd-raum-1: var(--kd-einheit);                        /* 4 */
+  --kd-raum-2: calc(var(--kd-einheit) * 2);              /* 8 */
+  --kd-raum-3: calc(var(--kd-einheit) * 3);              /* 12 */
+  --kd-raum-4: calc(var(--kd-einheit) * 4);              /* 16 */
+  --kd-raum-6: calc(var(--kd-einheit) * 6);              /* 24 */
+  --kd-raum-8: calc(var(--kd-einheit) * 8);              /* 32 */
+
+  /* ---- Form ---- */
+  --kd-radius: 0;                                         /* harte Kanten */
+  --kd-linie: 1px;
+  --kd-linie-fokus: 2px;
+  --kd-regler-hilfslinie: var(--kd-linie);               /* 1 px grau: ganze Strecke (D18) */
+  --kd-regler-spur: calc(var(--kd-linie) * 3);           /* 3 px türkis: bis zum Griff = 3 × Hilfslinie */
+  --kd-regler-griff: calc(var(--kd-einheit) * 3);        /* 12 px Griff; Zielfläche bleibt die Bedienhöhe */
+  --kd-regler-breite: calc(var(--kd-einheit) * 120);     /* 480 px höchstens: Regler und Wertfeld bleiben
+                                                             auf breiten Fenstern handlich (D22) */
+  --kd-bedienhoehe: calc(var(--kd-einheit) * 6);          /* 24 px: EINE Höhe für Knöpfe, Felder,
+                                                             Auswahl, Segmente, Regler (D16);
+                                                             = WCAG 2.5.8 Mindestziel, nicht kleiner */
+  --kd-navi-breite: calc(var(--kd-einheit) * 48);         /* 192 px */
+  --kd-dauer: 120ms;
+
+  /* ---- Farben: dunkel (Grundstellung der Maschine) ---- */
+  --kd-grund: #0D0F12;
+  --kd-ebene-1: #15181C;
+  --kd-ebene-2: #1D2126;
+  --kd-linie-farbe: #2C3138;
+  --kd-linie-stark: #6A7380;
+  --kd-text: #E6E8EB;
+  --kd-text-leise: #9AA3AE;
+  --kd-akzent: #4FC3E8;
+  --kd-auf-akzent: #0D0F12;
+  --kd-rot: #FF7A7A;          /* WCAG verletzt */
+  --kd-gelb: #F2C14E;         /* unter KERN-Anspruch */
+  --kd-gruen: #5BD38A;        /* erfüllt */
+  --kd-grau: #9AA3AE;         /* konnte nicht prüfen */
+}
+
+/* ---- hell ----
+   "System" löst designer.js über matchMedia in hell/dunkel auf und setzt
+   data-kd-modus — so stehen die hellen Werte nur EINMAL hier (GI §3). */
+:root[data-kd-modus="hell"] {
+  --kd-grund: #F3F4F6;
+  --kd-ebene-1: #FFFFFF;
+  --kd-ebene-2: #E8EBEF;
+  --kd-linie-farbe: #D2D7DD;
+  --kd-linie-stark: #6B7480;
+  --kd-text: #0F1215;
+  --kd-text-leise: #4E5763;
+  --kd-akzent: #00708F;
+  --kd-auf-akzent: #FFFFFF;
+  --kd-rot: #B42323;
+  --kd-gelb: #7A5000;
+  --kd-gruen: #1B6E3E;
+  --kd-grau: #59626D;
+}
+/* ---- groß ---- */
+:root[data-kd-groesse="gross"] { --kd-basis: 16px; }

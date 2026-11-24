@@ -1,0 +1,96 @@
+LIESMICH — KERN DESIGNER (und KERN OnePager)
+================================================================================
+NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
+      KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
+      KI-Assistenten von Anthropic. Nicht das offizielle KERN.
+
+Soll-Zustand und alle Werte: "_ Instructions/Instruction Designer 2.8.2 (nbyc).txt"
+Was geändert wurde: "_ Instructions/Changes Designer 2.8.2 (nbyc).txt"
+
+
+STARTEN
+--------------------------------------------------------------------------------
+  Doppelklick auf "KERN Designer [ Start ].command" (im Projektordner, direkt
+  über dem Ordner "KERN Designer").
+  Es startet den lokalen Server (nur dieser Mac, Port 8059) und öffnet
+    Designer  http://127.0.0.1:8059/KERN%20Designer/
+    OnePager  http://127.0.0.1:8059/KERN%20OnePager/
+  Beide Fenster nebeneinander stellen. Sie dürfen auch in verschiedenen
+  Browsern offen sein (Safari links, Firefox rechts …).
+  Beenden: das Terminal-Fenster schließen.
+  Ohne Server zeigt der OnePager per Doppelklick die gespeicherte Fassung.
+
+  WICHTIG: Den OnePager sichtbar lassen (eigenes Fenster, nicht nur ein Tab im
+  Hintergrund) — Browser bremsen Hintergrund-Tabs, die Messung im OnePager
+  bleibt dann stehen. Der Designer zeigt das als "Messung veraltet".
+
+
+BEDIENEN
+--------------------------------------------------------------------------------
+  Ordnung      "Schicht" (Grundwerte → Rollen → Ebenen → Bausteine) oder
+               "Atomic" (Atome, Moleküle, Organismen, Layout). Ein Klick auf
+               einen Baustein hebt ihn im OnePager hervor.
+  Werte        Auswahl aus der KERN-Skala, "eigener Wert …" oder Text. Grund-
+               farben mit Reglern für Helligkeit, Buntheit, Farbton.
+  Farbreihen   1 Grundlagen · Farben: Farbton und Buntheit einer ganzen Reihe
+               verschieben — die Helligkeit je Stufe bleibt, also bleiben die
+               Kontraste. Das ist der von KERN empfohlene Weg.
+  Marken       "KERN: frei" / "KERN rät ab" · "Abweichung" (≠ KERN) ·
+               "ungespeichert" (≠ letzte Fassung) · "wirkt auf N Tokens · M
+               Bausteine".
+  A11y-Leiste  Token-Paare (berechnet) und OnePager (gemessen, jedes Text-
+               element und jedes Bedienelement). Rot = WCAG 2.2 AA verletzt,
+               gelb = unter KERN-Anspruch (7 : 1), grau = nicht geprüft.
+  Speichern    "Werte speichern" (⌘S): Zwischenstand — ein Commit, die Fassung
+               bleibt (z. B. 0.1.0). Jede Änderung ist ohnehin sofort gesichert
+               und überlebt einen Neustart; der Zwischenstand macht sie in Git
+               zurückholbar.
+  Version      "Neue Version": Korrektur (0.1.0 → 0.1.1), Nebenversion (→ 0.2.0)
+               oder Hauptversion (→ 1.0.0) wählen. Ergibt Thema-Dateien, Eintrag
+               in "Changes Designer" (mit den Zwischenständen), Commit und Tag
+               2.8.2-nbyc-x.y.z. Bei roten Befunden zeigt der Dialog sie an.
+  Zurück       Im Kopf, immer sichtbar: Rückgängig ⌘Z, Wiederholen ⇧⌘Z, "Alles auf
+               KERN"; je Token "Auf KERN". Ältere Fassungen holt Git zurück (Tag).
+  Kleine       Unter 640 px Breite klappt die Ordnung zu einer Zeile zusammen
+  Fenster      ("Ordnung: … ▾"). Kopf und A11y-Leiste bleiben oben angedockt,
+               solange sie nicht zu viel Höhe brauchen.
+  Einstell.    Darstellung hell/dunkel/System, Größe klein/groß, Sprache
+               (de, en, fr, es, it, uk), Export der gespeicherten Fassung,
+               Kurzbefehle (alle Tasten mit Erklärung; Taste ? öffnet sie),
+               Inspektor im OnePager: Aus · Beim Zeigen · Nur mit ⌥.
+  Inspektor    Im OnePager: Tooltip beim Zeigen mit allen Merkmalen und Tokens.
+               Oben rechts im Tooltip [Aus ⌥ I] und [Esc ✕];
+               im Seitenkopf das Auge (an · durchgestrichen = aus · mit ⌥).
+  Suche        Taste / springt ins Suchfeld, Esc leert, ✕ leert.
+
+
+ORDNER
+--------------------------------------------------------------------------------
+  index.html, messrahmen.html     Designer; unsichtbarer Messrahmen
+  stil/designer-tokens.css        ALLE Werte des Designer-Aussehens (--kd-*)
+  stil/designer.css               Gestalt, nur aus designer-tokens.css
+  skript/designer.js, farbe.js    Logik; Farbrechnung (auch für den OnePager)
+  texte/<sprache>.js              Texte des Designers (6 Sprachen)
+  daten/regeln.js                 Prüfpaare, Schwellen, KERN-Freigabe
+  daten/verwendung.js             Baustein ↔ Token (erzeugt)
+  werkzeug/verwendung-bauen.py    erzeugt daten/verwendung.js aus dem System
+  pruefung/pruefe-designer.py     Prüfungen PD1–PD9 (mit --gegenprobe)
+  server/server.py                lokaler Server (nur Python-Standardbibliothek)
+  schrift/                        IBM Plex Mono (SIL OFL 1.1, OFL.txt)
+
+  Das Ergebnis des Designers liegt im System: "KERN 2.8.2 (nbyc)/thema/"
+  (kern-thema.css, kern-thema.tokens.json im DTCG-Format, fassung.json).
+  kern.css und die Bausteindateien ändert der Designer nie.
+
+
+ÄNDERN — mit der KI
+--------------------------------------------------------------------------------
+  OnePager umbauen     mit der Abschnitt-ID aus "KERN OnePager/ABSCHNITTE.txt"
+                       ("verschiebe #fallliste hinter #antrag")
+  Neuer Text im        danach: python3 "KERN OnePager/werkzeug/texte-bauen.py",
+  OnePager             Übersetzungen in "KERN OnePager/texte/<sprache>.js"
+  Designer-Aussehen    nur "stil/designer-tokens.css"
+  Prüfregeln           "daten/regeln.js" (Schwellen zuerst in der Instruktion)
+  Nach jeder Änderung  python3 "KERN Designer/pruefung/pruefe-designer.py"
+                       und python3 "KERN 2.8.2 (nbyc)/pruefung/pruefe.py"
+-/-

@@ -1,0 +1,432 @@
+KERN 2.8.2 (nbyc) — METHODE
+Aufbau, Regeln, Änderungswege, Messverfahren
+Fassung: 0.2.0 · 16.11.2026
+================================================================================
+NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
+      KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
+      KI-Assistenten von Anthropic. Nicht das offizielle KERN.
+
+00  WAS DAS IST
+--------------------------------------------------------------------------------
+Eine interne Adaption von KERN 2.8.2, nicht das offizielle KERN. Kein npm,
+kein Bauwerkzeug; alles liegt in diesem Ordner.
+
+VERHÄLTNIS ZU KERN
+  Übernommen  kern.css 2.8.2 unverändert (Prüfsumme, Prüfung 10): alle
+              Tokens, Bausteine, Raster, Hilfsklassen; Markup und Beispiele
+              aus KERNs Dokumentation.
+  Ergänzt     Was KERN der Umsetzung überlässt oder nicht hat: Verhalten und
+              Tastatur (kern-neu.js), zentrale Ansagen, Formularprüfung,
+              44 Erweiterungen aus KERN-Tokens, erhöhter Kontrast, Dichte,
+              Windows-Kontrast, Ausweichwerte für Fehler in KERN (F-Nummern),
+              Systemtexte auf Deutsch und Englisch.
+  NICHT       Das offizielle KERN. "KERN 2.8.2" allein meint immer das
+              offizielle KERN; dieses System heißt stets "KERN 2.8.2 (nbyc)".
+
+WIE ES DAZU KAM
+  0.5.7 war ein Neubau in KERNs Farben mit Carbons Maßen und eigenen
+  Namen (kn-knopf, kn-feld …). Es stand damit neben KERN, statt KERN
+  weiterzuentwickeln: zwei Namen für denselben Baustein, andere Maße als
+  KERN, kein Weg zu KERN-Aktualisierungen. 2.8.2 (nbyc) dreht das um:
+  KERN zuerst, nur das Fehlende dazu. Alte Namen → neue: UMSTIEG.txt.
+
+ÖFFNEN: "index.html" doppelklicken. Für die Prüfseiten den Prüfserver
+starten (Abschnitt 05).
+
+
+01  DIE REGELN
+--------------------------------------------------------------------------------
+  1  KERN ZUERST. Was KERN festlegt (Wert, Name, Markup, Zustand), wird
+     übernommen: nicht verbessert, nicht angeglichen. Abweichen nur mit
+     Grund, sichtbar markiert und in ABWEICHUNGEN.txt (AB-Nummer) benannt.
+  2  ERWEITERN, NICHT ERSETZEN. Was KERN nicht hat, entsteht in KERNs
+     Sprache: KERN-Tokens, KERN-Maße, KERN-Zustände, KERN-Fokus. Vorher
+     prüfen, ob KERN-Bausteine kombiniert reichen.
+  3  KEIN FREMDES ZAHLENWERK. Carbon, Material, GOV.UK und APG sind Quelle
+     für Muster und Verhalten, nicht für Maße und Farben (Prüfung 11).
+  4  KEIN ROHER WERT in eigenem CSS. Farbe, Abstand, Größe, Ecke, Dauer:
+     alles aus Tokens (Prüfung 1, 9). Fokus nur über die Fokus-Tokens
+     (Prüfung 21).
+  5  TASTATUR UND RÜCKMELDUNG SIND TEIL DES BAUSTEINS. Jeder bedienbare
+     Baustein hat einen Tastaturvertrag (Taste · Wirkung · Ansage, im
+     Katalog; Prüfung 20). Ansagen nur über KN.melde(): zwei zentrale
+     Bereiche, bei offenem modalem Dialog in den Dialog verlegt.
+     Systemtexte nur aus der Texttabelle, in beiden Sprachen (Prüfung 19).
+  6  KEINE DECKKRAFT AUF TEXT. Zurückgenommenes bekommt eine eigene Farbe.
+     Einzige Ausnahme (E4): gesperrt per aria-disabled, mit KERNs
+     Deckkraft-Token (Prüfung 2).
+  7  ":focus-visible", nie ":focus". Farbe ist nie der einzige Träger
+     einer Aussage. KEIN SCHATTEN: KERN setzt seine Schatten-Tokens nirgends
+     sichtbar ein; Erweiterungen grenzen sich über Ränder ab — helle
+     Flächen 2 px in layout-border, gefüllte (FAB, Meldung) 4 px in der
+     Seitenfarbe (Prüfung 24).
+  8  NATIVE ELEMENTE, wo KERN sie nimmt: <details>, <dialog>, <fieldset>,
+     <progress>, <search>.
+  9  kern.css BLEIBT UNVERÄNDERT. Angepasst wird nur danach, in eigenen
+     Dateien und über Tokens.
+
+
+02  DIE DATEIEN
+--------------------------------------------------------------------------------
+  ICH WILL ÄNDERN                        ICH ÖFFNE
+  ------------------------------------   ------------------------------------
+  eine KERN-Farbe oder ein KERN-Maß      nichts: das ist KERN. Abweichung
+                                         nur nach Regel 1 (ABWEICHUNGEN.txt)
+  erhöhten Kontrast, Dichte, Bewegung    system/01b-erweiterung.css
+  einen Fehler in KERN ausgleichen       system/01b-erweiterung.css, Teil 5
+                                         (mit F-Nummer und AB-Nummer)
+  einen KERN-Baustein ergänzen           system/02b-kern-ergaenzung.css
+  eine Erweiterung                       system/03- bis 06-*.css
+  Verhalten, Tastatur, Ansage            system/kern-neu.js
+  einen Systemtext (DE/EN)               system/kern-neu.js, TEXTE
+  einen Katalogeintrag (Erweiterung)     katalog/inhalt.js
+  einen KERN-Eintrag im Katalog          wird erzeugt: pruefung/kern-katalog-
+                                         bauen.py (Pflichten, Tasten)
+
+  system/kern-neu.css   Sammeldatei. Nur diese einbinden.
+  system/kern.css       KERN 2.8.2, unverändert; Lizenz kern-LICENSE.md.
+  system/01b-…          Erweiterung der Tokens: Kontrast, Dauern, ruhige
+                        Bewegung, forced-colors, Ausweichwerte, Farbschema,
+                        Dichte.
+  system/02-basis.css   Seitenrahmen, Hilfsklassen.
+  system/02b-…          Ergänzungen an KERN-Bausteinen.
+  system/03-aktion.css  Erweiterungen: Aktionen.
+  system/04-eingabe.css Erweiterungen: Eingabe.
+  system/05-navigation.css  Erweiterungen: Navigation.
+  system/06-inhalt.css  Erweiterungen: Inhalt, Tabelle, Meldungen.
+  system/kern-neu.js    Verhalten. ES5, eine Datei, global KN mit start,
+                        melde, lade, toast, setzeModus.
+  schrift/              Fira Sans, örtlich, mit OFL.txt.
+  katalog.html          Der Katalog.
+  katalog/inhalt.js     Die Erweiterungen im Katalog.
+  katalog/kern-inhalt.js, kern-texte.json  KERN-Einträge, erzeugt.
+  katalog/begriffe.json EINE Quelle aller Namen: Klasse, Deutsch, Englisch,
+                        Synonyme, Katalog-Zuordnung, Umstieg aus 0.5.7.
+  katalog/meta.js       Namen und Abweichungen je Eintrag — erzeugt
+                        (pruefung/katalog-meta-bauen.py), nie von Hand.
+  token.json            Alle Tokens je Modus. Erzeugt
+                        (pruefung/token-lesen.py), nie von Hand ändern.
+
+  LIESMICH.txt          Einstieg für Entwickelnde, Browseruntergrenze
+  ABWEICHUNGEN.txt      Abweichungen von KERN (AB) und Fehler in KERN (F)
+  VERGLEICH.txt         Verweis auf "_ Recherche/Design Systeme Vergleich.txt"
+  UMSTIEG.txt           Von 0.5.7 auf 2.8.2 (nbyc). Erzeugt aus begriffe.json
+                        (pruefung/umstieg-bauen.py), getestet gegen jeden
+                        Namen aus 0.5.7 (pruefung/umstieg-testen.py).
+  AENDERUNGEN.txt       Was wann geändert wurde, mit Belegen
+  LIZENZ.txt            Code, Schrift, Herkunft
+
+  VERSIONSSTEMPEL: Jede Einbindung trägt "?v=2.8.2-nbyc.N", auch die
+  @import-Zeilen in kern-neu.css. Ohne ihn mischt der Browser alte und
+  neue Dateien; eine Messung in Stufe 7 las deshalb altes CSS. Gesetzt
+  wird er nur mit "python3 pruefung/stempel.py" (Prüfung 22 wacht).
+  Wer misst und nichts sieht, prüft zuerst den Stempel.
+
+  MASSE: Alle Maße kommen aus KERNs Skalen (--kern-metric-*, --kern-<px>).
+  Wer eine Größe braucht, die es dort nicht gibt, hat fast immer die
+  falsche Frage gestellt. Prüfung 9 und 11 setzen das durch.
+
+
+03  DER KATALOG
+--------------------------------------------------------------------------------
+  LINKS      Suche (Name, Klasse, Deutsch, Englisch, Synonyme), darunter die Einträge
+             nach Gruppen. Der aktuelle Punkt trägt aria-current.
+  OBEN       Filter (alle · neu · bestehend), Sprache (Deutsch · English),
+             Thema und Kontrast. Die Sprache gilt für Oberfläche und
+             Eintragstexte; Englisch steht in katalog/inhalt-en.js (Prüfung 17),
+             die Beispiele bleiben deutsche Musterdaten (lang="de").
+  RECHTS     Je Eintrag eine Seite:
+               Steckbrief (Klasse · Deutsch · Englisch · Auch genannt ·
+               Abweichungen von KERN) · Zweck · Wann nehmen · Wann nicht
+               (mit Ersatz) · Beispiele
+               (lebend und als Quelltext, aus demselben String) ·
+               Barrierefreiheit · Tastatur (Taste · Wirkung · Ansage) ·
+               Klassen · bei KERN-Bausteinen: Pflichten der Umsetzung mit
+               Stand · Weiterblättern.
+
+KERN-EINTRÄGE (38) zeigen KERNs Original-Beispiele unverändert. Dazu kommen
+die Punkte, die KERN "implementierungsabhängig" nennt, je mit Stand, was
+kern-neu.js davon erfüllt. ERWEITERUNGEN (44) tragen die Herkunft
+"Erweiterung (aus KERN-Tokens)".
+
+Die Entscheidungshilfe (wann, wann nicht) ist der Teil, den die Recherche
+bei KERN vermisst hat. Sie steht bei jedem Eintrag.
+
+?rahmen=0 blendet die Rahmen um Beispiele aus (für Abbildungen im Heft).
+
+
+04  WAS BEIM BAUEN SCHIEFGING
+--------------------------------------------------------------------------------
+Echte Fehler, alle erst beim Messen oder Bedienen gefunden. Sie stehen hier,
+weil sie sich sonst wiederholen. a) bis d) stammen aus 0.5.x; die Namen
+dort sind die damaligen.
+
+  a) SCHIEBEREGLER. In Vendor-Pseudoelementen (::-webkit-slider-track,
+     ::-moz-range-thumb) werden logische Maße (inline-size, block-size)
+     nicht angewendet; der Regler war unbrauchbar. Richtig sind physische
+     Maße, und der Versatz des Griffs wird gerechnet. → Prüfung 5.
+
+  b) DATASET MIT BINDESTRICH. el.dataset['kn-verdrahtet'] wirft einen
+     SyntaxError und legte das ganze Skript lahm, ohne sichtbare Meldung.
+     Richtig ist camelCase. → Prüfung 4.
+
+  c) MERKER-KOLLISION. Der Merker "schon verdrahtet" hieß wie das
+     Attribut, mit dem der Baustein ausgewählt wird (data-kn-modus →
+     dataset.knModus). Er war damit von Anfang an gesetzt; Modusschalter,
+     Reiter, Aufklapper und Menü waren tot. Heute über neu(el, zweck) mit
+     eigenem Präfix. → Prüfung 6.
+     LEHRE: Nach einer Korrektur alles prüfen, was sie berührt, nicht nur
+     das ursprünglich kaputte Teil.
+
+  d) FOKUSRAHMEN IM DUNKELN. Die zwei Farben des Rings müssen auch
+     gegeneinander kontrastieren, nicht nur gegen die Seite. Heute gilt
+     KERNs Fokus; die Messung prüft Ring gegen Grund in allen 4 Modi
+     (Abschnitt 08).
+
+  e) VERSTECKT, ABER SICHTBAR (2.8.2 (nbyc), F22). KERNs .kern-error setzt
+     display:flex und schlägt damit das hidden-Attribut: Fehlermeldungen
+     standen immer da. Die Tests hatten nur die Eigenschaft el.hidden
+     abgefragt, nicht die Darstellung. Ausgleich in 01b, Teil 5.
+     LEHRE: Sichtbarkeit am berechneten Stil prüfen (getComputedStyle),
+     nie am Attribut.
+
+  f) MENÜ OHNE ZIEL. Das Menü des Teilknopfs öffnete nie: aria-controls
+     fehlte im Beispiel, und das Skript fand keine Liste. Heute greift der
+     Rückfall auf das nächste Geschwister; Prüfung 13b meldet
+     data-Attribute ohne Verhalten.
+
+  g) GESCHLOSSEN, ABER ERREICHBAR. Die Schublade blieb während ihrer
+     Schließ-Überblendung per Tab erreichbar. Heute ist sie im
+     geschlossenen Zustand inert.
+
+  h) STILLE BEDIENUNG. Zahlenfeld und Umschaltknöpfe sahen bedienbar aus
+     und taten nichts. Daraus Regel 5: kein Baustein ohne Rückmeldung;
+     verhalten.html prüft sie.
+
+
+05  WIE GEPRÜFT WIRD
+--------------------------------------------------------------------------------
+IM SKRIPT     python3 pruefung/pruefe.py
+  Die Liste der Prüfungen steht in LIESMICH.txt. Jede nennt im Skript ihren
+  Anlass. Jede neue Prüfung bekommt eine GEGENPROBE: Ein absichtlicher
+  Verstoß in einer Kopie muss gemeldet werden, erst dann gilt sie
+  (Abschnitt 07).
+
+IM BROWSER    Prüfserver im übergeordneten Ordner:
+                python3 -m http.server 8058 --bind 127.0.0.1
+  PRÜFSTAND   pruefung/kern-beispiele.html: die 135 KERN-Beispiele, je
+              gegen das Original verglichen (hell/dunkel, 375/1280 px).
+              ?auto=light|dark läuft ohne Bedienung.
+  VERHALTEN   pruefung/verhalten.html: 17 Abläufe für Tasten, Ansagen,
+              Fokus. ?gegenprobe=1 muss rot werden.
+  WEBKIT      swift pruefung/webkit-pruefen.swift <adresse> <ausdruck>
+              führt dieselben Seiten in der Safari-Engine aus, ohne Safari
+              zu öffnen.
+  KONTRAST    Modus setzen, Übergänge stilllegen, getComputedStyle, Farbe auf
+              ein 1-Pixel-Canvas malen und als RGB zurücklesen (oklch und
+              color-mix sind sonst nicht verlässlich lesbar), halbtransparente
+              Ebenen verrechnen, WCAG-Formel. Maßstab nach KERN: Abschnitt 09.
+  FOKUS UND TASTEN  Abschnitt 08.
+
+STAND: Abschnitte 08 bis 10.
+
+WAS DAS VERFAHREN NICHT LEISTET
+  Keinen Test mit echtem Screenreader, keinen in Firefox (in der KI-Sitzung
+  gesperrt), keinen im Windows-Kontrastmodus, keinen mit echten Nutzenden.
+  Die ersten drei: pruefung/GERAETETEST.txt, am Gerät.
+
+
+06  WAS NOCH FEHLT
+--------------------------------------------------------------------------------
+  GERÄTETEST      Firefox, VoiceOver, NVDA/JAWS, Windows-Kontrastmodus:
+                  pruefung/GERAETETEST.txt. Ergebnisse in Abschnitt 10.
+  RÜCKMELDUNG AN KERN  Endgültig (M76, M98): "_ Export/Rückmeldung an das
+                  KERN-Team.txt", F1–F26 mit Fundstellen; liegt mit Heft,
+                  LIES MICH ZUERST und ZIP in "_ Export". Versand nur durch
+                  Dich (Anrede und Absender ergänzen).
+  FARBRÜCKFALL    kern.css nutzt oklch(); Browser vor Chrome 111, Firefox 113,
+                  Safari 15.4 zeigen die Seite ohne Farbe. Ob das reicht, ist
+                  für eine Behörde zu klären; ein Rückfall wäre eine eigene
+                  Datei VOR kern.css (Regel 9).
+
+
+07  WAS 0.5.7 GELEHRT HAT
+--------------------------------------------------------------------------------
+Drei Fehler, alle derselben Art: unsichtbar im Quelltext, sichtbar erst
+beim Messen. Die Namen sind die damaligen; die Prüfungen gelten weiter.
+
+  DAS TOKEN, DAS EIN RÜCKFALLWERT WAR
+                ".kn-tabellenrahmen" benutzte "var(--kn-tabelle-hoehe, none)"
+                als frei setzbare Maximalhöhe. 0.5.7 führte ein Token dieses
+                Namens als ZEILENhöhe ein — jede gerahmte Tabelle wäre auf
+                48 Pixel zusammengefallen. Die Seite bleibt dabei heil.
+                → Prüfung 8.
+
+  DIE PRÜFUNG, DIE NIE ANSCHLUG
+                Prüfung 9 las zeilenweise und verlangte die Eigenschaft am
+                Zeilenanfang. Jede einzeilige Regel rutschte durch. Danach
+                traf der Ausdruck "em\b" auch "rem" — womit erneut jeder
+                rem-Wert durchging. Beides fiel nur auf, weil eine
+                Gegenprobe einen absichtlichen Verstoß einbaute und er
+                nicht gemeldet wurde.
+                → EINE PRÜFUNG IST ERST FERTIG, WENN SIE AN EINEM ECHTEN
+                  FEHLER ANGESCHLAGEN HAT. Vorher ist sie eine Vermutung.
+
+  DIE MESSUNG, DIE OKLCH FÜR RGB HIELT
+                getComputedStyle gibt hier "oklch(...)" zurück, nicht
+                "rgb(...)". Eine Kontrastfunktion, die die ersten drei
+                Zahlen als Rot, Grün und Blau liest, bekommt für alles
+                etwa 1,0 heraus — und meldet die ganze Seite als defekt.
+                Farben gehören über ein 1-Pixel-Canvas aufgelöst, siehe
+                Abschnitt 05. Ebenso: vor dem Messen die Übergänge
+                stilllegen, sonst misst man eine laufende Überblendung.
+
+
+08  TASTATURPROTOKOLL KERN 2.8.2 (nbyc) — M62 (Stand 13.10.2026)
+--------------------------------------------------------------------------------
+Was gemessen wurde (Chromium, Katalog, je Erweiterung mit Tastentabelle):
+  FOKUS      automatisch für alle 114 bedienbaren Elemente der 34 Einträge, je
+             Modus hell · dunkel · hell erhöht · dunkel erhöht: Ring vorhanden
+             (Umriss ≥ 2 px oder Schatten) und Kontrast Ring/Grund ≥ 3 : 1.
+             Ergebnis: 114/114 in allen 4 Modi, kleinster Kontrast 7,72 : 1
+             (vorher Kopfzeile 2,2–2,5 : 1 und KERN-Dropdown 1-px-Browserring —
+             behoben, AENDERUNGEN 6e). Übergänge beim Messen abgeschaltet.
+  REIHENFOLGE  folgt dem Markup: kein positives tabindex in Katalog, Muster und
+             Seiten (Suche "tabindex=[1-9]": 0 Treffer).
+  FALLE      kern-neu.js fängt Tab nirgends ab (Suche '"Tab"': nur das Menü,
+             und es schließt dabei, ohne Tab zu blockieren). Gewollte Fallen
+             nur in modalen Dialogen (Kalender, KERN-Dialog) — Esc verlässt sie.
+  TASTEN     mit echten Tasten gedrückt; "ok Stufe" = Beleg in AENDERUNGEN.
+  ANSAGE     Text in der zentralen Ansage bzw. das ARIA-Attribut, das der
+             Screenreader liest — gemessen im DOM, NICHT mit einem Screenreader.
+  KERN-BAUSTEINE  dieselbe Fokusmessung über die 38 KERN-Einträge: 158
+             bedienbare Elemente in 24 Einträgen (die übrigen 14 enthalten
+             nichts Bedienbares), 4 Modi, kleinster Kontrast 4,97 : 1. Die
+             gestreckten Links von Karte und Aufgabenliste tragen den 4-px-Ring
+             KERN-gemäß am ::after (über die ganze Fläche) — nachgemessen.
+             Tasten: nativ bzw. wie im KERN-Katalog je Baustein (Tastentabelle).
+NICHT GEPRÜFT (konnte nicht): echte Screenreader (NVDA, JAWS, VoiceOver),
+  Sprachsteuerung, Windows-Kontrastmodus, Firefox (GERAETETEST.txt). Fokus in
+  WebKit nicht gemessen; WebKit-Verhalten: Abschnitt 10.
+
+  BAUSTEIN               FOKUS 4M  REIHE   FALLE  TASTEN                                   ANSAGE
+  Dichte-Stufen (Einstel ok        ok      keine  ok 5e                                    ok 6a (Stufe)
+  Segmentwahl            ok        ok      keine  ok 6e                                    ok (aria-pressed)
+  Schalter               ok        ok      keine  ok 6e                                    nativ — nicht am Screenreader
+  Schieberegler          ok        ok      keine  ok 6e                                    nativ — nicht am Screenreader
+  Combobox               ok        ok      keine  ok 6c                                    ok 6c (Treffer)
+  Fehlerzusammenfassung  ok        ok      keine  ok 6d                                    ok 6d (Fokus, role=alert)
+  Reiter                 ok        ok      keine  ok 6e                                    nativ (aria-selected)
+  Seitennavigation       ok        ok      keine  nativ (Verweise)                         nativ (aria-current)
+  Überlaufmenü           ok        ok      keine  ok 6c                                    ok (Fokus)
+  Seitenweiser           ok        ok      keine  nativ (Verweise)                         nativ (aria-current)
+  Tabelle                ok        ok      keine  ok 6c (Sortierung) / 6a (Auswahl)        ok 6a/6c
+  Flüchtige Meldung      ok        ok      keine  ok 6a (Kopieren löst aus)                ok 6a
+  Marke und Filtermarke  ok        ok      keine  ok 6e                                    ok (aria-pressed)
+  Kopf, Hauptnavigation  ok        ok      keine  nativ (Verweise)                         nativ (aria-current)
+  Brotkrumen             ok        ok      keine  nativ (Verweise)                         nativ (aria-current)
+  Sprungmarke            ok        ok      keine  nicht gedrückt — im Katalog lenkt #inhalt die Seitennavigation um —
+  Teilknopf              ok        ok      keine  ok 6e (Fehler behoben)                   ok (wie Menü)
+  Werkzeugleiste         ok        ok      keine  ok 6e (Filter wie Marke)                 ok (aria-pressed)
+  Zahlenfeld             ok        ok      keine  ok 6e                                    ok 6e (Wert mit Beschriftung)
+  Zeichenzähler          ok        ok      keine  ok 6e (echtes Tippen)                    ok 6a/6e (ab 20 Rest)
+  Dateiablage            ok        ok      keine  nativ — Dateidialog nicht geöffnet (öffnet ein Systemfenster) nativ
+  Kurzhinweis            ok        ok      keine  ok 6b                                    nativ (aria-describedby)
+  Schublade              ok        ok      keine  ok 6b                                    ok (Fokus, Name)
+  Popover und Hinweis au ok        ok      keine  ok 5f-1, 6a                              ok 6a (Hinweis auf Klick)
+  KI-Kennzeichnung       ok        ok      keine  ok 5f-1 (Hinweis auf Klick)              ok 6a
+  Schwebender Aktionskno ok        ok      keine  ok 5f-1                                  nativ
+  Zähler-Marke           ok        ok      keine  nativ (Knopf)                            nativ (Name samt Zahl)
+  Codeblock              ok        ok      keine  ok 5f-1 (Kopieren mit Attrappe)          ok 6a
+  Baumansicht            ok        ok      keine  ok 5f-2                                  nativ (aria-expanded/-selected)
+  Mehrfachauswahl        ok        ok      keine  ok 5f-2                                  ok 5f-2/6a
+  Kalender-Datum         ok        ok      modal  ok 5f-3, 6a                              ok 6a (Monat, im Dialog)
+  Uhrzeit                ok        ok      keine  ok 5f-3                                  ok (aria-describedby)
+  Datentabelle erweitert ok        ok      keine  ok 5f-4, 6a                              ok 6a
+  Schmale Seitenleiste   ok        ok      keine  ok 5f-4                                  nativ (aria-current)
+
+
+09  KONTRAST NACH KERNS ANSPRUCH (K30) — M66 (Stand 13.10.2026)
+--------------------------------------------------------------------------------
+Browser: Chromium 152.0.7977.130 (eingebetteter Browser), macOS. Gemessen wird
+das GERENDERTE Ergebnis, nicht die Tokentabelle: Textfarbe gegen die Fläche
+dahinter, halbtransparente Ebenen verrechnet (1-Pixel-Canvas, sRGB, WCAG-
+Formel), Übergänge abgeschaltet. Modi: hell · dunkel · hell erhöht · dunkel
+erhöht. Ausgenommen nach WCAG: gesperrte Elemente (aria-disabled, disabled,
+Deckkraft < 1) — gezählt, nicht bewertet.
+
+  ANSPRUCH   Text 7 : 1 · großer Text (≥ 24 px, ≥ 18,66 px fett) und
+             Knopftext 4,5 : 1 · Grenzen von Bedienelementen 3 : 1.
+
+  TEXT, KATALOG (alle 38 KERN- und 45 eigenen Einträge, 831 Textelemente
+  je Modus, 3 ausgenommen):
+    KERN 2.8.2 selbst     0 unter Anspruch — in allen 4 Modi. KERN erreicht
+                          seinen Anspruch in den eigenen Beispielen überall.
+    KERN 2.8.2 (nbyc)     vorher 4 unter Anspruch (nur hell): text-muted auf
+                          getönter Fläche bzw. Auswahltönung — Zähler der
+                          Seitennavigation 5,73, Rechtszeile im Fuß 6,38,
+                          Dateigröße 6,38 (zweimal). Behoben: text-default
+                          (16,44 : 1). Nachher 0.
+  TEXT, MUSTER Fallbearbeitung (83 Textelemente je Modus): vorher 2 (Titel
+    der Seitennavigation auf getönter Spalte, 6,38) → behoben, nachher 0.
+  TEXT, MUSTER nach Stufe 8f (13.10.2026), je Zustand in 4 Modi:
+    Fallbearbeitung   gefüllt/leer/Fehler, 64–91 Texte: 0 unter Anspruch
+                      (kleinster Wert 6,01 — Knopftext, Anspruch 4,5).
+    Formularstrecke   Fehler Schritt 1 und 3, Prüfen, Sendefehler,
+                      Bestätigung, 20–42 Texte: vorher je Fehlerzustand 5–6
+                      unter Anspruch — Verweise und Titel der
+                      Fehlerzusammenfassung (kn-error-summary) rot auf
+                      getönter Fläche, 4,97 (hell) / 5,34 (dunkel). Behoben:
+                      text-default wie bei kern-alert. Nachher 0 (≥ 7,01).
+    Suche             Start, Treffer, gefiltert, keine Treffer, Fehler,
+                      24–40 Texte: 0 unter Anspruch.
+  LÜCKE DER KATALOGMESSUNG  Der Katalog zeigt die Fehlerzusammenfassung erst
+    nach dem Absenden (hidden) — die Messung oben hat sie darum nie gesehen.
+    Zustände, die erst durch Bedienung erscheinen, werden in den Mustern
+    gemessen, je Zustand (Vorführknöpfe).
+  GRENZEN (210 Bedienelemente je Modus, 48 davon reine Textelemente wie
+    Verweise, die über ihren Text erkannt werden): 0 unter 3 : 1. Zwei
+    Auffälligkeiten der Messung geklärt: Segmentwahl — Rand an der Gruppe
+    (4,51 / 4,65); KERN-Dateifeld — Rand am ::file-selector-button (8,51 /
+    9,54).
+  FOKUS  siehe Abschnitt 08 (114 + 158 Elemente, ≥ 4,97 : 1).
+
+  REGEL DARAUS  text-muted (KERN) nur auf der Grundfläche: auf getönter
+  Fläche (background-hued, Auswahltönung) erreicht es nur 5,7–6,4 : 1. KERN
+  hat dafür keinen kontextuellen Wert (muted bleibt auf allen Ebenen gleich).
+
+NICHT GEMESSEN: Firefox, WebKit/Safari (nur Verhalten und Prüfstand, Abschnitt
+10), Windows-Kontrastmodus (nur am Gerät, M68), Startseite index.html (enthält nur Katalog-Bausteine).
+
+
+10  BROWSER UND GERÄTE — M68 (Stand 13.10.2026)
+--------------------------------------------------------------------------------
+Werkzeuge:
+  pruefung/verhalten.html     Verhaltensprüfung: lädt die Katalogbeispiele,
+                              löst Bedienschritte als Ereignisse aus, 19
+                              Prüfungen; ?gegenprobe=1 legt das Hochzählen lahm
+                              (muss rot werden); ?melden=1 meldet an den Server.
+                              Prüft die Logik von kern-neu.js — nicht die
+                              eingebaute Bedienung des Browsers, nicht Screenreader.
+  pruefung/kern-beispiele.html?auto=light|dark   Prüfstand ohne Bedienung;
+                              Ergebnis in window.PK_FERTIG (?melden=1 an Server).
+  pruefung/webkit-pruefen.swift   führt eine Seite in WebKit (Safari-Engine) aus,
+                              ohne Safari zu starten; gibt das Ergebnis aus.
+
+  BROWSER                       VERHALTEN   PRÜFSTAND hell / dunkel   FOKUS/KONTRAST
+  Chromium 152.0.7977.130       17/17       135/135 / 7/135 (AB06)    METHODE 08/09
+  WebKit (macOS 27.0.1)         17/17       135/135 / 7/135 (AB06)    nicht gemessen
+  01.11.2026 (M100, M101): Chromium 152.0.7977.167 19/19 · WebKit 19/19,
+                                Prüfstand WebKit 135/135 / 7/135 (AB06)
+  Firefox 149.0.2               NICHT GEPRÜFT — die Sandbox der KI-Sitzung verbietet
+                                Firefox seine Hilfsprozesse; Schritte für Dich:
+                                pruefung/GERAETETEST.txt, Teil A
+  Gegenprobe ?gegenprobe=1      rot genau "Zahlenfeld" — erwartet. WebKit 16/17
+                                (13.10.2026, mit Auswahlmenü); Chromium zuletzt
+                                15/16 (vor dem Auswahlmenü).
+
+  HILFSMITTEL  VoiceOver, NVDA/JAWS, Windows-Kontrastmodus: NUR AM GERÄT durch
+  Dich — GERAETETEST.txt Teile B und C (Vorbereitung · Tun · Erwartung).
+  Ergebnisse werden hier nachgetragen.
+-/-
+

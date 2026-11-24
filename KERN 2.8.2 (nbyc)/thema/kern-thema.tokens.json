@@ -1,0 +1,4 @@
+{
+ "$description": "KERN 2.8.2 (nbyc) — Thema, Fassung 0.1.4. Nur Abweichungen von KERN, Format: Design Tokens Format Module 2025.10 (DTCG). Erzeugt vom KERN Designer.",
+ "$extensions": { "de.kern-nbyc.designer": { "fassung": "0.1.4", "modi": {} } }
+}

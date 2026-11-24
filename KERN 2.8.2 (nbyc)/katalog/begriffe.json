@@ -1,0 +1,1852 @@
+{
+ "hinweis": "EINE Quelle aller Namen (M83; E1, E9, E10). Code-Namen englisch; de/en sind Anzeigenamen. Von Hand gepflegt — Umbenennung (Stufe 5c), UMSTIEG.txt und der zweisprachige Katalog lesen von hier. Plan: Stufe 5 Plan.txt (Git-Tag 2.8.2-nbyc). Feld \"katalog\": Katalog-IDs, in denen der Baustein steht (leer = Hilfsklasse ohne eigenen Eintrag); \"synonyme\" der Erweiterungen für die Suche (KERN-Synonyme kommen aus KERNs Steckbriefen).",
+ "stand": "13.10.2026",
+ "kern": [
+  {
+   "code": "kern-btn",
+   "de": "Knopf",
+   "en": "Button",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-knopf",
+    "kn-symbolknopf"
+   ],
+   "erweiterungen": {
+    "kn-knopf--gefahr": "kn-btn--danger",
+    "kn-knopf--gefahr-zweit": "kn-btn--danger-secondary",
+    "data-kn-laedt": "data-kn-loading"
+   },
+   "katalog": [
+    "kern-button"
+   ]
+  },
+  {
+   "code": "kern-link",
+   "de": "Verweis",
+   "en": "Link",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-verweis",
+    "kn-zurueck"
+   ],
+   "erweiterungen": {
+    "kn-verweis--leise": "kn-link--muted"
+   },
+   "katalog": [
+    "kern-link"
+   ]
+  },
+  {
+   "code": "kern-form-input",
+   "de": "Eingabefeld",
+   "en": "Form Input",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-feld",
+    "kn-zahlfeld",
+    "kn-datum",
+    "kn-passwort",
+    "kn-ablage"
+   ],
+   "erweiterungen": {
+    "kn-feld__eingabe--10": "kn-input--width-10",
+    "kn-feld__eingabe--20": "kn-input--width-20",
+    "kn-zahlfeld": "kn-number-stepper",
+    "kn-ablage": "kn-file-list",
+    "data-kn-darueber": "data-kn-dragover"
+   },
+   "katalog": [
+    "kern-input-text-text",
+    "kern-input-text-email",
+    "kern-input-text-tel",
+    "kern-input-text-url",
+    "kern-input-text-number",
+    "kern-input-text-date",
+    "kern-input-text-password",
+    "kern-input-textarea",
+    "kern-input-select",
+    "kern-input-file"
+   ]
+  },
+  {
+   "code": "kern-form-check",
+   "de": "Ankreuzfeld und Auswahlknopf",
+   "en": "Checkbox and Radio",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-wahl"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-input-checkboxes",
+    "kern-input-radios"
+   ]
+  },
+  {
+   "code": "kern-fieldset",
+   "de": "Feldgruppe",
+   "en": "Fieldset",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-feldgruppe"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-fieldset"
+   ]
+  },
+  {
+   "code": "kern-input-group",
+   "de": "Suche",
+   "en": "Search",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-suche"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-search"
+   ]
+  },
+  {
+   "code": "kern-dropdown",
+   "de": "Aufklappmenü",
+   "en": "Dropdown",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-menue"
+   ],
+   "erweiterungen": {
+    "data-kn-menue": "data-kn-menu"
+   },
+   "katalog": [
+    "menue"
+   ]
+  },
+  {
+   "code": "kern-table",
+   "de": "Tabelle",
+   "en": "Table",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-tabelle",
+    "kn-tabellenrahmen",
+    "kn-rechts",
+    "kn-zahl"
+   ],
+   "erweiterungen": {
+    "kn-tabelle--festkopf": "kn-table--sticky-head",
+    "kn-sortier": "kn-table-sort",
+    "kn-wahlspalte": "kn-table-select-col",
+    "data-kn-sortierbar": "data-kn-sortable",
+    "data-kn-zeilenwahl": "data-kn-row-select",
+    "data-kn-allewahl": "data-kn-select-all",
+    "data-kn-auswaehlbar": "data-kn-selectable"
+   },
+   "katalog": [
+    "kern-table"
+   ]
+  },
+  {
+   "code": "kern-description-list",
+   "de": "Wertepaare",
+   "en": "Description List",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-werte"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-description-list"
+   ]
+  },
+  {
+   "code": "kern-summary",
+   "de": "Zusammenfassungsliste",
+   "en": "Summary",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-uebersicht"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-summary"
+   ]
+  },
+  {
+   "code": "kern-task-list",
+   "de": "Aufgabenliste",
+   "en": "Task List",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-aufgaben"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-tasklist"
+   ]
+  },
+  {
+   "code": "kern-card",
+   "de": "Karte",
+   "en": "Card",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-karte"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-card"
+   ]
+  },
+  {
+   "code": "kern-accordion",
+   "de": "Aufklapper",
+   "en": "Accordion",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-aufklapper"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-accordion"
+   ]
+  },
+  {
+   "code": "kern-dialog",
+   "de": "Dialog",
+   "en": "Dialog",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-dialog"
+   ],
+   "erweiterungen": {
+    "kn-dialog--gefahr": "kn-dialog--danger"
+   },
+   "katalog": [
+    "kern-dialog"
+   ]
+  },
+  {
+   "code": "kern-alert",
+   "de": "Meldung",
+   "en": "Alert",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-meldung"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-alert"
+   ]
+  },
+  {
+   "code": "kern-badge",
+   "de": "Marke",
+   "en": "Badge",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-marke"
+   ],
+   "erweiterungen": {
+    "kn-marke--rand": "kn-badge--outline"
+   },
+   "katalog": [
+    "kern-badge"
+   ]
+  },
+  {
+   "code": "kern-progress",
+   "de": "Fortschrittsbalken",
+   "en": "Progress",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [],
+   "erweiterungen": {},
+   "hinweis": "KERN Progress = Schrittfortschritt (\"Schritt 2 von 5\"), nicht für Laden. Ersetzt NICHT kn-fortschritt (Ladebalken) — berichtigt 13.10.2026.",
+   "katalog": [
+    "kern-progress"
+   ]
+  },
+  {
+   "code": "kern-loader",
+   "de": "Ladeanzeige",
+   "en": "Loader",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-lader"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-loader"
+   ]
+  },
+  {
+   "code": "kern-divider",
+   "de": "Trenner",
+   "en": "Divider",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-trenner"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-divider"
+   ]
+  },
+  {
+   "code": "kern-heading",
+   "de": "Überschrift",
+   "en": "Heading",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-titel"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-text-heading"
+   ]
+  },
+  {
+   "code": "kern-body",
+   "de": "Fließtext",
+   "en": "Body",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-text"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-text-body"
+   ]
+  },
+  {
+   "code": "kern-preline",
+   "de": "Vorzeile",
+   "en": "Preline",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-vorzeile"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-text-preline"
+   ]
+  },
+  {
+   "code": "kern-list",
+   "de": "Liste",
+   "en": "List",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-liste"
+   ],
+   "erweiterungen": {},
+   "katalog": []
+  },
+  {
+   "code": "kern-container",
+   "de": "Inhaltsbahn",
+   "en": "Container",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-bahn"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-grid"
+   ]
+  },
+  {
+   "code": "kern-row",
+   "de": "Raster",
+   "en": "Grid",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-raster",
+    "kn-reihe",
+    "kn-stapel"
+   ],
+   "erweiterungen": {
+    "kn-behaelter": "kn-cq"
+   },
+   "katalog": [
+    "kern-grid"
+   ]
+  },
+  {
+   "code": "kern-sr-only",
+   "de": "Nur für Hilfsmittel",
+   "en": "Screen reader only",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [
+    "kn-nur-vorlesen"
+   ],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-hilfsklassen"
+   ]
+  },
+  {
+   "code": "kern-title",
+   "de": "Titel",
+   "en": "Title",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-text-title"
+   ]
+  },
+  {
+   "code": "kern-subline",
+   "de": "Unterzeile",
+   "en": "Subline",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-text-subline"
+   ]
+  },
+  {
+   "code": "kern-label",
+   "de": "Beschriftung",
+   "en": "Label",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-text-label"
+   ]
+  },
+  {
+   "code": "kern-icon",
+   "de": "Symbol",
+   "en": "Icon",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-icon"
+   ]
+  },
+  {
+   "code": "kern-kopfzeile",
+   "de": "Kopfzeile",
+   "en": "Header Bar",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-kopfzeile"
+   ]
+  },
+  {
+   "code": "kern-flex",
+   "de": "Hilfsklassen",
+   "en": "Utility Classes",
+   "herkunft": "KERN 2.8.2",
+   "ersetzt": [],
+   "erweiterungen": {},
+   "katalog": [
+    "kern-hilfsklassen"
+   ]
+  }
+ ],
+ "erweiterungen": [
+  {
+   "code": "kn-split-button",
+   "alt": "kn-teilknopf",
+   "de": "Teilknopf",
+   "en": "Split Button",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-btn",
+   "teile": {},
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "teilknopf"
+   ],
+   "synonyme": [
+    "Split Button",
+    "Menüknopf",
+    "Knopf mit Menü",
+    "Dropdown-Button"
+   ]
+  },
+  {
+   "code": "kn-segmented",
+   "alt": "kn-segmente",
+   "de": "Segmentwahl",
+   "en": "Segmented Control",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-btn",
+   "teile": {
+    "__knopf": "__button",
+    "__knopf--klein": "__button--small"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "segmente"
+   ],
+   "synonyme": [
+    "Segmented Button",
+    "Segmented Control",
+    "Umschaltgruppe",
+    "Button Group"
+   ]
+  },
+  {
+   "code": "kn-toolbar",
+   "alt": "kn-werkzeuge",
+   "de": "Werkzeugleiste",
+   "en": "Toolbar",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-btn",
+   "teile": {
+    "__trenner": "__divider"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "werkzeuge"
+   ],
+   "synonyme": [
+    "Toolbar",
+    "Symbolleiste",
+    "Aktionsleiste"
+   ]
+  },
+  {
+   "code": "kn-skip-link",
+   "alt": "kn-sprungmarke",
+   "de": "Sprungmarke",
+   "en": "Skip Link",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-link",
+   "teile": {},
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "sprungmarke"
+   ],
+   "synonyme": [
+    "Skip Link",
+    "Direktsprung",
+    "Sprunglink"
+   ]
+  },
+  {
+   "code": "kn-switch",
+   "alt": "kn-schalter",
+   "de": "Schalter",
+   "en": "Switch",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-form-check",
+   "teile": {
+    "__eingabe": "__input",
+    "__griff": "__thumb",
+    "__spur": "__track",
+    "__text": "__label"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "schalter"
+   ],
+   "synonyme": [
+    "Toggle",
+    "Toggle Switch",
+    "Kippschalter",
+    "Ein/Aus-Schalter"
+   ]
+  },
+  {
+   "code": "kn-slider",
+   "alt": "kn-regler",
+   "de": "Schieberegler",
+   "en": "Slider",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-form-input",
+   "teile": {
+    "__enden": "__ends",
+    "__kopf": "__header",
+    "__wert": "__value"
+   },
+   "attribute": {
+    "data-kn-wert-ziel": "data-kn-value-target",
+    "data-kn-einheit": "data-kn-unit"
+   },
+   "werte": {},
+   "katalog": [
+    "regler"
+   ],
+   "synonyme": [
+    "Slider",
+    "Range",
+    "Bereichsregler"
+   ]
+  },
+  {
+   "code": "kn-combobox",
+   "alt": "kn-combobox",
+   "de": "Combobox",
+   "en": "Combobox",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-form-input",
+   "teile": {
+    "__leer": "__empty",
+    "__liste": "__list",
+    "__punkt": "__option"
+   },
+   "attribute": {
+    "data-kn-combobox": "data-kn-combobox"
+   },
+   "werte": {},
+   "katalog": [
+    "combobox"
+   ],
+   "synonyme": [
+    "Combo Box",
+    "Autocomplete",
+    "Auswahlfeld mit Suche",
+    "Typeahead"
+   ]
+  },
+  {
+   "code": "kn-char-count",
+   "alt": "kn-zaehler",
+   "de": "Zeichenzähler",
+   "en": "Character Count",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-hint",
+   "teile": {},
+   "attribute": {
+    "data-kn-zaehler": "data-kn-char-count",
+    "data-kn-zaehler-ziel": "data-kn-char-count-target",
+    "data-kn-knapp": "data-kn-near-limit",
+    "data-kn-ueber": "data-kn-over-limit"
+   },
+   "werte": {},
+   "katalog": [
+    "zaehler"
+   ],
+   "synonyme": [
+    "Character Count",
+    "Zeichenbegrenzung"
+   ]
+  },
+  {
+   "code": "kn-error-summary",
+   "alt": "kn-fehlerliste",
+   "de": "Fehlerzusammenfassung",
+   "en": "Error Summary",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-alert",
+   "teile": {
+    "__liste": "__list",
+    "__titel": "__title"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "fehlerliste"
+   ],
+   "synonyme": [
+    "Error Summary",
+    "Fehlerliste",
+    "Fehlerübersicht"
+   ]
+  },
+  {
+   "code": "kn-tabs",
+   "alt": "kn-reiter",
+   "de": "Reiter",
+   "en": "Tabs",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-link",
+   "teile": {
+    "__feld": "__panel",
+    "__knopf": "__tab",
+    "__liste": "__list"
+   },
+   "attribute": {
+    "data-kn-reiter": "data-kn-tabs"
+   },
+   "werte": {},
+   "katalog": [
+    "reiter"
+   ],
+   "synonyme": [
+    "Tabs",
+    "Registerkarten",
+    "Karteireiter"
+   ]
+  },
+  {
+   "code": "kn-side-nav",
+   "alt": "kn-seitennav",
+   "de": "Seitennavigation",
+   "en": "Side Navigation",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-link",
+   "teile": {
+    "__gruppe": "__group",
+    "__liste": "__list",
+    "__punkt": "__item",
+    "__titel": "__title",
+    "__zahl": "__count"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "seitennav"
+   ],
+   "synonyme": [
+    "Side Navigation",
+    "Seitenleiste",
+    "Navigation Drawer"
+   ]
+  },
+  {
+   "code": "kn-breadcrumb",
+   "alt": "kn-krumen",
+   "de": "Brotkrumen",
+   "en": "Breadcrumb",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-link",
+   "teile": {
+    "__liste": "__list"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "krumen"
+   ],
+   "synonyme": [
+    "Breadcrumb",
+    "Pfadnavigation",
+    "Brotkrümelnavigation"
+   ]
+  },
+  {
+   "code": "kn-pagination",
+   "alt": "kn-seitenweiser",
+   "de": "Seitenweiser",
+   "en": "Pagination",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-btn",
+   "teile": {
+    "__knopf": "__button",
+    "__luecke": "__gap",
+    "__stand": "__status"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "seitenweiser"
+   ],
+   "synonyme": [
+    "Pagination",
+    "Paginierung",
+    "Blätterleiste"
+   ]
+  },
+  {
+   "code": "kn-steps",
+   "alt": "kn-schritte",
+   "de": "Schrittfolge",
+   "en": "Steps",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-progress",
+   "teile": {},
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "schritte"
+   ],
+   "synonyme": [
+    "Progress Indicator",
+    "Stepper",
+    "Schrittanzeige"
+   ]
+  },
+  {
+   "code": "kn-step",
+   "alt": "kn-schritt",
+   "de": "Schritt",
+   "en": "Step",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-progress",
+   "teile": {
+    "__marke": "__marker",
+    "__text": "__label"
+   },
+   "attribute": {
+    "data-kn-stand": "data-kn-state",
+    "data-kn-nummer": "data-kn-number"
+   },
+   "werte": {
+    "fertig": "done",
+    "jetzt": "current"
+   },
+   "katalog": [
+    "schritte"
+   ],
+   "synonyme": [
+    "Step"
+   ]
+  },
+  {
+   "code": "kn-header",
+   "alt": "kn-kopf",
+   "de": "Seitenkopf",
+   "en": "Header",
+   "herkunft": "Erweiterung",
+   "verwandt": "(KERN Header in Bearbeitung)",
+   "teile": {
+    "__marke": "__brand",
+    "__rest": "__end"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "seitenrahmen"
+   ],
+   "synonyme": [
+    "Header",
+    "Kopfbereich",
+    "Masthead"
+   ]
+  },
+  {
+   "code": "kn-main-nav",
+   "alt": "kn-hauptnav",
+   "de": "Hauptnavigation",
+   "en": "Main Navigation",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-link",
+   "teile": {
+    "__liste": "__list",
+    "__punkt": "__item"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "seitenrahmen"
+   ],
+   "synonyme": [
+    "Main Navigation",
+    "Hauptmenü",
+    "Navigation Bar"
+   ]
+  },
+  {
+   "code": "kn-footer",
+   "alt": "kn-fuss",
+   "de": "Seitenfuß",
+   "en": "Footer",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-container",
+   "teile": {
+    "__liste": "__list",
+    "__recht": "__legal",
+    "__spalten": "__columns",
+    "__titel": "__title"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "seitenrahmen"
+   ],
+   "synonyme": [
+    "Footer",
+    "Fußzeile",
+    "Fußbereich"
+   ]
+  },
+  {
+   "code": "kn-drawer",
+   "alt": "kn-schublade",
+   "de": "Schublade",
+   "en": "Drawer",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-dialog",
+   "teile": {
+    "__kopf": "__header",
+    "__leib": "__body"
+   },
+   "attribute": {
+    "data-kn-schublade": "data-kn-drawer",
+    "data-kn-offen": "data-kn-open"
+   },
+   "werte": {},
+   "katalog": [
+    "schublade"
+   ],
+   "synonyme": [
+    "Drawer",
+    "Side Sheet",
+    "Seitenfläche",
+    "Panel"
+   ]
+  },
+  {
+   "code": "kn-inset-text",
+   "alt": "kn-einschub",
+   "de": "Einschub",
+   "en": "Inset Text",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-body",
+   "teile": {
+    "--aktion": "--action"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "einschub"
+   ],
+   "synonyme": [
+    "Inset Text",
+    "Hervorhebung",
+    "Infokasten"
+   ]
+  },
+  {
+   "code": "kn-timeline",
+   "alt": "kn-zeitleiste",
+   "de": "Zeitleiste",
+   "en": "Timeline",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-task-list",
+   "teile": {
+    "__marke": "__label",
+    "__punkt": "__dot",
+    "__text": "__text",
+    "__titel": "__title",
+    "__zeit": "__time",
+    "__punkt--fertig": "__dot--done",
+    "__punkt--offen": "__dot--open"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "zeitleiste"
+   ],
+   "synonyme": [
+    "Timeline",
+    "Verlauf",
+    "Chronik"
+   ]
+  },
+  {
+   "code": "kn-metric",
+   "alt": "kn-kennzahl",
+   "de": "Kennzahl",
+   "en": "Metric",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-card",
+   "teile": {
+    "__marke": "__label",
+    "__wert": "__value"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "kennzahl"
+   ],
+   "synonyme": [
+    "Metric",
+    "KPI",
+    "Kennziffer",
+    "Statistic"
+   ]
+  },
+  {
+   "code": "kn-empty-state",
+   "alt": "kn-leer",
+   "de": "Leerzustand",
+   "en": "Empty State",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-card",
+   "teile": {
+    "__titel": "__title"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "leer"
+   ],
+   "synonyme": [
+    "Empty State",
+    "Leere Liste",
+    "Keine Ergebnisse"
+   ]
+  },
+  {
+   "code": "kn-skeleton",
+   "alt": "kn-platzhalter",
+   "de": "Platzhalter",
+   "en": "Skeleton",
+   "herkunft": "Erweiterung",
+   "verwandt": "—",
+   "teile": {
+    "--kurz": "--short",
+    "--rund": "--circle",
+    "--titel": "--title"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "leer"
+   ],
+   "synonyme": [
+    "Skeleton",
+    "Skeleton Loader",
+    "Ladeplatzhalter"
+   ]
+  },
+  {
+   "code": "kn-tooltip",
+   "alt": "kn-kurzhinweis",
+   "de": "Kurzhinweis",
+   "en": "Tooltip",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-hint",
+   "teile": {
+    "__blase": "__bubble"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "kurzhinweis"
+   ],
+   "synonyme": [
+    "Tooltip",
+    "Quickinfo",
+    "Mouseover-Hinweis"
+   ]
+  },
+  {
+   "code": "kn-banner",
+   "alt": "kn-banner",
+   "de": "Seitenbanner",
+   "en": "Banner",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-alert",
+   "teile": {
+    "__kopf": "__header",
+    "__leib": "__body",
+    "--erfolg": "--success",
+    "--gefahr": "--danger"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "banner"
+   ],
+   "synonyme": [
+    "Banner",
+    "Notification Banner",
+    "Seitenhinweis"
+   ]
+  },
+  {
+   "code": "kn-toast",
+   "alt": "kn-toast",
+   "de": "Flüchtige Meldung",
+   "en": "Toast",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-alert",
+   "teile": {
+    "__text": "__text",
+    "--erfolg": "--success"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "toast"
+   ],
+   "synonyme": [
+    "Toast",
+    "Snackbar",
+    "Statusmeldung"
+   ]
+  },
+  {
+   "code": "kn-toast-region",
+   "alt": "kn-toastfeld",
+   "de": "Meldungsbereich",
+   "en": "Toast Region",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-alert",
+   "teile": {},
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "toast"
+   ],
+   "synonyme": [
+    "Toast Region",
+    "Snackbar-Bereich"
+   ]
+  },
+  {
+   "code": "kn-filter-tag",
+   "alt": "kn-filtermarke",
+   "de": "Filtermarke",
+   "en": "Filter Tag",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-badge",
+   "teile": {},
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "marke"
+   ],
+   "synonyme": [
+    "Filter Chip",
+    "Chip",
+    "Tag",
+    "Filter"
+   ]
+  },
+  {
+   "code": "kn-warning-text",
+   "alt": "kn-warnhinweis",
+   "de": "Warnhinweis",
+   "en": "Warning Text",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-alert",
+   "teile": {},
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "warnhinweis"
+   ],
+   "synonyme": [
+    "Warning Text",
+    "Warnung",
+    "Wichtiger Hinweis"
+   ]
+  },
+  {
+   "code": "kn-confirmation",
+   "alt": "kn-bestaetigung",
+   "de": "Bestätigung",
+   "en": "Confirmation",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-alert",
+   "teile": {
+    "__nummer": "__number"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "bestaetigung"
+   ],
+   "synonyme": [
+    "Confirmation Panel",
+    "Erfolgsseite",
+    "Eingangsbestätigung"
+   ]
+  },
+  {
+   "code": "kn-phase-banner",
+   "alt": "kn-phase",
+   "de": "Phasenmarke",
+   "en": "Phase Banner",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-badge",
+   "teile": {},
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "phase"
+   ],
+   "synonyme": [
+    "Phase Banner",
+    "Beta-Hinweis",
+    "Entwicklungsstand"
+   ]
+  },
+  {
+   "code": "kn-avatar",
+   "alt": "kn-bildnis",
+   "de": "Bildnis",
+   "en": "Avatar",
+   "herkunft": "Erweiterung",
+   "verwandt": "—",
+   "teile": {
+    "--gross": "--large",
+    "--klein": "--small"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "bildnis"
+   ],
+   "synonyme": [
+    "Avatar",
+    "Profilbild",
+    "Initialen"
+   ]
+  },
+  {
+   "code": "kn-progress-bar",
+   "alt": "kn-fortschritt",
+   "de": "Fortschrittsbalken",
+   "en": "Progress Bar",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-progress (Maße), kern-loader (Zweck)",
+   "teile": {
+    "__balken": "__bar"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "fortschritt"
+   ],
+   "synonyme": [
+    "Progress Bar",
+    "Ladebalken",
+    "Fortschrittsanzeige"
+   ]
+  },
+  {
+   "code": "kn-menu",
+   "alt": "kn-menue",
+   "de": "Überlaufmenü",
+   "en": "Overflow Menu",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-dropdown",
+   "teile": {
+    "__anker": "__anchor",
+    "__punkt": "__item",
+    "__trenner": "__divider",
+    "--gefahr": "--danger"
+   },
+   "attribute": {
+    "data-kn-menue": "data-kn-menu"
+   },
+   "werte": {},
+   "katalog": [
+    "menue"
+   ],
+   "synonyme": [
+    "Overflow Menu",
+    "Menu",
+    "Kontextmenü",
+    "Drei-Punkte-Menü"
+   ]
+  },
+  {
+   "code": "kn-number-stepper",
+   "alt": "kn-zahlfeld",
+   "de": "Zahlenfeld mit Knöpfen",
+   "en": "Number Stepper",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-form-input",
+   "teile": {
+    "__knopf": "__button"
+   },
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "zahlfeld"
+   ],
+   "synonyme": [
+    "Number Input",
+    "Spin Button",
+    "Mengenwahl"
+   ]
+  },
+  {
+   "code": "kn-file-list",
+   "alt": "kn-ablage",
+   "de": "Dateiablage",
+   "en": "File List",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-form-input (Datei)",
+   "teile": {
+    "__datei": "__file",
+    "__groesse": "__size",
+    "__liste": "__list"
+   },
+   "attribute": {
+    "data-kn-darueber": "data-kn-dragover"
+   },
+   "werte": {},
+   "katalog": [
+    "ablage"
+   ],
+   "synonyme": [
+    "File Uploader",
+    "Drop Zone",
+    "Ablagefläche",
+    "Dateiliste"
+   ]
+  },
+  {
+   "code": "kn-table-frame",
+   "alt": "kn-tabellenrahmen",
+   "de": "Tabellenrahmen (fester Kopf)",
+   "en": "Table Frame",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-table-responsive",
+   "teile": {},
+   "attribute": {},
+   "werte": {},
+   "katalog": [
+    "tabelle"
+   ],
+   "synonyme": [
+    "Sticky Header",
+    "Fester Tabellenkopf"
+   ]
+  },
+  {
+   "code": "kn-table-sort",
+   "alt": "kn-sortier",
+   "de": "Sortierbarer Spaltenkopf",
+   "en": "Sortable Header",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-table",
+   "teile": {
+    "__knopf": "__button"
+   },
+   "attribute": {
+    "data-kn-sortierbar": "data-kn-sortable",
+    "data-kn-wert": "data-kn-value"
+   },
+   "werte": {},
+   "katalog": [
+    "tabelle"
+   ],
+   "synonyme": [
+    "Sortable Table",
+    "Sortierung"
+   ]
+  },
+  {
+   "code": "kn-table-select-col",
+   "alt": "kn-wahlspalte",
+   "de": "Auswahlspalte",
+   "en": "Selection Column",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-table",
+   "teile": {},
+   "attribute": {
+    "data-kn-auswaehlbar": "data-kn-selectable",
+    "data-kn-zeilenwahl": "data-kn-row-select",
+    "data-kn-allewahl": "data-kn-select-all"
+   },
+   "werte": {},
+   "katalog": [
+    "tabelle"
+   ],
+   "synonyme": [
+    "Row Selection",
+    "Zeilenauswahl",
+    "Checkbox-Spalte"
+   ]
+  },
+  {
+   "code": "kn-auto-grid",
+   "alt": "kn-raster",
+   "de": "Raster (automatische Spalten)",
+   "en": "Auto Grid",
+   "herkunft": "Erweiterung",
+   "verwandt": "kern-row",
+   "teile": {},
+   "attribute": {},
+   "werte": {},
+   "katalog": [],
+   "synonyme": [
+    "Auto Grid",
+    "Responsive Grid"
+   ]
+  },
+  {
+   "code": "kn-cq",
+   "alt": "kn-behaelter",
+   "de": "Container-Abfrage",
+   "en": "Container Query",
+   "herkunft": "Erweiterung",
+   "verwandt": "—",
+   "teile": {},
+   "attribute": {},
+   "werte": {},
+   "katalog": [],
+   "synonyme": [
+    "Container Query"
+   ]
+  }
+ ],
+ "schalter": {
+  "data-kn-modus": "data-kn-mode",
+  "data-kn-kontrast": "data-kn-contrast",
+  "data-kn-dichte": "data-kn-density",
+  "werte": {
+   "thema": "theme",
+   "kontrast": "contrast",
+   "hell": "light",
+   "dunkel": "dark",
+   "hoch": "high",
+   "eng": "compact",
+   "weit": "spacious"
+  }
+ },
+ "neu_geplant": [
+  {
+   "code": "kn-ai-label",
+   "de": "KI-Kennzeichnung",
+   "en": "AI Label",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L1)",
+   "verwandt": "kern-badge",
+   "grad": "SOLL",
+   "massnahme": "M88",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 1)",
+   "katalog": [
+    "ki-kennzeichnung"
+   ],
+   "synonyme": [
+    "AI Label",
+    "KI-Hinweis",
+    "Kennzeichnung KI"
+   ]
+  },
+  {
+   "code": "kn-date-picker",
+   "de": "Kalender-Datum",
+   "en": "Date Picker",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L2)",
+   "verwandt": "kern-form-input + kern-dialog",
+   "grad": "SOLL",
+   "massnahme": "M89",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 3)",
+   "katalog": [
+    "kalender"
+   ],
+   "synonyme": [
+    "Date Picker",
+    "Datumsauswahl",
+    "Kalender"
+   ]
+  },
+  {
+   "code": "kn-time-input",
+   "de": "Uhrzeit",
+   "en": "Time Input",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L2)",
+   "verwandt": "kern-form-input",
+   "grad": "SOLL",
+   "massnahme": "M89",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 3)",
+   "katalog": [
+    "uhrzeit"
+   ],
+   "synonyme": [
+    "Time Picker",
+    "Zeitauswahl",
+    "Uhrzeitfeld"
+   ]
+  },
+  {
+   "code": "kn-multiselect",
+   "de": "Mehrfachauswahl",
+   "en": "Multiselect",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L3)",
+   "verwandt": "kn-combobox + kn-filter-tag",
+   "grad": "SOLL",
+   "massnahme": "M90",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 2)",
+   "katalog": [
+    "mehrfachauswahl"
+   ],
+   "synonyme": [
+    "Multi-Select",
+    "Mehrfach-Auswahlliste",
+    "Tag Input"
+   ]
+  },
+  {
+   "code": "kn-tree",
+   "de": "Baumansicht",
+   "en": "Tree View",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L4)",
+   "verwandt": "kern-list",
+   "grad": "SOLL",
+   "massnahme": "M91",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 2)",
+   "katalog": [
+    "baum"
+   ],
+   "synonyme": [
+    "Tree View",
+    "Baum",
+    "Hierarchie",
+    "Ordnerstruktur"
+   ]
+  },
+  {
+   "code": "kn-popover",
+   "de": "Popover",
+   "en": "Popover",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L5)",
+   "verwandt": "kern-dialog (nicht modal)",
+   "grad": "SOLL",
+   "massnahme": "M92",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 1)",
+   "katalog": [
+    "popover"
+   ],
+   "synonyme": [
+    "Popover",
+    "Overlay",
+    "Sprechblase"
+   ]
+  },
+  {
+   "code": "kn-toggletip",
+   "de": "Hinweis auf Klick",
+   "en": "Toggletip",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L5)",
+   "verwandt": "kern-hint",
+   "grad": "SOLL",
+   "massnahme": "M92",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 1)",
+   "katalog": [
+    "popover"
+   ],
+   "synonyme": [
+    "Toggletip",
+    "Infoknopf",
+    "Hilfe-Symbol"
+   ]
+  },
+  {
+   "code": "kn-table-batch",
+   "de": "Stapelaktionen",
+   "en": "Batch Actions",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L6)",
+   "verwandt": "kern-table + kern-btn",
+   "grad": "SOLL",
+   "massnahme": "M93",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 4)",
+   "katalog": [
+    "datentabelle"
+   ],
+   "synonyme": [
+    "Batch Actions",
+    "Massenaktionen",
+    "Sammelaktionen"
+   ]
+  },
+  {
+   "code": "kn-table-expand",
+   "de": "Aufklappbare Tabellenzeile",
+   "en": "Expandable Row",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L6)",
+   "verwandt": "kern-table + kern-accordion",
+   "grad": "SOLL",
+   "massnahme": "M93",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 4)",
+   "katalog": [
+    "datentabelle"
+   ],
+   "synonyme": [
+    "Expandable Row",
+    "Detailzeile",
+    "Aufklappzeile"
+   ]
+  },
+  {
+   "code": "kn-table-toolbar",
+   "de": "Tabellen-Werkzeugleiste",
+   "en": "Table Toolbar",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L6)",
+   "verwandt": "kn-toolbar",
+   "grad": "SOLL",
+   "massnahme": "M93",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 4)",
+   "katalog": [
+    "datentabelle"
+   ],
+   "synonyme": [
+    "Table Toolbar",
+    "Tabellenaktionen",
+    "Spaltenauswahl"
+   ]
+  },
+  {
+   "code": "kn-nav-rail",
+   "de": "Schmale Seitenleiste",
+   "en": "Navigation Rail",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L7)",
+   "verwandt": "kn-side-nav",
+   "grad": "KANN",
+   "massnahme": "M94",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 4)",
+   "katalog": [
+    "seitenleiste"
+   ],
+   "synonyme": [
+    "Navigation Rail",
+    "Icon-Leiste"
+   ]
+  },
+  {
+   "code": "kn-code-block",
+   "de": "Codeblock",
+   "en": "Code Block",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L8)",
+   "verwandt": "kern-body",
+   "grad": "KANN",
+   "massnahme": "M95",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 1)",
+   "katalog": [
+    "codeblock"
+   ],
+   "synonyme": [
+    "Code Snippet",
+    "Code",
+    "Quelltext"
+   ]
+  },
+  {
+   "code": "kn-count-badge",
+   "de": "Zähler-Marke",
+   "en": "Count Badge",
+   "herkunft": "Erweiterung (neu, Vergleich Teil 9 L9)",
+   "verwandt": "kern-badge",
+   "grad": "KANN",
+   "massnahme": "M96",
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 1)",
+   "katalog": [
+    "zaehler-marke"
+   ],
+   "synonyme": [
+    "Notification Badge",
+    "Zähler",
+    "Anzahl"
+   ]
+  },
+  {
+   "code": "kn-fab",
+   "de": "Schwebender Aktionsknopf",
+   "en": "Floating Action Button",
+   "herkunft": "Erweiterung (neu, Entscheidung 13.10.2026)",
+   "verwandt": "kern-btn (primary)",
+   "grad": "SOLL",
+   "massnahme": "M97",
+   "varianten": {
+    "kn-fab": "klein, rund, nur Symbol (Name per kern-sr-only)",
+    "kn-fab--extended": "breit, Symbol und Text"
+   },
+   "stand": "gebaut 13.10.2026 (Stufe 5f, Paket 1)",
+   "katalog": [
+    "fab"
+   ],
+   "synonyme": [
+    "Floating Action Button",
+    "FAB",
+    "Schwebender Knopf"
+   ]
+  }
+ ],
+ "modifier_allgemein": {
+  "--erfolg": "--success",
+  "--gefahr": "--danger",
+  "--warnung": "--warning",
+  "--info": "--info",
+  "--klein": "--small",
+  "--gross": "--large",
+  "--wahl": "--selectable",
+  "--festkopf": "--sticky-head"
+ },
+ "zusatz_attribute": {
+  "data-kn-stand (Tabellen-Statuszeile)": "data-kn-status-of",
+  "data-kn-modus": "data-kn-mode",
+  "data-kn-kontrast": "data-kn-contrast",
+  "data-kn-dichte": "data-kn-density",
+  "data-kn-laedt": "data-kn-loading",
+  "data-kn-thema": "data-kern-theme (KERN; Werte light, dark)",
+  "data-kn-ziel=\"bequem\"": "data-kn-density=\"spacious\" (nächste Stufe; 56 statt 44 px)",
+  "data-kn-dialog-auf=\"id\"": "data-dialog-target=\"id\" (KERN)"
+ },
+ "werte": {
+  "data-kn-mode": {
+   "thema": "theme",
+   "kontrast": "contrast"
+  },
+  "Modus-Werte": {
+   "hell": "light",
+   "dunkel": "dark",
+   "hoch": "high",
+   "normal": "normal",
+   "system": "system"
+  },
+  "data-kn-density": {
+   "eng": "compact",
+   "weit": "spacious"
+  },
+  "KN.toast Art": {
+   "erfolg": "success",
+   "gefahr": "entfällt (E5, Fehler als kern-alert)"
+  },
+  "data-kn-state": {
+   "fertig": "done",
+   "jetzt": "current"
+  },
+  "Speicher": {
+   "kn-thema": "kn-theme",
+   "kn-kontrast": "kn-contrast"
+  }
+ },
+ "eigene_tokens_5c": {
+  "--kn-raster-min": "--kn-auto-grid-min",
+  "--kn-tabellenrahmen-hoehe": "--kn-table-frame-height"
+ },
+ "tokens_057": {
+  "--kn-schrift": "var(--kern-typography-font-family-default)",
+  "--kn-schrift-fest": "var(--kern-typography-font-family-fira-mono)",
+  "--kn-flaeche": "var(--kern-color-layout-background-default)",
+  "--kn-flaeche-1": "var(--kern-color-layout-background-hued)",
+  "--kn-flaeche-2": "var(--kern-color-layout-background-hued)",
+  "--kn-flaeche-3": "var(--kern-color-layout-background-hued)",
+  "--kn-flaeche-invers": "var(--kern-color-layout-background-inverted)",
+  "--kn-flaeche-schleier": "color-mix(in oklch, var(--kern-color-black) calc(var(--kern-color-action-state-opacity-overlay) * 100%), transparent)",
+  "--kn-text": "var(--kern-color-layout-text-default)",
+  "--kn-text-leise": "var(--kern-color-layout-text-muted)",
+  "--kn-text-invers": "var(--kern-color-layout-text-inverse)",
+  "--kn-linie": "var(--kern-color-layout-border)",
+  "--kn-linie-leise": "var(--kern-color-decorative-border-default)",
+  "--kn-linie-stark": "var(--kern-color-form-input-border)",
+  "--kn-aktion": "var(--kern-color-action-default)",
+  "--kn-aktion-hover": "var(--kern-color-action-state-indicator-shade-hover)",
+  "--kn-aktion-aktiv": "var(--kern-color-action-state-indicator-shade-active)",
+  "--kn-auf-aktion": "var(--kern-color-action-on-default)",
+  "--kn-aktion-leise": "color-mix(in oklch, var(--kern-color-action-default) calc(var(--kern-color-action-state-opacity-selected) * 100%), transparent)",
+  "--kn-besucht": "var(--kern-color-action-visited)",
+  "--kn-erfolg": "var(--kern-color-feedback-success)",
+  "--kn-erfolg-fl": "var(--kern-color-feedback-success-background)",
+  "--kn-gefahr": "var(--kern-color-feedback-danger)",
+  "--kn-gefahr-fl": "var(--kern-color-feedback-danger-background)",
+  "--kn-warnung": "var(--kern-color-feedback-warning)",
+  "--kn-warnung-fl": "var(--kern-color-feedback-warning-background)",
+  "--kn-info": "var(--kern-color-feedback-info)",
+  "--kn-info-fl": "var(--kern-color-feedback-info-background)",
+  "--kn-feld-fl": "var(--kern-color-form-input-background)",
+  "--kn-feld-linie": "var(--kern-color-form-input-border)",
+  "--kn-fokus-farbe": "var(--kern-color-action-focus-default)",
+  "--kn-fokus-hilfe": "transparent",
+  "--kn-fokus-breite": "var(--kern-metric-border-width-bold)",
+  "--kn-fokus-abstand": "var(--kern-metric-space-none)",
+  "--kn-fokus-abstand-knopf": "var(--kern-2)",
+  "--kn-schleier-hover": "calc(100% - var(--kern-color-action-state-opacity-hover))",
+  "--kn-schleier-gedrueckt": "calc(100% - var(--kern-color-action-state-opacity-active))",
+  "--kn-schleier-gewaehlt": "var(--kern-color-action-state-opacity-selected)",
+  "--kn-raum-01": "var(--kern-metric-space-2x-small)   /* 2 */",
+  "--kn-raum-02": "var(--kern-metric-space-x-small)   /* 4 */",
+  "--kn-raum-03": "var(--kern-metric-space-small)   /* 8 */",
+  "--kn-raum-05": "var(--kern-metric-space-default)   /* 16 */",
+  "--kn-raum-06": "var(--kern-metric-space-large)   /* 24 */",
+  "--kn-raum-07": "var(--kern-metric-space-x-large)   /* 32 */",
+  "--kn-raum-09": "var(--kern-metric-space-3x-large)   /* 48 */",
+  "--kn-raum-10": "var(--kern-metric-space-5x-large)   /* 64 */",
+  "--kn-raum-12": "var(--kern-metric-space-7x-large)   /* 96 */",
+  "--kn-raum-1": "var(--kern-metric-space-x-small)   /* 4 */",
+  "--kn-raum-2": "var(--kern-metric-space-small)   /* 8 */",
+  "--kn-raum-3": "var(--kern-metric-space-small)   /* 8 (war 12) */",
+  "--kn-raum-4": "var(--kern-metric-space-default)   /* 16 */",
+  "--kn-raum-5": "var(--kern-metric-space-large)   /* 24 */",
+  "--kn-raum-6": "var(--kern-metric-space-x-large)   /* 32 */",
+  "--kn-raum-7": "var(--kern-metric-space-3x-large)   /* 48 */",
+  "--kn-raum-8": "var(--kern-metric-space-5x-large)   /* 64 */",
+  "--kn-text-xs": "var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static)   /* 16/24 */",
+  "--kn-text-s": "var(--kern-typography-font-size-small-static)/var(--kern-typography-line-height-medium-static)   /* 16/24 */",
+  "--kn-text-s-eng": "var(--kern-typography-font-size-medium-static)/var(--kern-typography-line-height-medium-static)   /* 18/24 Knopf, Feld */",
+  "--kn-text-m": "var(--kern-typography-font-size-medium-static)/var(--kern-typography-line-height-medium-static)   /* 18/24 Fließtext */",
+  "--kn-text-l": "var(--kern-typography-font-size-large-static)/var(--kern-typography-line-height-large-static)   /* 21/32 */",
+  "--kn-text-xl": "var(--kern-typography-font-size-medium-adaptive)/var(--kern-typography-line-height-medium-adaptive)   /* 21/24 → 24/32 */",
+  "--kn-text-2xl": "var(--kern-typography-font-size-large-adaptive)/var(--kern-typography-line-height-large-adaptive)   /* 26/32 → 32/40 */",
+  "--kn-text-3xl": "var(--kern-typography-font-size-x-large-adaptive)/var(--kern-typography-line-height-x-large-adaptive)   /* 32/40 → 48/56 */",
+  "--kn-stufe-01": "var(--kern-font-size-14)",
+  "--kn-stufe-02": "var(--kern-typography-font-size-small-static)   /* 16 */",
+  "--kn-stufe-05": "var(--kern-font-size-20)",
+  "--kn-spur-xs": "var(--kern-metric-space-none)",
+  "--kn-spur-s": "var(--kern-metric-space-none)",
+  "--kn-spur-m": "var(--kern-metric-space-none)",
+  "--kn-fett-normal": "var(--kern-typography-font-weight-regular)",
+  "--kn-fett-mittel": "var(--kern-typography-font-weight-medium)",
+  "--kn-fett-halb": "var(--kern-typography-font-weight-semi-bold)",
+  "--kn-ecke-0": "var(--kern-metric-border-radius-none)",
+  "--kn-ecke-1": "var(--kern-metric-border-radius-small)   /* 2 */",
+  "--kn-ecke-2": "var(--kern-metric-border-radius-default)   /* 4 */",
+  "--kn-ecke-3": "var(--kern-metric-border-radius-large)   /* 8 */",
+  "--kn-ecke-rund": "var(--kern-metric-border-radius-circle)",
+  "--kn-rand-1": "var(--kern-metric-border-width-light)   /* 1 */",
+  "--kn-rand-2": "var(--kern-metric-border-width-default)   /* 2 */",
+  "--kn-rand-3": "var(--kern-metric-border-width-bold)   /* 4 (war 3) */",
+  "--kn-erhebung-2": "var(--kern-shadow-elevation-default)",
+  "--kn-erhebung-3": "var(--kern-shadow-elevation-high)",
+  "--kn-hoehe-01": "var(--kern-metric-dimension-default)   /* 24 */",
+  "--kn-hoehe-02": "var(--kern-metric-dimension-large)   /* 32 */",
+  "--kn-hoehe-03": "var(--kern-40)   /* 40 — KERN Knopf \"small\" */",
+  "--kn-hoehe-05": "var(--kern-metric-dimension-3x-large)   /* 64 */",
+  "--kn-ziel": "var(--kern-metric-dimension-x-large)   /* 48 */",
+  "--kn-ziel-eng": "var(--kern-40)   /* Tabellendichte \"eng\" */",
+  "--kn-ziel-weit": "var(--kern-metric-dimension-2x-large)   /* Tabellendichte \"weit\" */",
+  "--kn-knopf-hoehe": "var(--kern-metric-dimension-x-large)   /* 48 */",
+  "--kn-knopf-hoehe-klein": "var(--kern-metric-dimension-large)   /* 32, KERN x-small */",
+  "--kn-knopf-hoehe-gross": "var(--kern-metric-dimension-2x-large)   /* 56, KERN large */",
+  "--kn-knopf-ecke": "var(--kern-metric-border-radius-default)",
+  "--kn-feld-hoehe": "var(--kern-metric-dimension-x-large)   /* 48 */",
+  "--kn-feld-ecke": "var(--kern-metric-border-radius-small)",
+  "--kn-tabelle-hoehe": "var(--kern-metric-dimension-x-large)   /* 48 */",
+  "--kn-tabelle-hoehe-eng": "var(--kern-40)",
+  "--kn-tabelle-hoehe-weit": "var(--kern-metric-dimension-2x-large)   /* 56 */",
+  "--kn-tabelle-zeile": "var(--kern-metric-space-small)   /* 8 */",
+  "--kn-tabelle-spalte": "var(--kern-metric-space-default)   /* 16 */",
+  "--kn-karte-ecke": "var(--kern-metric-border-radius-default)",
+  "--kn-marke-ecke": "var(--kern-metric-border-radius-default)",
+  "--kn-ankreuz-groesse": "var(--kern-metric-dimension-large)   /* 32 */",
+  "--kn-schalter-breite": "var(--kern-metric-dimension-x-large)   /* 48 */",
+  "--kn-schalter-hoehe": "var(--kern-metric-dimension-default)   /* 24 */",
+  "--kn-schalter-griff": "var(--kern-18)",
+  "--kn-zeitleiste-punkt": "var(--kern-12)   /* Punkt der Zeitleiste */",
+  "--kn-feld-breite-2": "var(--kern-metric-dimension-2x-large)   /* 56 — KERN width-2 */",
+  "--kn-feld-breite-4": "var(--kern-metric-dimension-4x-large)   /* 80 — KERN width-4 */",
+  "--kn-feld-breite-10": "var(--kern-192)",
+  "--kn-feld-breite-20": "var(--kern-352)",
+  "--kn-menue-breite": "var(--kern-224)",
+  "--kn-schritt-breite": "var(--kern-128)",
+  "--kn-dauer-1": "var(--kn-duration-1)   /* Erweiterung, 01b */",
+  "--kn-dauer-2": "var(--kn-duration-2)   /* Erweiterung, 01b */",
+  "--kn-kurve": "var(--kn-easing)   /* Erweiterung, 01b */",
+  "--kn-raum-04": "entfällt   /* 12 px gibt es in KERN nicht: --kern-metric-space-small (8) oder -default (16) */",
+  "--kn-stufe-07": "entfällt   /* 28 px: KERN-Überschrift (kern-heading-*) statt Schriftgrad */",
+  "--kn-stufe-09": "entfällt   /* 36 px: KERN-Überschrift (kern-heading-*) statt Schriftgrad */",
+  "--kn-bahn-breite": "entfällt   /* kern-container; schmal: kn-container--narrow */",
+  "--kn-reihe-abstand": "entfällt   /* kern-row mit KERNs Abstand */",
+  "--kn-stapel-abstand": "entfällt   /* kern-row mit KERNs Abstand */",
+  "--kn-zeit-spalte": "entfällt   /* intern (Zeitleiste) */",
+  "--kn-fuellung": "--kn-fill   /* intern, setzt kern-neu.js am Schieberegler */"
+ },
+ "entfallen": {
+  "kn-wahl--gerahmt": "entfällt — KERN hat keinen gerahmten Stil; kern-form-check nach KERN-Beispiel",
+  "kn-toast__zu": "entfällt — flüchtige Meldung schließt selbst, ohne Knopf (E5); mit Handlung: kern-alert",
+  "kn-fest": "entfällt — Datumszellen in kern-table brauchen keine eigene Klasse",
+  "data-kn-aufklapper": "entfällt — kern-accordion mit <details>/<summary>, ohne Skript",
+  "data-kn-passwort": "entfällt — kern-input-group mit Passwortfeld und Knopf (aria-pressed); kern-neu.js erkennt das KERN-Markup",
+  "data-kn-dialog-zu": "entfällt — Knöpfe in <form method=\"dialog\"> (KERN-Beispiel)",
+  "kn-fokus": "entfällt — KERNs Fokus gilt an allen bedienbaren Elementen; tabindex-Elemente ergänzt 01b (F17)",
+  "kn-schleier": "entfällt — Zustände kommen von den KERN-Bausteinen (state-opacity-Tokens)",
+  "kn-gesperrt": "aria-disabled=\"true\" (E4); kern-neu.js sperrt Klick, Tasten und Eingabe",
+  "kn-marke-text": "entfällt — kern-badge mit innerem kern-label",
+  "kn-dreht, kn-wandert, kn-toast-ein": "entfallen — interne Animationsnamen aus 0.5.7, nie im Markup",
+  "kn-toast--gefahr": "entfällt — flüchtige Meldung nur für Bestätigungen (E5); Fehler als kern-alert"
+ }
+}

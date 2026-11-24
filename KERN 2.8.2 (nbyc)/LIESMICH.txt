@@ -1,0 +1,247 @@
+KERN 2.8.2 (nbyc)
+Interne Adaption von KERN 2.8.2 — nicht das offizielle KERN
+Fassung: 0.2.0 · 16.11.2026
+================================================================================
+NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
+      KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
+      KI-Assistenten von Anthropic. Nicht das offizielle KERN.
+
+WAS DAS IST
+--------------------------------------------------------------------------------
+KERN 2.8.2 unverändert, dazu was KERN fehlt:
+
+  KERN        kern.css 2.8.2 Byte für Byte (Prüfsumme in Prüfung 10), alle
+              Tokens, Bausteine und Beispiel-Markups von KERN.
+  DAZU        Tastatur und Rückmeldung für jede Bedienung (kern-neu.js),
+              44 Erweiterungen aus KERN-Tokens (Schublade, Kalender,
+              Datentabelle, Baum …), erhöhter Kontrast, Dichte-Stufen,
+              Systemtexte auf Deutsch und Englisch.
+  NICHT       Das offizielle KERN. Wer das braucht, nimmt "@kern-ux/native"
+              bzw. kern.css direkt von KERN. "KERN 2.8.2" allein meint immer
+              das offizielle KERN; dieses System heißt stets "KERN 2.8.2 (nbyc)".
+              Nur für den internen Gebrauch.
+
+
+IN ZWEI MINUTEN LOSLEGEN
+--------------------------------------------------------------------------------
+1  Diesen Ordner neben die eigene Seite legen.
+2  Zwei Zeilen in den Kopf der Seite (N = aktueller Stempel, siehe unten):
+
+     <link rel="stylesheet" href="system/kern-neu.css?v=2.8.2-nbyc.N">
+     <script src="system/kern-neu.js?v=2.8.2-nbyc.N" defer></script>
+
+3  Am <html>-Element die Sprache setzen. Sie steuert zweierlei: wie der
+   Screenreader vorliest und in welcher Sprache die Systemtexte kommen
+   (Ansagen, Kalender, Fehlerzusammenfassung). Ein Teil der Seite mit
+   lang="en" bekommt englische Systemtexte.
+
+     <html lang="de">
+
+4  Fertig. Kein npm, kein Bauwerkzeug, kein Netz. "index.html"
+   doppelklicken genügt zum Ansehen.
+
+VERSIONSSTEMPEL. Ohne "?v=…" halten Browser altes CSS hartnäckig fest. Den
+aktuellen Stempel nennt
+     python3 pruefung/stempel.py --zeigen
+und nach einer Änderung setzt
+     python3 pruefung/stempel.py
+ihn an ALLEN Stellen neu, auch an den @import-Zeilen in kern-neu.css.
+Nie von Hand ändern; Prüfung 22 meldet jede Abweichung.
+
+
+DIE ERSTE SEITE
+--------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beispiel</title>
+<link rel="stylesheet" href="system/kern-neu.css?v=2.8.2-nbyc.N">
+</head>
+<body class="kn-page">
+
+<a class="kn-skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+<main class="kern-container" id="inhalt">
+  <h1 class="kern-heading-large">Überschrift</h1>
+  <p class="kern-body">Ein Absatz.</p>
+
+  <form data-kn-validate>
+    <div class="kn-error-summary" role="alert" hidden>
+      <h2 class="kn-error-summary__title"></h2>
+      <ul class="kn-error-summary__list"></ul>
+    </div>
+    <div class="kern-form-input">
+      <label class="kern-label" for="name">Familienname</label>
+      <div class="kern-hint" id="name-hint">Wie im Ausweis.</div>
+      <input class="kern-form-input__input" id="name" name="name" type="text"
+             aria-required="true" aria-describedby="name-hint">
+      <p class="kern-error" id="name-fehler" hidden>
+        <span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span>
+        <span class="kern-body">Bitte den Familiennamen eingeben</span>
+      </p>
+    </div>
+    <button class="kern-btn kern-btn--primary" type="submit">
+      <span class="kern-label">Absenden</span>
+    </button>
+  </form>
+</main>
+
+<script src="system/kern-neu.js?v=2.8.2-nbyc.N" defer></script>
+</body>
+</html>
+
+Das Markup ist KERNs eigenes. Für jeden Baustein steht das Original-
+Beispiel im Katalog. data-kn-validate schaltet die Formularprüfung ein:
+Pflichtfelder tragen aria-required="true", ihre Meldung die ID des Feldes
+plus "-fehler". Fehlt eine Angabe, füllt das Skript die Zusammenfassung
+über dem Formular mit Verweisen, setzt den Fokus darauf, und sie wird
+vorgelesen. Überschrift und Liste schreibt das Skript (Deutsch oder
+Englisch, nach lang). Siehe Katalog, "Fehlerzusammenfassung".
+
+
+WAS WO LIEGT
+--------------------------------------------------------------------------------
+  index.html                 Einstieg, Stand, Verweise
+  katalog.html               DER KATALOG, Deutsch und Englisch — 38 KERN-Bausteine mit den
+                             Original-Beispielen und 44 Erweiterungen; je
+                             Zweck, Wann nehmen / wann nicht, Beispiel,
+                             Quelltext, Tastatur mit Ansage, Klassen.
+                             Hier nachschlagen, nicht raten.
+  muster/                    Zusammengesetzte Abläufe: Fallbearbeitung,
+                             Formularstrecke, Suche — je mit Vorführknöpfen
+                             für leer, lädt und Fehler
+
+  system/kern-neu.css        Sammeldatei — NUR DIESE einbinden
+  system/kern.css            KERN 2.8.2, unverändert (kern-LICENSE.md)
+  system/01b-erweiterung.css Kontrast, Bewegung, Windows-Kontrast,
+                             Ausweichwerte für Fehler in KERN, Dichte
+  system/02-basis.css        Seitenrahmen, Hilfsklassen
+  system/02b-kern-ergaenzung.css  Ergänzungen an KERN-Bausteinen
+  system/03-aktion.css       Erweiterungen: Aktionen
+  system/04-eingabe.css      Erweiterungen: Eingabe
+  system/05-navigation.css   Erweiterungen: Navigation
+  system/06-inhalt.css       Erweiterungen: Inhalt, Meldungen, Tabelle
+  system/kern-neu.js         Verhalten: Tastatur, Ansagen, Prüfung von
+                             Formularen; ES5, ohne Abhängigkeit
+  schrift/                   Fira Sans, örtlich, mit Lizenz (OFL)
+  token.json                 Alle Token je Modus — wird erzeugt, nie von
+                             Hand ändern
+
+  pruefung/pruefe.py         Die Prüfungen im Skript (siehe unten)
+  pruefung/kern-beispiele.html  Prüfstand: die 135 KERN-Beispiele
+                             gegen das Original
+  pruefung/verhalten.html    Verhaltensprüfung im Browser (19 Abläufe)
+  pruefung/webkit-pruefen.swift  dieselben Seiten in WebKit (Safari-
+                             Engine), ohne Safari zu öffnen
+  pruefung/stempel.py        Versionsstempel setzen
+  pruefung/umstieg-testen.py UMSTIEG.txt gegen alle Namen aus 0.5.7
+  pruefung/katalog-meta-bauen.py  erzeugt katalog/meta.js (Namen,
+                             Synonyme, Abweichungen je Katalogeintrag)
+  pruefung/GERAETETEST.txt   Schritte für Firefox, VoiceOver, NVDA/JAWS,
+                             Windows-Kontrastmodus
+
+  METHODE.txt                Aufbau, Regeln, Änderungswege, Messverfahren
+  ABWEICHUNGEN.txt           Wo und warum von KERN abgewichen wird
+  VERGLEICH.txt              Verweis auf den Vergleich mit Carbon, Material
+  UMSTIEG.txt                Von 0.5.7 auf 2.8.2 (nbyc): alte Namen → neue
+  AENDERUNGEN.txt            Was wann geändert wurde, mit Belegen
+  LIZENZ.txt                 Code, Schrift, Herkunft
+
+
+DIE MODI
+--------------------------------------------------------------------------------
+Ohne Zutun folgt das System dem Betriebssystem. Umschalten am <html>-
+Element (oder per Skript: KN.setzeModus):
+
+  data-kern-theme="light" | "dark"     Thema — KERNs eigener Schalter
+  data-kn-contrast="high"              erhöhter Kontrast (Erweiterung);
+                                       ohne Attribut gilt prefers-contrast
+  data-kn-density="compact" | "spacious"  Dichte (Erweiterung); ohne
+                                       Attribut gilt KERN (48 px)
+
+Ruhige Bewegung wird nicht umgeschaltet, sondern befolgt (prefers-reduced-
+motion). Der Windows-Kontrastmodus (forced-colors) wird ebenfalls befolgt:
+Fokus und Auswahl erscheinen in Systemfarben.
+
+
+DIE REGELN, DIE MAN NICHT BRECHEN DARF
+--------------------------------------------------------------------------------
+1  KERN ZUERST. Was KERN hat, wird genommen — Markup, Klassen, Werte,
+   Zustände. kern.css wird nie verändert. Abweichungen nur begründet und
+   in ABWEICHUNGEN.txt. Prüfung 10 und 14 finden Verstöße.
+
+2  NUR TOKENS. Kein roher Farbwert, kein rohes Maß, keine rohe Dauer:
+     falsch    padding: 14px;   color: #004b76;
+     richtig   padding: var(--kern-metric-space-default);
+               color: var(--kern-color-action-default);
+   Prüfung 1, 9 und 11 finden es.
+
+3  KEINE DECKKRAFT AUF TEXT. Zurückgenommenes bekommt eine eigene Farbe
+   (var(--kern-color-layout-text-muted)). Einzige Ausnahme ist gesperrt
+   (aria-disabled), dort mit KERNs Deckkraft-Token. Prüfung 2.
+
+4  TASTATUR UND RÜCKMELDUNG SIND TEIL DES BAUSTEINS. Was bedienbar ist,
+   hat einen Tastaturvertrag (im Katalog unter "Tastatur") und meldet,
+   was passiert ist — sichtbar und für den Screenreader. Ansagen laufen
+   über eine Stelle: KN.melde(text). Keine eigenen aria-live-Bereiche.
+
+5  NATIVE ELEMENTE, wo KERN sie nimmt: <details>, <dialog>, <fieldset>,
+   <progress>, <search>.
+
+
+PRÜFEN
+--------------------------------------------------------------------------------
+  python3 pruefung/pruefe.py
+
+Kein Paket nötig. Endet mit Rückgabewert 1, wenn etwas beanstandet wird.
+
+   1  rohe Farbwerte in Erweiterungen    13  Dialog ohne Titel
+   2  Deckkraft auf Text                 13b data-Attribut ohne Verhalten
+   3  bedienbar ohne Zustand             14  KERN-Klassen gibt es in kern.css
+   4  dataset-Schlüssel mit Bindestrich  15  Dichte-Stufen
+   5  logische Maße in Vendor-Pseudo-    16  Felder: required und disabled
+      elementen                          18  CSS-Syntax
+   6  Merker-Kollision im JavaScript     19  Systemtexte DE/EN vollständig
+   7  Katalog gegen echte Klassen        20  Tastentabelle je Baustein
+   8  Token als Rückfallwert             21  Fokus nur über Fokus-Token
+   9  rohe Maße und Dauern               22  Versionsstempel überall gleich
+  10  KERN-Treue (kern.css unverändert) 23  Katalog-Zuordnung, Erzeugtes aktuell
+  11  kein Carbon, keine Rohwerte      24  kein Schatten (wie KERN)
+  12  token.json aktuell                 17  Katalog Deutsch/Englisch vollständig
+
+Im Browser (Prüfserver: python3 -m http.server 8058 --bind 127.0.0.1 im
+übergeordneten Ordner):
+
+  pruefung/kern-beispiele.html   135 KERN-Beispiele gegen das Original
+  pruefung/verhalten.html        19 Abläufe: Tasten, Ansagen, Fokus
+
+Kontrast und Fokus werden gemessen, nicht geschätzt — Verfahren und
+Ergebnisse in METHODE.txt, Abschnitte 08 bis 10.
+
+
+BROWSER
+--------------------------------------------------------------------------------
+Die Untergrenze setzt KERN selbst: kern.css nutzt oklch() und :has().
+
+  MERKMAL          VORKOMMEN (KERN / eigene)   CHROME/EDGE  FIREFOX  SAFARI
+  oklch()              279 / 0                     111         113     15.4
+  color-mix()           20 / 9                     111         113     16.2
+  :has()                54 / 5                     105         121     15.4
+  @container             0 / 2                     105         110     16
+  inert (Attribut)       – / Skript                102         112     15.5
+
+  DARAUS FOLGT DIE UNTERGRENZE:
+    Chrome und Edge ab 111    (März 2023)
+    Firefox ab 121            (Dezember 2023)
+    Safari ab 16.2            (Dezember 2022)
+
+Ältere Browser zeigen eine lesbare, aber ungestaltete Seite. Ein Rückfall
+in sRGB wäre eine eigene Datei vor kern.css — kern.css selbst bleibt
+unverändert. Für eine Behörde zu klären, ob die Untergrenze reicht.
+
+Das JavaScript ist ES5 ohne Module und läuft praktisch überall.
+
+Automatisch geprüft in Chromium und WebKit; Firefox, Screenreader und
+Windows-Kontrastmodus stehen in pruefung/GERAETETEST.txt.

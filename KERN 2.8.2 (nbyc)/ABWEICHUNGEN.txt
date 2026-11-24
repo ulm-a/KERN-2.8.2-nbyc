@@ -1,0 +1,328 @@
+ABWEICHUNGEN VON KERN — was KERN 2.8.2 (nbyc) anders macht als KERN 2.8.2
+Laufend geführt seit 13.10.2026 (Auftrag: "schreibe eine Liste mit, die alle
+Abweichungen, Fehler von KERN aufführt, die Du anpasst")
+Fassung: 0.2.0 · 16.11.2026
+================================================================================
+NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
+      KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
+      KI-Assistenten von Anthropic. Nicht das offizielle KERN.
+
+GRUNDSATZ
+  kern.css 2.8.2 ist UNVERÄNDERT eingebunden (M81, Prüfsumme = Referenz).
+  Jede Abweichung steht in einer eigenen Datei NACH kern.css — fast alle in
+  system/01b-erweiterung.css — und ist hier mit Grund und Beleg aufgeführt.
+  Was hier nicht steht, ist KERN. Neue Abweichung = zuerst hier eintragen.
+
+  Zusatzbausteine (kn-…) sind keine Abweichungen, sondern Ergänzungen
+  dort, wo KERN nichts hat: Liste in "_ Recherche/Design Systeme
+  Vergleich.txt", Teil 7.
+
+STAND DER MESSUNG (Prüfstand, 13.10.2026, Chromium 152)
+  hell    375 px: 135 von 135 KERN-Beispielen deckungsgleich
+  hell   1280 px: 135 von 135
+  dunkel  375 px:   7 von 135 — Ursache allein AB06 (abgeschaltet: 135/135)
+  dunkel 1280 px:   7 von 135 — dieselbe Ursache (abgeschaltet: 135/135)
+  Gegenprobe: falsche Ecke an kern-btn eingeschleust → 0 von 4 (rot).
+
+SPALTEN
+  NR · ART (Erweiterung / Fehler im Original / Ergänzung) · WIRKT AUF
+  KERN-BAUSTEINE? · BAUSTEINE · WO · GRUND · BELEG
+  "Bausteine:" ist maschinenlesbar (alle · keine · KERN-Klassen mit
+  Leerzeichen getrennt). Der Katalog zeigt danach je Eintrag die
+  Abweichungen (pruefung/katalog-meta-bauen.py). Pflicht für jede AB.
+  "Englisch:" ist der Titel im englischen Katalog (E10). Pflicht für jede AB.
+
+
+================================================================================
+A  ABWEICHUNGEN, DIE WIR ANPASSEN
+================================================================================
+
+AB01  ERHÖHTER KONTRAST                                   Erweiterung (E3)
+      KERN:   kein Kontrastmodus.
+      2.8.2 (nbyc):  data-kn-contrast="high" oder Systemwunsch prefers-contrast:
+              KERNs Rollen-Tokens zeigen auf andere KERN-Grundfarben
+              (keine eigenen Farben).
+      Wirkt auf KERN-Bausteine: JA — nur wenn eingeschaltet.
+      Bausteine: alle
+      Englisch:  High contrast
+      Wo:     01b-erweiterung.css, Abschnitt 1
+      Grund:  Bedarf sehbehinderter Menschen; KERNs Anspruch 7 : 1 (K30).
+      Beleg:  Kontrast 22 Paare × 4 Modi, 12.10.2026 (AENDERUNGEN, M19).
+
+AB02  BEWEGUNGSDAUERN                                      Erweiterung (E3)
+      KERN:   keine Dauer-Tokens.
+      2.8.2 (nbyc):  --kn-duration-1/-2, --kn-easing — nur für Zusatzbausteine.
+      Wirkt auf KERN-Bausteine: NEIN.
+      Bausteine: keine (nur Erweiterungen)
+      Englisch:  Motion durations
+      Wo:     01b-erweiterung.css, Abschnitt 2
+
+AB03  RUHIGE BEWEGUNG                                      Erweiterung (E3)
+      KERN:   Loader dreht endlos, html scrollt weich — ohne Rücksicht auf
+              prefers-reduced-motion. KERN nennt das bewusst "implemen-
+              tierungsabhängig" (Loader: WCAG 2.2.2, 2.3.3) — siehe F7.
+      2.8.2 (nbyc):  bei Systemwunsch "Bewegung reduzieren": Animationen und
+              Übergänge 1 ms, eine Wiederholung, Scrollen ohne Gleiten.
+      Wirkt auf KERN-Bausteine: JA — nur bei Systemwunsch.
+      Bausteine: alle
+      Englisch:  Reduced motion
+      Wo:     01b-erweiterung.css, Abschnitt 3
+
+AB04  WINDOWS-KONTRASTMODUS                                Erweiterung (E3)
+      KERN:   Schatten bleiben gesetzt.
+      2.8.2 (nbyc):  forced-colors: Schatten-Tokens none, Fokus in Systemfarbe
+              Highlight.
+      Wirkt auf KERN-Bausteine: JA — nur im Kontrastmodus.
+      Bausteine: alle
+      Englisch:  Windows contrast mode
+      Wo:     01b-erweiterung.css, Abschnitt 4 und 5
+      Beleg:  NICHT GEPRÜFT (nur am Windows-Gerät, M68).
+
+AB05  FOKUS BEI TABINDEX-ELEMENTEN — F17                   Fehler im Original
+      KERN:   area/iframe/[tabindex]/[contenteditable] bekommen den Ring bei
+              :focus und verlieren ihn bei :focus-visible (outline: 0) —
+              Ring beim Mausklick, KEIN Ring bei Tastatur (WCAG 2.4.7).
+      2.8.2 (nbyc):  gleiche Selektoren, später geladen: KERNs eigener Fokus
+              (4 px, Abstand 2 px, action-focus-Farbe).
+      Wirkt auf KERN-Bausteine: JA — genau dort, wo KERN den Ring verliert.
+      Bausteine: alle
+      Englisch:  Focus on tabindex elements — F17
+      Wo:     01b-erweiterung.css, Abschnitt 5
+      Beleg:  13.10.2026, echter Tab-Druck auf <span tabindex="0">:
+              nur kern.css → outline none; KERN 2.8.2 (nbyc) → solid 4 px, 2 px.
+              Gegenprobe Mausklick, nur kern.css → 4 px (Regel vertauscht).
+
+AB06  FARBSCHEMA DES BROWSERS (color-scheme)                Erweiterung
+      KERN:   setzt color-scheme nicht. Im dunklen Thema bleiben die
+              Grundfarben des Browsers hell: Text ohne KERN-Klasse schwarz,
+              Verweise ohne Klasse #0000EE, Scrollleisten und Auswahllisten
+              hell — auf dunklem Grund kaum lesbar.
+      2.8.2 (nbyc):  color-scheme folgt data-kern-theme bzw. der Systemwahl.
+      Wirkt auf KERN-Bausteine: sichtbar NEIN. Gemessen (dunkel, 375 px):
+              97 Textstellen OHNE KERN-Textklasse werden hell statt schwarz
+              (Raster-/Hilfsklassen-Beispiele 87, Dialog 4 davon sr-only,
+              Icon 4, Card 1, Loader 1); 0 Stellen mit KERN-Textklasse;
+              0 sichtbare Ränder.
+      Bausteine: alle
+      Englisch:  Browser colour scheme (color-scheme)
+      Wo:     01b-erweiterung.css, Abschnitt 6 (bis 13.10. in 01-token.css)
+      Beleg:  Prüfstand dunkel 7/135; probeweise abgeschaltet 135/135.
+
+AB07  FOKUSRING FÜR EIGENE UND KLASSENLOSE ELEMENTE         Ergänzung
+      KERN:   Elemente ohne KERN-Klasse (a, button, input …) zeigen den
+              Fokusring des Browsers (gemessen: 1 px, orange).
+      2.8.2 (nbyc):  einheitlicher Ring aus KERNs Fokus-Tokens; bei Mausklick
+              ohne Tastatur kein Ring. Elemente mit KERN-Klasse sind
+              ausgenommen — dort gilt KERNs Fokus.
+      Wirkt auf KERN-Bausteine: NEIN (seit M82 ausgenommen). Ein
+              klassenloser Verweis INNERHALB eines KERN-Beispiels bekommt
+              aber unseren Ring statt des Browser-Rings.
+      Bausteine: alle
+      Englisch:  Focus ring for own and class-less elements
+      Wo:     02-basis.css, Abschnitt "Fokus"
+      Beleg:  13.10.2026, Tab-Druck: KERN-Knopf in 2.8.2 (nbyc) = KERN (4 px,
+              2 px); eigener Knopf 4 px statt Browser-Ring. Mausklick auf
+              eigenen Knopf: :focus ja, :focus-visible nein, kein Ring.
+
+
+AB08  SCROLLSPERRE NUR BEI MODALEM DIALOG — F21              Fehler im Original
+      KERN:   body:has(.kern-dialog[open]) { overflow: hidden } — sperrt das
+              Scrollen auch bei einem nicht-modalen Dialog.
+      2.8.2 (nbyc):  Sperre nur, solange ein Dialog MODAL offen ist (:modal).
+      Wirkt auf KERN-Bausteine: JA — nicht-modale Dialoge sperren die Seite
+              nicht mehr; modale unverändert.
+      Bausteine: kern-dialog
+      Englisch:  Scroll lock only for modal dialogs — F21
+      Wo:     01b-erweiterung.css, Abschnitt 5
+      Beleg:  13.10.2026, Katalog, Mausrad 5 Schritte: vorher 0 px (zwei
+              nicht-modal offene Beispiel-Dialoge), nachher 500 px; modal
+              offen: 0 px (Sperre wirkt). Prüfstand weiter 135/135 (hell).
+
+AB09  DIALOG-VERHALTEN NACH KERNS REGELN, NICHT NACH DEM DOKU-SKRIPT  Ergänzung
+      KERN:   liefert kein Dialog-Skript; das Beispielskript der Doku schließt
+              jeden Dialog beim Hintergrund-Klick und verdrahtet X nicht (F20).
+      2.8.2 (nbyc):  kern-neu.js — data-dialog-target öffnet modal (wie Doku); X
+              schließt; Fokus zurück zum Auslöser; Hintergrund-Klick schließt
+              NUR mit data-kn-close-on-backdrop (KERN: nur Infodialoge).
+      Wirkt auf KERN-Bausteine: JA — nur Verhalten, kein Aussehen.
+      Bausteine: kern-dialog
+      Englisch:  Dialog behaviour per KERN’s rules, not the documentation script
+      Wo:     system/kern-neu.js, "KERN-BAUSTEINE: VERHALTEN"
+      Beleg:  13.10.2026, echte Tasten im Katalog: Enter öffnet, Fokus auf X;
+              5× Tab bleibt im Dialog; Esc, Enter auf X, Leertaste auf
+              "Abbrechen" (form method=dialog, returnValue "abbrechen")
+              schließen, Fokus jeweils zurück auf "Dialog öffnen";
+              Hintergrund-Klick ohne Attribut → bleibt offen, mit Attribut →
+              schließt.
+
+
+AB10  DICHTE-STUFEN (nur wenn gewählt)                     Erweiterung (E2)
+      KERN:   eine feste Bedienhöhe (48 px), rät von veränderten Maßen ab.
+      2.8.2 (nbyc):  data-kn-density="compact" (40) oder "spacious" (56) an einem
+              Bereich oder an <html>; bzw. eine exportierte kern-anpassung.css.
+              Nur KERN-Token --kern-metric-dimension-x-large (+ eigene
+              --kn-target-size, --kn-table-row-space), Werte aus KERNs Skala.
+      Wirkt auf KERN-Bausteine: JA — nur wenn gewählt: kern-btn, kern-form-
+              input, kern-input-group, kern-dropdown, Symbol x-large.
+      Bausteine: kern-btn kern-form-input kern-input-group kern-dropdown
+      Englisch:  Density levels (only when chosen)
+      Wo:     01b-erweiterung.css, Abschnitt 7; Einstellseite im Katalog.
+      Beleg:  siehe AENDERUNGEN, STUFE 5e; Prüfung 15.
+
+AB11  "hidden" VERBIRGT IMMER — F22                           Fehler im Original
+      KERN:   setzt an Bausteinen display (z. B. .kern-error { display: flex })
+              und hebt damit das hidden-Attribut auf: eine verborgene
+              Fehlermeldung bleibt sichtbar.
+      2.8.2 (nbyc):  [hidden] { display: none !important; }
+      Wirkt auf KERN-Bausteine: JA — nur auf Elemente mit hidden-Attribut
+              (KERNs Beispiele nutzen es nicht: Prüfstand unverändert).
+      Bausteine: alle
+      Englisch:  "hidden" always hides — F22
+      Wo:     01b-erweiterung.css, Abschnitt 5
+      Beleg:  13.10.2026 (Stufe 6d): Meldung von Uhrzeit und Kalender-Datum
+              vorher von Anfang an sichtbar (display flex), nachher none;
+              Prüfstand 135/135 hell und dunkel (AB06 abgeschaltet).
+
+AB12  FOKUSRING AN DER KOPFZEILE VON kern-dropdown — F23     Fehler im Original
+      KERN:   .kern-dropdown__header (summary) hat keinen Fokusstil — es bleibt
+              der dünne Ring des Browsers (1 px "auto").
+      2.8.2 (nbyc):  4-px-Ring wie an KERNs übrigen Bausteinen (border-width-
+              bold, action-focus-default-contextual).
+      Wirkt auf KERN-Bausteine: JA — nur kern-dropdown (bei KERN "in
+              Bearbeitung", kein Beispiel; Prüfstand unberührt).
+      Bausteine: kern-dropdown
+      Englisch:  Focus ring on the kern-dropdown header — F23
+      Wo:     01b-erweiterung.css, Abschnitt 5
+      Beleg:  13.10.2026 (Stufe 6e): Fokusmessung vorher "outline auto 1px",
+              nachher 4 px, Kontrast ≥ 7,72 : 1 in vier Modi.
+
+
+AB13  GEDRÜCKTER ZUSTAND DES KNOPFS SICHTBAR — F27          Fehler im Original
+      KERN:   Die hover-Regel des Knopfs ist spezifischer als seine
+              active-Regel:
+                .kern-btn--primary:not(:disabled):hover        (0,3,0)
+                .kern-btn--primary:active                      (0,2,0)
+              Beim Drücken mit Maus oder Finger treffen BEIDE zu, hover
+              gewinnt — es gibt keine Druckrückmeldung. Gilt gleich für
+              primary, secondary und tertiary. KERNs active-Regel nimmt
+              aria-disabled ausserdem nicht aus.
+      2.8.2 (nbyc):  Dieselben Selektoren wie KERNs hover-Regel, nur mit
+              :active, später geladen — gleiche Spezifität, spätere Stelle,
+              also gewinnt der gedrückte Zustand. Werte sind KERNs eigene
+              Zustandstokens (shade-active bzw. tint-active-opacity), kein
+              eigener Wert. aria-disabled ist ausgenommen (E4).
+      Wirkt auf KERN-Bausteine: JA — kern-btn, alle drei Varianten.
+      Bausteine: kern-btn
+      Englisch:  Pressed state of the button made visible — F27
+      Wo:     01b-erweiterung.css, Abschnitt 5
+      Beleg:  16.11.2026, Chromium, echter Mausdruck, gleiches Markup auf
+              zwei Seiten (hell):
+                nur kern.css   Ruhe oklch(0.4284 0.1689 265.02)
+                               gedrückt oklch(0.474128 0.155392 265.02)
+                               hover    oklch(0.474128 0.155392 265.02)
+                mit F27        gedrückt oklch(0.519855 0.141884 265.02)
+                               hover    oklch(0.474128 0.155392 265.02)
+              Ohne F27 ist "gedrückt" Zeichen für Zeichen der hover-Wert.
+              Deterministisch zusätzlich: Prüfung 26 (pruefe.py); Gegenprobe
+              in einer Kopie ohne F27 nennt alle drei Varianten mit (3,0)
+              gegen (2,0). Gefunden über das Assessment vom 16.11.2026:
+              dessen Fälle M6 (hover) und M7 (pressed) nennen denselben
+              Hintergrund.
+
+
+AB14  BILDPFAD DER CARD-BEISPIELE WIRD AUFGELÖST            Ergänzung
+      KERN:   KERNs Beispiele verweisen auf "/img/kern-img-media.png" —
+              einen absoluten Pfad. Die Bilddatei gehört nicht zum
+              npm-Paket; im gelieferten Stand fehlte sie ganz.
+      2.8.2 (nbyc):  Ein EIGENES Platzhalterbild liegt bei (img/, 640 × 360,
+              als "Platzhalter — kein KERN-Bild" beschriftet, damit es
+              niemand für KERNs Bild hält). KERNs Markup bleibt unverändert:
+              Der absolute Pfad wird erst beim RENDERN aufgelöst (Katalog:
+              img/, Prüfstand: ../img/) — der im Katalog angezeigte
+              Quelltext bleibt KERNs Original.
+      Wirkt auf KERN-Bausteine: NEIN — nur die Auflösung des Bildpfads beim
+              Anzeigen; Klassen, Markup und Maße sind unberührt.
+      Bausteine: kern-card
+      Englisch:  Image path of the card examples is resolved — B1
+      Wo:     katalog.html und pruefung/kern-beispiele-bauen.py (bildPfad),
+              Bilddatei img/kern-img-media.png
+      Beleg:  16.11.2026 im Browser gemessen: alle zwölf Bilder des
+              Prüfstands (sechs Soll, sechs Ist) geladen, aufgelöst auf
+              img/kern-img-media.png, gerendert 307 × 173 px auf beiden
+              Seiten; Prüfstand unverändert 135 von 135 deckungsgleich.
+              Vorher: Datei fehlte, Assessment wertete vier Card-Vergleiche
+              als "INCOMPLETE" — "their apparent equality is not a pass".
+
+
+================================================================================
+B  FEHLER IM ORIGINAL — NICHT ANGEPASST (mit Grund)
+================================================================================
+  Maßgebliche Liste: "_ Recherche/Design Systeme Vergleich.txt", Teil 6.
+  F1 F2   leere Größen 6x/7x-large, Tippfehler Ebene 0 — von keinem
+          Baustein gelesen; kein Ausweichwert nötig.
+  F3      Dialogbreite auf undefiniertes --kern-small — KERN fällt auf
+          768 px zurück; prüfen beim Dialog (Stufe 4).
+  F4 F5   nur im SCSS-Quelltext; wir binden dist/kern.css ein.
+  F6      Lizenzangabe der Symbole fehlt im Paket — betrifft LIZENZ.txt
+          (M26), nicht den Code.
+  F7      Loader ohne reduced-motion — kein Fehler (implementierungs-
+          abhängig), erledigt durch AB03.
+  F8–F15  Widersprüche Doku ↔ Code und Kopierfehler — wir folgen dem
+          Code 2.8.2; keine Wirkung auf 2.8.2 (nbyc).
+  F19     Doppelte ID "confirmBtn" in KERNs Dialog-Beispielen — betrifft
+          nur die Beispielsammlung; wir zeigen die Originale unverändert.
+  F18     Kopfzeilen-Polsterung ab 768 px doppelt gesetzt (7, dann 5) — es
+          gilt nach CSS der zweite Wert; wir übernehmen KERN, wie es wirkt.
+  F16     textarea { padding … !important } gilt für JEDES Textfeld, auch
+          ohne KERN-Klasse. Gemessen 13.10.2026: unser kn-Textfeld will
+          8/16 px, KERN erzwingt 8/16 px → heute ohne Wirkung. Wird erst
+          wirksam, wenn ein Textfeld ein anderes Polster braucht — dann
+          Ausweichwert hier eintragen.
+  F24     KERNs Beispiele nutzen 7 Klassen, die kern.css nicht kennt
+          (kern-accordion-group, kern-boby — Tippfehler für kern-body —,
+          kern-icon--md/--sm statt --small/--large, kern-summary-group,
+          kern-summary__actions, kern-table__head). Wir übernehmen KERNs
+          Markup unverändert (E8); die Klassen wirken einfach nicht.
+          Prüfung 14 zeigt sie als Befund (gefunden 13.10.2026, Stufe 7a).
+  F25     Unsauberes Markup in 7 KERN-Beispielen: Input Date (4 Beispiele)
+          und Fieldset (2) schreiben am Ende <div> statt </div> — zwei
+          Elemente bleiben offen; Checkboxen „Gruppe mit
+          Hinweistext und Fehlermeldung“ schließt ein </div> zu viel. Das
+          überzählige Endtag brach im Katalog aus der Beispielfläche aus.
+          Nicht angepasst (E8); der Katalog setzt jedes Beispiel einzeln
+          ein, dort bleibt es in seiner Fläche, und nennt den Befund am
+          Beispiel (vom Generator ermittelt; gefunden 13.10.2026, 8e).
+  F26     Doppelte IDs im zweiten Task-List-Beispiel: task3-status 3×,
+          task3-title 2× (tasklist.examples.html Z. 100/129/150, 125/144).
+          Nicht angepasst (E6, E8); im Storybook steht jedes Beispiel dieses
+          Bausteins im eigenen Rahmen (M102). Gefunden 01.11.2026 von der
+          Story-Prüfseite; in der Rückmeldung als A13.
+
+
+================================================================================
+C  KEINE ABWEICHUNG (zur Klarheit)
+================================================================================
+  · Klasse kn-page auf body: Seitenrahmen eigener Seiten (Grundschrift,
+    Textfarbe, Rand 0). Ohne die Klasse bleibt body wie bei KERN. Ein
+    KERN-Beispiel auf einer kn-page-Seite erbt deren Grundschrift nur dort,
+    wo KERN selbst keine setzt — wie auf jeder Seite eines KERN-Projekts.
+  · 01-token.css (Brücke): seit Stufe 5d entfernt (13.10.2026). Bis dahin
+    zeigten alte kn-Namen auf KERN-Tokens, ohne eigene Werte.
+  · Deaktiviert (E4): Aussehen wie KERN (Deckkraft-Token).
+  · Ergänzungen an KERN-Klassen (system/02b-kern-ergaenzung.css, Stufe
+    5b): kn-btn--danger(-secondary), kn-link--muted/--plain, kn-code,
+    kn-container--narrow, kn-input--width-10/-20, kn-badge--outline,
+    kn-dialog--danger, data-kn-loading (Ladezustand). Sie wirken NUR mit
+    ihrer kn-Klasse bzw. ihrem Attribut; ein KERN-
+    Baustein ohne sie bleibt KERN (Prüfstand 135/135). Gefahr-Knöpfe:
+    Kontrast hell 6,01, dunkel 6,99.
+  · Passwort anzeigen (kern-neu.js): KERN überlässt das Verhalten der
+    Umsetzung. aria-pressed schaltet, Symbol wechselt, Beschriftung bleibt
+    (ARIA-Regel). Beleg: echte Tasten, Feldwert bleibt erhalten.
+  · KERNs Grundstellung wirkt seit M81 auch auf eigene Bausteine: Bilder
+    als Block, Schriftfamilie auf allen Elementen, weiches Scrollen. Das ist
+    KERN, keine Abweichung. Gemessen 13.10.2026: im Katalog und im Muster
+    keine einzige Stilabweichung gegenüber vorher. KERNs Ziffernform
+    (tabular-nums slashed-zero auf html) erreicht Seiten mit kn-page nicht —
+    der font-Kurzwert dort setzt sie zurück.
+-/-

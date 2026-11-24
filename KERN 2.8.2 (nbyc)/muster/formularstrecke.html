@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schritt 1 von 3: Angaben zur Person — Muster: Formularstrecke — KERN 2.8.2 (nbyc)</title>
+<link rel="stylesheet" href="../system/kern-neu.css?v=2.8.2-nbyc.44">
+<style>
+/* Nur das Seitengerüst. Keine Komponente wird hier gestaltet. */
+.fs { max-inline-size: 46rem; margin-inline: auto; padding: var(--kern-metric-space-large) var(--kern-metric-space-default) var(--kern-metric-space-3x-large); }
+.fs__schritt > * + * { margin-block-start: var(--kern-metric-space-large); }
+.fs__knoepfe { display: flex; flex-wrap: wrap; gap: var(--kern-metric-space-small); }
+.fs__vorfuehrung { margin-block-start: var(--kern-metric-space-3x-large); padding-block-start: var(--kern-metric-space-large); border-block-start: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); }
+</style>
+</head>
+<body class="kn-page">
+
+<a class="kn-skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="kn-header">
+  <a class="kn-header__brand" href="../index.html">Musterbehörde <span>Darlehen</span></a>
+  <div class="kn-header__end">
+    <div class="kn-segmented" role="group" aria-label="Modus">
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="light" aria-pressed="false">Hell</button>
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="dark" aria-pressed="false">Dunkel</button>
+    </div>
+  </div>
+</header>
+
+<main class="fs" id="inhalt">
+  <p class="kern-preline">Antrag auf Freistellung von der Rückzahlung</p>
+
+  <ol class="kn-steps" aria-label="Fortschritt" style="margin-block:1rem 2rem" data-fs-schritte>
+    <li class="kn-step" data-kn-state="current" aria-current="step"><span class="kn-step__marker" data-kn-number="1"></span><span class="kn-step__label">Person</span></li>
+    <li class="kn-step"><span class="kn-step__marker" data-kn-number="2"></span><span class="kn-step__label">Einkommen</span></li>
+    <li class="kn-step"><span class="kn-step__marker" data-kn-number="3"></span><span class="kn-step__label">Prüfen und absenden</span></li>
+  </ol>
+
+  <!-- ================= SCHRITT 1 ================= -->
+  <section class="fs__schritt" data-fs-schritt="1" aria-labelledby="s1-titel">
+    <h1 class="kern-heading-medium" id="s1-titel" tabindex="-1">Schritt 1 von 3: Angaben zur Person</h1>
+    <form data-kn-validate="event" data-fs-form="1" novalidate>
+      <div class="kn-error-summary" role="alert" hidden>
+        <h2 class="kn-error-summary__title"></h2>
+        <ul class="kn-error-summary__list"></ul>
+      </div>
+      <div class="kern-form-input">
+        <label class="kern-label" for="fs-name">Familienname</label>
+        <input class="kern-form-input__input" id="fs-name" name="familienname" type="text" autocomplete="family-name" aria-required="true">
+        <p class="kern-error" id="fs-name-fehler" hidden><span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span><span class="kern-body">Geben Sie Ihren Familiennamen ein</span></p>
+      </div>
+      <div class="kern-form-input">
+        <label class="kern-label" for="fs-vorname">Vorname</label>
+        <input class="kern-form-input__input" id="fs-vorname" name="vorname" type="text" autocomplete="given-name" aria-required="true">
+        <p class="kern-error" id="fs-vorname-fehler" hidden><span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span><span class="kern-body">Geben Sie Ihren Vornamen ein</span></p>
+      </div>
+      <fieldset class="kern-fieldset" aria-describedby="fs-geb-hinweis">
+        <legend class="kern-label">Geburtsdatum</legend>
+        <div class="kern-hint" id="fs-geb-hinweis">Zum Beispiel 27 3 1985</div>
+        <div class="kern-fieldset__body kern-fieldset__body--horizontal">
+          <div class="kern-form-input">
+            <label class="kern-label" for="fs-tag">Tag</label>
+            <input class="kern-form-input__input kern-form-input__input--width-2" id="fs-tag" name="tag" type="text" inputmode="numeric" autocomplete="bday-day" aria-required="true">
+            <p class="kern-error" id="fs-tag-fehler" hidden><span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span><span class="kern-body">Geben Sie den Tag Ihrer Geburt ein</span></p>
+          </div>
+          <div class="kern-form-input">
+            <label class="kern-label" for="fs-monat">Monat</label>
+            <input class="kern-form-input__input kern-form-input__input--width-2" id="fs-monat" name="monat" type="text" inputmode="numeric" autocomplete="bday-month" aria-required="true">
+            <p class="kern-error" id="fs-monat-fehler" hidden><span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span><span class="kern-body">Geben Sie den Monat Ihrer Geburt ein</span></p>
+          </div>
+          <div class="kern-form-input">
+            <label class="kern-label" for="fs-jahr">Jahr</label>
+            <input class="kern-form-input__input kern-form-input__input--width-4" id="fs-jahr" name="jahr" type="text" inputmode="numeric" autocomplete="bday-year" aria-required="true">
+            <p class="kern-error" id="fs-jahr-fehler" hidden><span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span><span class="kern-body">Geben Sie das Jahr Ihrer Geburt ein</span></p>
+          </div>
+        </div>
+      </fieldset>
+      <div class="kern-form-input">
+        <label class="kern-label" for="fs-mail">E-Mail <span class="kern-label__optional">- Optional</span></label>
+        <div class="kern-hint" id="fs-mail-hinweis">Wir schreiben nur, wenn eine Angabe fehlt.</div>
+        <input class="kern-form-input__input" id="fs-mail" name="email" type="email" autocomplete="email" aria-describedby="fs-mail-hinweis">
+      </div>
+      <div class="fs__knoepfe">
+        <button class="kern-btn kern-btn--primary" type="submit"><span class="kern-label">Weiter</span></button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ================= SCHRITT 2 ================= -->
+  <section class="fs__schritt" data-fs-schritt="2" aria-labelledby="s2-titel" hidden>
+    <h1 class="kern-heading-medium" id="s2-titel" tabindex="-1">Schritt 2 von 3: Einkommen</h1>
+    <form data-kn-validate="event" data-fs-form="2" novalidate>
+      <div class="kn-error-summary" role="alert" hidden>
+        <h2 class="kn-error-summary__title"></h2>
+        <ul class="kn-error-summary__list"></ul>
+      </div>
+      <div class="kern-form-input">
+        <label class="kern-label" for="fs-netto">Monatliches Nettoeinkommen in Euro</label>
+        <div class="kern-hint" id="fs-netto-hinweis">Wie auf Ihrer letzten Lohnabrechnung, zum Beispiel 1640,00.</div>
+        <input class="kern-form-input__input kn-input--width-10" id="fs-netto" name="netto" type="text" inputmode="decimal" aria-required="true" aria-describedby="fs-netto-hinweis">
+        <p class="kern-error" id="fs-netto-fehler" hidden><span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span><span class="kern-body">Geben Sie Ihr monatliches Nettoeinkommen in Euro ein</span></p>
+      </div>
+      <fieldset class="kern-fieldset" id="fs-familie" data-kn-required>
+        <legend class="kern-label">Familienstand</legend>
+        <div class="kern-fieldset__body">
+          <div class="kern-form-check"><input class="kern-form-check__radio" id="fs-ledig" name="familie" type="radio" value="ledig"><label class="kern-label" for="fs-ledig">ledig</label></div>
+          <div class="kern-form-check"><input class="kern-form-check__radio" id="fs-verheiratet" name="familie" type="radio" value="verheiratet oder verpartnert"><label class="kern-label" for="fs-verheiratet">verheiratet oder verpartnert</label></div>
+          <div class="kern-form-check"><input class="kern-form-check__radio" id="fs-getrennt" name="familie" type="radio" value="getrennt lebend, geschieden oder verwitwet"><label class="kern-label" for="fs-getrennt">getrennt lebend, geschieden oder verwitwet</label></div>
+        </div>
+        <p class="kern-error" id="fs-familie-fehler" hidden><span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span><span class="kern-body">Wählen Sie Ihren Familienstand</span></p>
+      </fieldset>
+      <div class="kern-form-input">
+        <label class="kern-label" for="fs-nachweis">Einkommensnachweis</label>
+        <div class="kern-hint" id="fs-nachweis-hinweis">Erlaubte Formate: JPG, PNG, PDF. Höchstens 10 MB.</div>
+        <input class="kern-form-input__input" id="fs-nachweis" name="nachweis" type="file" accept=".jpg,.jpeg,.png,.pdf" aria-required="true" aria-describedby="fs-nachweis-hinweis">
+        <p class="kern-error" id="fs-nachweis-fehler" hidden><span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span><span class="kern-body">Laden Sie Ihren Einkommensnachweis hoch</span></p>
+      </div>
+      <div class="fs__knoepfe">
+        <button class="kern-btn kern-btn--secondary" type="button" data-fs-zurueck="1"><span class="kern-label">Zurück</span></button>
+        <button class="kern-btn kern-btn--primary" type="submit"><span class="kern-label">Weiter</span></button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ================= SCHRITT 3 ================= -->
+  <section class="fs__schritt" data-fs-schritt="3" aria-labelledby="s3-titel" hidden>
+    <h1 class="kern-heading-medium" id="s3-titel" tabindex="-1">Schritt 3 von 3: Prüfen und absenden</h1>
+    <div class="kern-alert kern-alert--danger" role="alert" tabindex="-1" data-fs-sendefehler hidden>
+      <div class="kern-alert__header">
+        <span class="kern-icon kern-icon--danger" aria-hidden="true"></span>
+        <h2 class="kern-title">Fehler: Der Antrag wurde nicht gesendet</h2>
+      </div>
+      <div class="kern-alert__body">
+        <p class="kern-body">Der Dienst antwortet gerade nicht. Ihre Angaben bleiben erhalten. Versuchen Sie es in einigen Minuten noch einmal.</p>
+      </div>
+    </div>
+    <div class="kern-summary">
+      <div class="kern-summary__header">
+        <h2 class="kern-title kern-title--small kern-summary__title-wrapper" id="fs-zs1"><span class="kern-number">1</span><span>Angaben zur Person</span></h2>
+      </div>
+      <div class="kern-summary__body">
+        <dl class="kern-description-list" data-fs-zusammenfassung="1"></dl>
+        <div class="kern-summary__actions">
+          <a href="#s1-titel" class="kern-link" data-fs-aendern="1" aria-describedby="fs-zs1"><span class="kern-icon kern-icon--edit" aria-hidden="true"></span>Ändern</a>
+        </div>
+      </div>
+    </div>
+    <div class="kern-summary">
+      <div class="kern-summary__header">
+        <h2 class="kern-title kern-title--small kern-summary__title-wrapper" id="fs-zs2"><span class="kern-number">2</span><span>Einkommen</span></h2>
+      </div>
+      <div class="kern-summary__body">
+        <dl class="kern-description-list" data-fs-zusammenfassung="2"></dl>
+        <div class="kern-summary__actions">
+          <a href="#s2-titel" class="kern-link" data-fs-aendern="2" aria-describedby="fs-zs2"><span class="kern-icon kern-icon--edit" aria-hidden="true"></span>Ändern</a>
+        </div>
+      </div>
+    </div>
+    <form data-kn-validate="event" data-fs-form="3" novalidate>
+      <div class="kn-error-summary" role="alert" hidden>
+        <h2 class="kn-error-summary__title"></h2>
+        <ul class="kn-error-summary__list"></ul>
+      </div>
+      <fieldset class="kern-fieldset" id="fs-richtig" data-kn-required>
+        <legend class="kern-label">Erklärung</legend>
+        <div class="kern-fieldset__body">
+          <div class="kern-form-check"><input class="kern-form-check__checkbox" id="fs-richtig-ja" name="richtig" type="checkbox"><label class="kern-label" for="fs-richtig-ja">Meine Angaben sind richtig und vollständig.</label></div>
+        </div>
+        <p class="kern-error" id="fs-richtig-fehler" hidden><span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span><span class="kern-body">Bestätigen Sie, dass Ihre Angaben richtig sind</span></p>
+      </fieldset>
+      <div class="fs__knoepfe">
+        <button class="kern-btn kern-btn--secondary" type="button" data-fs-zurueck="2"><span class="kern-label">Zurück</span></button>
+        <button class="kern-btn kern-btn--primary" type="submit" data-fs-absenden><span class="kern-label">Antrag absenden</span></button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ================= BESTÄTIGUNG ================= -->
+  <section class="fs__schritt" data-fs-schritt="4" aria-labelledby="s4-titel" hidden>
+    <h1 class="kern-heading-medium" id="s4-titel" tabindex="-1">Antrag ist eingegangen</h1>
+    <div class="kn-confirmation">
+      <p class="kern-body" style="margin:0 0 .5rem">Ihre Vorgangsnummer</p>
+      <p class="kn-confirmation__number">2026-BAF-10517</p>
+      <p class="kern-body" style="margin:0">Sie erhalten eine Nachricht in Ihr Postfach, sobald die Prüfung abgeschlossen ist. Das dauert in der Regel vier Wochen.</p>
+    </div>
+  </section>
+
+  <!-- ================= VORFÜHRUNG (nur im Muster) ================= -->
+  <aside class="fs__vorfuehrung" aria-labelledby="vf-titel">
+    <h2 class="kern-heading-small" id="vf-titel">Zustände vorführen</h2>
+    <p class="kern-body kern-body--small">Nur im Muster. Leer absenden zeigt die Fehlerzusammenfassung; „Antrag absenden“ zeigt den Ladezustand (nach 1 s) und dann Erfolg oder den Sendefehler.</p>
+    <div class="fs__knoepfe">
+      <button class="kern-btn kern-btn--secondary kern-btn--small" type="button" data-fs-demo="voll"><span class="kern-label">Beispieldaten einsetzen</span></button>
+      <button class="kern-btn kern-btn--secondary kern-btn--small" type="button" data-fs-demo="leer"><span class="kern-label">Von vorn beginnen</span></button>
+    </div>
+    <p class="kern-label kern-label--small" id="vf-antwort" style="margin-block:1rem .25rem">Antwort beim Absenden</p>
+    <div class="kn-segmented" role="group" aria-labelledby="vf-antwort">
+      <button class="kn-segmented__button kn-segmented__button--small" type="button" data-fs-antwort="erfolg" aria-pressed="true">Erfolg</button>
+      <button class="kn-segmented__button kn-segmented__button--small" type="button" data-fs-antwort="fehler" aria-pressed="false">Fehler</button>
+    </div>
+  </aside>
+</main>
+
+<script src="../system/kern-neu.js?v=2.8.2-nbyc.44"></script>
+<script>
+/* Seitenlogik des Musters (ES5): Schritte wechseln, Zusammenfassung füllen,
+   Absenden mit Laden, Erfolg oder Fehler. Prüfung und Fehlerzusammenfassung
+   leistet kern-neu.js (data-kn-validate="event" meldet "kn-gueltig"). */
+(function () {
+  "use strict";
+  var schritte = document.querySelectorAll("[data-fs-schritt]");
+  var marken = document.querySelectorAll("[data-fs-schritte] .kn-step");
+  var titelBasis = " — Muster: Formularstrecke — KERN 2.8.2 (nbyc)";
+  var antwort = "erfolg";
+
+  function zeige(n) {
+    [].forEach.call(schritte, function (s) { s.hidden = s.getAttribute("data-fs-schritt") !== String(n); });
+    [].forEach.call(marken, function (m, i) {
+      if (i + 1 < n || n === 4) { m.setAttribute("data-kn-state", "done"); m.removeAttribute("aria-current"); }
+      else if (i + 1 === n) { m.setAttribute("data-kn-state", "current"); m.setAttribute("aria-current", "step"); }
+      else { m.removeAttribute("data-kn-state"); m.removeAttribute("aria-current"); }
+    });
+    var h = document.getElementById("s" + n + "-titel");
+    document.title = h.textContent + titelBasis;
+    window.scrollTo({ top: 0, behavior: "instant" });
+    h.focus({ preventScroll: true });   /* der Screenreader liest die neue Überschrift */
+  }
+
+  function wert(id) { var f = document.getElementById(id); return f ? f.value.trim() : ""; }
+  function zweistellig(s) { return s.length === 1 ? "0" + s : s; }   /* 27.03.1985 — Leitfaden „Sprache und Texte“ */
+  function leereZeile() {
+    return '<div class="kern-description-list-item"><dt class="kern-description-list-item__key"></dt>' +
+           '<dd class="kern-description-list-item__value"></dd></div>';
+  }
+  function fuelle(dl, paare) {
+    dl.innerHTML = paare.map(leereZeile).join("");
+    [].forEach.call(dl.children, function (z, i) {
+      z.firstChild.textContent = paare[i][0];
+      z.lastChild.textContent = paare[i][1] || "—";
+    });
+  }
+  function zusammenfassen() {
+    var familie = document.querySelector("input[name='familie']:checked");
+    var datei = document.getElementById("fs-nachweis").files[0];
+    fuelle(document.querySelector("[data-fs-zusammenfassung='1']"), [
+      ["Name", wert("fs-vorname") + " " + wert("fs-name")],
+      ["Geburtsdatum", wert("fs-tag") ? [zweistellig(wert("fs-tag")), zweistellig(wert("fs-monat")), wert("fs-jahr")].join(".") : ""],
+      ["E-Mail", wert("fs-mail")]]);
+    fuelle(document.querySelector("[data-fs-zusammenfassung='2']"), [
+      ["Nettoeinkommen", wert("fs-netto") ? wert("fs-netto") + " €" : ""],
+      ["Familienstand", familie ? familie.value : ""],
+      ["Einkommensnachweis", datei ? datei.name : (document.getElementById("fs-nachweis").dataset.fsBeispiel || "")]]);
+  }
+
+  document.querySelector("[data-fs-form='1']").addEventListener("kn-gueltig", function () { zeige(2); });
+  document.querySelector("[data-fs-form='2']").addEventListener("kn-gueltig", function () { zusammenfassen(); zeige(3); });
+  document.querySelector("[data-fs-form='3']").addEventListener("kn-gueltig", function () {
+    var knopf = document.querySelector("[data-fs-absenden]");
+    var fehler = document.querySelector("[data-fs-sendefehler]");
+    fehler.hidden = true;
+    KN.lade(knopf, true);
+    setTimeout(function () {
+      KN.lade(knopf, false);
+      if (antwort === "fehler") { fehler.hidden = false; fehler.focus(); return; }
+      zeige(4);
+    }, 1500);
+  });
+  [].forEach.call(document.querySelectorAll("[data-fs-zurueck]"), function (b) {
+    b.addEventListener("click", function () { zeige(Number(b.getAttribute("data-fs-zurueck"))); });
+  });
+  [].forEach.call(document.querySelectorAll("[data-fs-aendern]"), function (a) {
+    a.addEventListener("click", function (e) { e.preventDefault(); zeige(Number(a.getAttribute("data-fs-aendern"))); });
+  });
+
+  /* Vorführung: voll · leer · Antwort beim Absenden */
+  var beispiel = { "fs-name": "Musterperson", "fs-vorname": "Kim", "fs-tag": "27", "fs-monat": "3", "fs-jahr": "1985",
+                   "fs-mail": "", "fs-netto": "1640,00" };
+  [].forEach.call(document.querySelectorAll("[data-fs-demo]"), function (b) {
+    b.addEventListener("click", function () {
+      var voll = b.getAttribute("data-fs-demo") === "voll";
+      Object.keys(beispiel).forEach(function (id) { document.getElementById(id).value = voll ? beispiel[id] : ""; });
+      [].forEach.call(document.querySelectorAll("input[type='radio'], input[type='checkbox']"), function (r) { r.checked = false; });
+      if (voll) document.getElementById("fs-ledig").checked = true;
+      document.getElementById("fs-nachweis").value = "";
+      document.getElementById("fs-nachweis").dataset.fsBeispiel = voll ? "lohnabrechnung-03-2026.pdf (Beispiel)" : "";
+      /* Datei lässt sich nicht vorbelegen — im Beispiel gilt das Feld als ausgefüllt */
+      document.getElementById("fs-nachweis").setAttribute("aria-required", voll ? "false" : "true");
+      [].forEach.call(document.querySelectorAll(".kn-error-summary"), function (l) { l.hidden = true; });
+      KN.melde(voll ? "Beispieldaten eingesetzt" : "Formular geleert");
+      zeige(1);
+    });
+  });
+  [].forEach.call(document.querySelectorAll("[data-fs-antwort]"), function (b) {
+    b.addEventListener("click", function () {
+      antwort = b.getAttribute("data-fs-antwort");
+      [].forEach.call(document.querySelectorAll("[data-fs-antwort]"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+    });
+  });
+})();
+</script>
+</body>
+</html>

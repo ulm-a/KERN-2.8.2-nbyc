@@ -1,0 +1,24 @@
+VERGLEICH — KERN 2.8.2 (nbyc)
+Fassung: 0.2.0 · 16.11.2026
+================================================================================
+NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
+      KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
+      KI-Assistenten von Anthropic. Nicht das offizielle KERN.
+
+Dieser Ordner führt KEIN eigenes Zahlenwerk mehr (M71). Alle Werte sind
+KERNs; wo davon abgewichen wird, steht es in ABWEICHUNGEN.txt.
+
+DER VERGLEICH STEHT AN EINER STELLE
+  "_ Recherche/Design Systeme Vergleich.txt" (im Projektordner, eine Ebene
+  über diesem Ordner):
+    Teil 1–2   bekannte Systeme und Anforderungen A01–A60
+    Teil 3–4   KERN 2.8.2 gegen 0.5.7, Token für Token und je Baustein
+    Teil 6     Fehler im Original KERN 2.8.2 (F-Nummern)
+    Teil 9     Vollständigkeit gegen IBM Carbon und Material 3, mit Stand
+               nach Stufe 5f
+
+FRÜHERE FASSUNG
+  Der Maßvergleich IBM Carbon gegen KERN NEU 0.5.6/0.5.7 (Stand 12.08.2026)
+  gilt nicht mehr, weil die Carbon-Maße entfernt sind (E2). Er liegt
+  unverändert im Git-Tag 0.5.7 ("KERN 0.5.7/VERGLEICH.txt").
+-/-

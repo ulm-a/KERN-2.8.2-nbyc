@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KERN OnePager — Musterstadt Bürgerservice (fiktiv)</title>
+<!-- Reihenfolge (Instruction Designer, Abschnitt 0 REIHENFOLGE):
+     System (kern.css unverändert darin) → gespeichertes Thema → Entwurf (nur live). -->
+<link rel="stylesheet" href="../KERN%202.8.2%20(nbyc)/system/kern-neu.css?v=2.8.2-nbyc.42">
+<link rel="stylesheet" href="../KERN%202.8.2%20(nbyc)/thema/kern-thema.css" id="op-thema">
+<style id="op-entwurf"></style>
+<link rel="stylesheet" href="onepager.css">
+<!-- Inspektor: Werkzeug-Ebene im Aussehen des Designers (nur --kd-*, wirkt nicht auf KERN) -->
+<link rel="stylesheet" href="../KERN%20Designer/stil/designer-tokens.css">
+<link rel="stylesheet" href="inspektor.css">
+</head>
+<body class="kn-page">
+
+<a data-t="seite.1" class="kn-skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+<!-- ABSCHNITT: kopf -->
+
+<header class="kn-header">
+  <a data-t="kopf.2" class="kn-header__brand" href="#start">Musterstadt <span data-t="kopf.3">Bürgerservice</span></a>
+  <div class="kn-header__end">
+    <!-- Sprache zuerst, links; danach die Symbol-Schalter (D25) -->
+    <div class="op-sprache">
+      <label data-t="kopf.10" class="kern-sr-only" for="op-sprache">Sprache</label>
+      <select class="op-sprache__wahl" id="op-sprache" translate="no">
+        <option value="de" lang="de">Deutsch</option>
+        <option value="en" lang="en">English</option>
+        <option value="fr" lang="fr">Français</option>
+        <option value="es" lang="es">Español</option>
+        <option value="it" lang="it">Italiano</option>
+        <option value="uk" lang="uk">Українська</option>
+      </select>
+    </div>
+    <!-- Hier setzt inspektor.js den Schalter "Inspektor" ein — nach der Sprache, vor ☀ und ◐ (D22, D25) -->
+    <!-- Modus als Symbole (D22): je ein Schalter; gedrückt = dunkel bzw. hoher Kontrast.
+         Umschalten übernimmt onepager.js (data-op-umschalten = Wert beim Ausschalten). -->
+    <button data-t-title="kopf.11" type="button" class="op-modus" data-kn-mode="theme" value="dark" data-op-umschalten="light" aria-pressed="false" title="Hell oder dunkel">
+      <span class="kern-icon kern-icon--light-mode op-modus__aus" aria-hidden="true"></span>
+      <span class="kern-icon kern-icon--dark-mode op-modus__an" aria-hidden="true"></span>
+      <span data-t="kopf.6" class="kern-sr-only">Dunkel</span>
+    </button>
+    <button data-t-title="kopf.12" type="button" class="op-modus" data-kn-mode="contrast" value="high" data-op-umschalten="normal" aria-pressed="false" title="Hoher Kontrast">
+      <span class="kern-icon kern-icon--brightness-medium" aria-hidden="true"></span>
+      <span data-t="kopf.9" class="kern-sr-only">Kontrast</span>
+    </button>
+  </div>
+</header>
+
+<!-- ABSCHNITT: navigation -->
+<nav data-t-aria="navigation.1" class="op-nav" aria-label="Abschnitte dieser Seite">
+  <div class="kern-container">
+    <ul class="kn-main-nav__list op-nav__liste">
+      <li><a data-t="navigation.2" class="kn-main-nav__item" href="#start">Start</a></li>
+      <li><a data-t="navigation.3" class="kn-main-nav__item" href="#hinweise">Hinweise</a></li>
+      <li><a data-t="navigation.4" class="kn-main-nav__item" href="#leistungen">Leistungen</a></li>
+      <li><a data-t="navigation.5" class="kn-main-nav__item" href="#antrag">Antrag</a></li>
+      <li><a data-t="navigation.6" class="kn-main-nav__item" href="#fallliste">Fallliste</a></li>
+      <li><a data-t="navigation.7" class="kn-main-nav__item" href="#bescheid">Bescheid</a></li>
+      <li><a data-t="navigation.8" class="kn-main-nav__item" href="#fragen">Fragen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="inhalt" tabindex="-1">
+<div class="kern-container">
+
+<!-- ABSCHNITT: start — Typografie, Links, Knöpfe, Abzeichen, Symbole, Trennlinie -->
+<section class="op-abschnitt" id="start" data-abschnitt="start" aria-labelledby="start-titel">
+  <p data-t="start.1" class="kern-preline kern-preline--large">Bürgerservice Musterstadt</p>
+  <h1 data-t="start.2" class="kern-heading-display" id="start-titel">Bewohnerparkausweis</h1>
+  <p data-t="start.3" class="kern-subline kern-subline--large">Parken in Ihrem Wohngebiet — online beantragen in etwa zehn Minuten.</p>
+
+  <p data-t="start.4" class="kern-body kern-body--large">
+    Wer in einem Bewohnerparkgebiet wohnt, darf mit dem Ausweis dort ohne Parkschein parken.
+    Sie beantragen ihn hier vollständig online und erhalten den Bescheid in Ihr Bürgerpostfach.
+  </p>
+  <p data-t="start.5" class="kern-body">
+    Halten Sie Ihre Meldeadresse, das Kennzeichen und die Zulassungsbescheinigung Teil I bereit.
+    Der Ausweis gilt ein Jahr und kann danach verlängert werden.
+  </p>
+  <p data-t="start.6" class="kern-body kern-body--small kern-body--muted">
+    Fiktives Beispiel: Musterstadt, alle Namen, Aktenzeichen und Beträge sind erfunden.
+  </p>
+
+  <div class="kern-flex kern-flex-wrap kern-align-items-center op-reihe">
+    <a href="#antrag" class="kern-btn kern-btn--primary">
+      <span data-t="start.7" class="kern-label">Antrag starten</span>
+      <span class="kern-icon kern-icon--arrow-forward" aria-hidden="true"></span>
+    </a>
+    <button type="button" class="kern-btn kern-btn--secondary">
+      <span class="kern-icon kern-icon--download" aria-hidden="true"></span>
+      <span data-t="start.8" class="kern-label">Merkblatt (PDF)</span>
+    </button>
+    <button type="button" class="kern-btn kern-btn--tertiary">
+      <span class="kern-icon kern-icon--mail" aria-hidden="true"></span>
+      <span data-t="start.9" class="kern-label">Per E-Mail senden</span>
+    </button>
+  </div>
+
+  <div class="kern-flex kern-flex-wrap kern-align-items-center op-reihe">
+    <a data-t="start.10" href="#fragen" class="kern-link"><span class="kern-icon kern-icon--arrow-forward" aria-hidden="true"></span>Häufige Fragen</a>
+    <a data-t="start.11" href="#leistungen" class="kern-link kern-link--small">Alle Leistungen</a>
+  </div>
+
+  <div data-t-aria="start.12" class="kern-flex kern-flex-wrap kern-align-items-center op-reihe" aria-label="Status der Dienste">
+    <span class="kern-badge kern-badge--success"><span class="kern-icon kern-icon--success kern-icon--sm" aria-hidden="true"></span><span data-t="start.13" class="kern-label">Online verfügbar</span></span>
+    <span class="kern-badge kern-badge--info"><span data-t="start.14" class="kern-label">Neu seit 2026</span></span>
+    <span class="kern-badge kern-badge--warning"><span data-t="start.15" class="kern-label">Wartung am Sonntag</span></span>
+    <span class="kern-badge kern-badge--danger"><span data-t="start.16" class="kern-label">Papierantrag eingestellt</span></span>
+  </div>
+
+  <!-- Kopfzeile (KERN-Baustein): als Beispiel hier statt über dem Seitenkopf (D22) -->
+  <figure class="op-beispiel">
+    <figcaption data-t="start.75" class="kern-label op-beispiel__titel">Kopfzeile für offizielle Seiten (Beispiel)</figcaption>
+  <div class="kern-kopfzeile">
+    <div class="kern-container">
+      <div class="kern-kopfzeile__content">
+        <span class="kern-kopfzeile__flagge" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 16">
+            <path fill="#000" d="M0 .5h24v5.333H0z" />
+            <path fill="red" d="M0 5.833h24v5.333H0z" />
+            <path fill="#FACA2C" d="M0 11.167h24V16.5H0z" />
+          </svg>
+        </span>
+        <span data-t="kopf.1" class="kern-kopfzeile__label"> Fiktive Beispielseite – keine offizielle Website </span>
+      </div>
+    </div>
+  </div>
+  </figure>
+
+  <hr class="kern-divider" aria-hidden="true" />
+
+  <div class="kern-row">
+    <div class="kern-col-12 kern-col-md-6">
+      <h2 data-t="start.17" class="kern-heading-x-large">Was Sie brauchen</h2>
+      <h3 data-t="start.18" class="kern-heading-large">Unterlagen</h3>
+      <h4 data-t="start.19" class="kern-heading-medium">Für Halterinnen und Halter</h4>
+      <h5 data-t="start.20" class="kern-heading-small">Für Dienstwagen</h5>
+      <p data-t="start.21" class="kern-body">Bei Dienst- oder Firmenwagen zusätzlich eine Bestätigung des Arbeitgebers, dass Sie das Fahrzeug privat nutzen dürfen.</p>
+    </div>
+    <div class="kern-col-12 kern-col-md-6">
+      <h3 data-t="start.22" class="kern-title kern-title--large">Kosten</h3>
+      <h4 data-t="start.23" class="kern-title">Gebühr je Jahr</h4>
+      <h5 data-t="start.24" class="kern-title kern-title--small">Ermäßigungen</h5>
+      <p data-t="start.25" class="kern-label kern-label--large">Mit Sozialpass</p>
+      <p data-t="start.26" class="kern-label">Die Gebühr halbiert sich.</p>
+      <p data-t="start.27" class="kern-label kern-label--small">Nachweis im Antrag hochladen.</p>
+      <p data-t="start.28" class="kern-preline">Vorzeile</p>
+      <p data-t="start.29" class="kern-subline">Unterzeile in Standardgröße</p>
+      <p data-t="start.30" class="kern-preline kern-preline--small">Vorzeile klein</p>
+      <p data-t="start.31" class="kern-subline kern-subline--small">Unterzeile klein</p>
+      <p data-t="start.32" class="kern-body kern-body--bold">Wichtig: Der Ausweis gilt nur im angegebenen Gebiet.</p>
+    </div>
+  </div>
+
+  <ul data-t-aria="start.33" class="op-symbole" aria-label="Symbole von KERN">
+    <li><span class="kern-icon kern-icon--home kern-icon--default" aria-hidden="true"></span><span data-t="start.34" class="kern-body kern-body--small">Start</span></li>
+    <li><span class="kern-icon kern-icon--search kern-icon--default" aria-hidden="true"></span><span data-t="start.35" class="kern-body kern-body--small">Suchen</span></li>
+    <li><span class="kern-icon kern-icon--edit kern-icon--default" aria-hidden="true"></span><span data-t="start.36" class="kern-body kern-body--small">Bearbeiten</span></li>
+    <li><span class="kern-icon kern-icon--delete kern-icon--default" aria-hidden="true"></span><span data-t="start.37" class="kern-body kern-body--small">Löschen</span></li>
+    <li><span class="kern-icon kern-icon--checklist kern-icon--default" aria-hidden="true"></span><span data-t="start.38" class="kern-body kern-body--small">Aufgaben</span></li>
+    <li><span class="kern-icon kern-icon--language kern-icon--default" aria-hidden="true"></span><span data-t="start.39" class="kern-body kern-body--small">Sprache</span></li>
+    <li><span class="kern-icon kern-icon--easy-language kern-icon--default" aria-hidden="true"></span><span data-t="start.40" class="kern-body kern-body--small">Leichte Sprache</span></li>
+    <li><span class="kern-icon kern-icon--sign-language kern-icon--default" aria-hidden="true"></span><span data-t="start.41" class="kern-body kern-body--small">Gebärdensprache</span></li>
+    <li><span class="kern-icon kern-icon--account-circle kern-icon--default" aria-hidden="true"></span><span data-t="start.42" class="kern-body kern-body--small">Konto</span></li>
+    <li><span class="kern-icon kern-icon--add kern-icon--default" aria-hidden="true"></span><span data-t="start.43" class="kern-body kern-body--small">Hinzufügen</span></li>
+    <li><span class="kern-icon kern-icon--arrow-up kern-icon--default" aria-hidden="true"></span><span data-t="start.44" class="kern-body kern-body--small">Nach oben</span></li>
+    <li><span class="kern-icon kern-icon--arrow-down kern-icon--default" aria-hidden="true"></span><span data-t="start.45" class="kern-body kern-body--small">Nach unten</span></li>
+    <li><span class="kern-icon kern-icon--arrow-back kern-icon--default" aria-hidden="true"></span><span data-t="start.46" class="kern-body kern-body--small">Zurück</span></li>
+    <li><span class="kern-icon kern-icon--arrow-forward kern-icon--default" aria-hidden="true"></span><span data-t="start.47" class="kern-body kern-body--small">Weiter</span></li>
+    <li><span class="kern-icon kern-icon--chevron-left kern-icon--default" aria-hidden="true"></span><span data-t="start.48" class="kern-body kern-body--small">Vorige</span></li>
+    <li><span class="kern-icon kern-icon--chevron-right kern-icon--default" aria-hidden="true"></span><span data-t="start.49" class="kern-body kern-body--small">Nächste</span></li>
+    <li><span class="kern-icon kern-icon--keyboard-double-arrow-left kern-icon--default" aria-hidden="true"></span><span data-t="start.50" class="kern-body kern-body--small">Zum Anfang</span></li>
+    <li><span class="kern-icon kern-icon--keyboard-double-arrow-right kern-icon--default" aria-hidden="true"></span><span data-t="start.51" class="kern-body kern-body--small">Zum Ende</span></li>
+    <li><span class="kern-icon kern-icon--check kern-icon--default" aria-hidden="true"></span><span data-t="start.52" class="kern-body kern-body--small">Bestätigt</span></li>
+    <li><span class="kern-icon kern-icon--close kern-icon--default" aria-hidden="true"></span><span data-t="start.53" class="kern-body kern-body--small">Schließen</span></li>
+    <li><span class="kern-icon kern-icon--content-copy kern-icon--default" aria-hidden="true"></span><span data-t="start.54" class="kern-body kern-body--small">Kopieren</span></li>
+    <li><span class="kern-icon kern-icon--dehaze kern-icon--default" aria-hidden="true"></span><span data-t="start.55" class="kern-body kern-body--small">Menü</span></li>
+    <li><span class="kern-icon kern-icon--more-vert kern-icon--default" aria-hidden="true"></span><span data-t="start.56" class="kern-body kern-body--small">Mehr</span></li>
+    <li><span class="kern-icon kern-icon--download kern-icon--default" aria-hidden="true"></span><span data-t="start.57" class="kern-body kern-body--small">Herunterladen</span></li>
+    <li><span class="kern-icon kern-icon--drive-folder-upload kern-icon--default" aria-hidden="true"></span><span data-t="start.58" class="kern-body kern-body--small">Hochladen</span></li>
+    <li><span class="kern-icon kern-icon--open-in-new kern-icon--default" aria-hidden="true"></span><span data-t="start.59" class="kern-body kern-body--small">In neuem Fenster</span></li>
+    <li><span class="kern-icon kern-icon--mail kern-icon--default" aria-hidden="true"></span><span data-t="start.60" class="kern-body kern-body--small">E-Mail</span></li>
+    <li><span class="kern-icon kern-icon--logout kern-icon--default" aria-hidden="true"></span><span data-t="start.61" class="kern-body kern-body--small">Abmelden</span></li>
+    <li><span class="kern-icon kern-icon--autorenew kern-icon--default" aria-hidden="true"></span><span data-t="start.62" class="kern-body kern-body--small">Erneuern</span></li>
+    <li><span class="kern-icon kern-icon--visibility kern-icon--default" aria-hidden="true"></span><span data-t="start.63" class="kern-body kern-body--small">Anzeigen</span></li>
+    <li><span class="kern-icon kern-icon--visibility-off kern-icon--default" aria-hidden="true"></span><span data-t="start.64" class="kern-body kern-body--small">Verbergen</span></li>
+    <li><span class="kern-icon kern-icon--question-mark kern-icon--default" aria-hidden="true"></span><span data-t="start.65" class="kern-body kern-body--small">Hilfe</span></li>
+    <li><span class="kern-icon kern-icon--info kern-icon--default" aria-hidden="true"></span><span data-t="start.66" class="kern-body kern-body--small">Information</span></li>
+    <li><span class="kern-icon kern-icon--success kern-icon--default" aria-hidden="true"></span><span data-t="start.67" class="kern-body kern-body--small">Erfolg</span></li>
+    <li><span class="kern-icon kern-icon--warning kern-icon--default" aria-hidden="true"></span><span data-t="start.68" class="kern-body kern-body--small">Warnung</span></li>
+    <li><span class="kern-icon kern-icon--danger kern-icon--default" aria-hidden="true"></span><span data-t="start.69" class="kern-body kern-body--small">Fehler</span></li>
+  </ul>
+  <ul data-t-aria="start.70" class="op-symbole" aria-label="Größen der Symbole">
+    <li><span class="kern-icon kern-icon--home kern-icon--small" aria-hidden="true"></span><span data-t="start.71" class="kern-body kern-body--small">klein</span></li>
+    <li><span class="kern-icon kern-icon--home" aria-hidden="true"></span><span data-t="start.72" class="kern-body kern-body--small">Standard</span></li>
+    <li><span class="kern-icon kern-icon--home kern-icon--large" aria-hidden="true"></span><span data-t="start.73" class="kern-body kern-body--small">groß</span></li>
+    <li><span class="kern-icon kern-icon--home kern-icon--x-large" aria-hidden="true"></span><span data-t="start.74" class="kern-body kern-body--small">sehr groß</span></li>
+  </ul>
+</section>
+
+<!-- ABSCHNITT: hinweise — Meldungen in vier Arten -->
+<section class="op-abschnitt" id="hinweise" data-abschnitt="hinweise" aria-labelledby="hinweise-titel">
+  <h2 data-t="hinweise.1" class="kern-heading-large" id="hinweise-titel">Hinweise</h2>
+  <div class="kern-stack op-stapel">
+    <div class="kern-alert kern-alert--info" role="alert">
+      <div class="kern-alert__header">
+        <span class="kern-icon kern-icon--info" aria-hidden="true"></span>
+        <h3 data-t="hinweise.2" class="kern-title">Neue Parkzonen ab 1. März</h3>
+      </div>
+      <div class="kern-alert__body">
+        <p data-t="hinweise.3" class="kern-body">Die Zonen B und C werden zusammengelegt. Bestehende Ausweise gelten bis zum Ablauf weiter.</p>
+        <a data-t="hinweise.4" href="#fragen" class="kern-link"><span class="kern-icon kern-icon--arrow-forward" aria-hidden="true"></span>Karte der Zonen</a>
+      </div>
+    </div>
+    <div class="kern-alert kern-alert--success" role="alert">
+      <div class="kern-alert__header">
+        <span class="kern-icon kern-icon--success" aria-hidden="true"></span>
+        <h3 data-t="hinweise.5" class="kern-title">Ihr Entwurf ist gespeichert</h3>
+      </div>
+      <div class="kern-alert__body">
+        <p data-t="hinweise.6" class="kern-body">Sie können den Antrag bis zum 30. Juni fortsetzen.</p>
+      </div>
+    </div>
+    <div class="kern-alert kern-alert--warning" role="alert">
+      <div class="kern-alert__header">
+        <span class="kern-icon kern-icon--warning" aria-hidden="true"></span>
+        <h3 data-t="hinweise.7" class="kern-title">Ausweis läuft in 14 Tagen ab</h3>
+      </div>
+      <div class="kern-alert__body">
+        <p data-t="hinweise.8" class="kern-body">Verlängern Sie rechtzeitig, damit Sie lückenlos parken dürfen.</p>
+      </div>
+    </div>
+    <div class="kern-alert kern-alert--danger" role="alert">
+      <div class="kern-alert__header">
+        <span class="kern-icon kern-icon--danger" aria-hidden="true"></span>
+        <h3 data-t="hinweise.9" class="kern-title">Kennzeichen nicht gefunden</h3>
+      </div>
+      <div class="kern-alert__body">
+        <p data-t="hinweise.10" class="kern-body">Prüfen Sie die Schreibweise, zum Beispiel „MU-ST 2026“ mit Bindestrich und Leerzeichen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABSCHNITT: leistungen — Karten im Raster -->
+<section class="op-abschnitt" id="leistungen" data-abschnitt="leistungen" aria-labelledby="leistungen-titel">
+  <h2 data-t="leistungen.1" class="kern-heading-large" id="leistungen-titel">Leistungen rund ums Parken</h2>
+  <div class="kern-row op-raster">
+    <div class="kern-col-12 kern-col-md-6 kern-col-xl-4">
+      <article class="kern-card kern-card--large">
+        <div class="kern-card__media">
+          <img data-t-alt="leistungen.16" src="bilder/parken.svg" alt="Parkschild an einer Wohnstraße mit einem geparkten Auto" />
+        </div>
+        <div class="kern-card__container">
+          <header class="kern-card__header">
+            <hgroup class="kern-hgroup">
+              <h3 data-t="leistungen.2" class="kern-title" id="karte-1">Bewohnerparkausweis</h3>
+              <p data-t="leistungen.3" class="kern-preline">Online</p>
+              <p data-t="leistungen.4" class="kern-subline">für Ihr Wohngebiet</p>
+            </hgroup>
+          </header>
+          <section class="kern-card__body">
+            <p data-t="leistungen.5" class="kern-body">Parken ohne Parkschein in Ihrer Zone. Gilt ein Jahr.</p>
+          </section>
+          <footer class="kern-card__footer">
+            <a href="#antrag" class="kern-btn kern-btn--primary" aria-describedby="karte-1"><span data-t="leistungen.6" class="kern-label">Beantragen</span></a>
+          </footer>
+        </div>
+      </article>
+    </div>
+    <div class="kern-col-12 kern-col-md-6 kern-col-xl-4">
+      <article class="kern-card">
+        <div class="kern-card__container">
+          <header class="kern-card__header">
+            <hgroup class="kern-hgroup">
+              <h3 data-t="leistungen.7" class="kern-title" id="karte-2">Besucherparkschein</h3>
+              <p data-t="leistungen.8" class="kern-preline">Online</p>
+              <p data-t="leistungen.9" class="kern-subline">für Gäste, bis 14 Tage</p>
+            </hgroup>
+          </header>
+          <section class="kern-card__body">
+            <p data-t="leistungen.10" class="kern-body">Für Besuch, Pflege und Handwerk. Tageweise buchbar.</p>
+          </section>
+          <footer class="kern-card__footer">
+            <button class="kern-btn kern-btn--secondary" aria-describedby="karte-2"><span data-t="leistungen.11" class="kern-label">Mehr erfahren</span></button>
+          </footer>
+        </div>
+      </article>
+    </div>
+    <div class="kern-col-12 kern-col-md-6 kern-col-xl-4">
+      <article class="kern-card kern-card--interactive kern-card--small">
+        <div class="kern-card__container">
+          <header class="kern-card__header">
+            <hgroup class="kern-hgroup">
+              <h3 class="kern-title" id="karte-3"><a data-t="leistungen.12" href="#fragen" class="kern-link--stretched">Parkerleichterung</a></h3>
+              <p data-t="leistungen.13" class="kern-preline">Vor Ort</p>
+              <p data-t="leistungen.14" class="kern-subline">bei Schwerbehinderung</p>
+            </hgroup>
+          </header>
+          <section class="kern-card__body">
+            <p data-t="leistungen.15" class="kern-body">Beratung im Bürgerbüro, Termin online.</p>
+          </section>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ABSCHNITT: antrag — Schrittfolge mit Formular -->
+<section class="op-abschnitt" id="antrag" data-abschnitt="antrag" aria-labelledby="antrag-titel">
+  <h2 data-t="antrag.1" class="kern-heading-large" id="antrag-titel">Antrag stellen</h2>
+
+  <div class="kern-progress">
+    <label data-t="antrag.2" class="kern-label" for="antrag-fortschritt">Schritt 2 von 4</label>
+    <progress id="antrag-fortschritt" value="2" max="4"></progress>
+  </div>
+
+  <div class="kern-task-list op-aufgaben">
+    <div class="kern-task-list__header">
+      <h3 data-t="antrag.3" class="kern-heading-medium">Ihre Schritte</h3>
+    </div>
+    <ol class="kern-task-list__list">
+      <li class="kern-task-list__item">
+        <div class="kern-task-list__title" id="schritt1-titel">
+          <a href="#antrag" class="kern-link kern-link--stretched kern-task-list__content-wrapper" aria-describedby="schritt1-status">
+            <span class="kern-number" translate="no">1</span>
+            <span data-t="antrag.4">Angaben zur Person</span>
+          </a>
+          <div class="kern-task-list__status" id="schritt1-status">
+            <span class="kern-badge kern-badge--success">
+              <span class="kern-icon kern-icon--success kern-icon--sm" aria-hidden="true"></span>
+              <span data-t="antrag.5" class="kern-label kern-label--small">Erledigt</span>
+            </span>
+          </div>
+        </div>
+      </li>
+      <li class="kern-task-list__item">
+        <div class="kern-task-list__title" id="schritt2-titel">
+          <a href="#fahrzeug" class="kern-link kern-link--stretched kern-task-list__content-wrapper" aria-describedby="schritt2-status">
+            <span class="kern-number" translate="no">2</span>
+            <span data-t="antrag.6">Fahrzeug und Zone</span>
+          </a>
+          <div class="kern-task-list__status" id="schritt2-status">
+            <span class="kern-badge kern-badge--info">
+              <span data-t="antrag.7" class="kern-label kern-label--small">In Bearbeitung</span>
+            </span>
+          </div>
+        </div>
+      </li>
+      <li class="kern-task-list__item">
+        <div class="kern-task-list__title" id="schritt3-titel">
+          <a href="#antrag" class="kern-link kern-link--stretched kern-task-list__content-wrapper" aria-describedby="schritt3-status">
+            <span class="kern-number" translate="no">3</span>
+            <span data-t="antrag.8">Nachweise hochladen</span>
+          </a>
+          <div class="kern-task-list__status" id="schritt3-status">
+            <span class="kern-badge">
+              <span data-t="antrag.9" class="kern-label kern-label--small">Offen</span>
+            </span>
+          </div>
+        </div>
+      </li>
+      <li class="kern-task-list__item">
+        <div class="kern-task-list__title" id="schritt4-titel">
+          <a href="#zusammenfassung" class="kern-link kern-link--stretched kern-task-list__content-wrapper" aria-describedby="schritt4-status">
+            <span class="kern-number" translate="no">4</span>
+            <span data-t="antrag.10">Prüfen und absenden</span>
+          </a>
+          <div class="kern-task-list__status" id="schritt4-status">
+            <span class="kern-badge">
+              <span data-t="antrag.11" class="kern-label kern-label--small">Offen</span>
+            </span>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <form class="op-formular" id="fahrzeug" novalidate>
+    <fieldset class="kern-fieldset">
+      <legend data-t="antrag.12" class="kern-label kern-label--large">Fahrzeug</legend>
+      <div class="kern-fieldset__body">
+        <div class="kern-form-input kern-form-input--error">
+          <label data-t="antrag.13" class="kern-label" for="kennzeichen">Kennzeichen</label>
+          <div data-t="antrag.14" class="kern-hint" id="kennzeichen-hinweis">So, wie es auf dem Schild steht, zum Beispiel MU-ST 2026.</div>
+          <input class="kern-form-input__input kern-form-input__input--error" id="kennzeichen" name="kennzeichen" type="text"
+                 aria-invalid="true" aria-describedby="kennzeichen-hinweis kennzeichen-fehler" value="MUST2026" />
+          <p class="kern-error" id="kennzeichen-fehler">
+            <span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span>
+            <span data-t="antrag.15" class="kern-body">Setzen Sie Bindestrich und Leerzeichen wie auf dem Schild: MU-ST 2026.</span>
+          </p>
+        </div>
+        <div class="kern-form-input kern-form-input--error">
+          <label data-t="antrag.16" class="kern-label" for="fahrzeugart">Fahrzeugart</label>
+          <div class="kern-form-input__select-wrapper">
+            <select class="kern-form-input__select kern-form-input__select--error" id="fahrzeugart" name="fahrzeugart" aria-invalid="true" aria-describedby="fahrzeugart-fehler">
+              <option data-t="antrag.17">Bitte auswählen</option>
+              <option data-t="antrag.18">Pkw</option>
+              <option data-t="antrag.19">Kleintransporter bis 3,5 t</option>
+              <option data-t="antrag.20">Motorrad</option>
+            </select>
+          </div>
+          <p class="kern-error" id="fahrzeugart-fehler">
+            <span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span>
+            <span data-t="antrag.43" class="kern-body">Wählen Sie eine Fahrzeugart aus.</span>
+          </p>
+        </div>
+        <fieldset class="kern-fieldset" aria-describedby="erstzulassung-hinweis">
+          <legend data-t="antrag.21" class="kern-label">Erstzulassung</legend>
+          <div data-t="antrag.22" class="kern-hint" id="erstzulassung-hinweis">Zum Beispiel: 17 3 2015</div>
+          <div class="kern-fieldset__body kern-fieldset__body--horizontal">
+            <div class="kern-form-input">
+              <label data-t="antrag.23" class="kern-label" for="ez-tag">Tag</label>
+              <input class="kern-form-input__input kern-form-input__input--width-2" id="ez-tag" name="ez-tag" type="text" inputmode="numeric">
+            </div>
+            <div class="kern-form-input">
+              <label data-t="antrag.24" class="kern-label" for="ez-monat">Monat</label>
+              <input class="kern-form-input__input kern-form-input__input--width-2" id="ez-monat" name="ez-monat" type="text" inputmode="numeric">
+            </div>
+            <div class="kern-form-input">
+              <label data-t="antrag.25" class="kern-label" for="ez-jahr">Jahr</label>
+              <input class="kern-form-input__input kern-form-input__input--width-4" id="ez-jahr" name="ez-jahr" type="text" inputmode="numeric">
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </fieldset>
+
+    <fieldset class="kern-fieldset kern-fieldset--error" aria-describedby="zone-fehler">
+      <legend data-t="antrag.26" class="kern-label">In welcher Zone wohnen Sie?</legend>
+      <div class="kern-fieldset__body kern-fieldset__body--horizontal">
+        <div class="kern-form-check">
+          <input class="kern-form-check__radio kern-form-check__radio--error" id="zone-a" name="zone" type="radio" aria-invalid="true" />
+          <label data-t="antrag.27" class="kern-label" for="zone-a">Zone A Altstadt</label>
+        </div>
+        <div class="kern-form-check">
+          <input class="kern-form-check__radio kern-form-check__radio--error" id="zone-b" name="zone" type="radio" aria-invalid="true" />
+          <label data-t="antrag.28" class="kern-label" for="zone-b">Zone B Hafen</label>
+        </div>
+        <div class="kern-form-check">
+          <input class="kern-form-check__radio kern-form-check__radio--error" id="zone-c" name="zone" type="radio" aria-invalid="true" />
+          <label data-t="antrag.29" class="kern-label" for="zone-c">Zone C Nord</label>
+        </div>
+      </div>
+      <p class="kern-error" id="zone-fehler">
+        <span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span>
+        <span data-t="antrag.44" class="kern-body">Wählen Sie die Zone, in der Sie wohnen.</span>
+      </p>
+    </fieldset>
+
+    <fieldset class="kern-fieldset">
+      <legend data-t="antrag.30" class="kern-label">Kontakt</legend>
+      <div class="kern-fieldset__body">
+        <div class="kern-form-input">
+          <label data-t="antrag.45" class="kern-label" for="kundennummer">Kundennummer</label>
+          <div data-t="antrag.46" class="kern-hint" id="kundennummer-hinweis">Wird aus Ihrem Servicekonto übernommen und kann hier nicht geändert werden.</div>
+          <input class="kern-form-input__input" id="kundennummer" name="kundennummer" type="text" value="KD-48213" aria-describedby="kundennummer-hinweis" disabled />
+        </div>
+        <div class="kern-form-input">
+          <label data-t="antrag.31" class="kern-label" for="email">E-Mail-Adresse</label>
+          <input class="kern-form-input__input" id="email" name="email" type="email" autocomplete="email" />
+        </div>
+        <div class="kern-form-input">
+          <label data-t="antrag.32" class="kern-label" for="telefon">Telefonnummer <span data-t="antrag.47" class="kern-label__optional">- Optional</span></label>
+          <input class="kern-form-input__input" id="telefon" name="telefon" type="tel" autocomplete="tel" />
+        </div>
+        <div class="kern-form-input">
+          <label data-t="antrag.33" class="kern-label" for="plz">Postleitzahl</label>
+          <input class="kern-form-input__input" id="plz" name="plz" type="text" inputmode="numeric" value="23456" readonly />
+        </div>
+        <div class="kern-form-input">
+          <label data-t="antrag.34" class="kern-label" for="webseite">Internetadresse Ihres Betriebs <span data-t="antrag.48" class="kern-label__optional">- Optional</span></label>
+          <input class="kern-form-input__input" id="webseite" name="webseite" type="url" />
+        </div>
+        <div class="kern-form-input">
+          <label data-t="antrag.35" class="kern-label" for="bemerkung">Bemerkung <span data-t="antrag.49" class="kern-label__optional">- Optional</span></label>
+          <textarea class="kern-form-input__input" id="bemerkung" name="bemerkung"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="kern-fieldset">
+      <legend data-t="antrag.36" class="kern-label">Nachweise</legend>
+      <div class="kern-fieldset__body">
+        <div class="kern-form-input">
+          <label data-t="antrag.37" class="kern-label" for="nachweis">Zulassungsbescheinigung Teil I</label>
+          <div data-t="antrag.38" class="kern-hint" id="nachweis-hinweis">Erlaubte Formate: JPG, PNG, PDF. Höchstens 10 MB.</div>
+          <input class="kern-form-input__input" id="nachweis" name="nachweis" type="file" aria-describedby="nachweis-hinweis" />
+        </div>
+        <div class="kern-form-check">
+          <input class="kern-form-check__checkbox" id="sozialpass" name="sozialpass" type="checkbox">
+          <label data-t="antrag.39" class="kern-label" for="sozialpass">Ich habe einen Sozialpass (Ermäßigung).</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="kern-fieldset kern-fieldset--error" aria-describedby="einwilligung-fehler">
+      <legend data-t="antrag.50" class="kern-label">Einwilligung</legend>
+      <div class="kern-fieldset__body">
+        <div class="kern-form-check">
+          <input class="kern-form-check__checkbox kern-form-check__checkbox--error" id="datenschutz" name="datenschutz" type="checkbox" aria-invalid="true">
+          <label data-t="antrag.40" class="kern-label" for="datenschutz">Ich habe die Hinweise zum Datenschutz gelesen.</label>
+        </div>
+      </div>
+      <p class="kern-error" id="einwilligung-fehler">
+        <span class="kern-icon kern-icon--danger kern-icon--md" aria-hidden="true"></span>
+        <span data-t="antrag.51" class="kern-body">Bestätigen Sie, dass Sie die Hinweise zum Datenschutz gelesen haben.</span>
+      </p>
+    </fieldset>
+
+    <div class="kern-flex kern-flex-wrap op-reihe">
+      <button type="button" class="kern-btn kern-btn--secondary"><span class="kern-icon kern-icon--arrow-back" aria-hidden="true"></span><span data-t="antrag.41" class="kern-label">Zurück</span></button>
+      <button type="button" class="kern-btn kern-btn--primary"><span data-t="antrag.42" class="kern-label">Weiter</span><span class="kern-icon kern-icon--arrow-forward" aria-hidden="true"></span></button>
+    </div>
+  </form>
+
+  <!-- ABSCHNITT: zusammenfassung (Teil des Antrags) -->
+  <div class="op-teil" id="zusammenfassung" data-abschnitt="zusammenfassung">
+    <div class="kern-summary-group">
+    <div class="kern-summary-group__header">
+      <h3 data-t="zusammenfassung.1" class="kern-heading-medium">Zusammenfassung</h3>
+    </div>
+    <div class="kern-summary">
+      <div class="kern-summary__header">
+        <h4 class="kern-title kern-title--small kern-summary__title-wrapper" id="zf-person">
+          <span class="kern-number" translate="no">1</span>
+          <span data-t="zusammenfassung.2">Angaben zur Person</span>
+        </h4>
+      </div>
+      <div class="kern-summary__body">
+        <dl class="kern-description-list">
+          <div class="kern-description-list-item">
+            <dt data-t="zusammenfassung.3" class="kern-description-list-item__key">Name</dt>
+            <dd class="kern-description-list-item__value" translate="no">Musterperson</dd>
+          </div>
+          <div class="kern-description-list-item">
+            <dt data-t="zusammenfassung.4" class="kern-description-list-item__key">Vorname</dt>
+            <dd class="kern-description-list-item__value" translate="no">Kim</dd>
+          </div>
+          <div class="kern-description-list-item">
+            <dt data-t="zusammenfassung.5" class="kern-description-list-item__key">Adresse</dt>
+            <dd class="kern-description-list-item__value" translate="no">Musterstraße 2, 23456 Musterstadt</dd>
+          </div>
+        </dl>
+        <div class="kern-summary__actions">
+          <a data-t="zusammenfassung.6" href="#antrag" class="kern-link" aria-describedby="zf-person">
+            <span class="kern-icon kern-icon--edit" aria-hidden="true"></span>
+            Bearbeiten
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="kern-summary">
+      <div class="kern-summary__header">
+        <h4 class="kern-title kern-title--small kern-summary__title-wrapper" id="zf-fahrzeug">
+          <span class="kern-number" translate="no">2</span>
+          <span data-t="zusammenfassung.7">Fahrzeug und Zone</span>
+        </h4>
+      </div>
+      <div class="kern-summary__body">
+        <dl class="kern-description-list">
+          <div class="kern-description-list-item">
+            <dt data-t="zusammenfassung.8" class="kern-description-list-item__key">Kennzeichen</dt>
+            <dd class="kern-description-list-item__value" translate="no">MU-ST 2026</dd>
+          </div>
+          <div class="kern-description-list-item">
+            <dt data-t="zusammenfassung.9" class="kern-description-list-item__key">Fahrzeugart</dt>
+            <dd data-t="zusammenfassung.10" class="kern-description-list-item__value">Pkw</dd>
+          </div>
+          <div class="kern-description-list-item">
+            <dt data-t="zusammenfassung.11" class="kern-description-list-item__key">Zone</dt>
+            <dd data-t="zusammenfassung.12" class="kern-description-list-item__value">Zone A Altstadt</dd>
+          </div>
+        </dl>
+        <div class="kern-summary__actions">
+          <a data-t="zusammenfassung.13" href="#fahrzeug" class="kern-link" aria-describedby="zf-fahrzeug">
+            <span class="kern-icon kern-icon--edit" aria-hidden="true"></span>
+            Bearbeiten
+          </a>
+        </div>
+      </div>
+    </div>
+    </div>
+    <button type="button" class="kern-btn kern-btn--block kern-btn--primary op-absenden"><span data-t="zusammenfassung.14" class="kern-label">Antrag verbindlich absenden</span></button>
+  </div>
+</section>
+
+<!-- ABSCHNITT: gebuehren — einfache Tabelle -->
+<section class="op-abschnitt" id="gebuehren" data-abschnitt="gebuehren" aria-labelledby="gebuehren-titel">
+  <div class="kern-table-responsive" tabindex="0">
+    <table class="kern-table kern-table--striped kern-table--small">
+      <caption data-t="gebuehren.1" class="kern-title" id="gebuehren-titel">Gebühren 2026</caption>
+      <thead class="kern-table__head">
+        <tr class="kern-table__row">
+          <th data-t="gebuehren.2" scope="col" class="kern-table__header">Leistung</th>
+          <th data-t="gebuehren.3" scope="col" class="kern-table__header">Gültigkeit</th>
+          <th data-t="gebuehren.4" scope="col" class="kern-table__header kern-table__header--numeric">Gebühr</th>
+        </tr>
+      </thead>
+      <tbody class="kern-table__body">
+        <tr class="kern-table__row">
+          <th data-t="gebuehren.5" scope="row" class="kern-table__header">Bewohnerparkausweis</th>
+          <td data-t="gebuehren.6" class="kern-table__cell">12 Monate</td>
+          <td class="kern-table__cell kern-table__cell--numeric" translate="no">120,00 €</td>
+        </tr>
+        <tr class="kern-table__row">
+          <th data-t="gebuehren.7" scope="row" class="kern-table__header">mit Sozialpass</th>
+          <td data-t="gebuehren.8" class="kern-table__cell">12 Monate</td>
+          <td class="kern-table__cell kern-table__cell--numeric" translate="no">60,00 €</td>
+        </tr>
+        <tr class="kern-table__row">
+          <th data-t="gebuehren.9" scope="row" class="kern-table__header">Besucherparkschein</th>
+          <td data-t="gebuehren.10" class="kern-table__cell">1 Tag</td>
+          <td class="kern-table__cell kern-table__cell--numeric" translate="no">3,00 €</td>
+        </tr>
+      </tbody>
+      <tfoot class="kern-table__footer">
+        <tr class="kern-table__row">
+          <th data-t="gebuehren.11" scope="col" class="kern-table__header">Ermäßigung mit Sozialpass</th>
+          <th scope="col" class="kern-table__header" translate="no">-</th>
+          <th scope="col" class="kern-table__header kern-table__header--numeric" translate="no">−50 %</th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</section>
+
+<!-- ABSCHNITT: fallliste — Sachbearbeitung: Tabelle mit Suche, Filter, Sortierung -->
+<section class="op-abschnitt" id="fallliste" data-abschnitt="fallliste" aria-labelledby="fallliste-titel">
+  <h2 data-t="fallliste.1" class="kern-heading-large" id="fallliste-titel">Fallliste der Sachbearbeitung</h2>
+  <p data-t="fallliste.2" class="kern-body kern-body--muted">Ansicht für Mitarbeitende des Bürgerservice.</p>
+
+  <div class="kn-table-toolbar op-werkzeug">
+    <div class="kn-table-toolbar__tools">
+      <search class="kern-form-input kn-table-toolbar__search">
+        <label data-t="fallliste.3" class="kern-label" for="fall-suche">Fälle durchsuchen</label>
+        <div class="kern-input-group">
+          <input class="kern-form-input__input" id="fall-suche" name="fall-suche" type="search" data-op-suche="faelle" />
+          <button class="kern-btn kern-btn--primary" type="button" data-op-suche-los="faelle">
+            <span class="kern-icon kern-icon--search" aria-hidden="true"></span>
+            <span data-t="fallliste.4" class="kern-label">Suchen</span>
+          </button>
+        </div>
+      </search>
+      <div data-t-aria="fallliste.5" class="op-filter" role="group" aria-label="Nach Stand filtern">
+        <button data-t="fallliste.6" class="kn-filter-tag" type="button" aria-pressed="false" data-op-filter="offen">Offen</button>
+        <button data-t="fallliste.7" class="kn-filter-tag" type="button" aria-pressed="false" data-op-filter="rueckfrage">Rückfrage</button>
+        <button data-t="fallliste.8" class="kn-filter-tag" type="button" aria-pressed="false" data-op-filter="erledigt">Erledigt</button>
+      </div>
+      <button class="kern-btn kern-btn--secondary op-neu-laden" type="button" data-op-neu-laden>
+        <span class="kern-icon kern-icon--autorenew" aria-hidden="true"></span>
+        <span data-t="fallliste.35" class="kern-label">Aktualisieren</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="kern-loader" role="status" data-op-lader>
+    <span data-t="fallliste.9" class="kern-sr-only">Fälle werden geladen</span>
+  </div>
+
+  <div class="kern-table-responsive kn-table-frame" tabindex="0">
+    <table class="kern-table kn-table--sticky-head" id="faelle" data-kn-sortable>
+      <caption data-t="fallliste.10" class="kern-sr-only">Fälle, sortierbar, durchsuchbar und filterbar</caption>
+      <thead class="kern-table__head">
+        <tr class="kern-table__row">
+          <th scope="col" class="kern-table__header kn-table-sort" aria-sort="none"><button data-t="fallliste.11" class="kn-table-sort__button">Aktenzeichen</button></th>
+          <th scope="col" class="kern-table__header kn-table-sort" aria-sort="none"><button data-t="fallliste.12" class="kn-table-sort__button">Name</button></th>
+          <th scope="col" class="kern-table__header kn-table-sort" aria-sort="none"><button data-t="fallliste.13" class="kn-table-sort__button">Zone</button></th>
+          <th scope="col" class="kern-table__header kn-table-sort" aria-sort="none"><button data-t="fallliste.14" class="kn-table-sort__button">Eingang</button></th>
+          <th data-t="fallliste.15" scope="col" class="kern-table__header">Stand</th>
+          <th data-t="fallliste.16" scope="col" class="kern-table__header kern-table__header--action">Aktionen</th>
+        </tr>
+      </thead>
+      <tbody class="kern-table__body">
+        <tr class="kern-table__row" data-op-stand="offen">
+          <th scope="row" class="kern-table__header" id="fall-1041" translate="no">2026-BPA-1041</th>
+          <td class="kern-table__cell" translate="no">K. Musterperson</td><td class="kern-table__cell" translate="no">A</td><td class="kern-table__cell" translate="no">03.03.2026</td>
+          <td class="kern-table__cell"><span class="kern-badge kern-badge--small"><span data-t="fallliste.17" class="kern-label">Offen</span></span></td>
+          <td class="kern-table__cell kern-table__cell--action">
+            <button data-t-title="fallliste.36" class="kern-btn kern-btn--tertiary kern-btn--x-small" aria-describedby="fall-1041" title="Aktenzeichen kopieren" data-op-kopieren="2026-BPA-1041"><span class="kern-icon kern-icon--content-copy" aria-hidden="true"></span><span data-t="fallliste.37" class="kern-label kern-sr-only">Aktenzeichen kopieren</span></button>
+            <button data-t-title="fallliste.18" class="kern-btn kern-btn--tertiary kern-btn--x-small" aria-describedby="fall-1041" title="Bearbeiten"><span class="kern-icon kern-icon--edit" aria-hidden="true"></span><span data-t="fallliste.19" class="kern-label kern-sr-only">Bearbeiten</span></button>
+          </td>
+        </tr>
+        <tr class="kern-table__row" data-op-stand="rueckfrage">
+          <th scope="row" class="kern-table__header" id="fall-1038" translate="no">2026-BPA-1038</th>
+          <td class="kern-table__cell" translate="no">T. Okonkwo</td><td class="kern-table__cell" translate="no">B</td><td class="kern-table__cell" translate="no">01.03.2026</td>
+          <td class="kern-table__cell"><span class="kern-badge kern-badge--small kern-badge--warning"><span data-t="fallliste.20" class="kern-label">Rückfrage</span></span></td>
+          <td class="kern-table__cell kern-table__cell--action">
+            <button data-t-title="fallliste.38" class="kern-btn kern-btn--tertiary kern-btn--x-small" aria-describedby="fall-1038" title="Aktenzeichen kopieren" data-op-kopieren="2026-BPA-1038"><span class="kern-icon kern-icon--content-copy" aria-hidden="true"></span><span data-t="fallliste.39" class="kern-label kern-sr-only">Aktenzeichen kopieren</span></button>
+            <button data-t-title="fallliste.21" class="kern-btn kern-btn--tertiary kern-btn--x-small" aria-describedby="fall-1038" title="Bearbeiten"><span class="kern-icon kern-icon--edit" aria-hidden="true"></span><span data-t="fallliste.22" class="kern-label kern-sr-only">Bearbeiten</span></button>
+          </td>
+        </tr>
+        <tr class="kern-table__row" data-op-stand="erledigt">
+          <th scope="row" class="kern-table__header" id="fall-1022" translate="no">2026-BPA-1022</th>
+          <td class="kern-table__cell" translate="no">M. Lindqvist</td><td class="kern-table__cell" translate="no">C</td><td class="kern-table__cell" translate="no">24.02.2026</td>
+          <td class="kern-table__cell"><span class="kern-badge kern-badge--small kern-badge--success"><span data-t="fallliste.23" class="kern-label">Erledigt</span></span></td>
+          <td class="kern-table__cell kern-table__cell--action">
+            <button data-t-title="fallliste.40" class="kern-btn kern-btn--tertiary kern-btn--x-small" aria-describedby="fall-1022" title="Aktenzeichen kopieren" data-op-kopieren="2026-BPA-1022"><span class="kern-icon kern-icon--content-copy" aria-hidden="true"></span><span data-t="fallliste.41" class="kern-label kern-sr-only">Aktenzeichen kopieren</span></button>
+            <button data-t-title="fallliste.24" class="kern-btn kern-btn--tertiary kern-btn--x-small" aria-describedby="fall-1022" title="Bearbeiten"><span class="kern-icon kern-icon--edit" aria-hidden="true"></span><span data-t="fallliste.25" class="kern-label kern-sr-only">Bearbeiten</span></button>
+          </td>
+        </tr>
+        <tr class="kern-table__row" data-op-stand="offen">
+          <th scope="row" class="kern-table__header" id="fall-1047" translate="no">2026-BPA-1047</th>
+          <td class="kern-table__cell" translate="no">A. Ferreira</td><td class="kern-table__cell" translate="no">A</td><td class="kern-table__cell" translate="no">05.03.2026</td>
+          <td class="kern-table__cell"><span class="kern-badge kern-badge--small"><span data-t="fallliste.26" class="kern-label">Offen</span></span></td>
+          <td class="kern-table__cell kern-table__cell--action">
+            <button data-t-title="fallliste.42" class="kern-btn kern-btn--tertiary kern-btn--x-small" aria-describedby="fall-1047" title="Aktenzeichen kopieren" data-op-kopieren="2026-BPA-1047"><span class="kern-icon kern-icon--content-copy" aria-hidden="true"></span><span data-t="fallliste.43" class="kern-label kern-sr-only">Aktenzeichen kopieren</span></button>
+            <button data-t-title="fallliste.27" class="kern-btn kern-btn--tertiary kern-btn--x-small" aria-describedby="fall-1047" title="Bearbeiten"><span class="kern-icon kern-icon--edit" aria-hidden="true"></span><span data-t="fallliste.28" class="kern-label kern-sr-only">Bearbeiten</span></button>
+          </td>
+        </tr>
+        <tr class="kern-table__row" data-op-stand="erledigt">
+          <th scope="row" class="kern-table__header" id="fall-1019" translate="no">2026-BPA-1019</th>
+          <td class="kern-table__cell" translate="no">J. Weiß</td><td class="kern-table__cell" translate="no">B</td><td class="kern-table__cell" translate="no">20.02.2026</td>
+          <td class="kern-table__cell"><span class="kern-badge kern-badge--small kern-badge--success"><span data-t="fallliste.29" class="kern-label">Erledigt</span></span></td>
+          <td class="kern-table__cell kern-table__cell--action">
+            <button data-t-title="fallliste.44" class="kern-btn kern-btn--tertiary kern-btn--x-small" aria-describedby="fall-1019" title="Aktenzeichen kopieren" data-op-kopieren="2026-BPA-1019"><span class="kern-icon kern-icon--content-copy" aria-hidden="true"></span><span data-t="fallliste.45" class="kern-label kern-sr-only">Aktenzeichen kopieren</span></button>
+            <button data-t-title="fallliste.30" class="kern-btn kern-btn--tertiary kern-btn--x-small" aria-describedby="fall-1019" title="Bearbeiten"><span class="kern-icon kern-icon--edit" aria-hidden="true"></span><span data-t="fallliste.31" class="kern-label kern-sr-only">Bearbeiten</span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="kn-empty-state op-leer" data-op-leer hidden>
+    <p data-t="fallliste.32" class="kn-empty-state__title">Keine Fälle gefunden</p>
+    <p data-t="fallliste.33" class="kern-body">Kein Fall passt zu Suche und Filter.</p>
+    <button class="kern-btn kern-btn--secondary kern-btn--small" type="button" data-op-zuruecksetzen><span data-t="fallliste.34" class="kern-label">Suche und Filter zurücksetzen</span></button>
+  </div>
+  <p class="kern-body kern-body--small kern-body--muted" data-op-zaehler aria-live="off"></p>
+</section>
+
+<!-- ABSCHNITT: bescheid — Beschreibungsliste, Dialog -->
+<section class="op-abschnitt" id="bescheid" data-abschnitt="bescheid" aria-labelledby="bescheid-titel">
+  <h2 class="kern-heading-large" id="bescheid-titel"><span data-t="bescheid.1">Bescheid</span> <span translate="no">2026-BPA-1022</span></h2>
+  <dl class="kern-description-list kern-description-list--col">
+    <div class="kern-description-list-item">
+      <dt data-t="bescheid.2" class="kern-description-list-item__key">Entscheidung</dt>
+      <dd data-t="bescheid.3" class="kern-description-list-item__value">Bewilligt</dd>
+    </div>
+    <div class="kern-description-list-item">
+      <dt data-t="bescheid.4" class="kern-description-list-item__key">Gültig</dt>
+      <dd data-t="bescheid.5" class="kern-description-list-item__value">01.03.2026 bis 28.02.2027</dd>
+    </div>
+    <div class="kern-description-list-item">
+      <dt data-t="bescheid.6" class="kern-description-list-item__key">Zone</dt>
+      <dd data-t="bescheid.7" class="kern-description-list-item__value">C Nord</dd>
+    </div>
+    <div class="kern-description-list-item">
+      <dt data-t="bescheid.8" class="kern-description-list-item__key">Gebühr</dt>
+      <dd class="kern-description-list-item__value" translate="no">120,00 €</dd>
+    </div>
+  </dl>
+  <div class="kern-flex kern-flex-wrap op-reihe">
+    <button type="button" class="kern-btn kern-btn--primary"><span class="kern-icon kern-icon--download" aria-hidden="true"></span><span data-t="bescheid.9" class="kern-label">Bescheid herunterladen</span></button>
+    <button type="button" class="kern-btn kern-btn--secondary" data-op-dialog="dialog-zurueck"><span data-t="bescheid.10" class="kern-label">Antrag zurückziehen</span></button>
+  </div>
+
+  <dialog id="dialog-zurueck" class="kern-dialog" aria-labelledby="dialog-zurueck-titel">
+    <header class="kern-dialog__header">
+      <h2 data-t="bescheid.11" class="kern-title kern-title--large" id="dialog-zurueck-titel">Antrag zurückziehen?</h2>
+      <button class="kern-btn kern-btn--tertiary" data-op-schliessen>
+        <span class="kern-icon kern-icon--close" aria-hidden="true"></span>
+        <span data-t="bescheid.12" class="kern-sr-only">Schließen</span>
+      </button>
+    </header>
+    <section class="kern-dialog__body">
+      <p data-t="bescheid.13" class="kern-body">Der Ausweis wird ungültig. Die Gebühr wird anteilig erstattet. Das lässt sich nicht rückgängig machen.</p>
+    </section>
+    <footer class="kern-dialog__footer">
+      <button class="kern-btn kern-btn--secondary" data-op-schliessen>
+        <span data-t="bescheid.14" class="kern-label">Abbrechen</span>
+      </button>
+      <button class="kern-btn kern-btn--primary" data-op-schliessen>
+        <span data-t="bescheid.15" class="kern-label">Zurückziehen</span>
+      </button>
+    </footer>
+  </dialog>
+</section>
+
+<!-- ABSCHNITT: fragen — Akkordeon -->
+<section class="op-abschnitt" id="fragen" data-abschnitt="fragen" aria-labelledby="fragen-titel">
+  <h2 data-t="fragen.1" class="kern-heading-large" id="fragen-titel">Häufige Fragen</h2>
+  <div class="kern-accordion-group">
+    <details class="kern-accordion">
+      <summary class="kern-accordion__header">
+        <span data-t="fragen.2" class="kern-title">Wer bekommt einen Bewohnerparkausweis?</span>
+      </summary>
+      <section class="kern-accordion__body">
+        <p data-t="fragen.3" class="kern-body">Alle, die in der Zone mit Hauptwohnsitz gemeldet sind und ein Fahrzeug auf sich zugelassen haben oder dauerhaft nutzen.</p>
+      </section>
+    </details>
+    <details class="kern-accordion">
+      <summary class="kern-accordion__header">
+        <span data-t="fragen.4" class="kern-title">Wie lange dauert die Bearbeitung?</span>
+      </summary>
+      <section class="kern-accordion__body">
+        <p data-t="fragen.5" class="kern-body">In der Regel fünf Arbeitstage. Fehlt ein Nachweis, melden wir uns.</p>
+      </section>
+    </details>
+    <details class="kern-accordion" open>
+      <summary class="kern-accordion__header">
+        <span data-t="fragen.6" class="kern-title">Kann ich mich mit dem Servicekonto anmelden?</span>
+      </summary>
+      <section class="kern-accordion__body">
+        <p data-t="fragen.7" class="kern-body">Ja. Dann sind Ihre Angaben schon ausgefüllt.</p>
+        <div class="kern-form-input op-schmal">
+          <label data-t="fragen.8" class="kern-label" for="passwort">Passwort des Servicekontos</label>
+          <div class="kern-input-group">
+            <input class="kern-form-input__input" id="passwort" name="passwort" type="password" autocomplete="current-password" />
+            <button class="kern-btn kern-btn--secondary" type="button" aria-pressed="false">
+              <span class="kern-icon kern-icon--visibility-off" aria-hidden="true"></span>
+              <span data-t="fragen.9" class="kern-label kern-sr-only">Passwort anzeigen</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </details>
+  </div>
+</section>
+
+</div>
+</main>
+
+<!-- ABSCHNITT: fuss -->
+<footer class="kn-footer">
+  <div class="kn-footer__columns">
+    <div>
+      <p data-t="fuss.1" class="kn-footer__title">Rechtliches</p>
+      <ul class="kn-footer__list">
+        <li><a data-t="fuss.2" class="kern-link kern-link--no-visited-state" href="#start">Barrierefreiheit</a></li>
+        <li><a data-t="fuss.3" class="kern-link kern-link--no-visited-state" href="#start">Datenschutz</a></li>
+        <li><a data-t="fuss.4" class="kern-link kern-link--no-visited-state" href="#start">Impressum</a></li>
+      </ul>
+    </div>
+    <div>
+      <p data-t="fuss.5" class="kn-footer__title">Kontakt</p>
+      <ul class="kn-footer__list">
+        <li><a data-t="fuss.6" class="kern-link kern-link--no-visited-state" href="#start">Bürgerbüro Musterstadt</a></li>
+        <li><a data-t="fuss.7" class="kern-link kern-link--no-visited-state" href="#start">Leichte Sprache</a></li>
+      </ul>
+    </div>
+  </div>
+  <p data-t="fuss.8" class="kn-footer__legal">Musterstadt ist erfunden. Gestaltet mit KERN 2.8.2 (nbyc) — interne Adaption von KERN 2.8.2, nicht das offizielle KERN.</p>
+</footer>
+
+<!-- Statusstreifen: Fassung und Verbindung zum Designer; Schalter für den Inspektor -->
+<div class="op-status">
+  <span class="op-status__text" role="status" aria-live="polite">
+    <span data-op-fassung translate="no">KERN 2.8.2 (nbyc)</span>
+    <span class="op-status__trenner" aria-hidden="true" translate="no">·</span>
+    <span data-t="status.1" data-op-verbindung>nicht verbunden</span>
+  </span>
+  <button data-t="status.2" type="button" class="op-status__knopf" data-op-inspektor aria-pressed="true" aria-keyshortcuts="Alt+I">Inspektor</button>
+</div>
+
+<script src="../KERN%202.8.2%20(nbyc)/system/kern-neu.js?v=2.8.2-nbyc.42"></script>
+<!-- Messung: dieselbe Farbrechnung und dieselben Schwellen wie im Designer (EINE Quelle) -->
+<script src="../KERN%20Designer/skript/farbe.js"></script>
+<script src="../KERN%20Designer/daten/regeln.js"></script>
+<!-- Übersetzungen (Deutsch steht im HTML selbst); .js, damit es auch per Doppelklick lädt -->
+<script src="texte/en.js"></script>
+<script src="texte/fr.js"></script>
+<script src="texte/es.js"></script>
+<script src="texte/it.js"></script>
+<script src="texte/uk.js"></script>
+<script src="onepager.js"></script>
+<!-- Inspektor: Bausteine und Namen aus dem Designer (EINE Quelle) -->
+<script src="../KERN%20Designer/daten/verwendung.js"></script>
+<script src="../KERN%20Designer/texte/de.js"></script>
+<script src="../KERN%20Designer/texte/en.js"></script>
+<script src="../KERN%20Designer/texte/fr.js"></script>
+<script src="../KERN%20Designer/texte/es.js"></script>
+<script src="../KERN%20Designer/texte/it.js"></script>
+<script src="../KERN%20Designer/texte/uk.js"></script>
+<script src="inspektor.js"></script>
+</body>
+</html>

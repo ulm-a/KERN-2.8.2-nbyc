@@ -1,0 +1,33 @@
+name: Wunsch oder Vorschlag
+description: Ein Baustein, eine Variante, eine Erleichterung
+labels: ["Wunsch"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vor einem neuen Baustein gilt: erst prüfen, ob KERN-Bausteine kombiniert schon
+        reichen (KERNs Prinzip „Weiterentwickeln statt Neubauen").
+  - type: textarea
+    id: bedarf
+    attributes:
+      label: Welcher Bedarf steckt dahinter?
+      description: Wer will was erreichen — nicht die Lösung, sondern die Aufgabe.
+    validations:
+      required: true
+  - type: textarea
+    id: heute
+    attributes:
+      label: Wie geht es heute?
+      description: Was man jetzt tun muss und warum das mühsam ist.
+  - type: textarea
+    id: vorschlag
+    attributes:
+      label: Vorschlag
+      description: Falls schon eine Idee da ist — gern mit Beispiel aus KERN oder einem anderen System.
+  - type: checkboxes
+    id: geprueft
+    attributes:
+      label: Schon geprüft
+      options:
+        - label: KERN hat dafür keinen Baustein (Katalog durchgesehen)
+        - label: Eine Kombination bestehender KERN-Bausteine reicht nicht

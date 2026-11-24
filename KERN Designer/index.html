@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="de" data-kd-modus="dunkel" data-kd-groesse="klein">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KERN Designer</title>
+<link rel="stylesheet" href="stil/designer-tokens.css">
+<link rel="stylesheet" href="stil/designer.css">
+</head>
+<body>
+
+<header class="kd-kopf">
+  <h1 class="kd-kopf__marke" data-t="ui.titel">KERN Designer</h1>
+  <span class="kd-kopf__trenner" aria-hidden="true"></span>
+  <p class="kd-kopf__fassung">
+    <span class="kd-versal kd-leise" data-t="ui.fassung_titel">Fassung</span>
+    <strong id="kd-fassung">…</strong>
+  </p>
+  <span class="kd-kopf__trenner" aria-hidden="true"></span>
+  <p class="kd-kopf__zustand" role="status">
+    <span class="kd-versal kd-leise" id="kd-verbindung">…</span>
+    <span><span id="kd-zustand-text">…</span> · <span class="kd-leise" id="kd-seit-fassung"></span> · <span class="kd-leise" id="kd-abweichungen"></span></span>
+  </p>
+  <div class="kd-kopf__ende">
+    <!-- Immer sichtbar (D15): im Kopf statt in der Werkzeugzeile, die bei kleinen Fenstern wegscrollte -->
+    <div class="kd-kopf__verlauf" role="group" data-t-label="ui.verlauf">
+      <button type="button" class="kd-knopf kd-knopf--klein" id="kd-zurueck" aria-keyshortcuts="Meta+Z Control+Z"><span aria-hidden="true">↶</span><span data-t="ui.rueckgaengig">Rückgängig</span></button>
+      <button type="button" class="kd-knopf kd-knopf--klein" id="kd-vor" aria-keyshortcuts="Meta+Shift+Z Control+Shift+Z"><span aria-hidden="true">↷</span><span data-t="ui.wiederholen">Wiederholen</span></button>
+      <button type="button" class="kd-knopf kd-knopf--klein" id="kd-alles-kern" data-t="ui.alles_auf_kern">Alles auf KERN</button>
+    </div>
+    <button type="button" class="kd-knopf kd-knopf--haupt" id="kd-speichern" aria-keyshortcuts="Meta+S Control+S">
+      <span data-t="ui.speichern">Werte speichern</span>
+      <span class="kd-zahl kd-mono-zahl" id="kd-zaehler-speichern" hidden></span>
+    </button>
+    <button type="button" class="kd-knopf" id="kd-version">
+      <span data-t="ui.neue_version">Neue Version</span>
+      <span class="kd-zahl kd-zahl--leise kd-mono-zahl" id="kd-zaehler-version" hidden></span>
+    </button>
+    <button type="button" class="kd-knopf" id="kd-einst-knopf" aria-expanded="false" aria-controls="kd-einst" aria-keyshortcuts="?">
+      <span aria-hidden="true">⚙</span><span data-t="ui.einstellungen">Einstellungen</span>
+    </button>
+  </div>
+</header>
+
+<section class="kd-einst" id="kd-einst" hidden data-t-label="ui.einstellungen">
+  <fieldset>
+    <legend class="kd-versal kd-leise" data-t="ui.darstellung">Darstellung</legend>
+    <div class="kd-segmente">
+      <label><input type="radio" name="kd-darstellung" value="hell"><span data-t="ui.hell">Hell</span></label>
+      <label><input type="radio" name="kd-darstellung" value="dunkel"><span data-t="ui.dunkel">Dunkel</span></label>
+      <label><input type="radio" name="kd-darstellung" value="system"><span data-t="ui.system">System</span></label>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend class="kd-versal kd-leise" data-t="ui.groesse">Größe</legend>
+    <div class="kd-segmente">
+      <label><input type="radio" name="kd-groesse" value="klein"><span data-t="ui.klein">Klein</span></label>
+      <label><input type="radio" name="kd-groesse" value="gross"><span data-t="ui.gross">Groß</span></label>
+    </div>
+  </fieldset>
+  <!-- Inspektor im OnePager (D21): eine Einstellung für alle offenen OnePager, über den Server -->
+  <fieldset>
+    <legend class="kd-versal kd-leise" data-t="ui.inspektor">Inspektor im OnePager</legend>
+    <div class="kd-segmente">
+      <label><input type="radio" name="kd-inspektor" value="aus"><span data-t="ui.inspektor_aus">Aus</span></label>
+      <label><input type="radio" name="kd-inspektor" value="zeigen"><span data-t="ui.inspektor_zeigen">Beim Zeigen</span></label>
+      <label><input type="radio" name="kd-inspektor" value="alt"><span id="kd-inspektor-alt"></span></label>
+    </div>
+  </fieldset>
+  <div class="kd-einst__feld">
+    <label class="kd-versal kd-leise" for="kd-sprache" data-t="ui.sprache">Sprache</label>
+    <select class="kd-feld" id="kd-sprache"></select>
+  </div>
+  <div class="kd-einst__feld">
+    <span class="kd-versal kd-leise" data-t="ui.export">Export der gespeicherten Fassung</span>
+    <span class="kd-export">
+      <a class="kd-knopf kd-knopf--klein" href="../KERN%202.8.2%20(nbyc)/thema/kern-thema.css" download>kern-thema.css</a>
+      <a class="kd-knopf kd-knopf--klein" href="../KERN%202.8.2%20(nbyc)/thema/kern-thema.tokens.json" download>kern-thema.tokens.json</a>
+    </span>
+  </div>
+  <!-- Kurzbefehle (D19): eine Liste aus KURZBEFEHLE in designer.js, Tasten je System (⌘ / Strg) -->
+  <section class="kd-kurz" id="kd-kurz" aria-labelledby="kd-kurz-titel">
+    <h2 class="kd-versal kd-leise kd-kurz__titel" id="kd-kurz-titel" data-t="ui.kurz_titel">Kurzbefehle</h2>
+    <p class="kd-klein kd-leise kd-kurz__einleitung" data-t="ui.kurz_einleitung"></p>
+    <div class="kd-kurz__gruppen" id="kd-kurz-gruppen"></div>
+  </section>
+</section>
+
+<div class="kd-meldung" id="kd-meldung" role="alert" hidden>
+  <span id="kd-meldung-text"></span>
+  <button type="button" class="kd-knopf kd-knopf--klein" id="kd-meldung-ok" data-t="ui.verstanden">Verstanden</button>
+</div>
+<div class="kd-fluechtig" id="kd-fluechtig" role="status" hidden></div>
+
+<section class="kd-a11y" aria-labelledby="kd-a11y-titel">
+  <div class="kd-a11y__kopf">
+    <h2 class="kd-a11y__titel kd-versal" id="kd-a11y-titel" data-t="ui.a11y_titel">Barrierefreiheit</h2>
+    <div class="kd-a11y__reihen">
+      <ul class="kd-a11y__zahlen" id="kd-a11y-zahlen"></ul>
+      <ul class="kd-a11y__zahlen" id="kd-a11y-zahlen-mess"></ul>
+    </div>
+    <button type="button" class="kd-knopf kd-knopf--klein" id="kd-a11y-knopf" aria-expanded="false" aria-controls="kd-a11y-liste"></button>
+  </div>
+  <ul class="kd-a11y__liste" id="kd-a11y-liste" hidden></ul>
+</section>
+
+<div class="kd-arbeit">
+  <nav class="kd-navi" aria-labelledby="kd-navi-titel">
+    <!-- Schmale Fenster: Navigation zugeklappt, nur diese Zeile (D15) -->
+    <button type="button" class="kd-knopf kd-navi__schalter" id="kd-navi-schalter" aria-expanded="false" aria-controls="kd-navi-klappe">
+      <span class="kd-versal kd-leise" data-t="ui.ordnung">Ordnung</span>
+      <span id="kd-navi-auswahl"></span><span aria-hidden="true">▾</span>
+    </button>
+    <div class="kd-navi__klappe" id="kd-navi-klappe">
+    <fieldset class="kd-navi__ordnung">
+      <legend class="kd-versal" id="kd-navi-titel" data-t="ui.ordnung">Ordnung</legend>
+      <div class="kd-segmente">
+        <label><input type="radio" name="kd-ordnung" value="schicht"><span data-t="ui.nach_schicht">Schicht</span></label>
+        <label><input type="radio" name="kd-ordnung" value="atomic"><span data-t="ui.nach_atomic">Atomic</span></label>
+      </div>
+    </fieldset>
+    <div id="kd-navi-inhalt"></div>
+    </div>
+  </nav>
+
+  <main class="kd-tokens">
+    <div class="kd-werkzeug">
+      <!-- Suche als Befehlszeile (D17): Vorsatz, Feld, Treffer, Leeren, Taste "/" — eine Höhe -->
+      <div class="kd-suche" role="search">
+        <label class="kd-suche__vorn" for="kd-suche"><span aria-hidden="true">⌕</span><span class="kd-versal" data-t="ui.suche_kurz">Suche</span></label>
+        <input class="kd-suche__feld" id="kd-suche" type="search" autocomplete="off" spellcheck="false"
+               aria-describedby="kd-suche-hinweis" aria-keyshortcuts="/" data-t-platzhalter="ui.suche_platzhalter">
+        <span class="kd-suche__treffer kd-mono-zahl" id="kd-suche-treffer" aria-live="polite"></span>
+        <button type="button" class="kd-suche__leeren" id="kd-suche-leeren" data-t-label="ui.suche_leeren" hidden><span aria-hidden="true">✕</span></button>
+        <kbd class="kd-suche__taste" aria-hidden="true">/</kbd>
+        <span class="kd-sr" id="kd-suche-hinweis" data-t="ui.suche_hinweis"></span>
+      </div>
+      <fieldset class="kd-werkzeug__gruppe">
+        <legend class="kd-versal kd-leise" data-t="ui.bearbeite_modus">Farben bearbeiten für</legend>
+        <div class="kd-segmente">
+          <label><input type="radio" name="kd-bearbeite" value="hell"><span data-t="ui.hell">Hell</span></label>
+          <label><input type="radio" name="kd-bearbeite" value="dunkel"><span data-t="ui.dunkel">Dunkel</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="kd-werkzeug__gruppe">
+        <legend class="kd-versal kd-leise" data-t="ui.zeigen">Zeigen</legend>
+        <div class="kd-segmente">
+          <label><input type="radio" name="kd-filter" value="alle"><span data-t="ui.filter_alle">Alle</span></label>
+          <label><input type="radio" name="kd-filter" value="ab"><span data-t="ui.filter_ab">Abweichungen</span></label>
+          <label><input type="radio" name="kd-filter" value="neu"><span data-t="ui.filter_neu">Ungespeichert</span></label>
+        </div>
+      </fieldset>
+    </div>
+    <div class="kd-gruppe__kopf">
+      <h2 class="kd-gruppe__titel" id="kd-tokens-titel" tabindex="-1"></h2>
+      <span class="kd-leise kd-versal" id="kd-tokens-anzahl"></span>
+      <p class="kd-leise kd-klein kd-gruppe__hinweis" id="kd-tokens-hinweis"></p>
+    </div>
+    <ul class="kd-zeilen" id="kd-zeilen"></ul>
+  </main>
+</div>
+
+<dialog class="kd-dialog" id="kd-dialog" aria-labelledby="kd-dialog-titel" aria-describedby="kd-dialog-text">
+  <h2 class="kd-dialog__titel" id="kd-dialog-titel"></h2>
+  <p id="kd-dialog-text"></p>
+  <ul class="kd-dialog__liste" id="kd-dialog-liste"></ul>
+  <div class="kd-dialog__knoepfe">
+    <button type="button" class="kd-knopf" id="kd-dialog-nein" data-t="ui.abbrechen">Abbrechen</button>
+    <button type="button" class="kd-knopf kd-knopf--haupt" id="kd-dialog-ja"></button>
+  </div>
+</dialog>
+
+<dialog class="kd-dialog" id="kd-version-dialog" aria-labelledby="kd-version-titel" aria-describedby="kd-version-text">
+  <h2 class="kd-dialog__titel" id="kd-version-titel" data-t="ui.version_titel">Neue Version anlegen</h2>
+  <p id="kd-version-text"></p>
+  <fieldset class="kd-stufen">
+    <legend class="kd-versal kd-leise" data-t="ui.version_stufe">Was steigt?</legend>
+    <label class="kd-stufe"><input type="radio" name="kd-stufe" value="korrektur" aria-describedby="kd-stufe-korrektur-hilfe"><span><strong id="kd-stufe-korrektur-text"></strong><span class="kd-leise kd-klein" id="kd-stufe-korrektur-hilfe"></span></span></label>
+    <label class="kd-stufe"><input type="radio" name="kd-stufe" value="neben" aria-describedby="kd-stufe-neben-hilfe"><span><strong id="kd-stufe-neben-text"></strong><span class="kd-leise kd-klein" id="kd-stufe-neben-hilfe"></span></span></label>
+    <label class="kd-stufe"><input type="radio" name="kd-stufe" value="haupt" aria-describedby="kd-stufe-haupt-hilfe"><span><strong id="kd-stufe-haupt-text"></strong><span class="kd-leise kd-klein" id="kd-stufe-haupt-hilfe"></span></span></label>
+  </fieldset>
+  <div class="kd-version-verstoesse" id="kd-version-verstoesse" hidden>
+    <p class="kd-marke kd-marke--rot" id="kd-version-verstoesse-titel"></p>
+    <ul class="kd-dialog__liste" id="kd-version-liste"></ul>
+  </div>
+  <div class="kd-dialog__knoepfe">
+    <button type="button" class="kd-knopf" id="kd-version-nein" data-t="ui.abbrechen">Abbrechen</button>
+    <button type="button" class="kd-knopf kd-knopf--haupt" id="kd-version-ja"></button>
+  </div>
+</dialog>
+
+<div class="kd-sr" id="kd-ansage" role="status" aria-live="polite"></div>
+<iframe id="kd-messrahmen" class="kd-messrahmen" src="messrahmen.html" title="Messrahmen" aria-hidden="true" tabindex="-1"></iframe>
+
+<script src="skript/farbe.js"></script>
+<script src="texte/de.js"></script>
+<script src="texte/en.js"></script>
+<script src="texte/fr.js"></script>
+<script src="texte/es.js"></script>
+<script src="texte/it.js"></script>
+<script src="texte/uk.js"></script>
+<script src="daten/regeln.js"></script>
+<script src="daten/verwendung.js"></script>
+<script src="skript/designer.js"></script>
+</body>
+</html>
