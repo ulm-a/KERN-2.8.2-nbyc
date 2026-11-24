@@ -135,9 +135,12 @@ Einzelheiten, Quellen und Prüfdaten: [`THIRD-PARTY.md`](THIRD-PARTY.md) und
 [`LIZENZ.txt`](KERN%202.8.2%20(nbyc)/LIZENZ.txt). Diese Angaben sind nach bestem Wissen
 zusammengestellt und ersetzen keine rechtliche Prüfung.
 
-**Vor einer Weitergabe nach außen** sind zwei Punkte offen: die Absprache mit dem
-KERN-Team über den Namen (KERN verlangt „nicht KERN ohne Absprache") und die
-rechtliche Prüfung der Lizenzlage. Bis dahin bleibt dieses Repository privat.
+**Zwei Punkte sind offen** und stehen hier, damit niemand sie übersieht: die
+Absprache mit dem KERN-Team über den Namen (KERN verlangt „nicht KERN ohne
+Absprache") und die rechtliche Prüfung der Lizenzlage. Das Repository ist dennoch
+öffentlich — eine bewusste Entscheidung, damit andere Verwaltungen die Arbeit
+nachnutzen können, statt sie erneut zu leisten. Kommt vom KERN-Team eine Auflage,
+wird der Name geändert.
 
 ## English summary
 

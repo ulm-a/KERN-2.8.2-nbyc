@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KERN unverändert, Tastatur ergänzt · KERN 2.8.2 (nbyc)</title>
+<meta name="description" content="Wie aus dem Vergleich von neun Design-Systemen eine KERN-Adaption wurde: Recherche, Qualitätskriterien, Token-Abgleich, Neubau mit Prüfstand und Storybook.">
+<link rel="stylesheet" href="../KERN%202.8.2%20(nbyc)/system/kern-neu.css?v=2.8.2-nbyc.44">
+</head>
+<body class="kn-page">
+
+<a class="kn-skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="kn-header">
+  <a class="kn-header__brand" href="../KERN%202.8.2%20(nbyc)/index.html">KERN <span>2.8.2 (nbyc) · Fassung 0.2.0</span></a>
+  <div class="kn-header__end">
+    <div class="kn-segmented">
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="light" aria-pressed="false">Hell</button>
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="theme" value="dark" aria-pressed="false">Dunkel</button>
+    </div>
+    <div class="kn-segmented">
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="contrast" value="normal" aria-pressed="false">Normal</button>
+      <button class="kn-segmented__button kn-segmented__button--small" data-kn-mode="contrast" value="high" aria-pressed="false">Kontrast</button>
+    </div>
+  </div>
+</header>
+
+<main class="kern-container kn-container--narrow" id="inhalt" style="padding-block:3rem">
+
+  <p class="kern-label kern-label--subtle">Werkstattbericht · 24.11.2026</p>
+  <h1 class="kern-heading-large">KERN unverändert, Tastatur und Rückmeldung ergänzt</h1>
+
+  <p class="kern-body kern-body--large">KERN 2.8.2 (nbyc) ist eine Nachnutzung von KERN:
+  <code>kern.css</code> 2.8.2 wird Byte für Byte unverändert eingebunden, und darauf kommt das,
+  was KERN der Umsetzung überlässt — ein Tastaturvertrag mit Ansage für jeden bedienbaren
+  Baustein, 44 Erweiterungen allein aus KERN-Tokens, erhöhter Kontrast, drei Dichte-Stufen und
+  ein zweisprachiger Katalog mit Entscheidungshilfe. Kein npm, kein Bauwerkzeug, keine
+  Netzabfrage zur Laufzeit.</p>
+
+  <p class="kern-body">Vorangegangen ist ein Vergleich von neun Design-Systemen gegen 95
+  prüfbare Qualitätskriterien. Dieser Bericht beschreibt, was dabei herauskam — und was davon
+  nachnutzbar ist, auch für andere.</p>
+
+  <div class="kern-alert kern-alert--info" style="margin-block:2rem">
+    <div class="kern-alert__header">
+      <span class="kern-icon kern-icon--info" aria-hidden="true"></span>
+      <h2 class="kern-title">Kein offizielles KERN</h2>
+    </div>
+    <div class="kern-alert__body">
+      <p class="kern-body">„2.8.2" ist die Version des eingebundenen offiziellen KERN und wird
+      nie hochgezählt; „(nbyc)" heißt „New by Claude" — gebaut mit Claude, dem KI-Assistenten
+      von Anthropic. Dies ist eine Adaption, kein Angebot des KERN-Projekts oder eines Landes.
+      Unsere eigene Fassung ist 0.2.0.</p>
+    </div>
+  </div>
+
+  <h2 class="kern-heading-medium">Auf einen Blick</h2>
+  <dl class="kern-description-list kern-description-list--col" style="margin-block:1.5rem">
+    <div class="kern-description-list-item">
+      <dt class="kern-description-list-item__key">9 Systeme</dt>
+      <dd class="kern-description-list-item__value">verglichen — Carbon, Material 3, Fluent 2, GOV.UK, USWDS, DSFR, NL Design System, KERN und diese Adaption</dd>
+    </div>
+    <div class="kern-description-list-item">
+      <dt class="kern-description-list-item__key">95 Kriterien</dt>
+      <dd class="kern-description-list-item__value">60 allgemeine und 35 KERN-eigene, jedes prüfbar formuliert und nach MUSS, SOLL, KANN abgestuft</dd>
+    </div>
+    <div class="kern-description-list-item">
+      <dt class="kern-description-list-item__key">4 152 Tokenwerte</dt>
+      <dd class="kern-description-list-item__value">gleich wie bei KERN, weil <code>kern.css</code> unverändert geladen wird</dd>
+    </div>
+    <div class="kern-description-list-item">
+      <dt class="kern-description-list-item__key">135 von 135</dt>
+      <dd class="kern-description-list-item__value">offizielle KERN-Beispiele deckungsgleich, Element für Element gemessen; Ausgangswert war 0</dd>
+    </div>
+    <div class="kern-description-list-item">
+      <dt class="kern-description-list-item__key">44 Erweiterungen</dt>
+      <dd class="kern-description-list-item__value">aus KERN-Tokens, dazu 38 KERN-Bausteine im Katalog — zweisprachig, mit Tastentabelle</dd>
+    </div>
+    <div class="kern-description-list-item">
+      <dt class="kern-description-list-item__key">27 Prüfungen</dt>
+      <dd class="kern-description-list-item__value">im Skript, jede erst fertig, wenn ihre Gegenprobe in einer Kopie rot war</dd>
+    </div>
+  </dl>
+
+  <hr class="kern-divider kern-divider--decorative">
+
+  <h2 class="kern-heading-medium">Die Recherche: neun Systeme nebeneinander</h2>
+
+  <p class="kern-body">Am Anfang stand nicht der Code, sondern die Frage, was ein Design-System
+  überhaupt leisten muss. Verglichen wurden neun Systeme aus drei Herkünften: Produktfirmen
+  (IBM Carbon v11, Material 3, Fluent 2), Staaten (GOV.UK, USWDS, DSFR) und Gemeinschaften
+  (NL Design System, KERN) — und KERN 2.8.2 (nbyc) selbst, damit der eigene Stand in derselben
+  Tabelle steht wie die anderen.</p>
+
+  <p class="kern-body">Das Ergebnis in einem Satz: Reife Systeme unterscheiden sich weniger im
+  <strong>Bestand</strong> als in den oberen Schichten — Dokumentation mit Entscheidungshilfe,
+  Beitragsweg, Pflegezusage, Versionierung. Wer unten eine Schicht auslässt, improvisiert oben:
+  ohne Abstandsskala landet irgendwann „14px" in einer Komponente, ohne Tastaturvertrag wird
+  jede Combobox anders gebaut.</p>
+
+  <h2 class="kern-heading-medium">Die Analyse: 95 Kriterien und ein Token-Abgleich</h2>
+
+  <p class="kern-body">Aus dem Vergleich wurden 60 allgemeine und 35 KERN-eigene
+  Qualitätskriterien, jedes prüfbar formuliert — von „drei Token-Schichten" und „kein Rohwert in
+  Bausteinen" über „Modi über Tokens" und „Ebenen" bis zu „Tastaturvertrag je Baustein" und
+  „Kontrastnachweis je Modus". In einer Matrix stehen die Kriterien gegen die neun Systeme; jede
+  Zelle ist belegt, nicht geschätzt.</p>
+
+  <p class="kern-body">Darauf folgte der Abgleich mit KERN selbst, Zahl für Zahl: 4 152
+  Tokenwerte, alle gleich. Die Vorarbeit hatte noch mit den Maßskalen von IBM Carbon gearbeitet —
+  13 Abstandsstufen, eigene Radien, eigene Laufweiten. Die sind vollständig entfernt; ein
+  Prüfskript sucht seitdem jedes rohe Maß und jede entfallene Carbon-Bezeichnung. Geblieben ist
+  ein einziger fremder Zahlenwert, eine Bewegungskurve, mit Herkunftsangabe an der Stelle im
+  Code — weil KERN keine Bewegungstokens hat.</p>
+
+  <p class="kern-body">Dabei sind auch 27 Befunde im Original KERN zusammengekommen: leere
+  Tokens (<code>dimension-6x-large</code> zeigt auf ein nicht definiertes
+  <code>--kern-120</code>), ein doppeltes „color" in einem Rollennamen, zwei widersprüchliche
+  Fassungen der Farbrollen, 46 Symbole ohne Herkunfts- und Lizenzangabe, kein
+  <code>prefers-reduced-motion</code>. Keiner davon wird nachgebaut und keiner still repariert:
+  Wo ein Fehler wirkt, steht ein benannter Ausweichwert mit Nummer, und die Liste geht als
+  Rückmeldung an das KERN-Team.</p>
+
+  <h2 class="kern-heading-medium">Der Neubau: KERN als Fundament, nicht als Vorlage</h2>
+
+  <ul class="kern-list kern-list--bullet">
+    <li><strong>KERN zuerst.</strong> <code>kern.css</code> 2.8.2 ist die erste Datei,
+      unverändert, mit Prüfsumme; alles Eigene steht in eigenen Dateien danach — so verlangt es
+      KERNs eigene Dokumentation. Bausteine lesen nur die oberste Token-Schicht.</li>
+    <li><strong>Tastatur und Rückmeldung als Teil des Bausteins.</strong> Jeder bedienbare
+      Baustein hat im Katalog einen Tastaturvertrag: Taste, Wirkung, und was Hilfsmittel ansagen.
+      Esc schließt jede Überlagerung und gibt den Fokus zurück, Pos1 und Ende wirken in allen
+      Listen, jede Zustandsänderung wird angesagt — über eine zentrale Live-Region, nicht über
+      zehn.</li>
+    <li><strong>44 Erweiterungen aus KERN-Tokens</strong> schließen die Lücke zu Carbon und
+      Material 3: Reiter, Combobox, Brotkrumen, Seitenweiser, Schrittfolge, Schublade, Kalender,
+      Datentabelle, Baum, Zeitleiste, Fehlerzusammenfassung über dem Formular, drei Meldungsarten
+      mit Regel, wann welche. Jede mit Katalogeintrag, Entscheidungshilfe und Tastentabelle.</li>
+    <li><strong>Ein Prüfstand statt Augenmaß.</strong> Alle 135 offiziellen KERN-Beispiele werden
+      Element für Element gegen die eigene Umsetzung gemessen — Lage und Größe mit 1 px Toleranz
+      und 17 Stilwerte. Die Gegenprobe läuft mit: beide Seiten mit offiziellem KERN ergeben 540
+      von 540 (hell und dunkel, 375 und 1 280 px), ein absichtlich falscher Eckenradius färbt
+      genau die vier Knopf-Beispiele rot.</li>
+    <li><strong>Kontrast nach KERNs eigenem Anspruch</strong> gemessen, nicht nur nach
+      WCAG-Minimum: Text ab 7 : 1, große Texte und Knopftext ab 4,5 : 1, Bedienelemente, Ränder
+      und Fokus ab 3 : 1 — in hell, dunkel und bei erhöhtem Kontrast, ohne Unterschreitung.</li>
+  </ul>
+
+  <h2 class="kern-heading-medium">Storybook und Werkzeuge</h2>
+
+  <p class="kern-body">Für die Entwicklung gibt es alle Bausteine auch als Storybook 9, im Format
+  von KERNs eigenem Storybook. Die Stories werden <strong>aus dem Katalog erzeugt</strong>, nie
+  von Hand geschrieben: 85 Katalogeinträge mit 195 Beispielen werden zu 86 Story-Dateien mit 196
+  Stories und 85 Doku-Seiten — Zweck, wann nehmen und wann nicht, Barrierefreiheit,
+  Tastaturvertrag, Klassen, Pflichten aus KERN, Bezeichnungen, alles Deutsch und Englisch. Der
+  Katalog bleibt die einzige Quelle; ändert er sich, läuft der Generator, und ein Prüflauf
+  vergleicht Stories und Katalog.</p>
+
+  <p class="kern-body">Dazu zwei kleine Werkzeuge: ein Token-Editor mit Live-Vorschau, der jeden
+  Token ändern kann, dabei je Token zeigt, ob KERN das freigibt oder davon abrät, den Kontrast
+  sofort nachrechnet und das Ergebnis als eigenes Thema mit eigener Fassung ablegt — das
+  unveränderte System darunter bleibt KERN. Und eine Seite mit allen Bausteinen, Varianten und
+  Zuständen auf einmal, zum Vergleichen und Messen.</p>
+
+  <h2 class="kern-heading-medium">Was offen ist</h2>
+
+  <p class="kern-body">Gemessen wurde bisher in Chromium und WebKit auf macOS, dazu ein externer
+  Prüfbericht in Chromium auf Windows. Nicht geprüft: Firefox, Screenreader (NVDA, JAWS,
+  VoiceOver), Sprachsteuerung und der Windows-Kontrastmodus. Die Schritte dafür liegen
+  ausgeschrieben im Projekt; „konnte nicht prüfen" steht dort als eigene Zeile und nicht als
+  „ok".</p>
+
+  <hr class="kern-divider kern-divider--decorative">
+
+  <h2 class="kern-heading-medium">Wie ist das gemacht?</h2>
+
+  <dl class="kern-description-list kern-description-list--col" style="margin-block:1.5rem">
+    <div class="kern-description-list-item">
+      <dt class="kern-description-list-item__key">Stack</dt>
+      <dd class="kern-description-list-item__value">Reines CSS und JavaScript (ES5, ohne Module),
+        Fira Sans örtlich, keine Laufzeit-Abhängigkeit und keine Netzabfrage — kein CDN, keine
+        Schriftabfrage, keine Analyse. Prüfskripte und Generatoren in Python 3 ohne Zusatzpakete.
+        npm nur im Storybook, mit festgeschriebenen Versionen und Lockfile.</dd>
+    </div>
+    <div class="kern-description-list-item">
+      <dt class="kern-description-list-item__key">Herkunft</dt>
+      <dd class="kern-description-list-item__value">Nachnutzung von KERN 2.8.2
+        (<code>@kern-ux/native</code>, 23.09.2026) unter EUPL-1.2, entstanden aus einer Vorarbeit
+        mit fremden Maßskalen, die vollständig auf KERNs Fundament umgezogen ist. Gebaut mit
+        Claude (Anthropic) als KI-Assistent; Entscheidungen, Freigaben und die Prüfung am Gerät
+        liegen bei Menschen. Symbole kommen über KERN aus den Material Symbols (Apache-2.0), die
+        Schrift ist Fira Sans (SIL OFL-1.1); beide Lizenztexte liegen bei.</dd>
+    </div>
+    <div class="kern-description-list-item">
+      <dt class="kern-description-list-item__key">Prüfstand</dt>
+      <dd class="kern-description-list-item__value">27 Prüfungen im Skript, jede mit roter
+        Gegenprobe in einer Kopie · 135 von 135 offiziellen KERN-Beispielen deckungsgleich,
+        Gegenproben 540 von 540 · 19 von 19 Verhaltensprüfungen in Chromium und WebKit ·
+        Storybook-Prüfseite 10 von 10 · ein externer Prüfbericht (105 Seiten) ausgewertet: fünf
+        eigene Befunde, alle behoben.</dd>
+    </div>
+  </dl>
+
+  <p class="kern-body kern-body--small kern-body--muted">Diese Seite ist mit dem beschriebenen
+  System gebaut: Sie lädt <code>system/kern-neu.css</code> aus dem Nachbarordner und benutzt
+  KERNs eigene Klassen. Die Schalter oben rechts wechseln Thema und Kontrast.</p>
+
+</main>
+
+<footer class="kn-footer">
+  <div class="kern-container kn-container--narrow">
+    <p class="kn-footer__legal" style="margin:0;border:0;padding:0">KERN 2.8.2 (nbyc), Fassung 0.2.0
+    (KERN 2.8.2 eingebunden, Erweiterungen aus KERN-Tokens), interne Adaption von KERN —
+    Tokens aus KERN 2.8.2 (EUPL-1.2), Fira Sans (SIL OFL).
+    Alle Beispieldaten sind erfunden.</p>
+  </div>
+</footer>
+
+<script src="../KERN%202.8.2%20(nbyc)/system/kern-neu.js?v=2.8.2-nbyc.44"></script>
+</body>
+</html>

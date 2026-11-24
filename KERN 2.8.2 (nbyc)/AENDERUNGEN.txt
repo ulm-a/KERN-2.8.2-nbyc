@@ -13,6 +13,118 @@ Neue Einträge hier oben anfügen (Kennung · WAS · WARUM · BELEG). Nächste f
 Kennungen und der Ablauf einer Änderung: "_ Instructions/Übergabe KERN 2.8.2
 (nbyc).txt" (Projektordner).
 
+M111 ARTIKEL FÜR DEN KERN KATALOG, ENTWURF                     24.11.2026
+     WAS    Neu "_ Documentation/artikel-katalog-0.2.0.md": Entwurf eines
+            Beitrags für katalog.kern-ux.de, nach dem Vorbild der dortigen
+            Einträge. Darin fünf Teile: die Felder des Beitrags (Art
+            "Technologie", Titel, Reifegrad Beta, Barrierefreiheit
+            "teilweise geprüft", Lizenz EUPL, Schlagwörter), eine KURZE
+            Fassung zum Einstellen (Kurzbeschreibung, Anmerkung zur
+            Barrierefreiheit, Abschnitt "Wie ist das gemacht?" mit Stack ·
+            Herkunft · Prüfstand), eine LANGE Fassung als Material
+            (Recherche, Analyse, Neubau, Storybook und Werkzeuge, was offen
+            ist), fünf Bildvorschläge mit Begründung und eine Tabelle der
+            gemessenen Längen. Inhalte aus dem Heft 0.2.0 (Kapitel 1–13,
+            19–21); die Zahl der Befunde im Original ist auf 27 gezogen
+            (das Heft nennt 26, F27 kam mit M108 hinzu).
+            Offen im Entwurf benannt: die Angabe unter "von", der Name
+            (K26), die rechtliche Prüfung und der Link auf ein Repository.
+            Eingestellt ist NICHTS — das macht die Nutzerin.
+     WARUM  Nutzerin 24.11.2026: "Schreibe einen kleinen Artikel … schau zu
+            möglichen Inhalten in 'KERN 2.8.2 (nbyc) 0.2.0
+            Dokumentation.pdf' … wichtig zu erklären: die Recherche, der
+            Vergleich zu anderen Design Systemen · die Analyse daraus, die
+            Qualitätskriterien, Abgleich Tokens · der neue Bau des
+            Design Systems inkl. Storybook · finde andere Artikel, Längen,
+            Visuals, Beispiele hier: https://katalog.kern-ux.de".
+            Der Katalog ist kein Blog, sondern ein Verzeichnis von
+            Beiträgen mit festen Feldern — darum ist der Artikel als
+            Beitrag gebaut, nicht als freier Text.
+     BELEG  Vorbilder am 24.11.2026 im Browser angesehen und ihren
+            Fließtext gemessen (Text zwischen Verfasserzeile und
+            "Eingestellt am"): "KERNUX Theme für WordPress" 997 Zeichen,
+            "Farben für Alle" 1 439 Zeichen plus 1 000 Zeichen im
+            Abschnitt "Wie ist das gemacht?"; die Seite "Beitragen" nennt
+            die sechs Arten von Beiträgen und die formale Prüfung durch
+            das KERN-Team. Eigener Entwurf gemessen: kurze Fassung 3 870
+            Zeichen, lange 5 509, dritter Absatz der kurzen 609 (ohne ihn
+            3 261). Das PDF selbst war nicht lesbar (pdftoppm fehlt auf
+            diesem Rechner) — gelesen wurde die QUELLE des Hefts,
+            "_ Documentation/quelle/dokument.html", aus der das PDF gebaut
+            wird; die Kapitelüberschriften stimmen mit dem
+            Inhaltsverzeichnis des Hefts überein.
+            Umlaut-Gegenprobe im Entwurf: keine Umschrift (ae/oe/ue),
+            154 echte Umlaute.
+            NICHT GEPRÜFT: ob die Felder des Katalogs beim Einstellen
+            genau so heißen (das Formular verlangt eine Anmeldung, die
+            diese Sitzung nicht hat) — die Feldnamen stammen aus der
+            Ansicht zweier veröffentlichter Einträge.
+
+
+M110 UPLOAD-KOPIE FÜR GITHUB ANGELEGT (NOCH NICHT HOCHGELADEN)  24.11.2026
+     WAS    Neuer Nachbarordner "2026 KERN 2.8.2 (nbyc) GitHub" mit eigenem
+            Git (erster Commit b71ab28, 210 Dateien) — bewusst OHNE die
+            Geschichte dieses Projekts, weil die "_ Instructions",
+            "_ Export", "_ Recherche" und das Assessment enthält.
+            Inhalt: die vier Teile (System, Storybook, Designer, OnePager)
+            und die beiden Startdateien, ohne node_modules, ohne .DS_Store
+            und ohne thema/entwurf.css|json (wie paket.sh sie ausschließt).
+            Dazu die bei GitHub üblichen Dateien, neu geschrieben: README.md
+            (was es ist, Schnellstart, Prüfen, Lizenztabelle, englische
+            Kurzfassung), LICENSE (EUPL-1.2, deutscher Text aus
+            system/kern-LICENSE.md), LICENSES/ mit EUPL-1.2, OFL-1.1 und
+            NEU Apache-2.0 (geladen mit Freigabe, 11 358 Bytes, von
+            www.apache.org/licenses/LICENSE-2.0.txt) — damit ist die Lücke
+            aus LIZENZ.txt Punkt 3 geschlossen; THIRD-PARTY.md (Herkunft
+            und Prüfdaten), CHANGELOG.md (0.2.0 bis 2.8.2 (nbyc)),
+            CONTRIBUTING.md (die fünf Grundsätze, der Weg einer Änderung),
+            SECURITY.md, CODE_OF_CONDUCT.md, .gitignore, eine Action
+            ".github/workflows/pruefungen.yml" (pruefe.py und
+            stories-bauen.py --pruefen bei jedem Push, dazu npm ci und
+            build-storybook) sowie Vorlagen für Issues und Pull Requests.
+            Die vier Ordner behalten ihre Namen: "KERN 2.8.2 (nbyc)" steht
+            527-mal in den Dateien, davon die meisten als NAME des Systems
+            (E7 verlangt ihn sichtbar) — ein Umbenennen auf GitHub-Schreib-
+            weise würde Namen und Pfade nicht unterscheiden können.
+            NICHT hochgeladen: Das Repository
+            github.com/ulm-a/KERN-0.8.2-nbyc-0.2.0 ist leer, öffentlich und
+            trägt eine falsche Zahl (0.8.2 statt 2.8.2). Nach Entscheidung
+            der Nutzerin (24.11.2026) benennt sie es in "KERN-2.8.2-nbyc"
+            um und stellt es auf PRIVAT, bevor etwas hinaufgeht; Core Rules
+            §4 und LIZENZ.txt Punkt 7 verlangen vor einer Weitergabe nach
+            außen die Absprache über den Namen (K26) und die rechtliche
+            Prüfung. "git push" braucht außerdem eine Anmeldung, die diese
+            Sitzung nicht hat (kein gh, kein SSH-Schlüssel).
+     WARUM  Nutzerin 24.11.2026: "Ich möchte das Design System bzw. die
+            nötigen Dateien in GitHub uploaden … mach es so, wie es der
+            Standard bei GitHub ist … schreibe die entsprechenden Texte",
+            mit den vier genannten Teilen und dem Link auf ihr Repository.
+            Freigaben in derselben Sitzung: erst privat stellen, Repo
+            umbenennen, Apache-Text laden, Kopie als Nachbarordner.
+     BELEG  Kopie gegen das Original gezählt: 61 · 96 · 22 · 14 Dateien,
+            Differenz zum Original ausschließlich vier .DS_Store und
+            thema/entwurf.css|json (diff der Dateilisten je Ordner).
+            In der Kopie gemessen: pruefe.py 27 Prüfungen ohne
+            Beanstandung, Rückgabewert 0; stories-bauen.py --pruefen "ok —
+            86 Story-Dateien, 195 Beispiele", Rückgabewert 0;
+            pruefe-designer.py Rückgabewert 1 mit FileNotFoundError, weil
+            "_ Resources/kern/userdoccomponents" fehlt (das ist O4/K7, im
+            README offen benannt). Commit b71ab28 enthält 210 Dateien,
+            Gegenprobe auf node_modules, .DS_Store, entwurf und .zip: 0
+            Treffer; "git status" danach leer.
+            Apache-2.0.txt: 11 358 Bytes, Kopf "Apache License Version
+            2.0, January 2004". OFL-1.1.txt 4 479 Bytes wie in LIZENZ.txt
+            notiert.
+            NICHT GEPRÜFT: die YAML-Datei der Action maschinell (kein
+            PyYAML und kein js-yaml auf diesem Rechner) — der erste Lauf
+            auf GitHub ist der Beweis; der Lauf von npm ci und
+            build-storybook in der Action; der Push selbst.
+     NEXT   O4 beheben, bevor das Repo sichtbar wird: pruefe-designer.py
+            soll "nicht prüfbar" melden statt abzubrechen (Kennung D38).
+            Außerdem offen: GitHub erkennt die Lizenz automatisch nur am
+            ENGLISCHEN EUPL-Text; LICENSE trägt den deutschen.
+
+
 M109 ÜBERGABE BERICHTIGT: GEMESSENE ZAHLEN ZUM ZIP IN DER WURZEL,
      PAPIERKORB NICHT PRÜFBAR, FASSUNGSHINWEIS OHNE TOTEN ORDNER  24.11.2026
      WAS    Keine Änderung am System, nur an Unterlagen.

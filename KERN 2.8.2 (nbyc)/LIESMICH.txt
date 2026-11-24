@@ -19,7 +19,9 @@ KERN 2.8.2 unverändert, dazu was KERN fehlt:
   NICHT       Das offizielle KERN. Wer das braucht, nimmt "@kern-ux/native"
               bzw. kern.css direkt von KERN. "KERN 2.8.2" allein meint immer
               das offizielle KERN; dieses System heißt stets "KERN 2.8.2 (nbyc)".
-              Nur für den internen Gebrauch.
+              Seit 24.11.2026 öffentlich einsehbar auf GitHub (Entscheidung
+              E13, Repository "ulm-a/KERN-2.8.2-nbyc"); die Absprache über
+              den Namen mit dem KERN-Team (K26) steht weiter aus.
 
 
 IN ZWEI MINUTEN LOSLEGEN

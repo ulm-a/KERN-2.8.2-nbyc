@@ -43,8 +43,16 @@ NICHT dazu gehört system/kern.css (Punkt 2).
                   mit Claude, dem KI-Assistenten von Anthropic. Entschieden 13.10.2026: Der Name
                   bleibt in der Vorlage an das KERN-Team; die Absprache nach
                   K26 ("nicht KERN ohne Absprache") geschieht mit dieser
-                  Vorlage. Vor jeder anderen Weitergabe nach außen wird der
-                  Name neu entschieden.
+                  Vorlage.
+                  Entschieden 24.11.2026 (E13): Das System liegt unter diesem
+                  Namen ÖFFENTLICH auf GitHub ("ulm-a/KERN-2.8.2-nbyc").
+                  Damit ist der Name nach außen getragen, BEVOR die Absprache
+                  nach K26 geführt ist — die Nutzerin hat das in Kenntnis
+                  dieses Punktes entschieden. Antwortet das KERN-Team mit
+                  einer Auflage, wird der Name geändert und das Repository
+                  angepasst. Für jede WEITERE Art der Weitergabe (Paket an
+                  Dritte, Vortrag, Veröffentlichung unter anderem Namen) gilt
+                  weiter: vorher neu entscheiden.
 
   BEARBEITUNG     Ob die eigenen Dateien als Bearbeitung im Sinne der EUPL
                   gelten, ist ohne Folge: Sie stehen ohnehin unter EUPL-1.2
@@ -64,7 +72,10 @@ NICHT dazu gehört system/kern.css (Punkt 2).
   LÜCKE IM ORIGINAL  Das KERN-Paket nennt Herkunft und Lizenz der Symbole
                   nicht (Vergleich, Teil 6, F6).
   BEI WEITERGABE  Apache-2.0 verlangt, den Lizenztext beizulegen. Er liegt
-                  hier noch NICHT bei — gehört zur Weitergabe-Prüfung.
+                  seit 24.11.2026 bei: "system/material-symbols-LICENSE.txt"
+                  (11 358 Bytes, geladen von
+                  www.apache.org/licenses/LICENSE-2.0.txt). Im GitHub-
+                  Repository liegt derselbe Text als "LICENSES/Apache-2.0.txt".
   EIGENE SYMBOLE  eines, seit 13.10.2026: kn-icon--filter-list
                   (system/02b-kern-ergaenzung.css, Katalogfilter). Form
                   "filter_list" aus Material Symbols, in KERNs Bauart als
@@ -131,9 +142,14 @@ JavaScript-Dateien in diesem Ordner.
   DARF ICH ES DEM BVA ZEIGEN?       Ja, als Arbeitsstand — mit dem Hinweis
                                     "interne Adaption, nicht das offizielle
                                     KERN".
-  DARF ICH ES WEITERGEBEN?          Erst wenn der Apache-Lizenztext der
-                                    Symbole (Punkt 3) beiliegt und Lizenz
-                                    und Name (Punkte 1 und 2) entschieden
-                                    sind. OFL.txt liegt bei (Punkt 4).
-  DARF ICH ES "KERN" NENNEN?        Intern "KERN 2.8.2 (nbyc)" (E7). Nach außen:
-                                    neu entscheiden, vorher nein.
+  DARF ICH ES WEITERGEBEN?          Ja, seit 24.11.2026 (E13): Es liegt
+                                    öffentlich auf GitHub. Alle drei Lizenz-
+                                    texte liegen bei — EUPL-1.2 (Punkte 1
+                                    und 2), Apache-2.0 (Punkt 3), OFL
+                                    (Punkt 4). Die rechtliche Prüfung durch
+                                    die Rechtsabteilung ersetzt das nicht
+                                    und steht weiter aus.
+  DARF ICH ES "KERN" NENNEN?        Es heißt "KERN 2.8.2 (nbyc)", nie "KERN
+                                    2.8.2" allein (E7). Die Absprache nach
+                                    K26 steht aus; kommt eine Auflage, wird
+                                    der Name geändert.
