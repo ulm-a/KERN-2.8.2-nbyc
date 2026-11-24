@@ -13,6 +13,111 @@ Neue Einträge hier oben anfügen (Kennung · WAS · WARUM · BELEG). Nächste f
 Kennungen und der Ablauf einer Änderung: "_ Instructions/Übergabe KERN 2.8.2
 (nbyc).txt" (Projektordner).
 
+M113 BLOG POST: GEKÜRZT, SCHAUBILD, RESPONSIV GEPRÜFT          24.11.2026
+     WAS    "Blog Post/index.html" neu gefasst, nach dem Vorbild der
+            Einträge im KERN Katalog (dort gemessen: 997 bis 1 439 Zeichen
+            Fließtext, EIN Titelbild, Metadaten daneben).
+            · Text von 7 722 auf 2 729 Zeichen in den Absätzen gekürzt.
+            · Fokus jetzt: Vollständigkeit · Qualität · Vergleich mit acht
+              anderen Systemen · Extra: der KERN Designer.
+            · Neues Schaubild: der Aufbau als Stapel aus fünf Kästen —
+              unten KERN unverändert (hervorgehoben), darüber die vier
+              ergänzten Schichten, je mit Zahl.
+            · Neu ein Auszug aus der Vergleichsmatrix als Tabelle
+              (8 Kriterien × Carbon, Material 3, KERN, nbyc) in KERNs
+              eigenem Tabellen-Markup, im Wrapper kern-table-responsive.
+            · Metadaten am Ende wie im Katalog: Lizenz, Reifegrad,
+              Barrierefreiheit, Technik.
+            Das Schaubild ist bewusst KEIN SVG: In der ersten Fassung
+            skalierte die SVG-Schrift mit der Breite und war bei 375 px nur
+            8,9 px groß (gemessen). Die Kästen sind jetzt HTML mit
+            KERN-Tokens für Rahmen, Radius und Abstände — die Schrift
+            bleibt 18 bzw. 16 px, und die Zusatzangabe rutscht auf schmalen
+            Bildschirmen in die zweite Zeile.
+     WARUM  Nutzerin 24.11.2026: "schau noch mal, wie Artikel aussehen …
+            ich glaube, es braucht weniger Text und ein ansprechendes
+            Visual … schau, wie responsive der Artikel sein muss … Fokus
+            soll auf Vollständigkeit, hohe Qualität, Vergleich mit anderen
+            Design Systemen und als Extra der Designer".
+     BELEG  Im Browser über den Prüfserver gemessen, drei Breiten:
+            · 1280 px: kein waagerechter Überlauf, Inhaltsspalte 736 px.
+            · 375 px (Mobilvorgabe): kein waagerechter Überlauf
+              (scrollWidth = clientWidth = 375), fünf Kästen, Schrift 18 px
+              und 16 px, die Tabelle scrollt innerhalb ihres Wrappers.
+            · 268 px (schmaler Fensterrest): ebenfalls kein Überlauf.
+            Hell und dunkel angesehen (colorScheme light und dark), beides
+            trägt; die Rahmenfarbe kommt aus
+            --kern-color-layout-border-contextual.
+            Absätze gezählt: 2 729 Zeichen (vorher 7 722).
+            NICHT GEPRÜFT: erhöhter Kontrast und die Dichte-Stufen auf
+            dieser Seite; ob die Schalter oben rechts wirken (Markup und
+            Skript sind dieselben wie auf der Startseite, aber nicht
+            geklickt); Screenreader.
+     NEXT   Die fünf vorgeschlagenen Bilder aus dem Artikel-Entwurf (M111)
+            fehlen weiter — ein echter Screenshot des Katalogs als
+            Titelbild würde den Beitrag im KERN Katalog stärker machen als
+            das Schaubild allein.
+
+
+M112 ÖFFENTLICH AUF GITHUB (E13): LIZENZLAGE NACHGEZOGEN,
+     WERKSTATTBERICHT ALS HTML                                 24.11.2026
+     WAS    Die Nutzerin hat den Erstbestand mit GitHub Desktop
+            hochgeladen; das Repository "ulm-a/KERN-2.8.2-nbyc" ist dabei
+            ÖFFENTLICH geworden. Auf den Hinweis, dass LIZENZ.txt Punkt 7
+            und Core Rules §4 vor einer Weitergabe nach außen die Absprache
+            über den Namen (K26) und die rechtliche Prüfung verlangen, hat
+            sie entschieden: bleibt öffentlich (E13), Lizenztexte nachziehen.
+            Nachgezogen:
+            · LIZENZ.txt NAME — E13 benannt: der Name liegt öffentlich,
+              bevor die Absprache nach K26 geführt ist; kommt eine Auflage,
+              wird er geändert. Für jede weitere Art der Weitergabe gilt
+              weiter "vorher neu entscheiden".
+            · LIZENZ.txt Punkt 3 — der Apache-2.0-Text liegt jetzt bei; die
+              Lücke ("liegt hier noch NICHT bei") ist geschlossen.
+            · LIZENZ.txt Punkt 7 — "Darf ich es weitergeben?" beantwortet;
+              die rechtliche Prüfung steht weiter aus und steht auch so da.
+            · LIESMICH.txt — "Nur für den internen Gebrauch" ersetzt.
+            · Instruktion — Entscheidung E13 aufgenommen; in Abschnitt 13
+              ("NICHT TUN") steht statt des Weitergabe-Verbots jetzt, was
+              nicht ins öffentliche Repository gehört.
+            · NEU "KERN 2.8.2 (nbyc)/system/material-symbols-LICENSE.txt"
+              (11 358 Bytes), damit der Apache-Text auch dann mitgeht, wenn
+              nur der Systemordner weitergegeben wird (paket.sh).
+            · NEU Ordner "Blog Post" mit "index.html": Werkstattbericht über
+              Recherche, Analyse, Neubau, Storybook und offene Punkte —
+              gebaut MIT dem System (lädt kern-neu.css aus dem
+              Nachbarordner, KERNs Klassen, Thema- und Kontrastschalter).
+              Inhalt aus dem Artikel-Entwurf M111.
+            Im GitHub-Ordner sind dieselben Änderungen angekommen (Commit
+            83e4a3d); gepusht wird mit GitHub Desktop, das macht die
+            Nutzerin.
+     WARUM  Nutzerin 24.11.2026: "bleibt öffentlich … Lizenzen nachziehen,
+            ich schiebe sie hoch, wenn Du mir sagst, wie das geht … Artikel
+            zusätzlich als HTML in einem Ordner 'Blog Post' ablegen".
+            Die Lizenztexte müssen bei einer Veröffentlichung beiliegen
+            (Core Rules §4); ein Dokument, das "nur intern" sagt, während
+            das System öffentlich liegt, ist schlimmer als keines.
+     BELEG  Sieben Ersetzungen in vier Dateien, jede vorher gezählt: genau
+            ein Treffer je Muster, sonst hätte das Skript nichts
+            geschrieben. pruefe.py danach: 27 Prüfungen ohne Beanstandung,
+            Rückgabewert 0. Apache-Text 11 358 Bytes, Kopf "Apache License
+            Version 2.0, January 2004".
+            Blog Post über den Prüfserver (8058) gerendert und gemessen:
+            ein Stylesheet geladen, Schrift "Fira Sans", h1 32 px,
+            Kopfzeile mit vier Schaltern, keine Fehler in der Konsole.
+            Repo-Ordner nach dem Abgleich: nur die erwarteten Dateien
+            geändert (LIESMICH, LIZENZ, AENDERUNGEN, README, THIRD-PARTY)
+            plus zwei neue (Blog Post, material-symbols-LICENSE).
+            NICHT GEPRÜFT: die Seite in dunkel und bei erhöhtem Kontrast
+            (nur in der Grundstellung gemessen); ob die Schalter wirken
+            (Markup und Skript sind dieselben wie auf der Startseite, aber
+            nicht geklickt); der Push selbst.
+     NEXT   Das öffentliche Repository enthält mit AENDERUNGEN.txt auch die
+            Einträge M109–M112, die vom Arbeitsablauf handeln (Übergabe,
+            Upload, Artikel) und nicht vom System. Wenn das nicht nach außen
+            soll, müssten sie vor dem nächsten Abgleich heraus.
+
+
 M111 ARTIKEL FÜR DEN KERN KATALOG, ENTWURF                     24.11.2026
      WAS    Neu "_ Documentation/artikel-katalog-0.2.0.md": Entwurf eines
             Beitrags für katalog.kern-ux.de, nach dem Vorbild der dortigen
