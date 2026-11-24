@@ -26,6 +26,12 @@
                grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
                margin: var(--kern-metric-space-large, 1.5rem) 0; padding: 0; list-style: none; }
   .bp-zahlen b { display: block; }
+  .bp-bild { margin: var(--kern-metric-space-large, 1.5rem) 0; }
+  .bp-bild img { width: 100%; height: auto; display: block;
+                 border: var(--kern-metric-border-width-default, 1px) solid
+                         var(--kern-color-layout-border-contextual, currentColor);
+                 border-radius: var(--kern-metric-border-radius-default, .25rem); }
+  .bp-bild figcaption { margin-top: var(--kern-metric-space-small, .5rem); }
 </style>
 </head>
 <body class="kn-page">
@@ -56,6 +62,15 @@
   <code>kern.css</code> 2.8.2 Byte für Byte unverändert ein und ergänzt genau die Schicht
   darüber: Tastatur und Rückmeldung für jede Bedienung, die fehlenden Bausteine, Modi und
   Katalog. Kein npm, kein Bauwerkzeug, keine Netzabfrage.</p>
+
+  <figure class="bp-bild">
+    <img src="bilder/katalog-ansicht.png" width="2560" height="1520"
+         alt="Der Katalog im Browser: links die Suche und die Liste der Bausteine nach Gruppen,
+              rechts ein geöffneter Baustein mit Beispiel, Zweck, Tastaturvertrag und Herkunft.">
+    <figcaption class="kern-body kern-body--small kern-body--muted">Der Katalog: 85 Einträge,
+    jeder mit Beispiel, Entscheidungshilfe, Tastentabelle und Herkunft — Deutsch und
+    Englisch.</figcaption>
+  </figure>
 
   <figure class="bp-figur">
     <div class="bp-stapel">
@@ -93,12 +108,30 @@
   hell, dunkel und erhöhten Kontrast — und einen Tastaturvertrag: Taste, Wirkung, Ansage.
   Alles zweisprachig, Deutsch und Englisch.</p>
 
+  <figure class="bp-bild">
+    <img src="bilder/onepager-ansicht.png" width="2560" height="1040" loading="lazy"
+         alt="Eine einzelne Seite mit allen Bausteinen untereinander: Knöpfe, Felder, Meldungen,
+              Tabellen und Navigation in allen Varianten und Zuständen.">
+    <figcaption class="kern-body kern-body--small kern-body--muted">Alle Bausteine, Varianten
+    und Zustände auf einer Seite — zum Vergleichen und Messen.</figcaption>
+  </figure>
+
   <h2 class="kern-heading-medium">Qualität, die man nachrechnen kann</h2>
   <p class="kern-body">Alle 135 offiziellen KERN-Beispiele werden Element für Element gegen die
   eigene Umsetzung gemessen — Lage und Größe mit 1 px Toleranz, dazu 17 Stilwerte: 135 von 135
   deckungsgleich, Ausgangswert war 0. Dazu 27 Prüfungen im Skript, und jede gilt erst als fertig,
   wenn ihre Gegenprobe in einer Kopie rot war. Was nicht geprüft ist, steht genauso da: Firefox,
   Screenreader, Windows-Kontrastmodus.</p>
+
+  <figure class="bp-bild">
+    <img src="bilder/pruefstand-knopf.png" width="1532" height="416" loading="lazy"
+         alt="Zwei Spalten nebeneinander: links das offizielle KERN-Beispiel der Knöpfe,
+              rechts dieselben Knöpfe in KERN 2.8.2 (nbyc), darunter die Meldung,
+              dass beide deckungsgleich sind.">
+    <figcaption class="kern-body kern-body--small kern-body--muted">Der Prüfstand: links das
+    offizielle KERN-Beispiel, rechts die eigene Umsetzung — Element für Element
+    gemessen.</figcaption>
+  </figure>
 
   <ul class="bp-zahlen">
     <li class="kern-body kern-body--small"><b class="kern-heading-small">135 / 135</b> KERN-Beispiele deckungsgleich</li>
@@ -169,6 +202,30 @@
   Datei — das System darunter bleibt unverändert KERN, und „auf KERN zurück" ist ein Schritt.
   Daneben liegt eine Seite mit allen Bausteinen, Varianten und Zuständen auf einmal, zum
   Vergleichen und Messen.</p>
+
+  <figure class="bp-bild">
+    <img src="bilder/designer-ansicht.png" width="2560" height="1520" loading="lazy"
+         alt="Der Token-Editor: oben eine Leiste mit der Zahl der erfüllten Kontrastregeln,
+              links die Tokens nach Schicht geordnet, rechts die Live-Vorschau an echten
+              Bausteinen.">
+    <figcaption class="kern-body kern-body--small kern-body--muted">Der KERN Designer: ändern,
+    sofort sehen, Kontrast nachrechnen — und jederzeit auf KERN zurück.</figcaption>
+  </figure>
+
+  <h2 class="kern-heading-medium">Und für die Entwicklung: Storybook</h2>
+  <p class="kern-body">Alle Bausteine liegen auch als Storybook bereit, im Format von KERNs
+  eigenem. Die Stories werden aus dem Katalog erzeugt, nie von Hand geschrieben: 85 Einträge
+  mit 195 Beispielen werden zu 196 Stories und 85 Doku-Seiten — mit Tastaturvertrag,
+  Klassen und Pflichten aus KERN, in beiden Sprachen.</p>
+
+  <figure class="bp-bild">
+    <img src="bilder/storybook-ansicht.png" width="2560" height="1520" loading="lazy"
+         alt="Storybook mit der Doku-Seite der Mehrfachauswahl: links die Bausteine getrennt
+              nach KERN-Bausteinen und Erweiterungen, oben die Schalter für Modus, Kontrast
+              und Sprache, rechts der Katalogtext mit Tastaturvertrag.">
+    <figcaption class="kern-body kern-body--small kern-body--muted">Storybook, erzeugt aus dem
+    Katalog — der Katalog bleibt die einzige Quelle.</figcaption>
+  </figure>
 
   <div class="kern-alert kern-alert--info" style="margin-block:2rem">
     <div class="kern-alert__header">

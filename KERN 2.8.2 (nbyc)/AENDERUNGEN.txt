@@ -13,6 +13,47 @@ Neue Einträge hier oben anfügen (Kennung · WAS · WARUM · BELEG). Nächste f
 Kennungen und der Ablauf einer Änderung: "_ Instructions/Übergabe KERN 2.8.2
 (nbyc).txt" (Projektordner).
 
+M114 FÜNF BILDER IM BLOG POST; STARTDATEI GEGEN SAFARIS DATEI-SPERRE 24.11.2026
+     WAS    Die fünf vorgeschlagenen Bilder (M111) sind aufgenommen und in
+            "Blog Post/bilder/" abgelegt, jedes mit beschreibendem
+            alt-Text und Bildunterschrift:
+            · katalog-ansicht.png (NEU aufgenommen, 2560 × 1520) —
+              Titelbild direkt unter dem Vorspann.
+            · onepager-ansicht.png — im Abschnitt Vollständigkeit.
+            · pruefstand-knopf.png — im Abschnitt Qualität, links KERN,
+              rechts die eigene Umsetzung.
+            · designer-ansicht.png — im Abschnitt zum Designer.
+            · storybook-ansicht.png — im neuen kurzen Abschnitt
+              "Und für die Entwicklung: Storybook".
+            Vier davon stammen aus den Heft-Bildern ("_ Documentation/
+            quelle/bilder"), sind also mit demselben Werkzeug und in
+            derselben Auflösung erzeugt; das Titelbild ist neu mit
+            "werkzeug/bild.swift" über den Prüfserver aufgenommen.
+            Bilder sind voll breit, skalieren mit (width/height gesetzt,
+            kein Umspringen beim Laden), die vier unteren mit
+            loading="lazy".
+            NEU "Blog Post [ Start ].command" im Projektordner, wie bei
+            Designer und Storybook: startet 127.0.0.1:8058 und öffnet die
+            Seite.
+     WARUM  Nutzerin 24.11.2026: "nimm die 5 Bilder auf". Davor hatte sie
+            die Seite per Doppelklick in Safari geöffnet und bekam sie
+            OHNE Gestaltung zu sehen: Safari verweigert einer file://-Seite
+            den Zugriff auf Ordner OBERHALB von ihr, und die Seite lädt
+            das System aus dem Nachbarordner. Über http:// gilt die Regel
+            nicht — daher die Startdatei.
+     BELEG  Bilder im Browser über den Prüfserver gemessen: 5 von 5
+            geladen (naturalWidth > 0), Layoutbreite 704 px bei 1280 px
+            Fensterbreite und 343 px bei 375 px, kein waagerechter
+            Überlauf in beiden Breiten; Seitenhöhe mobil 6 227 px.
+            Titelbild neu aufgenommen: 2560 × 1520 px (sips), 335 KB.
+            Ordner "Blog Post" jetzt 1,3 MB.
+            Startdatei: "zsh -n" ohne Syntaxfehler, ausführbar (755);
+            Seite und Titelbild über den Server je HTTP 200.
+     NEXT   Die Startdatei ist NICHT ausprobiert worden (sie würde einen
+            zweiten Server starten, während der Prüfserver dieser Sitzung
+            läuft) — beim nächsten Mal einmal doppelklicken.
+
+
 M113 BLOG POST: GEKÜRZT, SCHAUBILD, RESPONSIV GEPRÜFT          24.11.2026
      WAS    "Blog Post/index.html" neu gefasst, nach dem Vorbild der
             Einträge im KERN Katalog (dort gemessen: 997 bis 1 439 Zeichen
