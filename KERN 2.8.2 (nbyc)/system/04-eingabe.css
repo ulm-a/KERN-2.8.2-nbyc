@@ -63,7 +63,10 @@
   inline-size: var(--kern-metric-dimension-2x-large);
   block-size: var(--kern-metric-dimension-large);
   border: var(--kern-metric-border-width-default) solid var(--kern-color-form-input-border-contextual);
-  border-radius: var(--kern-metric-border-radius-circle);
+  /* Halbe Höhe, nicht 50%. KERNs Token "circle" ist 50% — das ergibt auf einem
+     Rechteck (56 × 32) eine ELLIPSE, und der runde Knauf stand links über den
+     Rand hinaus (25.11.2026). 50% nur auf quadratischen Flächen. */
+  border-radius: calc(var(--kern-metric-dimension-large) / 2);
   background: var(--kern-color-layout-background-hued);
   transition: background-color var(--kn-duration-1) var(--kn-easing),
               border-color var(--kn-duration-1) var(--kn-easing);
@@ -265,6 +268,21 @@
   border-radius: 0;
   text-align: center;
   inline-size: var(--kern-metric-space-7x-large);
+  /* KERNs Feld hat NUR einen Rand unten. Zwischen zwei Knöpfen mit vollem Rand
+     klaffte die obere Kante darum auf (25.11.2026): oben fehlte der Strich über
+     der ganzen Feldbreite. Der Stepper ist EIN Bedienteil, also auch EIN Rahmen. */
+  border-block-start: var(--kern-metric-border-width-default) solid var(--kern-color-form-input-border-contextual);
+}
+
+/* Die Pfeilchen des Browsers (spin buttons) gehören nicht in den Stepper: die
+   Knöpfe − und + sind die Bedienung, und sie sind groß genug für den Finger.
+   Das Feld bleibt ein echtes type="number" — Tastatur und Hilfsmittel wie zuvor. */
+.kn-number-stepper .kern-form-input__input { -moz-appearance: textfield; appearance: textfield; }
+.kn-number-stepper .kern-form-input__input::-webkit-outer-spin-button,
+.kn-number-stepper .kern-form-input__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;   /* roh: physisches Maß im Vendor-Pseudoelement (Prüfung 5) */
 }
 
 .kn-number-stepper__button {
@@ -303,15 +321,23 @@
   place-items: center;
   gap: var(--kern-metric-space-small);
   padding: var(--kern-metric-space-x-large);
-  border: var(--kern-metric-border-width-default) dashed var(--kern-color-layout-border-contextual);
+  /* Die GESTRICHELTE Kante gehört KERNs Dateifeld, nicht dieser Hülle: zwei
+     gestrichelte Rahmen ineinander lesen sich als Fehler. Die Hülle fasst Feld
+     und Liste zusammen und zieht dafür einen ruhigen Strich (25.11.2026). */
+  border: var(--kern-metric-border-width-default) solid var(--kern-color-decorative-border-default);
   border-radius: var(--kern-metric-border-radius-large);
-  background: var(--kern-color-layout-background-hued);
+  /* NICHT getönt. KERNs Felder tragen genau diese getönte Fläche als eigenen
+     Grund; auf einer getönten Fläche verschwand das Dateifeld darum spurlos und
+     nur sein Strich unten blieb übrig (25.11.2026). Eine Fläche nie auf eine
+     gleichfarbige Fläche legen. */
+  background: var(--kern-color-layout-background-default-contextual);
   text-align: center;
 }
 
+/* Nur die Farbe wechselt. Eine andere Randbreite würde den Inhalt beim
+   Darüberziehen um einen Punkt verschieben (25.11.2026). */
 .kn-file-list[data-kn-dragover] {
   border-color: var(--kern-color-action-default-contextual);
-  border-style: solid;
   background: color-mix(in oklch, var(--kern-color-action-default-contextual) calc(var(--kern-color-action-state-opacity-selected) * 100%), transparent);
 }
 

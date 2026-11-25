@@ -344,6 +344,8 @@ window.KATALOG_EN = {
   "klassen": [
    "on the form: validates on submit (\"check-only\": validate only)",
    "Required for a group (fieldset)",
+   "on the form: the spacing between the fields. Without it label, field and button stick together — KERN\u2019s fields bring no outer spacing of their own (corrected 25.11.2026)",
+   "keeps the submit button at its own width; otherwise the stack pulls it across the whole row",
    "Box (hidden, role=alert)",
    "Heading (count set by the script)",
    "List of links (set by the script)",
@@ -1067,7 +1069,9 @@ window.KATALOG_EN = {
   "barriere": [
    "State formats and maximum size BEFORE the field, connected via aria-describedby.",
    "The remove button needs the file name in its name or an aria-label — otherwise you hear “Remove” three times.",
-   "The list is a real <ul>, so that the count is announced."
+   "The list is a real <ul>, so that the count is announced.",
+   "The field belongs inside KERN\u2019s wrapper kern-form-input \u2014 without it KERN\u2019s styling of the file field does not apply and it sits raw in the drop area (corrected 25.11.2026).",
+   "\u201cChoose Files / no files selected\u201d on the button comes from the browser, not from the system: CSS cannot translate that text, it follows the browser\u2019s language. KERN\u2019s own file field shows the same. Anyone who needs it in German has to hide the native field and put an own button (label) in front of it \u2014 that changes the component, not its styling."
   ],
   "bsp": [
    {
@@ -1088,6 +1092,7 @@ window.KATALOG_EN = {
   ],
   "klassen": [
    "the unit",
+   "KERN\u2019s wrapper around label, hint and field",
    "uploaded files",
    "a row",
    "File size"

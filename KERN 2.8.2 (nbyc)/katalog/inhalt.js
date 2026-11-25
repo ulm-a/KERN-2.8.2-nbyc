@@ -298,7 +298,7 @@ window.KATALOG = [
     titel: "Formular mit Prüfung (data-kn-validate)",
     hinweis: "Leer absenden: die Zusammenfassung erscheint oben und bekommt den Fokus; jeder Verweis setzt den Fokus ins Feld. Ein ausgefülltes Feld verliert seinen Fehlerzustand. Vollständig: Meldung „Alle Angaben sind vollständig.“ (check-only: kein Absenden).",
     html:
-'<form data-kn-validate="check-only">\n' +
+'<form class="kern-stack-md" data-kn-validate="check-only">\n' +
 '  <div class="kn-error-summary" role="alert" hidden>\n' +
 '    <h2 class="kn-error-summary__title"></h2>\n' +
 '    <ul class="kn-error-summary__list"></ul>\n' +
@@ -342,7 +342,7 @@ window.KATALOG = [
 '      <span class="kern-body">Bitte wählen Sie, wie wir antworten sollen</span>\n' +
 '    </p>\n' +
 '  </fieldset>\n' +
-'  <button class="kern-btn kern-btn--primary" type="submit"><span class="kern-label">Weiter</span></button>\n' +
+'  <button class="kern-btn kern-btn--primary kern-align-self-start" type="submit"><span class="kern-label">Weiter</span></button>\n' +
 '</form>'
   }],
   barriere: ["Statusmeldung nach KERN (V14, WCAG 4.1.3): role=alert UND Fokus auf die Zusammenfassung (tabindex=-1) — sonst merkt niemand, dass etwas passiert ist.",
@@ -352,6 +352,8 @@ window.KATALOG = [
              "Der Text im Verweis ist derselbe wie am Feld. Zwei verschiedene Formulierungen verwirren."],
   tasten: [["Enter auf „Weiter“", "prüft; Fokus auf die Zusammenfassung", "Titel und Verweise (role=alert)"], ["Tab", "von Verweis zu Verweis", ""], ["Enter auf einem Verweis", "Fokus ins Feld, Beschriftung im Bild", "Feld mit Fehlermeldung"]],
   klassen: [["data-kn-validate", "am form: prüft beim Absenden (\"check-only\": nur prüfen)"], ["data-kn-required", "Pflicht für eine Gruppe (fieldset)"],
+            ["kern-stack-md", "am form: der Abstand zwischen den Feldern. Ohne ihn kleben Beschriftung, Feld und Knopf aneinander — KERNs Felder bringen keinen eigenen Außenabstand mit (berichtigt 25.11.2026)"],
+            ["kern-align-self-start", "hält den Absendeknopf auf seiner eigenen Breite; sonst zieht ihn der Stapel über die ganze Zeile"],
             ["kn-error-summary", "Kasten (hidden, role=alert)"], ["kn-error-summary__title", "Überschrift (Anzahl vom Skript)"],
             ["kn-error-summary__list", "Liste der Verweise (vom Skript)"], ["Feld-ID + \"-fehler\"", "die kern-error-Meldung je Feld"]]
 },
@@ -933,9 +935,11 @@ window.KATALOG = [
     titel: "Nachweise mit Liste",
     html:
 '<div class="kn-file-list">\n' +
-'  <label class="kern-label" for="abl-1">Einkommensnachweise</label>\n' +
-'  <p class="kern-hint" id="abl-1-hinweis">PDF oder JPG, höchstens 10 MB je Datei.</p>\n' +
-'  <input class="kern-form-input__input" id="abl-1" type="file" multiple aria-describedby="abl-1-hinweis">\n' +
+'  <div class="kern-form-input">\n' +
+'    <label class="kern-label" for="abl-1">Einkommensnachweise</label>\n' +
+'    <p class="kern-hint" id="abl-1-hinweis">PDF oder JPG, höchstens 10 MB je Datei.</p>\n' +
+'    <input class="kern-form-input__input" id="abl-1" type="file" multiple aria-describedby="abl-1-hinweis">\n' +
+'  </div>\n' +
 '  <ul class="kn-file-list__list">\n' +
 '    <li class="kn-file-list__file">\n' +
 '      <span>Lohnabrechnung-2025-12.pdf</span>\n' +
@@ -952,9 +956,12 @@ window.KATALOG = [
   }],
   barriere: ["Formate und Höchstgröße VOR dem Feld nennen, verbunden über aria-describedby.",
              "Der Entfernen-Knopf braucht den Dateinamen im Namen oder ein aria-label — sonst hört man dreimal „Entfernen“.",
-             "Die Liste ist eine echte <ul>, damit die Anzahl angesagt wird."],
+             "Die Liste ist eine echte <ul>, damit die Anzahl angesagt wird.",
+             "Das Feld gehört in KERNs Hülle kern-form-input — ohne sie greift KERNs Gestaltung des Dateifelds nicht, und es steht roh in der Ablage (berichtigt 25.11.2026).",
+             "„Choose Files / no files selected“ am Knopf kommt vom Browser, nicht aus dem System: diesen Text kann CSS nicht übersetzen, er folgt der Sprache des Browsers. KERNs eigenes Dateifeld zeigt dasselbe. Wer ihn deutsch braucht, muss das native Feld verbergen und einen eigenen Knopf (label) davorsetzen — das ändert den Baustein, nicht die Gestaltung."],
   tasten: [["Tab", "erreicht das Dateifeld", ""], ["Enter, Leertaste", "öffnet die Dateiauswahl (nativ)", "gewählte Dateien"]],
-  klassen: [["kn-file-list", "die Einheit"], ["kn-file-list__list", "hochgeladene Dateien"],
+  klassen: [["kn-file-list", "die Einheit"], ["kern-form-input", "KERNs Hülle um Beschriftung, Hinweis und Feld"],
+            ["kn-file-list__list", "hochgeladene Dateien"],
             ["kn-file-list__file", "eine Zeile"], ["kn-file-list__size", "Dateigröße"]]
 },
 

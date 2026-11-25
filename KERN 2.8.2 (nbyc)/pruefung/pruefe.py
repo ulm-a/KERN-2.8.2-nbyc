@@ -1072,6 +1072,233 @@ def pruefe_fassung():
     return len(treffer)
 
 
+
+# ------------------------------------------------------------------
+#  Prüfungen 28–30: die drei Darstellungsfehler vom 25.11.2026.
+#  Alle drei sahen im Quelltext richtig aus und waren erst im Bild zu
+#  sehen. Deshalb prüft hier die MASCHINE, was das Auge gefunden hat.
+# ------------------------------------------------------------------
+
+class _Baum(object):
+    """Winziger DOM-Aufbau für die Beispiele des Katalogs. Kein Parser von
+    aussen (das System hat keine Abhängigkeiten): html.parser ist in Python
+    eingebaut."""
+
+    def __init__(self):
+        from html.parser import HTMLParser
+        leer = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+                "link", "meta", "source", "track", "wbr"}
+        wurzeln, stapel = [], []
+
+        class P(HTMLParser):
+            def handle_starttag(self, tag, attrs):
+                a = dict(attrs)
+                k = {"tag": tag, "klassen": set((a.get("class") or "").split()),
+                     "kinder": [], "eltern": stapel[-1] if stapel else None}
+                (stapel[-1]["kinder"] if stapel else wurzeln).append(k)
+                if tag not in leer:
+                    stapel.append(k)
+
+            def handle_startendtag(self, tag, attrs):
+                self.handle_starttag(tag, attrs)
+
+            def handle_endtag(self, tag):
+                for i in range(len(stapel) - 1, -1, -1):
+                    if stapel[i]["tag"] == tag:
+                        del stapel[i:]
+                        return
+
+        self._P, self._wurzeln = P, wurzeln
+
+    def fuettere(self, html):
+        p = self._P(convert_charrefs=True)
+        p.feed(html)
+        p.close()
+
+    def alle(self):
+        def gehe(k):
+            for x in k:
+                yield x
+                for y in gehe(x["kinder"]):
+                    yield y
+        return gehe(self._wurzeln)
+
+
+def _katalog_baum():
+    """Alle lebenden Beispiele des Katalogs und die Musterseiten als Baum.
+    Gibt None zurück, wenn der Katalog nicht gelesen werden kann — dann meldet
+    die Prüfung das, statt still "ok" zu sagen."""
+    sys.path.insert(0, os.path.join(WURZEL, "pruefung"))
+    from katalog_lesen import lies as katalog_lesen
+    d = katalog_lesen()
+    if d is None:
+        return None
+    baum = _Baum()
+    for eintrag in d.get("KATALOG", []) + d.get("KERN_BAUSTEINE", []):
+        for b in eintrag.get("bsp", []) or []:
+            if b.get("html"):
+                baum.fuettere(b["html"])
+    for seite in sorted(glob.glob(os.path.join(WURZEL, "muster", "*.html"))):
+        baum.fuettere(lies(seite))
+    return baum
+
+
+def _deklarationen(block):
+    """{Eigenschaft: Wert} einer Regel, Wert normalisiert."""
+    aus = {}
+    for teil in block.split(";"):
+        if ":" not in teil:
+            continue
+        name, wert = teil.split(":", 1)
+        aus[name.strip().lower()] = " ".join(wert.split()).lower()
+    return aus
+
+
+def pruefe_rundung_quadrat():
+    """28  RUNDUNG "circle" NUR AUF QUADRAT
+
+    KERNs Token --kern-metric-border-radius-circle ist 50 %. Auf einer
+    quadratischen Fläche ist das ein Kreis, auf jeder anderen eine ELLIPSE.
+    Am 25.11.2026 waren so die Bahn des Schalters (56 × 32) eine Ellipse, aus
+    der der runde Knauf links herausragte, und der Fortschrittsbalken
+    (100 % × 8) eine Linse mit spitzen Enden. Eine Pille braucht die halbe
+    Höhe, nicht 50 %."""
+    breit = ("inline-size", "width", "min-inline-size", "min-width")
+    hoch = ("block-size", "height", "min-block-size", "min-height")
+    treffer = []
+    for d in komponenten_css():
+        for sel, block, _ in _regeln(lies(d)):
+            dek = _deklarationen(block)
+            r = dek.get("border-radius", "")
+            if "50%" not in r and "border-radius-circle" not in r:
+                continue
+            b = [dek[k] for k in breit if k in dek]
+            h = [dek[k] for k in hoch if k in dek]
+            if not b or not h:
+                continue
+            if b[0] != h[0]:
+                treffer.append((os.path.relpath(d, WURZEL),
+                                "%s — %s neben %s, also eine Ellipse" % (sel, b[0], h[0])))
+    print("\n28  RUNDUNG \"circle\" NUR AUF QUADRAT")
+    if not treffer:
+        print("   ok — 50 % steht nur auf quadratischen Flächen; Pillen rechnen")
+        print("        mit der halben Höhe.")
+        return 0
+    for d, z in treffer:
+        print("   %s  %s" % (d, z))
+    return len(treffer)
+
+
+def pruefe_flaeche_auf_flaeche():
+    """29  FELD AUF GLEICHFARBIGER FLÄCHE
+
+    KERNs Eingabefelder haben keinen Rahmen, nur einen Strich unten und eine
+    getönte Füllung. Legt ein eigener Baustein sie auf eine Fläche mit genau
+    dieser Tönung, verschwindet das Feld: am 25.11.2026 in der Werkzeugleiste
+    und in der Dateiablage. Eine Fläche nie auf eine gleichfarbige Fläche."""
+    getoent = set()
+    for d in komponenten_css():
+        for sel, block, _ in _regeln(lies(d)):
+            dek = _deklarationen(block)
+            if "layout-background-hued" not in dek.get("background", dek.get("background-color", "")):
+                continue
+            for k in re.findall(r"\.(kn-[a-zA-Z0-9_-]+)", sel):
+                getoent.add(k)
+    baum = _katalog_baum()
+    print("\n29  FELD AUF GLEICHFARBIGER FLÄCHE")
+    if baum is None:
+        print("   KATALOG NICHT LESBAR — node oder osascript fehlt.")
+        return 1
+    feld = ("kern-form-input__input", "kern-form-input__select", "kern-form-input__textarea")
+    treffer = set()
+    for k in baum.alle():
+        if not (k["klassen"] & getoent):
+            continue
+        offen = list(k["kinder"])
+        while offen:
+            x = offen.pop()
+            if x["klassen"] & set(feld):
+                treffer.add((sorted(k["klassen"] & getoent)[0], sorted(x["klassen"] & set(feld))[0]))
+            offen.extend(x["kinder"])
+    if not treffer:
+        print("   ok — kein KERN-Feld steht auf einer Fläche in seiner eigenen Tönung.")
+        return 0
+    for huelle, f in sorted(treffer):
+        print("   .%s  trägt die getönte Fläche und enthält .%s — das Feld verschwindet darauf." % (huelle, f))
+    return len(treffer)
+
+
+def pruefe_geschwister_regeln():
+    """30  :first-child / :last-child GREIFEN
+
+    .kn-split-button > .kern-btn:last-child fasste ins Leere: das letzte Kind
+    ist das Menü (div.kn-menu), nicht der Knopf. Die Regel stand richtig da und
+    wirkte nie — der Teilknopf zerfiel in zwei Knöpfe (25.11.2026). Jede solche
+    Regel muss im Katalog mindestens einen Treffer haben."""
+    baum = _katalog_baum()
+    print("\n30  :first-child / :last-child GREIFEN")
+    if baum is None:
+        print("   KATALOG NICHT LESBAR — node oder osascript fehlt.")
+        return 1
+
+    def kinder_elemente(k):
+        return k["kinder"] if k else []
+
+    def passt(k, klassen):
+        return klassen <= k["klassen"]
+
+    treffer = []
+    gesehen = set()
+    for d in komponenten_css():
+        for sel, _block, _ in _regeln(lies(d)):
+            for einzel in sel.split(","):
+                einzel = einzel.strip()
+                if ":first-child" not in einzel and ":last-child" not in einzel:
+                    continue
+                ende = "first" if ":first-child" in einzel else "last"
+                teile = re.split(r"\s*>\s*|\s+", einzel)
+                letzte = teile[-1]
+                if ":hover" in einzel or ":focus" in einzel or "::" in letzte:
+                    continue
+                klassen = set(re.findall(r"\.([a-zA-Z0-9_-]+)", letzte))
+                vorfahr = set(re.findall(r"\.([a-zA-Z0-9_-]+)", teile[-2])) if len(teile) > 1 else set()
+                if not klassen:
+                    continue
+                schluessel = (tuple(sorted(klassen)), tuple(sorted(vorfahr)), ende)
+                if schluessel in gesehen:
+                    continue
+                gesehen.add(schluessel)
+                getroffen = False
+                for k in baum.alle():
+                    if not passt(k, klassen):
+                        continue
+                    if vorfahr:
+                        v, ok = k["eltern"], False
+                        while v is not None:
+                            if passt(v, vorfahr):
+                                ok = True
+                                break
+                            v = v["eltern"]
+                        if not ok:
+                            continue
+                    geschwister = kinder_elemente(k["eltern"])
+                    if not geschwister:
+                        continue
+                    if (geschwister[0] is k) if ende == "first" else (geschwister[-1] is k):
+                        getroffen = True
+                        break
+                if not getroffen:
+                    treffer.append((os.path.relpath(d, WURZEL),
+                                    "%s greift im Katalog nirgends" % einzel))
+    if not treffer:
+        print("   ok — jede Regel mit :first-child / :last-child trifft im Katalog.")
+        return 0
+    for d, z in treffer:
+        print("   %s  %s" % (d, z))
+    return len(treffer)
+
+
+
 if __name__ == "__main__":
     print("KERN 2.8.2 (nbyc) — PRÜFUNG")
     print("=" * 64)
@@ -1082,7 +1309,8 @@ if __name__ == "__main__":
              pruefe_felder() + pruefe_dichte() + pruefe_css_syntax() +
              pruefe_stempel() + pruefe_dialogtitel() + pruefe_hooks() + pruefe_kern_klassen() + pruefe_fokus_token() +
              pruefe_tastentabelle() + pruefe_systemtexte() + pruefe_zuordnung() + pruefe_schatten() + pruefe_zweisprachig() +
-             pruefe_zustand_gedrueckt() + pruefe_fassung())
+             pruefe_zustand_gedrueckt() + pruefe_fassung() +
+             pruefe_rundung_quadrat() + pruefe_flaeche_auf_flaeche() + pruefe_geschwister_regeln())
     print("\n" + "=" * 64)
     print("%d Beanstandungen." % summe if summe else "Ohne Beanstandung.")
     print("Kontrast und Bedienung werden im Browser gemessen — METHODE.txt, 05.")

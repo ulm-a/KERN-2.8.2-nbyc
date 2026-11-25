@@ -13,7 +13,12 @@
 
 .kn-split-button { position: relative; display: inline-flex; }
 .kn-split-button > .kern-btn:first-child { border-start-end-radius: 0; border-end-end-radius: 0; }
-.kn-split-button > .kern-btn:last-child {
+/* Der Menüteil ist der ZWEITE Knopf, nicht das letzte Kind: zuletzt steht das
+   Menü (div.kn-menu). Mit :last-child fasste die Regel ins Leere, und beide
+   Knöpfe standen mit runden Ecken nebeneinander statt als ein Knopf
+   (25.11.2026). Geschwister-Regeln nie an :last-child hängen, wenn hinter den
+   Teilen noch etwas Unsichtbares liegt. */
+.kn-split-button > .kern-btn + .kern-btn {
   border-start-start-radius: 0;
   border-end-start-radius: 0;
   margin-inline-start: calc(var(--kern-metric-border-width-default) * -1);

@@ -87,7 +87,10 @@
   border-block-end: 0;
   border-start-start-radius: var(--kern-metric-border-radius-default);
   border-start-end-radius: var(--kern-metric-border-radius-default);
-  background: var(--kern-color-layout-background-hued);
+  /* NICHT getönt — wie kn-toolbar: das Suchfeld darin trägt genau diese
+     Tönung als eigenen Grund und verschwände darauf (25.11.2026, Prüfung 29).
+     Die getönte Fläche bleibt dem Tabellenkopf darunter. */
+  background: var(--kern-color-layout-background-default-contextual);
 }
 
 .kn-table-toolbar > * { grid-area: 1 / 1; }
@@ -249,7 +252,11 @@
   align-items: center;
   gap: var(--kern-metric-space-small);
   padding: var(--kern-metric-space-small) var(--kern-metric-space-small);
-  background: var(--kern-color-layout-background-hued);
+  /* NICHT getönt. KERNs Suchfeld trägt genau diese getönte Fläche als eigenen
+     Grund; auf einer getönten Leiste war vom Feld nur noch der Strich unten zu
+     sehen (25.11.2026). Eine Fläche nie auf eine gleichfarbige Fläche legen —
+     die Leiste grenzt sich über ihren Rand ab, nicht über ihre Füllung. */
+  background: var(--kern-color-layout-background-default-contextual);
   border: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default);
   border-radius: var(--kern-metric-border-radius-default);
 }
@@ -354,7 +361,10 @@
   display: inline-flex;
   align-items: center;
   gap: var(--kern-metric-space-x-small);
-  min-block-size: var(--kern-metric-dimension-large);
+  /* Eine Filtermarke ist ein Knopf, also so groß wie jede andere Trefferfläche
+     im System. Mit 32 px stand sie neben den 48 px hohen Knöpfen der
+     Werkzeugleiste und die Reihe lief auseinander (25.11.2026). */
+  min-block-size: var(--kn-target-size);
   padding-inline: var(--kern-metric-space-small);
   border: var(--kern-metric-border-width-light) solid var(--kern-color-layout-border-contextual);
   border-radius: var(--kern-metric-border-radius-default);   /* wie kern-badge */
@@ -367,14 +377,21 @@
 
 .kn-filter-tag:hover:not([aria-pressed="true"]) { background: var(--kern-color-action-state-indicator-tint-hover-opacity); }
 .kn-filter-tag[aria-pressed="true"] { background: var(--kern-color-action-default-contextual); border-color: var(--kern-color-action-default-contextual); color: var(--kern-color-action-on-default-contextual); }
-.kn-filter-tag[aria-pressed="true"]::before { content: "\2713"; }
+/* Der Haken steht IMMER im Platz, sichtbar wird er erst beim Drücken. Wurde er
+   erst beim Drücken eingefügt, wuchs die Marke um seine Breite und schob die
+   Nachbarn bei jedem Klick zur Seite (25.11.2026). */
+.kn-filter-tag::before { content: "\2713"; inline-size: 1em; text-align: center; visibility: hidden; }
+.kn-filter-tag[aria-pressed="true"]::before { visibility: visible; }
 
 @media (forced-colors: active) {
   .kn-filter-tag[aria-pressed="true"] { background: Highlight; color: HighlightText; }
 }
 
 /* Fortschritt. */
-.kn-progress-bar { inline-size: 100%; block-size: var(--kern-metric-space-small); border-radius: var(--kern-metric-border-radius-circle); background: var(--kern-color-layout-background-hued); overflow: hidden; }
+/* Halbe Höhe, nicht 50%: auf einem 100 % breiten, 8 px hohen Balken macht
+   KERNs Token "circle" (50%) eine Linse mit spitzen Enden, nicht zwei runde
+   Enden (25.11.2026). 50% nur auf quadratischen Flächen. */
+.kn-progress-bar { inline-size: 100%; block-size: var(--kern-metric-space-small); border-radius: calc(var(--kern-metric-space-small) / 2); background: var(--kern-color-layout-background-hued); overflow: hidden; }
 .kn-progress-bar__bar { block-size: 100%; background: var(--kern-color-action-default-contextual); transition: inline-size var(--kn-duration-2) var(--kn-easing); }
 
 

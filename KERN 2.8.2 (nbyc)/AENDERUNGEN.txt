@@ -13,6 +13,98 @@ Neue Einträge hier oben anfügen (Kennung · WAS · WARUM · BELEG). Nächste f
 Kennungen und der Ablauf einer Änderung: "_ Instructions/Übergabe KERN 2.8.2
 (nbyc).txt" (Projektordner).
 
+M117 SECHS DARSTELLUNGSFEHLER, DREI MUSTER, DREI NEUE PRÜFUNGEN  25.11.2026
+     WAS    Sechs Bausteine zeigten im Bild etwas anderes, als ihr Quelltext
+            sagt. Berichtigt, und zwar nach Muster:
+
+            MUSTER A — "circle" ist 50 %, nicht "Pille".
+            KERNs Token --kern-metric-border-radius-circle ist 50 %. Auf
+            einem Quadrat ist das ein Kreis, auf allem anderen eine ELLIPSE.
+            · kn-switch__track (56 × 32) war eine Ellipse; der runde Knauf
+              ragte links darüber hinaus.
+            · kn-progress-bar (100 % × 8) war eine Linse mit spitzen Enden.
+            Beide rechnen jetzt mit der halben Höhe
+            (calc(--kern-metric-dimension-large / 2) bzw. space-small / 2).
+
+            MUSTER B — Fläche auf gleichfarbiger Fläche.
+            KERNs Eingabefelder haben keinen Rahmen, nur einen Strich unten
+            und die getönte Füllung --kern-color-layout-layer-surface. Liegt
+            darunter eine Fläche mit genau dieser Tönung, verschwindet das
+            Feld.
+            · kn-toolbar: vom Suchfeld blieb nur der Strich unten.
+            · kn-file-list: dasselbe beim Dateifeld.
+            · kn-table-toolbar: dasselbe, von Prüfung 29 nachträglich
+              gefunden (im Muster "Fallbearbeitung" zu sehen).
+            Alle drei tragen jetzt die Standardfläche; sie grenzen sich über
+            ihren Rand ab, nicht über ihre Füllung.
+
+            MUSTER C — Geschwister-Regel greift ins Leere.
+            ".kn-split-button > .kern-btn:last-child" fasste ins Leere: das
+            letzte Kind ist das Menü (div.kn-menu), nicht der Knopf. Der
+            Teilknopf zerfiel in zwei Knöpfe mit runden Ecken. Jetzt
+            ".kn-split-button > .kern-btn + .kern-btn".
+
+            DAZU, EINZELN:
+            · kn-number-stepper: KERNs Feld hat nur einen Rand unten, die
+              Knöpfe einen ganzen. Darum klaffte die obere Kante über der
+              Feldbreite auf. Das Feld bekommt oben denselben Strich. Und die
+              Pfeilchen des Browsers (spin buttons) sind weg — die Knöpfe
+              − und + sind die Bedienung.
+            · kn-filter-tag: war 32 px hoch und stand neben den 48 px hohen
+              Knöpfen der Werkzeugleiste; jetzt --kn-target-size wie jeder
+              andere bedienbare Baustein. Der Haken steht immer im Platz und
+              wird beim Drücken nur sichtbar — vorher wuchs die Marke beim
+              Klicken um seine Breite und schob die Nachbarn zur Seite.
+            · kn-file-list: Rand jetzt durchgezogen statt gestrichelt — die
+              gestrichelte Kante gehört KERNs Dateifeld darin; zwei
+              gestrichelte Rahmen ineinander lesen sich als Fehler. Beim
+              Darüberziehen wechselt nur noch die Farbe, nicht die Breite
+              (sonst sprang der Inhalt um einen Punkt).
+
+            IM KATALOG (Markup, keine Gestaltung):
+            · "fehlerliste": das <form> hat jetzt kern-stack-md. Ohne Stapel
+              klebten Beschriftung, Feld und Absendeknopf aneinander — KERNs
+              Felder bringen keinen eigenen Außenabstand mit. Der Knopf hält
+              mit kern-align-self-start seine eigene Breite.
+            · "ablage": das Dateifeld steht jetzt in KERNs Hülle
+              kern-form-input, wie in KERNs eigenem Beispiel. Ohne sie griff
+              KERNs Gestaltung des Dateifelds nicht.
+
+            NICHT BEHOBEN: "Choose Files / no files selected" am Dateiknopf
+            kommt vom Browser, nicht aus dem System. CSS kann diesen Text
+            nicht übersetzen; er folgt der Sprache des Browsers. KERNs
+            eigenes Dateifeld zeigt dasselbe. Steht jetzt als Hinweis am
+            Baustein (deutsch und englisch).
+
+            NEUE PRÜFUNGEN 28, 29, 30 — jede fängt genau ein Muster:
+            28 Rundung "circle" nur auf Quadrat · 29 Feld auf gleichfarbiger
+            Fläche · 30 :first-child/:last-child greifen. 29 und 30 lesen die
+            Katalogbeispiele als Baum (html.parser, eingebaut — keine neue
+            Abhängigkeit).
+     WARUM  Nutzerin 25.11.2026: sechs Screenshots mit kleinen Fehlern, mit
+            der Bitte, Fehler und Muster zu finden, zu berichtigen und die
+            Prüfungen nachzuziehen. Alle sechs bestanden die Prüfung vorher
+            ohne Beanstandung: das Auge sah sie, die Maschine nicht.
+     BELEG  Vor der Berichtigung im Browser gemessen (localhost:8058):
+            Teilknopf — zweiter Knopf border-radius 4px rundum,
+            margin-left 0 (die Regel griff nicht). Schalter — Bahn 56 × 32
+            mit border-radius 50 %. Zahlenfeld — border-top des Feldes 0px
+            zwischen zwei Knöpfen mit 2px, appearance "auto". Werkzeugleiste
+            — Leiste und Feld beide oklch(0.9672 0.0041 271.37), Marken
+            32 px neben 48 px. Formular — alle Abstände 0px.
+            Nach der Berichtigung: Teilknopf 4px 0 0 4px / 0 4px 4px 0 mit
+            margin-left -2px · Schalter border-radius 16px · Zahlenfeld
+            border-top 2px, appearance "textfield", Höhe weiter 48px ·
+            Werkzeugleiste weiße Fläche, alle Bedienteile 48px · Formular
+            gestapelt. Hell und Dunkel angesehen.
+            Die drei neuen Prüfungen an einer Kopie mit den alten Werten
+            gegengeprüft: 28 und 30 melden die alten Fehler, 29 fand
+            zusätzlich kn-table-toolbar.
+            pruefung/pruefe.py ohne Beanstandung (30 Prüfungen),
+            pruefung/verhalten.html 19 von 19 bestanden.
+            Storybook neu gebaut (86 Dateien), meta.js neu, Stempel
+            2.8.2-nbyc.48.
+
 M116 NACHTRAG 2: STARTDATEI LIEGT JETZT IN "BLOG POST"         25.11.2026
      WAS    "Blog Post [ Start ].command" ist von der Projektwurzel nach
             "Blog Post/" gezogen (git mv) — dorthin, wo die Seite liegt.

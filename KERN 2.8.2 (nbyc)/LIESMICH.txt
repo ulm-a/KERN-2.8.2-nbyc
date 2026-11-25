@@ -199,19 +199,29 @@ PRÜFEN
 
 Kein Paket nötig. Endet mit Rückgabewert 1, wenn etwas beanstandet wird.
 
-   1  rohe Farbwerte in Erweiterungen    13  Dialog ohne Titel
-   2  Deckkraft auf Text                 13b data-Attribut ohne Verhalten
-   3  bedienbar ohne Zustand             14  KERN-Klassen gibt es in kern.css
-   4  dataset-Schlüssel mit Bindestrich  15  Dichte-Stufen
-   5  logische Maße in Vendor-Pseudo-    16  Felder: required und disabled
-      elementen                          18  CSS-Syntax
-   6  Merker-Kollision im JavaScript     19  Systemtexte DE/EN vollständig
-   7  Katalog gegen echte Klassen        20  Tastentabelle je Baustein
-   8  Token als Rückfallwert             21  Fokus nur über Fokus-Token
-   9  rohe Maße und Dauern               22  Versionsstempel überall gleich
-  10  KERN-Treue (kern.css unverändert) 23  Katalog-Zuordnung, Erzeugtes aktuell
-  11  kein Carbon, keine Rohwerte      24  kein Schatten (wie KERN)
-  12  token.json aktuell                 17  Katalog Deutsch/Englisch vollständig
+   1  rohe Farbwerte in Erweiterungen    16  Felder: required und disabled
+   2  Deckkraft auf Text                 17  Katalog Deutsch/Englisch vollständig
+   3  bedienbar ohne Zustand             18  CSS-Syntax
+   4  dataset-Schlüssel mit Bindestrich  19  Systemtexte DE/EN vollständig
+   5  logische Maße in Vendor-Pseudo-    20  Tastentabelle je Baustein
+      elementen                          21  Fokus nur über Fokus-Token
+   6  Merker-Kollision im JavaScript     22  Versionsstempel überall gleich
+   7  Katalog gegen echte Klassen        23  Katalog-Zuordnung, Erzeugtes aktuell
+   8  Token als Rückfallwert             24  kein Schatten (wie KERN)
+   9  rohe Maße und Dauern               26  gedrückt schlägt hover
+  10  KERN-Treue (kern.css unverändert)  27  Fassung überall gleich
+  11  kein Carbon, keine Rohwerte        28  Rundung "circle" nur auf Quadrat
+  12  token.json aktuell                 29  Feld auf gleichfarbiger Fläche
+  13  Dialog ohne Titel                  30  :first-child/:last-child greifen
+  13b data-Attribut ohne Verhalten
+  14  KERN-Klassen gibt es in kern.css
+  15  Dichte-Stufen
+
+28, 29 und 30 kamen am 25.11.2026 dazu. Sie prüfen die drei Fehler, die man
+nur im Bild sieht und im Quelltext nicht: eine Pille, die als Ellipse
+gezeichnet wird; ein KERN-Feld auf einer Fläche in seiner eigenen Tönung,
+auf der es verschwindet; und eine Geschwister-Regel, die ins Leere fasst,
+weil hinter den sichtbaren Teilen noch ein unsichtbares Kind steht.
 
 Im Browser (Prüfserver: python3 -m http.server 8058 --bind 127.0.0.1 im
 übergeordneten Ordner):
