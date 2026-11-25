@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vollständig, geprüft, auf KERN gebaut · KERN 2.8.2 (nbyc)</title>
-<meta name="description" content="KERN unverändert als Fundament, darauf die Schicht, die KERN der Umsetzung überlässt: Tastatur und Rückmeldung, 44 Erweiterungen, Prüfstand. Mit Vergleich zu acht anderen Design-Systemen.">
+<meta name="description" content="Von der Recherche über neun Design-Systeme zum fertigen Bau: KERN unverändert als Fundament, darauf die Schicht, die KERN der Umsetzung überlässt — Katalog, Prüfstand, Storybook und Token-Editor.">
 <link rel="stylesheet" href="../KERN%202.8.2%20(nbyc)/system/kern-neu.css?v=2.8.2-nbyc.44">
 <style>
   /* Nur Layout für diese eine Seite — Farben und Maße kommen aus KERN-Tokens. */
@@ -22,6 +22,12 @@
   .bp-schicht--basis { border-width: var(--kern-metric-border-width-bold, 2px);
                        background: var(--kern-color-layout-background-default-surface, transparent); }
   .bp-schicht > p { margin: 0; }
+  .bp-ueberblick { display: flex; flex-direction: column;
+                   gap: var(--kern-metric-space-small, .5rem);
+                   margin: var(--kern-metric-space-default, 1rem) 0
+                           var(--kern-metric-space-large, 1.5rem);
+                   padding-inline-start: var(--kern-metric-space-large, 1.5rem); }
+  .bp-ueberblick b { display: block; }
   .bp-zahlen { display: grid; gap: var(--kern-metric-space-default, 1rem);
                grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
                margin: var(--kern-metric-space-large, 1.5rem) 0; padding: 0; list-style: none; }
@@ -32,6 +38,13 @@
                          var(--kern-color-layout-border-contextual, currentColor);
                  border-radius: var(--kern-metric-border-radius-default, .25rem); }
   .bp-bild figcaption { margin-top: var(--kern-metric-space-small, .5rem); }
+  .bp-pdf { border: var(--kern-metric-border-width-bold, 2px) solid
+                    var(--kern-color-layout-border-contextual, currentColor);
+            border-radius: var(--kern-metric-border-radius-default, .25rem);
+            padding: var(--kern-metric-space-default, 1rem);
+            margin: var(--kern-metric-space-large, 1.5rem) 0; }
+  .bp-pdf > :first-child { margin-top: 0; }
+  .bp-pdf > :last-child { margin-bottom: 0; }
 </style>
 </head>
 <body class="kn-page">
@@ -63,14 +76,20 @@
   darüber: Tastatur und Rückmeldung für jede Bedienung, die fehlenden Bausteine, Modi und
   Katalog. Kein npm, kein Bauwerkzeug, keine Netzabfrage.</p>
 
-  <figure class="bp-bild">
-    <img src="bilder/katalog-ansicht.png" width="2560" height="1520"
-         alt="Der Katalog im Browser: links die Suche und die Liste der Bausteine nach Gruppen,
-              rechts ein geöffneter Baustein mit Beispiel, Zweck, Tastaturvertrag und Herkunft.">
-    <figcaption class="kern-body kern-body--small kern-body--muted">Der Katalog: 85 Einträge,
-    jeder mit Beispiel, Entscheidungshilfe, Tastentabelle und Herkunft — Deutsch und
-    Englisch.</figcaption>
-  </figure>
+  <h2 class="kern-heading-medium">Überblick</h2>
+  <ul class="bp-ueberblick">
+    <li class="kern-body"><b>Die Recherche.</b> Neun Design-Systeme gegen 95 vorher
+      festgelegte, prüfbare Kriterien — das Ergebnis liegt als Heft mit 26 Seiten vor.</li>
+    <li class="kern-body"><b>Qualität und Vollständigkeit.</b> 38 KERN-Bausteine und 44
+      Erweiterungen; alle 135 offiziellen KERN-Beispiele werden Element für Element gegen
+      die eigene Umsetzung gemessen: Soll gegen Ist, 135 von 135 deckungsgleich.</li>
+    <li class="kern-body"><b>Der fertige Bau.</b> Ein Katalog mit 85 Einträgen, jeder mit
+      Beispiel, Entscheidungshilfe, Tastentabelle und Herkunft — Deutsch und Englisch.</li>
+    <li class="kern-body"><b>Storybook.</b> 196 Stories und 85 Doku-Seiten für die
+      Entwicklung, erzeugt aus dem Katalog statt von Hand geschrieben.</li>
+    <li class="kern-body"><b>Der KERN Designer.</b> Ein Token-Editor mit Live-Vorschau, der
+      den Kontrast nach WCAG 2.2 nachrechnet, bevor etwas gespeichert wird.</li>
+  </ul>
 
   <figure class="bp-figur">
     <div class="bp-stapel">
@@ -100,50 +119,26 @@
     Tokens.</figcaption>
   </figure>
 
-  <h2 class="kern-heading-medium">Vollständigkeit</h2>
-  <p class="kern-body">38 KERN-Bausteine mit KERNs Original-Beispielen, dazu 44 Erweiterungen:
-  Reiter, Combobox, Brotkrumen, Seitenweiser, Schrittfolge, Schublade, Kalender, Datentabelle,
-  Baum, Fehlerzusammenfassung. Gegenüber Carbon und Material 3 fehlt damit kein Baustein mehr
-  (vorher sechs und zwei). Jeder Baustein bringt alle Varianten und Zustände mit, Ebenen 0 bis 2,
-  hell, dunkel und erhöhten Kontrast — und einen Tastaturvertrag: Taste, Wirkung, Ansage.
-  Alles zweisprachig, Deutsch und Englisch.</p>
-
-  <figure class="bp-bild">
-    <img src="bilder/onepager-ansicht.png" width="2560" height="1040" loading="lazy"
-         alt="Eine einzelne Seite mit allen Bausteinen untereinander: Knöpfe, Felder, Meldungen,
-              Tabellen und Navigation in allen Varianten und Zuständen.">
-    <figcaption class="kern-body kern-body--small kern-body--muted">Alle Bausteine, Varianten
-    und Zustände auf einer Seite — zum Vergleichen und Messen.</figcaption>
-  </figure>
-
-  <h2 class="kern-heading-medium">Qualität, die man nachrechnen kann</h2>
-  <p class="kern-body">Alle 135 offiziellen KERN-Beispiele werden Element für Element gegen die
-  eigene Umsetzung gemessen — Lage und Größe mit 1 px Toleranz, dazu 17 Stilwerte: 135 von 135
-  deckungsgleich, Ausgangswert war 0. Dazu 27 Prüfungen im Skript, und jede gilt erst als fertig,
-  wenn ihre Gegenprobe in einer Kopie rot war. Was nicht geprüft ist, steht genauso da: Firefox,
-  Screenreader, Windows-Kontrastmodus.</p>
-
-  <figure class="bp-bild">
-    <img src="bilder/pruefstand-knopf.png" width="1532" height="416" loading="lazy"
-         alt="Zwei Spalten nebeneinander: links das offizielle KERN-Beispiel der Knöpfe,
-              rechts dieselben Knöpfe in KERN 2.8.2 (nbyc), darunter die Meldung,
-              dass beide deckungsgleich sind.">
-    <figcaption class="kern-body kern-body--small kern-body--muted">Der Prüfstand: links das
-    offizielle KERN-Beispiel, rechts die eigene Umsetzung — Element für Element
-    gemessen.</figcaption>
-  </figure>
-
-  <ul class="bp-zahlen">
-    <li class="kern-body kern-body--small"><b class="kern-heading-small">135 / 135</b> KERN-Beispiele deckungsgleich</li>
-    <li class="kern-body kern-body--small"><b class="kern-heading-small">4 152</b> Tokenwerte wie bei KERN</li>
-    <li class="kern-body kern-body--small"><b class="kern-heading-small">27</b> Prüfungen, jede mit Gegenprobe</li>
-    <li class="kern-body kern-body--small"><b class="kern-heading-small">27</b> Befunde im Original gemeldet</li>
-  </ul>
-
-  <h2 class="kern-heading-medium">Vergleich mit acht anderen Systemen</h2>
-  <p class="kern-body">Vorangegangen ist ein Vergleich von neun Design-Systemen gegen 95 prüfbare
-  Kriterien. Der Auszug zeigt, wo KERN die Umsetzung bewusst offen lässt — und was diese
-  Adaption daraus gemacht hat.</p>
+  <h2 class="kern-heading-medium">Die Recherche: neun Systeme, 95 Kriterien</h2>
+  <p class="kern-body">Vor der ersten Zeile Code stand die Frage, woran sich ein Design-System
+  überhaupt messen lässt. Das Vorgehen in vier Schritten:</p>
+  <ol class="bp-ueberblick">
+    <li class="kern-body"><b>Erst die Messlatte, dann der Blick auf die Systeme.</b> 60
+      allgemeine Kriterien (A01–A60) und 35 Anforderungen aus KERNs eigenen Vorgaben
+      (K01–K35) — zusammen 95, jedes so formuliert, dass es sich mit Ja oder Nein
+      beantworten lässt, und jedes mit Pflichtgrad von MUSS bis KANN.</li>
+    <li class="kern-body"><b>Quellen lesen statt erinnern.</b> Das Paket
+      <code>@kern-ux/native</code> 2.8.2 im Quelltext, alle 95 Seiten der
+      KERN-Dokumentation wörtlich gesichert, dazu 42 Komponenten-Steckbriefe und 135
+      offizielle Beispiele.</li>
+    <li class="kern-body"><b>Jede Aussage mit Belegstufe.</b> [Q] heißt: aus der Quelle
+      gelesen oder gemessen, mit Datum. [W] heißt: Fachwissen, nicht neu nachgeprüft — so
+      steht bei den fremden Systemen offen da, was vor einer Weitergabe noch einzeln zu
+      belegen wäre.</li>
+    <li class="kern-body"><b>Aus der Matrix die Maßnahmen.</b> Neun Systeme × 95 Kriterien
+      ergeben die Lücken; jede Lücke wurde zu einer nummerierten Maßnahme, auf die sich
+      später jede Änderung beruft.</li>
+  </ol>
 
   <div class="kern-table-responsive">
     <table class="kern-table kern-table--small">
@@ -194,37 +189,104 @@
     </table>
   </div>
 
+  <div class="bp-pdf">
+    <p class="kern-body kern-body--bold">Das Ergebnis der Recherche als Heft</p>
+    <p class="kern-body">Kriterien und Matrix vollständig, dazu die Lücken von KERN 2.8.2, die
+    Entscheidungen E1–E10, der Prüfstand und ein Glossar:
+    <a class="kern-link" href="bilder/KERN%202.8.2%20(nbyc)%200.2.0%20Dokumentation.pdf">KERN
+    2.8.2 (nbyc) 0.2.0 Dokumentation (PDF)</a> — 26 Seiten A4, Deutsch, 2,3 MB, mit
+    verlinktem Inhaltsverzeichnis.</p>
+  </div>
+
+  <h2 class="kern-heading-medium">Qualität und Vollständigkeit: Soll gegen Ist</h2>
+  <p class="kern-body">38 KERN-Bausteine mit KERNs Original-Beispielen, dazu 44 Erweiterungen:
+  Reiter, Combobox, Brotkrumen, Seitenweiser, Schrittfolge, Schublade, Kalender, Datentabelle,
+  Baum, Fehlerzusammenfassung. Gegenüber Carbon und Material 3 fehlt damit kein Baustein mehr
+  (vorher sechs und zwei). Jeder Baustein bringt alle Varianten und Zustände mit, Ebenen 0 bis 2,
+  hell, dunkel und erhöhten Kontrast — und einen Tastaturvertrag: Taste, Wirkung, Ansage.
+  Alles zweisprachig, Deutsch und Englisch.</p>
+
+  <p class="kern-body">Dass die Umsetzung wirklich KERN ist, wird nicht behauptet, sondern
+  gemessen: Alle 135 offiziellen KERN-Beispiele laufen Seite an Seite gegen die eigene
+  Umsetzung — Lage und Größe jedes Elements mit 1 px Toleranz, dazu 17 Stilwerte. 135 von 135
+  sind deckungsgleich, Ausgangswert war 0. Dazu 27 Prüfungen im Skript, und jede gilt erst als
+  fertig, wenn ihre Gegenprobe in einer Kopie rot war. Was nicht geprüft ist, steht genauso da:
+  Firefox, Screenreader, Windows-Kontrastmodus.</p>
+
+  <figure class="bp-bild">
+    <img src="bilder/pruefstand-knopf.png?v=m116" width="1656" height="544" loading="lazy"
+         alt="Der Prüfstand mit den Knöpfen, zweimal untereinander: oben „Soll · KERN 2.8.2“,
+              darunter „Ist · KERN 2.8.2 (nbyc)“ — jeweils Primary-, Secondary- und
+              Tertiary-Button nebeneinander in einer Reihe.">
+    <figcaption class="kern-body kern-body--small kern-body--muted">Der Prüfstand bei 768 px:
+    oben das offizielle KERN-Beispiel, darunter die eigene Umsetzung — Element für Element
+    gemessen.</figcaption>
+  </figure>
+
+  <ul class="bp-zahlen">
+    <li class="kern-body kern-body--small"><b class="kern-heading-small">135 / 135</b> KERN-Beispiele deckungsgleich</li>
+    <li class="kern-body kern-body--small"><b class="kern-heading-small">4 152</b> Tokenwerte wie bei KERN</li>
+    <li class="kern-body kern-body--small"><b class="kern-heading-small">27</b> Prüfungen, jede mit Gegenprobe</li>
+    <li class="kern-body kern-body--small"><b class="kern-heading-small">27</b> Befunde im Original gemeldet</li>
+  </ul>
+
+  <figure class="bp-bild">
+    <img src="bilder/onepager-ansicht.png?v=m116" width="2560" height="1040" loading="lazy"
+         alt="Eine einzelne Seite mit allen Bausteinen untereinander: Knöpfe, Felder, Meldungen,
+              Tabellen und Navigation in allen Varianten und Zuständen.">
+    <figcaption class="kern-body kern-body--small kern-body--muted">Alle Bausteine, Varianten
+    und Zustände auf einer Seite — zum Vergleichen und Messen.</figcaption>
+  </figure>
+
+  <h2 class="kern-heading-medium">Der fertige Bau</h2>
+  <p class="kern-body">Herausgekommen ist ein Katalog mit 85 Einträgen. Jeder Eintrag zeigt das
+  Beispiel live und als Quelltext aus derselben Quelle — abweichen können die beiden also nie —
+  und dazu, wofür der Baustein da ist, wann man ihn nicht nimmt, welche Tasten gelten und woher
+  er stammt: aus KERN oder ergänzt. Modus, Kontrast und Sprache lassen sich oben in der Leiste
+  umschalten. Die Seite läuft als reines HTML, CSS und ES5-JavaScript aus einem Ordner.</p>
+
+  <figure class="bp-bild">
+    <img src="bilder/katalog-ansicht.png?v=m116" width="2560" height="1520" loading="lazy"
+         alt="Der Katalog im Browser: links die Suche und die Liste der Bausteine nach Gruppen,
+              rechts ein geöffneter Baustein mit Beispiel, Zweck, Tastaturvertrag und Herkunft.">
+    <figcaption class="kern-body kern-body--small kern-body--muted">Der Katalog: 85 Einträge,
+    jeder mit Beispiel, Entscheidungshilfe, Tastentabelle und Herkunft — Deutsch und
+    Englisch.</figcaption>
+  </figure>
+
+  <h2 class="kern-heading-medium">Für die Entwicklung: Storybook</h2>
+  <p class="kern-body">Alle Bausteine liegen auch als Storybook bereit, im Format von KERNs
+  eigenem. Die Stories werden aus dem Katalog erzeugt, nie von Hand geschrieben: aus 85
+  Einträgen mit 195 Beispielen werden 196 Stories und 85 Doku-Seiten — mit Tastaturvertrag,
+  Klassen und Pflichten aus KERN, in beiden Sprachen. Modus, Kontrast und Sprache stehen in der
+  Werkzeugleiste, hier auf Dunkel gestellt.</p>
+
+  <figure class="bp-bild">
+    <img src="bilder/storybook-dunkel.png?v=m116" width="2560" height="960" loading="lazy"
+         alt="Storybook im dunklen Modus: links der Baum der Bausteine, getrennt nach
+              KERN-Bausteinen und Erweiterungen, oben die Werkzeugleiste mit „dunkel / dark“,
+              rechts die erweiterte Datentabelle mit Suche, Filter, Spaltenwahl und vier
+              Zeilen auf dunklem Grund.">
+    <figcaption class="kern-body kern-body--small kern-body--muted">Storybook im dunklen Modus,
+    erzeugt aus dem Katalog — der Katalog bleibt die einzige Quelle.</figcaption>
+  </figure>
+
   <h2 class="kern-heading-medium">Extra: der KERN Designer</h2>
   <p class="kern-body">Dazu gehört ein Token-Editor mit Live-Vorschau: Jeder Token lässt sich
   ändern, die Wirkung ist sofort an echten Bausteinen zu sehen, und je Token steht dabei, ob
   KERN das freigibt oder davon abrät. Der Kontrast wird nach WCAG 2.2 mitgerechnet, bevor etwas
   gespeichert wird. Das Ergebnis ist ein eigenes Thema mit eigener Fassung in einer eigenen
-  Datei — das System darunter bleibt unverändert KERN, und „auf KERN zurück" ist ein Schritt.
-  Daneben liegt eine Seite mit allen Bausteinen, Varianten und Zuständen auf einmal, zum
-  Vergleichen und Messen.</p>
+  Datei — das System darunter bleibt unverändert KERN, und „auf KERN zurück“ ist ein Schritt.</p>
 
   <figure class="bp-bild">
-    <img src="bilder/designer-ansicht.png" width="2560" height="1520" loading="lazy"
-         alt="Der Token-Editor: oben eine Leiste mit der Zahl der erfüllten Kontrastregeln,
-              links die Tokens nach Schicht geordnet, rechts die Live-Vorschau an echten
-              Bausteinen.">
-    <figcaption class="kern-body kern-body--small kern-body--muted">Der KERN Designer: ändern,
-    sofort sehen, Kontrast nachrechnen — und jederzeit auf KERN zurück.</figcaption>
-  </figure>
-
-  <h2 class="kern-heading-medium">Und für die Entwicklung: Storybook</h2>
-  <p class="kern-body">Alle Bausteine liegen auch als Storybook bereit, im Format von KERNs
-  eigenem. Die Stories werden aus dem Katalog erzeugt, nie von Hand geschrieben: 85 Einträge
-  mit 195 Beispielen werden zu 196 Stories und 85 Doku-Seiten — mit Tastaturvertrag,
-  Klassen und Pflichten aus KERN, in beiden Sprachen.</p>
-
-  <figure class="bp-bild">
-    <img src="bilder/storybook-ansicht.png" width="2560" height="1520" loading="lazy"
-         alt="Storybook mit der Doku-Seite der Mehrfachauswahl: links die Bausteine getrennt
-              nach KERN-Bausteinen und Erweiterungen, oben die Schalter für Modus, Kontrast
-              und Sprache, rechts der Katalogtext mit Tastaturvertrag.">
-    <figcaption class="kern-body kern-body--small kern-body--muted">Storybook, erzeugt aus dem
-    Katalog — der Katalog bleibt die einzige Quelle.</figcaption>
+    <img src="bilder/designer-dunkel.png?v=m116" width="2560" height="1520" loading="lazy"
+         alt="Der Token-Editor im dunklen Modus: oben die Fassung und die Leiste zur
+              Barrierefreiheit mit der Zahl der erfüllten Kontrastregeln, links die Tokens nach
+              Schicht geordnet, rechts die Token-Zeilen mit Farbwert, Auswahlfeld und dem
+              Hinweis „KERN rät ab“.">
+    <figcaption class="kern-body kern-body--small kern-body--muted">Der KERN Designer im dunklen
+    Modus: ändern, sofort sehen, Kontrast nachrechnen — und jederzeit auf KERN
+    zurück.</figcaption>
   </figure>
 
   <div class="kern-alert kern-alert--info" style="margin-block:2rem">
@@ -233,8 +295,8 @@
       <h2 class="kern-title">Kein offizielles KERN</h2>
     </div>
     <div class="kern-alert__body">
-      <p class="kern-body">„2.8.2" ist die Version des eingebundenen KERN und wird nie
-      hochgezählt; „(nbyc)" heißt „New by Claude" — gebaut mit Claude, dem KI-Assistenten von
+      <p class="kern-body">„2.8.2“ ist die Version des eingebundenen KERN und wird nie
+      hochgezählt; „(nbyc)“ heißt „New by Claude“ — gebaut mit Claude, dem KI-Assistenten von
       Anthropic, mit Entscheidungen und Prüfungen bei Menschen. Eine Adaption, kein Angebot des
       KERN-Projekts oder eines Landes. Offen: die Absprache über den Namen mit dem KERN-Team und
       die rechtliche Prüfung der Lizenzlage.</p>

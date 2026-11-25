@@ -13,6 +13,159 @@ Neue Einträge hier oben anfügen (Kennung · WAS · WARUM · BELEG). Nächste f
 Kennungen und der Ablauf einer Änderung: "_ Instructions/Übergabe KERN 2.8.2
 (nbyc).txt" (Projektordner).
 
+M116 NACHTRAG 2: STARTDATEI LIEGT JETZT IN "BLOG POST"         25.11.2026
+     WAS    "Blog Post [ Start ].command" ist von der Projektwurzel nach
+            "Blog Post/" gezogen (git mv) — dorthin, wo die Seite liegt.
+            Dafür startet das Skript den Server eine Ebene HÖHER:
+            "cd ${0:A:h}/.." statt "cd ${0:A:h}". Der Server muss im
+            Projektordner wurzeln, weil die Seite das Design-System aus dem
+            Nachbarordner lädt ("../KERN 2.8.2 (nbyc)/system/kern-neu.css");
+            wurzelte er in "Blog Post", läge das System außerhalb und die
+            Seite käme wieder ohne Gestaltung. Der Kopf der Datei sagt das
+            jetzt ausdrücklich, damit der Pfad nicht versehentlich
+            "vereinfacht" wird.
+     WARUM  Nutzerin 25.11.2026: "verschiebe Blog Post [ Start ].command in
+            Ordner Blog Post".
+     BELEG  "zsh -n" ohne Syntaxfehler; "${0:A:h}/.." löst vom neuen Ort auf
+            den Projektordner auf (geprüft), und darin liegen sowohl
+            "Blog Post/index.html" als auch "KERN 2.8.2 (nbyc)/system/
+            kern-neu.css". Mit einem Server aus diesem Wurzelordner: Seite
+            HTTP 200 und mit dem erwarteten Text, kern-neu.css HTTP 200,
+            "pruefstand-knopf.png?v=m116" HTTP 200.
+            Vom neuen Ort aus doppelgeklickt (Nutzerin, 25.11.2026): Die Seite
+            kommt richtig, mit Gestaltung.
+
+M116 NACHTRAG: STARTDATEI ÖFFNET DIE SEITE FRISCH              25.11.2026
+     WAS    "Blog Post [ Start ].command" öffnet die Seite jetzt mit einer
+            frischen Adresse ("…/index.html?frisch=<Zeitstempel>") und meldet,
+            wenn auf 127.0.0.1:8058 ein Server aus einem ANDEREN Ordner
+            antwortet (Probe: die Seite muss "KERN 2.8.2 (nbyc)" enthalten).
+            Dazu tragen die fünf Bilder im HTML die Fassung in der Adresse
+            ("…png?v=m116"), wie es kern-neu.css und kern-neu.js schon tun.
+     WARUM  Nutzerin 25.11.2026: "Startdatei aktualisieren, weil ich immer noch
+            die alte Seite sehe". Zwei Ursachen, beide behoben: "open" holt eine
+            schon offene Registerkarte mit derselben Adresse nur nach vorn, ohne
+            neu zu laden; und Safari hält Seite und Bilder im Zwischenspeicher.
+            Beim Bild "pruefstand-knopf.png" fiel das besonders auf — es hat
+            seinen Namen behalten, aber einen neuen Inhalt bekommen (M116).
+     BELEG  "zsh -n" ohne Syntaxfehler, Datei weiter ausführbar (755).
+            Über den Prüfserver: Seite mit "?frisch=…" HTTP 200 und mit dem
+            erwarteten Text, die drei neuen Bilder mit "?v=m116" je HTTP 200.
+            Im Browser bei 1280 px: 5 von 5 Bildern geladen (1656×544,
+            2560×1040, 2560×1520, 2560×960, 2560×1520), kein Überlauf.
+            NACHGETRAGEN 25.11.2026: Die Startdatei ist jetzt zum ersten Mal
+            doppelgeklickt worden (Port 8058 war dafür frei geräumt) — sie
+            startet ihren Server und zeigt die neue Seite. Damit ist auch der
+            offene Punkt aus M114 erledigt.
+
+M116 BLOG POST NACH SECHS THEMEN SORTIERT; PDF VERLINKT;        25.11.2026
+     STORYBOOK UND DESIGNER IN DUNKEL
+     WAS    "Blog Post/index.html" inhaltlich neu geordnet, in der von der
+            Nutzerin vorgegebenen Reihenfolge:
+            1. Überblick — fünf Stichpunkte, einer je folgendem Thema.
+            2. Die Recherche — das Vorgehen in vier Schritten (erst die
+               Messlatte aus 60 + 35 Kriterien, dann Quellen lesen statt
+               erinnern, jede Aussage mit Belegstufe [Q]/[W], aus der Matrix
+               die Maßnahmen), dazu der Matrix-Auszug, der vorher weiter
+               unten stand. Am Ende der Kasten mit dem Ergebnis: Verweis auf
+               "KERN 2.8.2 (nbyc) 0.2.0 Dokumentation.pdf" (26 Seiten,
+               2,3 MB) — Kopie des Hefts liegt jetzt in "Blog Post/bilder/".
+            3. Qualität und Vollständigkeit: Soll gegen Ist — Prüfstand und
+               OnePager-Bild.
+            4. Der fertige Bau — das Katalog-Bild rückt hierher; der Artikel
+               hat damit kein Titelbild mehr, das Schaubild (Stapel) steht
+               jetzt direkt unter dem Überblick.
+            5. Storybook. 6. Der KERN Designer.
+            BILDER
+            · "pruefstand-knopf.png" neu aufgenommen, jetzt bei 768 px statt
+              375 px und Soll ÜBER Ist statt daneben: die drei Knöpfe stehen
+              nebeneinander in einer Reihe, statt ohne Abstand untereinander
+              zu kleben (Wunsch der Nutzerin). 1 656 × 544.
+            · NEU "storybook-dunkel.png" (2 560 × 960): Doku-Seite ersetzt
+              durch die Story "Datentabelle erweitert", globals
+              kernTheme:dark; die Werkzeugleiste zeigt "dunkel / dark".
+            · NEU "designer-dunkel.png" (2 560 × 1520): data-kd-modus=dunkel
+              (der Designer startet ohnehin dunkel), Übergänge abgeschaltet;
+              der OnePager war dabei offen, daher steht die Messung in der
+              Leiste (267 Elemente, 348 erfüllt, 0 verletzt).
+            · "storybook-ansicht.png" und "designer-ansicht.png" (hell)
+              entfernt — sie liegen weiter in "_ Documentation/quelle/bilder".
+     WARUM  Nutzerin 25.11.2026: "sortiere den Artikel inhaltlich neu" mit
+            den sechs Themen in dieser Reihenfolge, "da PDF verlinken, PDF in
+            Ordner bilder ablegen", "verbessere das Beispiel, weil die Knöpfe
+            aneinander kleben", Storybook und Designer "Screenshot in Dunkel".
+     BELEG  Im Browser über den Prüfserver gemessen:
+            · 1280 px: kein waagerechter Überlauf, Seitenhöhe 6 545 px,
+              Bildbreite 704 px.
+            · 375 px: kein waagerechter Überlauf (nur die Vergleichstabelle
+              scrollt in ihrem Wrapper, wie vorher), Seitenhöhe 8 308 px,
+              Schrift der Überblick-Punkte 18 px.
+            · 5 von 5 Bildern geladen (naturalWidth > 0).
+            · PDF über den Server: HTTP 200, application/pdf.
+            Zahlen gegengeprüft: index.json des frisch gebauten Storybooks
+            nennt 196 Stories und 85 Doku-Seiten, 38 KERN-Bausteine und 47
+            Titel unter "Erweiterungen" — davon 3 Grundlagen, also die im
+            Text genannten 44 Erweiterungen (katalog/inhalt.js: 47 Einträge,
+            Gruppe "Grundlagen" 3).
+     NICHT GEPRÜFT
+            · Firefox, Screenreader, Windows-Kontrastmodus.
+            · Die PDF-Kopie in "Blog Post/bilder/" ist eine Kopie: Sie muss
+              bei jeder neuen Fassung des Hefts mitgezogen werden.
+
+M115 RECHERCHE: WIE katalog.kern-ux.de GEBAUT IST — UND KERN 2.9.0 IST DA  24.11.2026
+     WAS    Neu "_ Recherche/research-katalog-website.txt" und, erstmals in
+            diesem Projekt, "_ Recherche/sources.txt" (Quellenliste nach der
+            Skill "research", Block 1, Quellen 1–8). Belege liegen in
+            "_ Recherche/docs/": die Startseite des Katalogs als Rohtext und
+            sein Stilbündel.
+            Die sechs Kernaussagen:
+            1. Der Katalog ist eine React-Anwendung, mit Vite gebaut und je
+               Seite vorgerendert (vite-react-ssg, react-helmet-async).
+            2. Sein Stilbündel enthält KERNs CSS fast vollständig (2 674
+               kern--Klassen) und darüber 340 eigene "app-"-Klassen; kein
+               Tailwind.
+            3. Welche KERN-Fassung darin steckt, ist von außen nicht genau
+               bestimmbar (2.8.0, 2.8.1 und 2.8.2 haben denselben
+               Klassenbestand); sicher ist: NICHT 2.9.0.
+            4. Die eigene Schicht benutzt 30 Token-Namen, die KERN NICHT
+               definiert — sie wirken nur über ihren Rückfallwert
+               (--kern-metric-border-radius 65×, --kern-metric-space-medium
+               19×, --kern-metric-space-xsmall 11×). Genau das, was unsere
+               Prüfung 8 bei uns verbietet.
+            5. WICHTIG: KERN 2.9.0 ist am 18.11.2026 erschienen, zwei Tage
+               nach unserer Fassung 0.2.0. Gegenüber 2.8.2 rein additiv: 11
+               neue Klassen, KEINE entfallene, 7 neue Tokens — vor allem
+               Lesebreiten (kern-reading-width …, --kern-typography-reading-
+               width), feste Feldbreiten und kern-details-group.
+               Instruktion Abschnitt 3 verlangt: nicht still nachziehen,
+               Unterschiede melden, Entscheidung abwarten. Gemeldet; die
+               Entscheidung steht aus.
+            6. Ein Katalogeintrag ist kurz und bildgestützt (997 bzw. 1 439
+               Zeichen, ein Titelbild, Metadaten daneben).
+            Dazu eine Maßtabelle Katalog gegen unsere Seite und drei
+            Änderungsvorschläge (Überschrift größer, Spaltenbreite kann
+            bleiben, Text könnte auf rund 1 500 Zeichen).
+     WARUM  Nutzerin 24.11.2026: "recherchiere, wie die Website zu den Blog
+            gebaut ist … schau die CSS Datei genau an … vergleich mit deiner
+            HTML Seite".
+     BELEG  Alles an heruntergeladenen Dateien gemessen, nicht geschätzt:
+            Klassen- und Token-Mengen über Mustervergleich (Katalogbündel
+            432 811 Bytes, kern.css 2.9.0 417 462 Bytes mit SHA-256
+            7d4de8de…3c3a, dazu 2.8.0 und 2.8.1 aus npm), Maße im Browser
+            über getComputedStyle bei 1 280 px.
+            Unsere Seite zur Gegenprobe: 9 benutzte Token-Namen, alle in
+            kern.css definiert; 16 600 Bytes gegen 596 856 Bytes JavaScript
+            des Katalogs.
+            NICHT GEPRÜFT: das Änderungsprotokoll von KERN 2.9.0 (nur der
+            Bestand an Klassen und Tokens verglichen); ob der Katalog Bilder
+            in mehreren Größen ausliefert; Katalog im erhöhten Kontrast.
+            NICHT unabhängig gegengeprüft (kein zweiter Lesender) — alle
+            Zahlen sind aus den abgelegten Dateien wiederholbar.
+     NEXT   Entscheidung zu KERN 2.9.0: nachziehen oder bei 2.8.2 bleiben.
+            Dafür zuerst das Änderungsprotokoll lesen; der Bestandsvergleich
+            sagt nur, dass nichts entfallen ist.
+
+
 M114 FÜNF BILDER IM BLOG POST; STARTDATEI GEGEN SAFARIS DATEI-SPERRE 24.11.2026
      WAS    Die fünf vorgeschlagenen Bilder (M111) sind aufgenommen und in
             "Blog Post/bilder/" abgelegt, jedes mit beschreibendem
