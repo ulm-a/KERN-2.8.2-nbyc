@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: '22'
 
-      - name: 27 Prüfungen des Systems
+      - name: 30 Prüfungen des Systems
         working-directory: "KERN 2.8.2 (nbyc)"
         run: python3 pruefung/pruefe.py
 
