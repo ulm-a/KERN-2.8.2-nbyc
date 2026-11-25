@@ -318,6 +318,13 @@
 
 .kn-file-list {
   display: grid;
+  /* Eine Spalte, die NICHT am breitesten Kind wächst: "minmax(0, 1fr)" statt der
+     Vorgabe "auto". Sonst misst das Raster seine Spalte am max-content des
+     nativen Dateifeldes, und das ist von sich aus breiter als eine schmale
+     Ablage — bei 320 px war die Ablage 206 px breit und das Feld 295 px
+     (gemessen 25.11.2026). Ein "inline-size: 100%" am Kind hilft dagegen nicht:
+     Es rechnet gegen eben diese Spalte und bleibt im Kreis. */
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   gap: var(--kern-metric-space-small);
   padding: var(--kern-metric-space-x-large);
@@ -341,11 +348,25 @@
   background: color-mix(in oklch, var(--kern-color-action-default-contextual) calc(var(--kern-color-action-state-opacity-selected) * 100%), transparent);
 }
 
+/* Die Hülle des Feldes füllt die Ablage, statt sich auf ihren Inhalt zu ziehen.
+   "place-items: center" misst ein Rasterkind an seinem max-content — und das
+   native Dateifeld ist von sich aus breiter als eine schmale Ablage. Bei 320 px
+   war die Ablage 206 px breit und das Feld 295 px: 89 px standen über den
+   rechten Rand hinaus und wurden beschnitten (gemessen 25.11.2026). */
+.kn-file-list > .kern-form-input { inline-size: 100%; min-inline-size: 0; }
+.kn-file-list input[type="file"] { max-inline-size: 100%; }
+
 .kn-file-list__list { inline-size: 100%; margin: 0; padding: 0; list-style: none; }
 
 .kn-file-list__file {
   display: flex;
   align-items: center;
+  /* Dateinamen sind lang und der Entfernen-Knopf hat seine Trefferfläche: auf
+     schmalen Schirmen bricht die Zeile um, statt den Knopf hinauszuschieben
+     (bei 320 px standen 6 px über, gemessen 25.11.2026). Der Name darf dabei
+     auch mitten im Wort umbrechen — "Lohnabrechnung-2025-12.pdf" hat keine
+     Leerzeichen, an denen er sonst umbräche. */
+  flex-wrap: wrap;
   gap: var(--kern-metric-space-small);
   padding: var(--kern-metric-space-small) 0;
   border-block-end: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default);
@@ -353,6 +374,7 @@
 }
 
 /* auf der getönten Dateiliste: muted nur 6,38 : 1 → text-default (K30, 13.10.2026) */
+.kn-file-list__file > :first-child { min-inline-size: 0; overflow-wrap: anywhere; }
 .kn-file-list__size { margin-inline-start: auto; color: var(--kern-color-layout-text-default-contextual); font-variant-numeric: tabular-nums; }
 
 /* ------------------------------------------------------------------

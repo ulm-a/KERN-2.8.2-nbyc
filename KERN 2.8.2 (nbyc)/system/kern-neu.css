@@ -16,12 +16,12 @@
 /* Jede eingebundene Datei trägt den Versionsstempel — sonst mischt der Browser
    nach einem Update alte und neue Bausteindateien (13.10.2026). Setzen nur mit
    pruefung/stempel.py; Prüfung 22 wacht darüber. */
-@import "../schrift/fira-sans.css?v=2.8.2-nbyc.48";
-@import "kern.css?v=2.8.2-nbyc.48";           /* KERN 2.8.2 UNVERÄNDERT (EUPL-1.2, kern-LICENSE.md) — M81 */
-@import "01b-erweiterung.css?v=2.8.2-nbyc.48";  /* nur, was KERN nicht hat — M19 */
-@import "02-basis.css?v=2.8.2-nbyc.48";
-@import "02b-kern-ergaenzung.css?v=2.8.2-nbyc.48";  /* Erweiterungen an KERN-Klassen — Stufe 5b */
-@import "03-aktion.css?v=2.8.2-nbyc.48";
-@import "04-eingabe.css?v=2.8.2-nbyc.48";
-@import "05-navigation.css?v=2.8.2-nbyc.48";
-@import "06-inhalt.css?v=2.8.2-nbyc.48";
+@import "../schrift/fira-sans.css?v=2.8.2-nbyc.54";
+@import "kern.css?v=2.8.2-nbyc.54";           /* KERN 2.8.2 UNVERÄNDERT (EUPL-1.2, kern-LICENSE.md) — M81 */
+@import "01b-erweiterung.css?v=2.8.2-nbyc.54";  /* nur, was KERN nicht hat — M19 */
+@import "02-basis.css?v=2.8.2-nbyc.54";
+@import "02b-kern-ergaenzung.css?v=2.8.2-nbyc.54";  /* Erweiterungen an KERN-Klassen — Stufe 5b */
+@import "03-aktion.css?v=2.8.2-nbyc.54";
+@import "04-eingabe.css?v=2.8.2-nbyc.54";
+@import "05-navigation.css?v=2.8.2-nbyc.54";
+@import "06-inhalt.css?v=2.8.2-nbyc.54";

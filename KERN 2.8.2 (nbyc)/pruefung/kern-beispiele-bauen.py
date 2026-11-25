@@ -107,7 +107,7 @@ VORLAGE = """<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KERN-Beispiele: Soll und Ist</title>
-<link rel="stylesheet" href="../schrift/fira-sans.css?v=2.8.2-nbyc.48">
+<link rel="stylesheet" href="../schrift/fira-sans.css?v=2.8.2-nbyc.54">
 <link rel="stylesheet" href="__REFERENZ__">
 <style>
   /* Rahmen der Prüfseite: offizielles KERN, nur Anordnung hier. */
@@ -175,9 +175,9 @@ VORLAGE = """<!DOCTYPE html>
 <script>
 var DATEN = __DATEN__;
 var SOLL_CSS = "__REFERENZ__";
-var IST_CSS = ["../system/kern-neu.css?v=2.8.2-nbyc.48"];
-var IST_JS = "../system/kern-neu.js?v=2.8.2-nbyc.48";
-var SCHRIFT = "../schrift/fira-sans.css?v=2.8.2-nbyc.48";
+var IST_CSS = ["../system/kern-neu.css?v=2.8.2-nbyc.54"];
+var IST_JS = "../system/kern-neu.js?v=2.8.2-nbyc.54";
+var SCHRIFT = "../schrift/fira-sans.css?v=2.8.2-nbyc.54";
 var STILE = ["color", "backgroundColor", "fontFamily", "fontSize", "fontWeight", "lineHeight",
   "borderTopWidth", "borderBottomWidth", "borderLeftWidth", "borderTopColor", "borderBottomColor",
   "borderTopLeftRadius", "paddingTop", "paddingLeft", "outlineWidth", "opacity", "textDecorationLine"];

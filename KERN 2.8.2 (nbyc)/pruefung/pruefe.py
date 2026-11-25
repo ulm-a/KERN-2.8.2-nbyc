@@ -674,6 +674,14 @@ def pruefe_stempel():
     seiten = [os.path.join(WURZEL, d) for d in ["index.html", "katalog.html", "pruefung/verhalten.html",
                                                 "pruefung/kern-beispiele.html"]] + \
         glob.glob(os.path.join(WURZEL, "muster", "*.html"))
+    # Der Storybook bindet das System mit EIGENEN Verweisen ein und liegt daneben.
+    # Ohne Stempel dort friert der Browser den ganzen Satz Bausteindateien auf dem
+    # Stand des ersten Abrufs ein, obwohl alle @import-Zeilen Stempel tragen —
+    # gesehen am 25.11.2026: Storybook zeigte .48, auf der Platte lag .52 (M121).
+    sb = os.path.join(os.path.dirname(WURZEL), "KERN 2.8.2 (nbyc) Storybook",
+                      ".storybook", "preview-head.html")
+    if os.path.exists(sb):
+        seiten.append(sb)
     treffer, stempel = [], set()
     for d in seiten + [os.path.join(WURZEL, "system", "kern-neu.css")]:
         text = ohne_kommentare(lies(d))

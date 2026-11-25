@@ -13,6 +13,163 @@ Neue Einträge hier oben anfügen (Kennung · WAS · WARUM · BELEG). Nächste f
 Kennungen und der Ablauf einer Änderung: "_ Instructions/Übergabe KERN 2.8.2
 (nbyc).txt" (Projektordner).
 
+M122 STORYBOOK LUD DAS SYSTEM OHNE VERSIONSSTEMPEL             25.11.2026
+     WAS    ".storybook/preview-head.html" band kern-neu.css und kern-neu.js
+            OHNE "?v=" ein. Weil die Stempel an den @import-Zeilen INNERHALB
+            von kern-neu.css stehen, fror eine zwischengespeicherte Fassung
+            dieser einen Datei den ganzen Satz Bausteindateien auf dem Stand
+            ihres ersten Abrufs ein. Beide Verweise tragen den Stempel jetzt;
+            "pruefung/stempel.py" pflegt die Datei mit (9 statt 8 Dateien),
+            und Prüfung 22 nimmt sie in ihre Liste auf, damit sie nicht
+            wieder zurückfallen kann.
+     WARUM  Bei der Arbeit an M121 am eigenen Leib: Nach jeder Berichtigung
+            und jedem Neubau zeigte die Messung im Storybook unverändert den
+            ALTEN Zustand. Die Ursache stand im geladenen Blatt — seine
+            @import-Zeilen lasen "?v=2.8.2-nbyc.48", während auf der Platte
+            schon .52 lag. Eine Berichtigung wäre damit beliebig lange
+            unbemerkt wirkungslos geblieben; gemessen hätte man den alten
+            Stand und ihn für den neuen gehalten.
+     BELEG  Vorher im Browser: das Blatt
+            ".../storybook-static/kern/system/kern-neu.css" ohne Abfrage, und
+            seine ersten Importe "kern.css?v=2.8.2-nbyc.48",
+            "01b-erweiterung.css?v=2.8.2-nbyc.48" — bei .52 auf der Platte.
+            Die Regel ".kn-file-list" kam dort noch ohne
+            "grid-template-columns", obwohl sie in der gebauten Datei stand.
+            Nachher: "kern-neu.css?v=2.8.2-nbyc.53" im gebauten iframe.html,
+            erster Import "kern.css?v=2.8.2-nbyc.53", und die Regel greift.
+            stempel.py setzt jetzt 9 Dateien, Prüfung 22 meldet "überall
+            2.8.2-nbyc.53, auch an allen @import-Zeilen".
+
+M121 KURZHINWEIS UND DATEIABLAGE BEI 320 PX                    25.11.2026
+     WAS    Die zwei eigenen Überläufe aus der Messung zu M120.
+            KURZHINWEIS: Die Blase sitzt mittig über ihrem Anker und hing bei
+            320 px 56 px über den linken Rand hinaus. Die Breite deckelt
+            jetzt das CSS gegen das Fenster — dieselbe Formel wie beim
+            Popover darunter —, und kern-neu.js misst beim Zeigen, ob die
+            Blase herausragt, und schiebt sie über "--kn-tooltip-schub"
+            zurück. Gemessen wird bei mouseenter, focusin und beim Antippen;
+            vorher wird der Schub gelöscht, sonst rechnete die zweite Messung
+            auf der ersten weiter. Ohne Skript bleibt es bei der reinen Mitte.
+            DATEIABLAGE: Zwei Ursachen hintereinander. Erstens maß das Raster
+            seine Spalte am max-content des nativen Dateifeldes — bei 320 px
+            war die Ablage 206 px breit und das Feld 295 px. Ein
+            "inline-size: 100%" am Kind half nicht: Es rechnet gegen eben
+            diese Spalte und bleibt im Kreis. Jetzt "grid-template-columns:
+            minmax(0, 1fr)". Zweitens schob danach noch der Entfernen-Knopf
+            die Dateizeile um 6 px hinaus; die Zeile bricht jetzt um, und der
+            Dateiname darf auch im Wort brechen — "Lohnabrechnung-2025-12.pdf"
+            hat keine Leerzeichen.
+     WARUM  Nutzerin 25.11.2026: "Ja, beide" auf die Frage, ob die zwei
+            eigenen Überläufe noch drankommen. Die neun übrigen stehen in
+            KERNs eigenem Markup, das wir unverändert zeigen (E6).
+     BELEG  Kurzhinweis bei 320 px: vorher linke Kante −56 px; nach
+            mouseenter Schub 64 px, Kante +8 px, rechte Kante 264 px, ganz im
+            Bild. Dateiablage im Katalog: Hülle vorher 295 px in einer 206 px
+            breiten Ablage, nachher 138 px und innerhalb. Im Storybook bei
+            320 px vorher 6 px Überlauf, nachher 0.
+            Alle 196 Stories bei 320 px in Dunkel nachgemessen: 196 × "dark",
+            keine leer, Überläufe von 11 auf 9 — die neun sind KERNs
+            Tabellen und ein "p.kern-boby". Der Kurzhinweis erscheint in
+            dieser Messung nicht mehr als behoben, WEIL sie nie zeigt: der
+            Schub entsteht erst beim Zeigen. Belegt ist er einzeln, oben.
+            pruefe.py ohne Beanstandung (30 Prüfungen), Storybook neu gebaut.
+
+M120 ZWEI BEFUNDE AUS 320 PX UND DUNKEL                        25.11.2026
+     WAS    (1) KATALOG, BREITE TABELLEN. Die Bühne steckt in ".kt__bsp" mit
+            "overflow: hidden". Eine Tabelle, die breiter ist als die Bühne,
+            wurde darum ABGESCHNITTEN — ohne Bildlaufleiste und ohne
+            Tastaturweg zu den rechten Spalten. katalog.html legt jetzt beim
+            Rendern einen Rahmen ".kt__tabelle" (overflow-x: auto) um jede
+            Tabelle der Bühne, die noch keinen hat; eigene Beispiele mit
+            "kn-table-frame" bekommen keinen zweiten. Tabstopp, role="region"
+            und Name kommen NUR, solange wirklich etwas zu schieben ist
+            (design-ui 4: "Passt die Tabelle, entfallen Hinweis und
+            Tab-Stopp") — gemessen nach jedem Zeichnen und, entprellt, bei
+            jeder Breitenänderung. KERNs Markup bleibt unverändert
+            (Instruktion §8), der angezeigte Quelltext zeigt das Original.
+            Neuer Systemtext "tabelleRollbar", deutsch und englisch.
+            (2) STORYBOOK, MODUS. kern-neu.js merkt sich eine Moduswahl je
+            Herkunft ("kn-theme", "kn-contrast") und stellt sie in KN.start
+            wieder her. KN.start läuft bei JEDER Story, also nach dem
+            Dekorator — ein Wert, den eine KERN-Seite derselben Herkunft
+            hinterlassen hatte, übersteuerte die Werkzeugleiste
+            stillschweigend. preview.js setzt den Modus jetzt nicht mehr am
+            Attribut vorbei, sondern über KERNs eigenen Schalter
+            (KN.setzeModus): der schreibt Attribut UND Speicher, beide sagen
+            dasselbe, und KN.start dreht nichts mehr zurück.
+     WARUM  Nutzerin 25.11.2026: "Dunkel und 320 px noch prüfen", danach
+            "Beide" auf die Frage, welcher Befund behoben werden soll.
+            Befund (2) ist mir bei dieser Prüfung selbst zum Verhängnis
+            geworden: Mein erster Durchgang über alle Stories lief in HELL,
+            obwohl die Adresse "globals=kernTheme:dark" trug — gemeldet hatte
+            ich ihn als Dunkel-Messung. Erst die Kontrolle des gesetzten
+            Attributs brachte es heraus. Zu sehen ist der Fehler nur, wenn
+            Storybook und eine KERN-Seite von DERSELBEN Herkunft kommen —
+            also genau so, wie das LIESMICH das Prüfen ohne Node beschreibt.
+            Auf Port 6006 fällt er nie auf; darum stand in der Übergabe vom
+            16.11.2026 zu Recht "Werkzeugleiste (dunkel) wirkt".
+     BELEG  Vorher im Katalog bei 320 px gemessen: ".kt__bsp" sichtbar 254 px,
+            Inhalt 511 px, Tabelle 487 px, letzte Spalte "Erhöhung" außerhalb,
+            kein Scrollbalken. Nachher: Rahmen da, tabindex="0",
+            role="region", aria-label "Table, seitlich rollbar", schiebbar,
+            und nach dem Schieben liegt "Erhöhung" im sichtbaren Bereich; die
+            Seite selbst läuft bei 320 px nicht über.
+            Zu (2) die Gegenprobe: "kn-theme" auf "light" gesetzt, Story mit
+            "globals=kernTheme:dark" geladen — vorher blieb das Attribut
+            "light" und der Grund weiß, nachher "dark", Grund schwarz, und
+            der Speicher steht danach selbst auf "dark".
+            Alle 196 Stories bei 320 px in Dunkel gemessen (Attribut je Story
+            kontrolliert): 196 × "dark", keine leer. Elf laufen seitlich über,
+            neun davon in KERNs eigenem Markup (acht Tabellen, ein
+            "p.kern-boby"), die wir unverändert zeigen (E6). Zwei sind
+            unsere: die Dateiablage um 6 px und der Kurzhinweis um 47 px —
+            dessen Blase sitzt bei 320 px mittig über ihrem Anker und ragt
+            56 px über den linken Rand. BEIDE OFFEN, nicht in dieser Kennung.
+            pruefe.py ohne Beanstandung (30 Prüfungen), Story-Prüfseite
+            10 von 10 bei 196 Stories, Storybook neu gebaut, Stempel
+            2.8.2-nbyc.50.
+
+M119 HEFT-ORDNER HEISST JETZT "_ How to …"                      25.11.2026
+     WAS    "_ Documentation" ist mit "git mv" zu "_ How to …" geworden,
+            30 Dateien, Git sieht sie alle als Umbenennung. Nachgezogen sind
+            die Stellen, die den AKTUELLEN Stand beschreiben: in paket.sh die
+            einzige Code-Zeile mit dem Namen (D="…") und vier Kommentare,
+            in tabellen.py ein Kommentar, im "_ LIES MICH.txt" des Ordners
+            Ordner- und Ergebniszeile, in der Instruktion der Ablauf zum
+            Paketbau und in der Übergabe acht Stellen (Heft-Ordner, Heft,
+            Artikelentwurf, Papierkorb-Punkt, Ablauf "Fassung abschließen",
+            Bilder-Skript, Ordnerkarte).
+            NICHT nachgezogen, mit Absicht: die Geschichte. In AENDERUNGEN
+            (15), "Changes Designer" (4), dem Code-Review vom 01.11.2026 (3)
+            und vier Zeilen der Übergabe steht weiter "_ Documentation" —
+            die beschreiben einen früheren Stand, den gelöschten alten Ordner
+            im Papierkorb oder den gemessenen Inhalt eines ZIP, das vor der
+            Umbenennung gebaut wurde. Eine Geschichtszeile, die man auf den
+            neuen Namen zieht, wird dadurch falsch.
+     WARUM  Nutzerin 25.11.2026: "Ordner umbenennen: _ Documentation in
+            _ How to …". Der Name ist die Konvention aus project-structure,
+            die "_ Dokumentation" ausdrücklich als den früheren Namen führt;
+            das Projekt war als einziges noch auf dem alten.
+     BELEG  Die Skripte lösen ihre Pfade aus dem eigenen Ort auf
+            ("${0:A:h}" in bauen.sh, "${0:A:h:h:h}" in paket.sh,
+            os.path.dirname in tabellen.py) — der Name steckt nur in
+            paket.sh in einer Zuweisung, und die ist nachgezogen. Geprüft:
+            "zsh -n" für paket.sh und "bash -n" für bauen.sh ohne
+            Syntaxfehler, tabellen.py kompiliert, pruefe.py ohne
+            Beanstandung (30 Prüfungen). "git status" zeigt 30 Einträge als
+            R (Umbenennung), keine Löschung mit Neuanlage.
+            Beim Commit hat "git add -A" die örtliche Verweisdatei
+            " :: GitHub Desktop" mitgenommen; sie ist wieder aus dem Index
+            genommen und liegt unverändert im Ordner. Die Regel dafür war auf
+            ein Namensmuster zugeschnitten ("/ :: Notizen *.txt"), die
+            Gewohnheit aber auf das Präfix — .gitignore deckt jetzt "/ :: *"
+            ab, weiter nur direkt im Projektordner.
+            OFFEN: Die ".gitignore" der GitHub-Ableitung nennt in Zeile 43
+            weiter "_ Documentation/". Dort gibt es den Ordner derzeit nicht,
+            es ist also nichts hochgeladen; zieht aber ein künftiger rsync
+            "_ How to …" hinüber, greift die Regel nicht mehr und der
+            Heft-Ordner läge im öffentlichen Repository.
+
 M118 STORYBOOK: KERNS CARD-BILDER WAREN LEER                   25.11.2026
      WAS    In Storybook blieben die neun Bilder der Card-Beispiele leer.
             KERNs Markup verweist auf "/img/kern-img-media.png" — einen

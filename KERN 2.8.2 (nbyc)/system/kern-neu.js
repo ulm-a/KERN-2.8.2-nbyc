@@ -753,15 +753,36 @@ function schliesseSchublade(s, fokusZurueck) {
    für Touch — beim Antippen; bleibt, solange Zeiger oder Fokus darauf
    sind (die Blase ist überfahrbar, CSS-Brücke über die Lücke); Esc blendet
    ihn aus, ohne den Fokus zu bewegen. */
+/* Die Blase sitzt mittig über ihrem Anker. Steht der Anker nah am Rand, führt
+   das aus dem Fenster — bei 320 px hing sie 56 Pixel links hinaus und wurde
+   beschnitten (25.11.2026). Hier wird gemessen und zurückgeschoben; die Breite
+   deckelt das CSS bereits gegen 100vw. Erst Schub löschen, dann messen, sonst
+   rechnet die zweite Messung auf der ersten weiter. */
+function haltImBild(anker) {
+  var blase = anker.querySelector(".kn-tooltip__bubble");
+  if (!blase) return;
+  blase.style.removeProperty("--kn-tooltip-schub");
+  var r = blase.getBoundingClientRect();
+  var rand = 8;   /* roh: Messwert in Pixeln, kein Gestaltungsmaß */
+  var schub = 0;
+  if (r.left < rand) schub = rand - r.left;
+  else if (r.right > global.innerWidth - rand) schub = (global.innerWidth - rand) - r.right;
+  if (schub) blase.style.setProperty("--kn-tooltip-schub", Math.round(schub) + "px");
+}
+
 function starteKurzhinweis() {
   alle(".kn-tooltip").forEach(function (anker) {
     if (!neu(anker, "kurzhinweis")) return;
     function zurueck() { anker.removeAttribute("data-kn-dismissed"); }
+    ["mouseenter", "focusin"].forEach(function (art) {
+      anker.addEventListener(art, function () { haltImBild(anker); });
+    });
     anker.addEventListener("mouseleave", zurueck);
     anker.addEventListener("focusout", function () { zurueck(); anker.removeAttribute("data-kn-shown"); });
     anker.addEventListener("click", function () {
       zurueck();
       anker.toggleAttribute("data-kn-shown");
+      if (anker.hasAttribute("data-kn-shown")) haltImBild(anker);
     });
   });
   if (neu(document.documentElement, "kurzhinweisEsc")) {

@@ -27,9 +27,25 @@ export const globalTypes = {
 
 export const initialGlobals = { kernTheme: "system", kernKontrast: "system", kernSprache: "de" };
 
-function setzeAttribut(name, wert) {
-  if (!wert || wert === "system") document.documentElement.removeAttribute(name);
-  else document.documentElement.setAttribute(name, wert);
+/* Der Modus kommt aus der Werkzeugleiste — und muss auch dort bleiben.
+   kern-neu.js merkt sich eine Moduswahl je Herkunft im localStorage ("kn-theme",
+   "kn-contrast") und stellt sie in KN.start wieder her. KN.start läuft bei JEDER
+   Story, also NACH dieser Zeile: ein Wert, den eine KERN-Seite derselben Herkunft
+   hinterlassen hat, übersteuerte darum die Werkzeugleiste stillschweigend. Zu
+   sehen ist das nur, wenn Storybook und eine KERN-Seite von derselben Herkunft
+   kommen — genau so, wie das LIESMICH das Prüfen ohne Node beschreibt (ein
+   Prüfserver im Projektordner). Auf Port 6006 fällt es nie auf (25.11.2026).
+   Darum nicht am Attribut vorbei, sondern über KERNs eigenen Schalter: der setzt
+   Attribut UND Speicher, damit beide dasselbe sagen und KN.start nichts
+   zurückdreht. Ohne KN (Attribut allein) bleibt der alte Weg. */
+function setzeModus(art, wert) {
+  const attr = art === "theme" ? "data-kern-theme" : "data-kn-contrast";
+  if (window.KN && typeof window.KN.setzeModus === "function") {
+    window.KN.setzeModus(art, wert || "system");
+    return;
+  }
+  if (!wert || wert === "system") document.documentElement.removeAttribute(attr);
+  else document.documentElement.setAttribute(attr, wert);
 }
 
 /* KERNs Beispiele verweisen auf "/img/kern-img-media.png" — einen absoluten Pfad,
@@ -67,8 +83,8 @@ export function bildPfadeAufloesen(flaeche) {
    erst wenn sie im Dokument hängt (Storybook hängt das Ergebnis nach dem Dekorator ein). */
 export function kernBuehne(story, context) {
   const g = (context && context.globals) || {};
-  setzeAttribut("data-kern-theme", g.kernTheme);
-  setzeAttribut("data-kn-contrast", g.kernKontrast);
+  setzeModus("theme", g.kernTheme);
+  setzeModus("contrast", g.kernKontrast);
   const buehne = document.createElement("div");
   buehne.className = "kn-sb-buehne";
   buehne.lang = g.kernSprache || "de";

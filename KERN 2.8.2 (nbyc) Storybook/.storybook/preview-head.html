@@ -1,7 +1,12 @@
 <!-- KERN 2.8.2 (nbyc) — System in jede Story laden: eine Stildatei, ein Skript (wie in LIESMICH).
      "kern/" ist der Systemordner "KERN 2.8.2 (nbyc)" (staticDirs in main.js). -->
-<link rel="stylesheet" href="kern/system/kern-neu.css">
-<script src="kern/system/kern-neu.js"></script>
+<!-- MIT Versionsstempel. Ohne ihn hält der Browser diese Datei im Zwischenspeicher,
+     und weil IHRE @import-Zeilen die Stempel tragen, friert sie den ganzen Satz
+     Bausteindateien auf dem Stand ihres ersten Abrufs ein: Am 25.11.2026 zeigte der
+     Storybook noch Fassung .48, während auf der Platte .52 lag. Gesetzt wird der
+     Stempel nur mit "KERN 2.8.2 (nbyc)/pruefung/stempel.py"; Prüfung 22 wacht darüber. -->
+<link rel="stylesheet" href="kern/system/kern-neu.css?v=2.8.2-nbyc.54">
+<script src="kern/system/kern-neu.js?v=2.8.2-nbyc.54"></script>
 <style>
   /* Fläche der Story wie die Bühne im Katalog: Grund der Ebene, damit Modus und Ebene sichtbar wirken */
   .kn-sb-buehne { background: var(--kern-color-layout-background-default-contextual); }

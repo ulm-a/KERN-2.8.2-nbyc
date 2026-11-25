@@ -28,7 +28,15 @@ def dateien():
     """Alle Dateien, die eingebundene Dateien mit Stempel aufrufen (ohne erzeugte)."""
     feste = ["index.html", "katalog.html", "system/kern-neu.css",
              "pruefung/kern-beispiele-bauen.py", "pruefung/verhalten.html"]
-    return [os.path.join(WURZEL, d) for d in feste] + sorted(glob.glob(os.path.join(WURZEL, "muster", "*.html")))
+    aus = [os.path.join(WURZEL, d) for d in feste] + sorted(glob.glob(os.path.join(WURZEL, "muster", "*.html")))
+    # Der Storybook liegt NEBEN dem System und bindet es mit eigenen Verweisen ein
+    # (preview-head.html). Ohne Stempel friert er den ganzen Satz Bausteindateien auf
+    # dem Stand seines ersten Abrufs ein — 25.11.2026 gesehen, M121.
+    sb = os.path.join(os.path.dirname(WURZEL), "KERN 2.8.2 (nbyc) Storybook",
+                      ".storybook", "preview-head.html")
+    if os.path.exists(sb):
+        aus.append(sb)
+    return aus
 
 
 def aktuell():

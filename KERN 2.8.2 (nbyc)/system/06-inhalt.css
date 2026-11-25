@@ -277,13 +277,19 @@
   inset-inline-start: 50%;
   z-index: 50;
   inline-size: max-content;
-  max-inline-size: var(--kern-256);
+  /* Nie breiter als das Fenster — wie beim Popover darunter. */
+  max-inline-size: min(var(--kern-256), calc(100vw - var(--kern-metric-space-x-large)));
   padding: var(--kern-metric-space-small) var(--kern-metric-space-small);
   border-radius: var(--kern-metric-border-radius-default);
   background: var(--kern-color-layout-background-inverted);
   color: var(--kern-color-layout-text-inverse-contextual);
   font-size: var(--kern-typography-font-size-small-static);
-  transform: translateX(-50%);
+  /* Mittig über dem Anker — und, wenn das aus dem Fenster führte, um
+     "--kn-tooltip-schub" zurückgeschoben. Den Wert misst kern-neu.js beim
+     Zeigen, weil nur dort bekannt ist, wo der Anker steht; ohne Skript bleibt
+     es bei der reinen Mitte. Bei 320 px hing die Blase 56 px über den linken
+     Rand hinaus und wurde von der Bühne beschnitten (gemessen 25.11.2026). */
+  transform: translateX(calc(-50% + var(--kn-tooltip-schub, 0px)));
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--kn-duration-1) var(--kn-easing), visibility var(--kn-duration-1);

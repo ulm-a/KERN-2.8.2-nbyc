@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Katalog — KERN 2.8.2 (nbyc) · Fassung 0.2.0</title>
-<link rel="stylesheet" href="system/kern-neu.css?v=2.8.2-nbyc.48">
+<link rel="stylesheet" href="system/kern-neu.css?v=2.8.2-nbyc.54">
 <style>
 /* Nur das Gerüst dieser Seite. Keine Komponente wird hier gestaltet —
    sonst wäre der Katalog kein Nachweis. Alle Werte aus Token. */
@@ -54,6 +54,11 @@
 .kt__bsp { border: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); border-radius: var(--kern-metric-border-radius-large); overflow: hidden; }
 .kt__bsp-kopf { display: flex; align-items: center; gap: var(--kern-metric-space-small); padding: var(--kern-metric-space-small) var(--kern-metric-space-default); background: var(--kern-color-layout-background-hued); border-block-end: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); }
 .kt__buehne { padding: var(--kern-metric-space-large); background: var(--kern-color-layout-background-default-contextual); }
+/* Rahmen um eine Tabelle, die breiter ist als die Bühne (25.11.2026). Nur hier
+   nötig, weil ".kt__bsp" seinen Inhalt beschneidet; Tabstopp, Rolle und Name
+   setzt das Skript, und nur solange es etwas zu schieben gibt. Den Fokusring
+   bringt 02-basis.css für jedes [tabindex] ohne kern-Klasse mit. */
+.kt__tabelle { overflow-x: auto; }
 /* ?rahmen=0: Beispiel ohne Rahmen — für die Bilder im Heft (13.10.2026) */
 .kt-ohne-rahmen .kt__bsp { border: 0; border-radius: 0; }
 .kt__quelle { margin: 0; padding: var(--kern-metric-space-default); background: var(--kern-color-layout-background-hued); border-block-start: var(--kern-metric-border-width-light) solid var(--kern-color-decorative-border-default); font-family: var(--kern-typography-font-family-fira-mono); font-size: 0.8125rem; line-height: 1.6; overflow-x: auto; }
@@ -140,11 +145,11 @@
   </div>
 </div>
 
-<script src="system/kern-neu.js?v=2.8.2-nbyc.48"></script>
-<script src="katalog/inhalt.js?v=2.8.2-nbyc.48"></script>
-<script src="katalog/kern-inhalt.js?v=2.8.2-nbyc.48"></script>
-<script src="katalog/inhalt-en.js?v=2.8.2-nbyc.48"></script>
-<script src="katalog/meta.js?v=2.8.2-nbyc.48"></script>
+<script src="system/kern-neu.js?v=2.8.2-nbyc.54"></script>
+<script src="katalog/inhalt.js?v=2.8.2-nbyc.54"></script>
+<script src="katalog/kern-inhalt.js?v=2.8.2-nbyc.54"></script>
+<script src="katalog/inhalt-en.js?v=2.8.2-nbyc.54"></script>
+<script src="katalog/meta.js?v=2.8.2-nbyc.54"></script>
 <script>
 (function () {
   "use strict";
@@ -181,7 +186,8 @@
       abwKeineEigene: "keine eigene",
       abwAlle: "Für alle Bausteine: %l (Modi, Fokus, hidden). Wortlaut, Grund und Beleg:",
       markup: "Achtung, KERNs Original-Markup ist hier unsauber (F25): %b. Beim Übernehmen berichtigen — der Katalog zeigt es unverändert (E8).",
-      offen: "%n × <%t> nicht geschlossen", zuviel: "%n × </%t> zu viel"
+      offen: "%n × <%t> nicht geschlossen", zuviel: "%n × </%t> zu viel",
+      tabelleRollbar: "%n, seitlich rollbar"
     },
     en: {
       name: "“nbyc” = New by Claude – built with Claude, Anthropic’s AI assistant",
@@ -207,7 +213,8 @@
       abwKeineEigene: "none of its own",
       abwAlle: "For all components: %l (modes, focus, hidden). Wording, reason and evidence (German):",
       markup: "Note: KERN’s original markup is not clean here (F25): %b. Fix it when you copy it — the catalogue shows it unchanged (E8).",
-      offen: "%n × <%t> not closed", zuviel: "%n × </%t> too many"
+      offen: "%n × <%t> not closed", zuviel: "%n × </%t> too many",
+      tabelleRollbar: "%n, scrollable sideways"
     }
   };
   /* Wiederkehrende Wörter aus den Daten (deutsch → englisch) */
@@ -362,6 +369,53 @@
     return h.replace(/(\ssrc=")\/img\//g, '$1img/');
   }
 
+  /* Breite Tabellen auf der Bühne (25.11.2026). Die Bühne steckt in ".kt__bsp"
+     mit "overflow: hidden" — eine Tabelle, die breiter ist als die Bühne, wurde
+     darum ABGESCHNITTEN, ohne Bildlaufleiste und ohne Tastaturweg zu den rechten
+     Spalten. Gemessen bei 320 px: sichtbar 254 px, Inhalt 511 px, die letzte
+     Spalte lag außerhalb (WCAG 2.1.1; design-ui 4 verlangt für diesen Fall einen
+     erreichbaren, BENANNTEN Rahmen).
+     Eine Stelle für alle Beispiele, und erst beim Rendern — KERNs Markup bleibt
+     unverändert (Instruktion §8), der angezeigte Quelltext zeigt weiter das
+     Original. Unsere eigenen Beispiele bringen ihren Rahmen schon mit
+     (kn-table-frame); die bekommen keinen zweiten.
+     Tabstopp und Rolle NUR, solange es wirklich etwas zu schieben gibt
+     (design-ui 4: "Passt die Tabelle, entfallen Hinweis und Tab-Stopp") —
+     darum nach jedem Zeichnen und bei jeder Breitenänderung neu gemessen. */
+  var rahmenGemerkt = [];
+
+  function tabellenRahmen(buehne, name) {
+    Array.prototype.forEach.call(buehne.querySelectorAll("table"), function (t) {
+      if (t.closest(".kn-table-frame") || t.closest(".kt__tabelle")) return;
+      var rahmen = document.createElement("div");
+      rahmen.className = "kt__tabelle";
+      t.parentNode.insertBefore(rahmen, t);
+      rahmen.appendChild(t);
+      rahmenGemerkt.push({ rahmen: rahmen, name: name });
+    });
+  }
+
+  function messeRahmen() {
+    rahmenGemerkt.forEach(function (r) {
+      var schiebbar = r.rahmen.scrollWidth > r.rahmen.clientWidth + 1;
+      if (schiebbar) {
+        r.rahmen.setAttribute("tabindex", "0");
+        r.rahmen.setAttribute("role", "region");
+        r.rahmen.setAttribute("aria-label", T("tabelleRollbar").replace("%n", r.name));
+      } else {
+        r.rahmen.removeAttribute("tabindex");
+        r.rahmen.removeAttribute("role");
+        r.rahmen.removeAttribute("aria-label");
+      }
+    });
+  }
+
+  var messeBremse;
+  window.addEventListener("resize", function () {
+    clearTimeout(messeBremse);
+    messeBremse = setTimeout(messeRahmen, 120);
+  });
+
   function zeichneSeite() {
     var id = location.hash.slice(1) || K[0].id;
     var k = K.filter(function (x) { return x.id === id; })[0] || K[0];
@@ -471,9 +525,12 @@
     /* Beispiele einzeln einsetzen: so bleibt unsauberes Markup in seiner Fläche —
        KERNs Beispiel „Gruppe mit Hinweistext und Fehlermeldung“ (Checkboxen) schließt
        ein </div> zu viel und brach sonst aus der Fläche aus (F25, 13.10.2026). */
+    rahmenGemerkt = [];
     Array.prototype.forEach.call(seite.querySelectorAll("[data-kt-bsp]"), function (buehne) {
       buehne.innerHTML = bildPfad(k.bsp[Number(buehne.getAttribute("data-kt-bsp"))].html);
+      tabellenRahmen(buehne, name);
     });
+    messeRahmen();
     document.title = name + " — " + T("titel");
 
     /* Quelltext ein- und ausblenden. */
