@@ -32,6 +32,37 @@ function setzeAttribut(name, wert) {
   else document.documentElement.setAttribute(name, wert);
 }
 
+/* KERNs Beispiele verweisen auf "/img/kern-img-media.png" — einen absoluten Pfad,
+   der nur von einer Serverwurzel aus auflöst. Hier liegt der Systemordner aber unter
+   "kern/" (staticDirs) bzw. daneben (Prüfseite), darum blieben neun Bilder der
+   Card-Beispiele leer (gemessen 25.11.2026: naturalWidth 0). Der Katalog löst das
+   seit Befund B1 des Assessments vom 16.11.2026 mit "bildPfad"; hier dieselbe Lehre:
+   Das MARKUP bleibt KERNs Original (E6, Instruktion §8) — aufgelöst wird erst beim
+   Rendern, und der angezeigte Quelltext kommt ohnehin aus der Story, nicht aus dem DOM.
+   Die Wurzel kommt aus der eingebundenen Stildatei, nicht aus einem festen Pfad: so
+   trägt sie Storybook, den statischen Bau und die Prüfseite gleichermaßen. */
+function systemWurzel() {
+  const l = document.querySelector('link[rel="stylesheet"][href*="kern-neu.css"]');
+  return l ? l.href.replace(/system\/kern-neu\.css(\?.*)?$/, "") : "";
+}
+
+/* Am TEXT, nicht am fertigen Element: ein <img> aus innerHTML lädt schon beim
+   Zerlegen, also noch bevor eine Korrektur am DOM liefe — die 404-Anfrage wäre
+   trotz richtigem Bild jedes Mal im Protokoll. Darum derselbe Weg wie im Katalog. */
+export function bildPfad(markup) {
+  const wurzel = systemWurzel();
+  return wurzel ? markup.replace(/(\ssrc=")\/img\//g, "$1" + wurzel + "img/") : markup;
+}
+
+/* Für Stories, die ein fertiges Element liefern statt Text. */
+export function bildPfadeAufloesen(flaeche) {
+  const wurzel = systemWurzel();
+  if (!wurzel) return;
+  flaeche.querySelectorAll('img[src^="/img/"]').forEach((bild) => {
+    bild.setAttribute("src", wurzel + bild.getAttribute("src").slice(1));
+  });
+}
+
 /* Bühne wie im Katalog: Story-Markup in eine eigene Fläche, danach KN.start(fläche) —
    erst wenn sie im Dokument hängt (Storybook hängt das Ergebnis nach dem Dekorator ein). */
 export function kernBuehne(story, context) {
@@ -42,8 +73,8 @@ export function kernBuehne(story, context) {
   buehne.className = "kn-sb-buehne";
   buehne.lang = g.kernSprache || "de";
   const inhalt = story();
-  if (typeof inhalt === "string") buehne.innerHTML = inhalt;
-  else if (inhalt) buehne.appendChild(inhalt);
+  if (typeof inhalt === "string") buehne.innerHTML = bildPfad(inhalt);
+  else if (inhalt) { buehne.appendChild(inhalt); bildPfadeAufloesen(buehne); }
   /* setTimeout statt requestAnimationFrame: läuft auch in verdeckten Fenstern (Prüfseite, Docs im Hintergrund) */
   let versuche = 0;
   const verdrahte = () => {

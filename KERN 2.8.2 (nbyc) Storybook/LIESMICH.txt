@@ -1,5 +1,5 @@
 KERN STORYBOOK — KERN 2.8.2 (nbyc)
-Stand: 01.11.2026 · E12, M102 · Übergabe an die Entwicklung
+Stand: 25.11.2026 · E12, M102, M118 · Übergabe an die Entwicklung
 ================================================================================
 NAME  "KERN 2.8.2 (nbyc)": 2.8.2 ist die Version des eingebundenen offiziellen
       KERN; "nbyc" steht für "New by Claude" — neu gebaut mit Claude, dem
@@ -13,7 +13,7 @@ WEITERGABE
 WAS DAS IST
   Alle Bausteine des Systems als Storybook — im selben Format wie KERNs eigenes
   Storybook (kern-ux-plain: @storybook/html-vite 9):
-    · 38 KERN-Bausteine und 47 Erweiterungen (kn-), 193 Beispiele, dazu
+    · 38 KERN-Bausteine und 47 Erweiterungen (kn-), 195 Beispiele, dazu
       "Einführung" (Name, Einbinden, Abweichungen von KERN)
     · je Baustein eine Doku-Seite: Zweck, Wann nehmen / nicht, Barriere-
       freiheit, Tastaturvertrag, Klassen, KERNs Pflichten, Bezeichnungen —
@@ -114,4 +114,12 @@ BESONDERHEITEN
     bleibt unverändert (E6).
   · Befund im Original: KERNs Task-List-Beispiel 2 vergibt task3-status und
     task3-title doppelt (Vorschlag F26, noch nicht in der Rückmeldung).
+  · KERNs Card-Beispiele verweisen auf "/img/kern-img-media.png" — einen
+    absoluten Pfad, der nur von einer Serverwurzel aus auflöst. Hier liegt der
+    Systemordner unter "kern/" (staticDirs), darum blieben neun Bilder leer.
+    preview.js löst den Pfad beim Rendern auf, hergeleitet aus der eingebundenen
+    kern-neu.css — damit trägt es Storybook, den statischen Bau und die
+    Prüfseite gleichermaßen. KERNs Markup bleibt unverändert (E6), und der
+    angezeigte Quelltext kommt aus der Story, nicht aus dem DOM. Derselbe
+    Befund wie B1 im Katalog (Assessment 16.11.2026); M118, 25.11.2026.
 -/-

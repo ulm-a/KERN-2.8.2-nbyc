@@ -3,6 +3,11 @@ node_modules/
 npm-debug.log*
 .npm/
 
+# Der gebaute Storybook — entsteht mit "npm run build-storybook" (so auch in der
+# Action). Wer die Befehle aus CONTRIBUTING.md örtlich fährt, hatte ihn bis zum
+# 25.11.2026 danach unversioniert im Arbeitsbaum stehen.
+KERN 2.8.2 (nbyc) Storybook/storybook-static/
+
 # macOS
 .DS_Store
 .AppleDouble

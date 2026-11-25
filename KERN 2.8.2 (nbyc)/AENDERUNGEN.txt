@@ -13,6 +13,48 @@ Neue Einträge hier oben anfügen (Kennung · WAS · WARUM · BELEG). Nächste f
 Kennungen und der Ablauf einer Änderung: "_ Instructions/Übergabe KERN 2.8.2
 (nbyc).txt" (Projektordner).
 
+M118 STORYBOOK: KERNS CARD-BILDER WAREN LEER                   25.11.2026
+     WAS    In Storybook blieben die neun Bilder der Card-Beispiele leer.
+            KERNs Markup verweist auf "/img/kern-img-media.png" — einen
+            absoluten Pfad, der nur von einer SERVERWURZEL aus auflöst. Dort
+            liegt der Systemordner aber unter "kern/" (staticDirs in
+            .storybook/main.js), in der Prüfseite daneben. Der Katalog löst
+            das seit Befund B1 des Assessments (16.11.2026) mit "bildPfad";
+            Storybook hatte diese Auflösung nie bekommen.
+            .storybook/preview.js löst den Pfad jetzt beim Rendern auf, am
+            Markup-TEXT und nicht am fertigen Element: Ein <img> aus
+            innerHTML lädt schon beim Zerlegen, eine Korrektur am DOM käme
+            zu spät und hinterließe trotz richtigem Bild jedes Mal eine
+            404-Anfrage im Protokoll. Für Stories, die ein fertiges Element
+            liefern, bleibt der Weg über das DOM daneben stehen.
+            Die Wurzel kommt NICHT aus einem festen Pfad, sondern aus der
+            eingebundenen kern-neu.css (link[href*="kern-neu.css"]) — damit
+            trägt dieselbe Zeile Storybook (/kern/), den statischen Bau und
+            die Prüfseite (../../KERN 2.8.2 (nbyc)/), die alle drei einen
+            anderen Ort haben. KERNs Markup bleibt unverändert (E6,
+            Instruktion §8); der angezeigte Quelltext kommt aus der Story,
+            nicht aus dem DOM, und zeigt weiter KERNs Original.
+            Dazu im LIESMICH des Storybooks: Stand auf 25.11.2026, die Zahl
+            der Beispiele von 193 auf 195 berichtigt (seit M117 erzeugt der
+            Generator 195), und der Befund unter BESONDERHEITEN notiert.
+     WARUM  Nutzerin 25.11.2026: "jetzt Storybook fertig machen". Das
+            Storybook ist das Stück, das an die Entwicklung geht — mit neun
+            kaputten Bildern in KERNs eigenen Beispielen wäre es kein
+            Übergabestand. Gefunden über die 404-Meldungen in der Konsole der
+            Story-Prüfseite, die bis dahin niemand gelesen hatte: die Prüfung
+            meldete 10/10, weil sie Bilder nicht prüft.
+     BELEG  Vorher im Browser gemessen (127.0.0.1:6006, Doku-Seite Card):
+            9 Bilder, naturalWidth 0, aufgelöst auf
+            "http://127.0.0.1:6006/img/kern-img-media.png" → 404.
+            Nachher: 9 von 9 geladen, 1280 × 720, aufgelöst auf
+            "/kern/img/kern-img-media.png" → 200, und im Netzprotokoll nach
+            einem frischen Laden NUR noch die neun 200er, keine 404 mehr.
+            Im statischen Bau (storybook-static, neu gebaut) über den
+            Prüfserver ebenso 9 von 9.
+            Story-Prüfseite weiter 10 von 10 bestanden, 196 Stories;
+            stories-bauen.py --pruefen ok (86 Dateien, 195 Beispiele);
+            pruefe.py ohne Beanstandung.
+
 M117 SECHS DARSTELLUNGSFEHLER, DREI MUSTER, DREI NEUE PRÜFUNGEN  25.11.2026
      WAS    Sechs Bausteine zeigten im Bild etwas anderes, als ihr Quelltext
             sagt. Berichtigt, und zwar nach Muster:
